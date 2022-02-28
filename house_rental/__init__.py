@@ -5,6 +5,7 @@
 # @Date: 2022/02/27 20:59
 from fastapi import FastAPI
 from house_rental.routers import api_router
+from house_rental.middlewares import CheckJwtToken
 
 app = FastAPI(title='房屋租赁系统')
 
@@ -14,5 +15,14 @@ async def startup_event():
     """项目启动时准备环境"""
 
     # 加载路由
-    app.include_router(api_router)
+    app.include_router(api_router, prefix='/api')
 
+    # 注册中间件
+    await register_middlewares()
+
+
+async def register_middlewares():
+    """注册中间件"""
+    middleware_list = [CheckJwtToken]
+    for middleware in middleware_list:
+        app.add_middleware(middleware)

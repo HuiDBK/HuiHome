@@ -11,6 +11,6 @@ from house_rental.routers import (
 api_router = APIRouter()
 
 # 用户模块路由
-api_router.include_router(user.router, prefix='/user', tags=['用户模块'])
-
+api_router.include_router(user.router, prefix='/v1/user', tags=['用户模块'])
+api_router.include_router(user.router_v2, prefix='/v2/user', tags=['用户模块-v2'])
 
