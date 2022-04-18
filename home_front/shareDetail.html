@@ -1,0 +1,773 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="author" content="Drizvato"/>
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+        <title>房屋租赁系统，一起合租吧！</title>
+
+        <!-- Custom CSS -->
+        <link href="assets/css/styles.css?v=20210423" rel="stylesheet">
+
+        <!-- Custom Color Option -->
+        <link href="assets/css/colors.css" rel="stylesheet">
+
+    </head>
+
+    <body class="yellow-skin">
+
+        <!-- ============================================================== -->
+        <!-- Preloader - style you can find in spinners.css -->
+        <!-- ============================================================== -->
+        <div class="preloader"></div>
+
+        <!-- ============================================================== -->
+        <!-- Main wrapper - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <div id="main-wrapper">
+
+            <!-- ============================================================== -->
+            <!-- Top header  -->
+            <!-- ============================================================== -->
+            <!-- Start Navigation -->
+            <div class="header header-light dark-text">
+                <div class="container">
+                    <nav id="navigation" class="navigation navigation-landscape">
+                        <div class="nav-header">
+                            <a class="nav-brand" href="/">
+                                <img src="assets/img/logo.png" class="logo" alt=""/>
+                            </a>
+                            <div class="nav-toggle"></div>
+                        </div>
+                        <div class="nav-menus-wrapper" style="transition-property: none;">
+                            <ul class="nav-menu">
+
+                                <li><a href="/" style="font-size: 15px;">首页</a></li>
+                                <li><a href="/house?rentType=whole" style="font-size: 15px;">整租</a></li>
+                                <li><a href="/house?rentType=share" style="font-size: 15px;">合租</a></li>
+                                <li><a href="/post" style="font-size: 15px;">求租</a></li>
+                                <li><a href="/news" style="font-size: 15px;">新闻资讯</a></li>
+                                <li><a href="/feedback" style="font-size: 15px;">用户反馈</a></li>
+
+                            </ul>
+
+                            <ul class="nav-menu nav-menu-social align-to-right dhsbrd">
+
+                                        <li>
+                                            <a href="#" data-toggle="modal" id="gotoLogin" data-target="#login" class="text-blue">
+                                                <i class="fas fa-user-circle mr-1"></i><span class="dn-lg">登录</span>
+                                            </a>
+                                        </li>
+                                        <li class="add-listing dark-bg">
+                                            <a href="#" data-toggle="modal" data-target="#signup" class="theme-cl">
+                                                <i class="fas fa-arrow-alt-circle-right mr-1"></i>注册
+                                            </a>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                    </nav>
+                </div>
+            </div>
+            <!-- End Navigation -->
+            <div class="clearfix"></div>
+            <!-- ============================================================== -->
+            <!-- Top header  -->
+            <!-- ============================================================== -->
+<!-- ============================ 房子名称 Property Detail Head Start ================================== -->
+<div class="pt-5 pb-5 gray-simple">
+    <div class="container">
+
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10 col-sm-12">
+                <div class="prt_detail_three_clicks">
+                    <div class="pdt_clicks_price"><h4>¥ 2500/月</h4></div>
+                    <div class="pdt_clicks_title"><h3>合租-世界花园-4居室-A卧</h3></div>
+                    <div class="pdt_clicks_location"><span><i class="ti-location-pin"></i></span>广东省深圳市南山区世界之窗世纪花园小区12栋305室A卧</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- ============================ Property Detail Head End ================================== -->
+
+<!-- ============================ 地图 Map & Gallery Part Start ================================== -->
+<div class="pt-5 pb-5">
+    <div class="container-fluid p-0">
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 mb-4">
+                <div class="mapg_part_nav">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="gallery-tab" onclick="toggleGallery()" role="tab"
+                               aria-controls="gallery" aria-selected="true"><i class="ti-gallery mr-1"></i>照片</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="map-tab" onclick="toggleMap()" role="tab" aria-controls="map"
+                               aria-selected="false"><i class="ti-map-alt mr-1"></i>地图</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center no-flex">
+            <div class="mapg_part_caption">
+                <div class="tab-content" id="myTabContent">
+                    <!-- Gallery -->
+                    <div class="tab-pane active" id="gallery" role="tabpanel" aria-labelledby="gallery-tab">
+                        <div class="featured_slick_gallery gray">
+                            <div class="featured_slick_gallery-slide">
+                                <div class="featured_slick_padd">
+                                        <a href="/uploads/f73c9a99609345fba643e8106dea6b4e.png" class="mfp-gallery">
+                                            <img style="height: 400px;width: 100%;" src="/uploads/f73c9a99609345fba643e8106dea6b4e.png"
+                                                 class="img-fluid mx-auto" alt=""/></a></div>
+                                <div class="featured_slick_padd">
+                                        <a href="/uploads/bbede939735448a4a39ff285be7c51a1.png" class="mfp-gallery">
+                                            <img style="height: 400px;width: 100%;" src="/uploads/bbede939735448a4a39ff285be7c51a1.png"
+                                                 class="img-fluid mx-auto" alt=""/></a></div>
+                                <div class="featured_slick_padd">
+                                        <a href="/uploads/2f0c72b03587446582d2afa629f9465d.png" class="mfp-gallery">
+                                            <img style="height: 400px;width: 100%;" src="/uploads/2f0c72b03587446582d2afa629f9465d.png"
+                                                 class="img-fluid mx-auto" alt=""/></a></div>
+                                <div class="featured_slick_padd">
+                                        <a href="/uploads/abb9f46c32314ce78cbe7491f66df628.png" class="mfp-gallery">
+                                            <img style="height: 400px;width: 100%;" src="/uploads/abb9f46c32314ce78cbe7491f66df628.png"
+                                                 class="img-fluid mx-auto" alt=""/></a></div>
+                                <div class="featured_slick_padd">
+                                        <a href="/uploads/0b7fdd26b1094e30bace755f22b84f51.png" class="mfp-gallery">
+                                            <img style="height: 400px;width: 100%;" src="/uploads/0b7fdd26b1094e30bace755f22b84f51.png"
+                                                 class="img-fluid mx-auto" alt=""/></a></div>
+                                </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Map -->
+                    <div class="tab-pane " id="map" role="tabpanel" aria-labelledby="map-tab">
+                        <div class="map-container">
+                            <iframe src="/house/map?id=1" width="100%" height="500px;"></iframe>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- ============================ Map & Gallery Part End ================================== -->
+
+
+<!-- ============================ Property Detail Start ================================== -->
+<section class="gray-dark">
+    <div class="container">
+        <div class="row">
+
+            <!-- property main detail -->
+            <div class="col-lg-8 col-md-12 col-sm-12">
+
+                <!-- Single Block Wrap -->
+                <div class="property_block_wrap style-2">
+
+                    <div class="property_block_wrap_header">
+                        <a data-toggle="collapse" data-parent="#features" href="#clOne" aria-expanded="true"><h4
+                                class="property_block_title">房子详细信息</h4></a>
+                    </div>
+                    <div id="clOne" class="panel-collapse collapse show" aria-expanded="true">
+                        <div class="block-body">
+                            <ul class="deatil_features">
+                                <li><strong>状态:</strong>
+                                    正在出租</li>
+                                <li><strong>租金:</strong>¥ 2500/月</li>
+                                <li><strong>房产证编号:</strong>1000000000</li>
+                                <li><strong>卧室数量:</strong>4</li>
+                                <li><strong>卫生间数量:</strong>1</li>
+                                <li><strong>厨房数量:</strong>1</li>
+                                <li><strong>客厅数量:</strong>1</li>
+                                <li><strong>房屋/房间面积:</strong>25.0m²</li>
+                                <li><strong>是否有空调:</strong>
+                                    有空调</li>
+                                <li><strong>建成年份:</strong>2010</li>
+                                <li><strong>朝向:</strong>朝南</li>
+                                <li><strong>楼层:</strong>3/30</li>
+                                <li><strong>是否有电梯:</strong>
+                                    有电梯</li>
+                                <li><strong>最近一次入住开始时间:</strong>2021-03-21</li>
+                                <li><strong>最近一次入住结束时间:</strong>2021-03-21</li>
+                                <li><strong>联系人姓名:</strong>马先生</li>
+                                <li><strong>联系人手机号:</strong>13512344322</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Single Block Wrap -->
+                <div class="property_block_wrap style-2">
+
+                    <div class="property_block_wrap_header">
+                        <a data-toggle="collapse" data-parent="#dsrp" href="#clTwo" aria-expanded="true"><h4
+                                class="property_block_title">详细描述</h4></a>
+                    </div>
+                    <div id="clTwo" class="panel-collapse collapse show" aria-expanded="true">
+                        <div class="block-body">
+                            优质好房，欢迎入住！！！</div>
+                    </div>
+                </div>
+
+                <!-- Single Block Wrap -->
+                <div class="property_block_wrap style-2" id="shareHouse">
+
+                        <div class="property_block_wrap_header">
+                            <a data-toggle="collapse" data-parent="#rev" href="#clEight" aria-expanded="true"><h4
+                                    class="property_block_title">合租情况</h4></a>
+                        </div>
+
+                        <div id="clEight" class="panel-collapse collapse show" aria-expanded="true">
+                            <div class="block-body">
+                                <div class="author-review">
+                                    <div class="comment-list">
+                                        <ul>
+                                            <li class="article_comments_wrap">
+                                                    <article>
+                                                        <div class="article_comments_thumb">
+                                                            <a href="/house/detail/1" target="_blank">
+                                                                <img src="/uploads/f73c9a99609345fba643e8106dea6b4e.png" alt=""
+                                                                     style="border-radius: 0;">
+                                                            </a>
+                                                        </div>
+                                                        <div class="comment-details">
+                                                            <div class="comment-meta">
+                                                                <div class="comment-left-meta">
+                                                                    <a href="/house/detail/1" target="_blank">
+                                                                        <h4 class="author-name">合租-世界花园-4居室-A卧</h4>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="comment-text">
+                                                                        暂未租出
+                                                                    </div>
+                                                                </div>
+                                                    </article>
+                                                </li>
+                                            <li class="article_comments_wrap">
+                                                    <article>
+                                                        <div class="article_comments_thumb">
+                                                            <a href="/house/detail/2" target="_blank">
+                                                                <img src="assets/img/indoors/3.jpg" alt=""
+                                                                     style="border-radius: 0;">
+                                                            </a>
+                                                        </div>
+                                                        <div class="comment-details">
+                                                            <div class="comment-meta">
+                                                                <div class="comment-left-meta">
+                                                                    <a href="/house/detail/2" target="_blank">
+                                                                        <h4 class="author-name">合租-世界花园-4居室-B卧</h4>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="comment-text">
+                                                                        <p>
+                                                                            性别：男，职业：互联网/计算机</p>
+                                                                        <p>爱好：游泳,跑步</p>
+                                                                        <p>
+                                                                            个人说明：</p>
+                                                                        <p>入住日期： 2021-03-15</p>
+                                                                    </div>
+                                                                </div>
+                                                    </article>
+                                                </li>
+                                            <li class="article_comments_wrap">
+                                                    <article>
+                                                        <div class="article_comments_thumb">
+                                                            <a href="/house/detail/3" target="_blank">
+                                                                <img src="assets/img/indoors/4.jpg" alt=""
+                                                                     style="border-radius: 0;">
+                                                            </a>
+                                                        </div>
+                                                        <div class="comment-details">
+                                                            <div class="comment-meta">
+                                                                <div class="comment-left-meta">
+                                                                    <a href="/house/detail/3" target="_blank">
+                                                                        <h4 class="author-name">合租-世界花园-4居室-C卧</h4>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="comment-text">
+                                                                        暂未租出
+                                                                    </div>
+                                                                </div>
+                                                    </article>
+                                                </li>
+                                            <li class="article_comments_wrap">
+                                                    <article>
+                                                        <div class="article_comments_thumb">
+                                                            <a href="/house/detail/4" target="_blank">
+                                                                <img src="assets/img/indoors/5.jpg" alt=""
+                                                                     style="border-radius: 0;">
+                                                            </a>
+                                                        </div>
+                                                        <div class="comment-details">
+                                                            <div class="comment-meta">
+                                                                <div class="comment-left-meta">
+                                                                    <a href="/house/detail/4" target="_blank">
+                                                                        <h4 class="author-name">合租-世界花园-4居室-D卧</h4>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="comment-text">
+                                                                        <p>
+                                                                            性别：男，职业：互联网/计算机</p>
+                                                                        <p>爱好：游泳,跑步,游戏</p>
+                                                                        <p>
+                                                                            个人说明：</p>
+                                                                        <p>入住日期： 2021-03-15</p>
+                                                                    </div>
+                                                                </div>
+                                                    </article>
+                                                </li>
+                                            </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                <!-- Single Block Wrap -->
+                <div class="property_block_wrap style-2">
+
+                    <div class="property_block_wrap_header">
+                        <a data-toggle="collapse" data-parent="#loca" href="#clSix" aria-expanded="true"
+                           class="collapsed"><h4 class="property_block_title">地图位置</h4></a>
+                    </div>
+
+                    <div id="clSix" class="panel-collapse collapse show" aria-expanded="true">
+                        <div class="block-body">
+                            <div class="map-container">
+                                <iframe src="/house/map?id=1" width="100%" height="300px;"></iframe>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Single Block Wrap -->
+                <div class="property_block_wrap style-2">
+
+                    <div class="property_block_wrap_header">
+                        <a data-toggle="collapse" data-parent="#gal" href="#clSev" aria-expanded="true"
+                           class="collapsed"><h4 class="property_block_title">Gallery</h4></a>
+                    </div>
+
+                    <div id="clSev" class="panel-collapse collapse show" aria-expanded="true">
+                        <div class="block-body">
+                            <ul class="list-gallery-inline">
+                                <li>
+                                        <a href="/uploads/f73c9a99609345fba643e8106dea6b4e.png" class="mfp-gallery">
+                                            <img src="/uploads/f73c9a99609345fba643e8106dea6b4e.png" class="img-fluid mx-auto" alt=""/>
+                                        </a>
+                                    </li>
+                                <li>
+                                        <a href="/uploads/bbede939735448a4a39ff285be7c51a1.png" class="mfp-gallery">
+                                            <img src="/uploads/bbede939735448a4a39ff285be7c51a1.png" class="img-fluid mx-auto" alt=""/>
+                                        </a>
+                                    </li>
+                                <li>
+                                        <a href="/uploads/2f0c72b03587446582d2afa629f9465d.png" class="mfp-gallery">
+                                            <img src="/uploads/2f0c72b03587446582d2afa629f9465d.png" class="img-fluid mx-auto" alt=""/>
+                                        </a>
+                                    </li>
+                                <li>
+                                        <a href="/uploads/abb9f46c32314ce78cbe7491f66df628.png" class="mfp-gallery">
+                                            <img src="/uploads/abb9f46c32314ce78cbe7491f66df628.png" class="img-fluid mx-auto" alt=""/>
+                                        </a>
+                                    </li>
+                                <li>
+                                        <a href="/uploads/0b7fdd26b1094e30bace755f22b84f51.png" class="mfp-gallery">
+                                            <img src="/uploads/0b7fdd26b1094e30bace755f22b84f51.png" class="img-fluid mx-auto" alt=""/>
+                                        </a>
+                                    </li>
+                                </ul>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- property Sidebar -->
+            <div class="col-lg-4 col-md-12 col-sm-12">
+                <div class="property-sidebar">
+
+                    <!-- Share & Like Button -->
+                    <div class="like_share_wrap b-0">
+                        <ul class="like_share_list">
+                            <li><a href="javascript:void(0)" class="btn btn-likes" onclick="submitMark(1)"><i
+                                    class="fas fa-heart"></i>收藏</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="agent-_blocks_wrap b-0">
+                        <div class="side-booking-header">
+                            <h3 class="price">
+                                ¥ 83&nbsp;/日</h3>
+                        </div>
+                        <div class="side-booking-body">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>入住日期，即今日</label>
+                                        <div class="cld-box">
+                                            <i class="ti-calendar"></i>
+                                            <input type="text" name="checkin" id="startDate" class="form-control"
+                                                   disabled/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-6">
+                                    <input type="hidden" id="houseId" value="1">
+                                    <div class="form-group">
+                                        <label>退租日期，请选择</label>
+                                        <div class="cld-box">
+                                            <i class="ti-calendar"></i>
+                                            <input type="text" name="checkout" id="endDate" class="form-control"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="stbooking-footer mt-1">
+                                        <div class="form-group mb-0 pb-0">
+                                            <a href="javascript:void(0)" onclick="createOrder()"
+                                                       class="btn btn-md full-width btn-theme bg-2">立即预定</a>
+                                                </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Agent Detail -->
+                    <div class="agent-_blocks_wrap b-0">
+                        <div class="side-block-header">
+                            <h3 class="title">联系房东</h3>
+                        </div>
+                        <div class="side-block-body">
+                            <form action="" id="contactForm">
+                                <div class="row">
+                                    <input type="hidden" name="houseId" value="1">
+                                    <div class="col-lg-12 col-md-12 col-sm-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="name" placeholder="我的姓名"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="email" placeholder="我的电子邮箱"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="phone" placeholder="我的手机号"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                                        <div class="form-group">
+                                            <textarea class="form-control" name="content"
+                                                      placeholder="想要发的信息内容"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <div class="stbooking-footer mt-1">
+                                            <div class="form-group mb-0 pb-0">
+                                                <a href="javascript:void(0)" onclick="submitContact()"
+                                                   class="btn btn-md full-width btn-theme bg-2">发送邮件信息</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- ============================ Property Detail End ================================== -->
+
+
+<!-- ============================ Footer Start ================================== -->
+<footer class="dark-footer skin-dark-footer style-2" style="padding-top: 0;">
+
+<div class="footer-bottom">
+        <div class="container">
+            <div class="row align-items-center">
+
+                <div class="col-lg-12 col-md-12">
+                    <p class="mb-0">© 2021 Saysky</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- ============================ Footer End ================================== -->
+
+<!-- 登录弹出框 Modal -->
+<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="registermodal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered login-pop-form" role="document">
+        <header class="modal_content_header">
+            <div class="hm_nav">
+                <h3 class="hm_nav_title">登录</h3>
+                <span class="mod-close" data-dismiss="modal" aria-hidden="true"><i class="ti-close"></i></span>
+            </div>
+        </header>
+        <div class="modal-content" id="registermodal">
+            <div class="modal-body">
+                <div class="login-form">
+                    <form id="loginForm">
+
+                        <div class="form-group">
+                            <label>账号</label>
+                            <div class="input-with-icon">
+                                <input type="text" class="form-control" name="userName" placeholder="账号">
+                                <i class="ti-user"></i>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>密码</label>
+                            <div class="input-with-icon">
+                                <input type="password" class="form-control" name="userPass" placeholder="*******">
+                                <i class="ti-unlock"></i>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="button" onclick="submitLogin()" class="btn btn-md full-width pop-login bg-2">登录</button>
+                        </div>
+
+                    </form>
+                </div>
+
+                <div class="text-center">
+                    <p class="mt-3"><i class="ti-user mr-1"></i>忘记密码? <a href="#" data-toggle="modal"  data-target="#forget"class="link">点此重置</a></p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal -->
+
+<!-- 注册 Modal -->
+<div class="modal fade" id="signup" tabindex="-1" role="dialog" aria-labelledby="sign-up" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered login-pop-form" role="document">
+        <header class="modal_content_header">
+            <div class="hm_nav">
+                <h3 class="hm_nav_title">注册</h3>
+                <span class="mod-close" data-dismiss="modal" aria-hidden="true"><i class="ti-close"></i></span>
+            </div>
+        </header>
+        <div class="modal-content" id="sign-up">
+            <div class="modal-body">
+                <div class="login-form">
+                    <form id="registerForm">
+
+                        <div class="row">
+
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <label>姓名</label>
+                                    <div class="input-with-icon">
+                                        <input type="text" name="userDisplayName" class="form-control" placeholder="姓名">
+                                        <i class="ti-user"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <label>电子邮箱</label>
+                                    <div class="input-with-icon">
+                                        <input type="email" name="email" class="form-control" placeholder="电子邮箱，用于重置密码">
+                                        <i class="ti-email"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <label>手机号</label>
+                                    <div class="input-with-icon">
+                                        <input type="text" name="phone" class="form-control" placeholder="手机号">
+                                        <i class="ti-mobile"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <label>账号</label>
+                                    <div class="input-with-icon">
+                                        <input type="text" name="userName" class="form-control" placeholder="登录账号">
+                                        <i class="ti-user"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <label>密码</label>
+                                    <div class="input-with-icon">
+                                        <input type="password" name="userPass" class="form-control" placeholder="登录密码">
+                                        <i class="ti-unlock"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <label>角色</label>
+                                    <div class="simple-input">
+                                        <select name="role" class="form-control">
+                                            <option value="customer">租客</option>
+                                            <option value="owner">房东</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <button type="button" onclick="submitRegister()" class="btn btn-md full-width pop-login bg-2">创建账号</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal -->
+
+<!-- 找回密码弹出框 Modal -->
+<div class="modal fade" id="forget" tabindex="-1" role="dialog" aria-labelledby="forgetmodal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered login-pop-form" role="document">
+        <header class="modal_content_header">
+            <div class="hm_nav">
+                <h3 class="hm_nav_title">找回密码</h3>
+                <span class="mod-close" data-dismiss="modal" aria-hidden="true"><i class="ti-close"></i></span>
+            </div>
+        </header>
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="login-form">
+                    <form id="forgetForm">
+
+                        <div class="form-group">
+                            <label>账号</label>
+                            <div class="input-with-icon">
+                                <input type="text" class="form-control" name="userName" placeholder="账号">
+                                <i class="ti-user"></i>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>邮箱地址</label>
+                            <div class="input-with-icon">
+                                <input type="email" class="form-control" name="email" placeholder="注册时填写的电子邮箱地址">
+                                <i class="ti-unlock"></i>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="button" onclick="submitForget()" class="btn btn-md full-width pop-login bg-2">重置密码</button>
+                        </div>
+
+                    </form>
+                </div>
+
+                <div class="text-center">
+                    <p class="mt-3"><i class="ti-user mr-1"></i>我们会向您的邮箱发送一封邮件，请注意查收</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal -->
+
+<!-- End Video Modal -->
+<a id="back2Top" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>
+
+
+</div>
+<!-- ============================================================== -->
+<!-- End Wrapper -->
+<!-- ============================================================== -->
+
+<!-- ============================================================== -->
+<!-- All Jquery -->
+<!-- ============================================================== -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/popper.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/ion.rangeSlider.min.js"></script>
+<script src="assets/js/select2.min.js"></script>
+<script src="assets/js/jquery.magnific-popup.min.js"></script>
+<script src="assets/js/slick.js"></script>
+<script src="assets/js/slider-bg.js"></script>
+<script src="assets/js/lightbox.js"></script>
+<script src="assets/js/imagesloaded.js"></script>
+<script src="assets/js/daterangepicker.js"></script>
+<script src="assets/js/custom.js"></script>
+<script src="assets/js/script.js"></script>
+<!-- ============================================================== -->
+<!-- This page plugins -->
+<!-- ============================================================== -->
+<!-- Date Booking Script -->
+<script src="assets/js/moment.min.js"></script>
+<script src="assets/js/daterangepicker.js"></script>
+<script>
+
+    var now = new Date();
+    var year = now.getFullYear();
+    var month = now.getMonth() + 1;
+    var date = now.getDate();
+    // 月/日/年
+    var today = month + '/' + date + '/' + year;
+
+    $(function () {
+        $('input[name="checkin"]').daterangepicker({
+            singleDatePicker: true
+        });
+        $('input[name="checkin"]').val(today);
+        $('input[name="checkin"]').attr("placeholder", "入住日期");
+    });
+
+    // Check In & Check Out Daterange Script
+    $(function () {
+        $('input[name="checkout"]').daterangepicker({
+            singleDatePicker: true,
+            format: "yy-mm-dd"
+        });
+        $('input[name="checkout"]').val(today);
+        $('input[name="checkout"]').attr("placeholder", "退租日期");
+    });
+
+
+</script>
+
+</body>
+</html>

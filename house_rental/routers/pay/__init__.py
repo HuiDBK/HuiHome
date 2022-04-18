@@ -5,7 +5,6 @@
 # @Date: 2022/02/27 21:43
 from fastapi import APIRouter
 from .apis import user_api
-from .response_models.user_out import UserRegisterOut
 
 router = APIRouter()
 router_v2 = APIRouter()
@@ -18,25 +17,8 @@ router.add_api_route(
 )
 
 router.add_api_route(
-    '/{mobile}/count',
-    user_api.user_mobile_count,
-    response_model=UserRegisterOut,
-    methods=['post'],
-    summary='用户注册'
-)
-
-router.add_api_route(
-    '/{username}/count',
-    user_api.username_count,
-    response_model=UserRegisterOut,
-    methods=['post'],
-    summary='用户注册'
-)
-
-router.add_api_route(
     '/register',
     user_api.user_register,
-    response_model=UserRegisterOut,
     methods=['post'],
     summary='用户注册'
 )
@@ -44,7 +26,6 @@ router.add_api_route(
 router.add_api_route(
     '/login',
     user_api.user_register,
-    response_model=UserRegisterOut,
     methods=['post'],
     summary='用户登录'
 )

@@ -1,0 +1,1023 @@
+/*===============================================
+	All Colors Option 
+================================================ */
+.red-skin .btn-theme-2, .red-skin .top-header, .red-skin .packages_bottombody .btn-pricing,
+.green-skin .btn-theme-2, .green-skin .top-header, .green-skin .packages_bottombody .btn-pricing,
+.blue-skin .btn-theme-2, .blue-skin .top-header, .blue-skin .packages_bottombody .btn-pricing,
+.yellow-skin .btn-theme-2, .yellow-skin .top-header, .yellow-skin .packages_bottombody .btn-pricing,
+.darkblue-skin .btn-theme-2, .darkblue-skin .top-header, .darkblue-skin .packages_bottombody .btn-pricing,
+.oceangreen-skin .btn-theme-2, .oceangreen-skin .top-header, .oceangreen-skin .packages_bottombody .btn-pricing,
+.purple-skin .btn-theme-2, .purple-skin .top-header, .purple-skin .packages_bottombody .btn-pricing,
+.goodred-skin .btn-theme-2, .goodred-skin .top-header, .goodred-skin .packages_bottombody .btn-pricing,
+.goodgreen-skin .btn-theme-2, .goodgreen-skin .top-header, .goodgreen-skin .packages_bottombody .btn-pricing,
+.blue2-skin .btn-theme-2, .blue2-skin .top-header, .blue2-skin .packages_bottombody .btn-pricing{ 
+	background-color: #140c40;
+    background: #140c40;
+    border-color: #140c40;
+}
+.red-skin .hero_search h1, .green-skin .hero_search h1, .blue-skin .hero_search h1, .yellow-skin .hero_search h1, .darkblue-skin .hero_search h1,
+.oceangreen-skin .hero_search h1,
+.purple-skin .hero_search h1, .goodred-skin .hero_search h1, .goodgreen-skin .hero_search h1, .blue2-skin .hero_search h1{
+	color:#252c41 !important;
+}
+/*-------------- Red Color Option --------------------*/
+.red-skin .theme-bg,.red-skin .property_search_filter label:hover, .red-skin .property_search_filter label.active,
+.red-skin li.login-attri.theme-log a,
+.red-skin .range-slider .ui-slider .ui-slider-handle,
+.red-skin .range-slider .ui-widget-header,
+.red-skin .packages_bottombody .btn-pricing:hover, .red-skin .packages_bottombody .btn-pricing:focus
+.red-skin .select2-container--default .select2-results__option--highlighted[aria-selected],
+.red-skin .pagination li:first-child a,
+.red-skin .btn.btn-theme,
+.red-skin .btn.btn-theme:hover, .red-skin .btn.btn-theme:focus,
+.red-skin .btn.search-btn,
+.red-skin .btn-theme-2:hover, .red-skin .btn-theme-2:focus,
+.red-skin .btn-outline-theme:hover, .red-skin .btn-outline-theme:focus,
+.red-skin .btn.search-btn,
+.red-skin .simple-search-wrap .pk-input-group .pk-subscribe-submit,
+.red-skin .btn.search-btn-outline:hover, .red-skin .btn.search-btn-outline:focus,
+.red-skin .single_property_style.property-1 .listing-detail-btn .more-btn,
+.red-skin .home-slider-desc .read-more,
+.red-skin .nav-tabs .nav-item.show .nav-link, .red-skin .nav-tabs .nav-link.active,
+.red-skin .checkbox-custom:checked + .checkbox-custom-label:before,
+.red-skin .radio-custom:checked + .radio-custom-label:before,
+.red-skin .btn.pop-login,
+.red-skin .single_widgets.widget_search form button,
+.red-skin .single_widgets.widget_tags ul li a:hover, .red-skin .single_widgets.widget_tags ul li a:focus,
+.red-skin .pagination>.active>a, .red-skin .pagination>.active>a:focus, .red-skin .pagination>.active>a:hover, .red-skin .pagination>.active>span, .red-skin .pagination>.active>span:focus, .red-skin .pagination>.active>span:hover, .red-skin .pagination>li>a:focus, .red-skin .pagination>li>a:hover{
+	background-color:#D70040;
+	background:#D70040;
+}
+ 
+.red-skin a.link:hover, .red-skin a.link:focus, .red-skin a:hover, a:focus,
+.red-skin .theme-cl,
+.red-skin .btn.btn-theme-light,
+.red-skin .bl-continue,
+.red-skin .header-dark-transparent.header-fixed .attributes li.submit-attri a,
+.red-skin nav .menu li a.active,
+.red-skin nav .menu li.dropdown.open > a,
+.red-skin nav .menu .mg-menu li a i, .red-skin nav .menu li a:hover,
+.red-skin .recommended .pr-value,
+.red-skin .btn-outline-theme,
+.red-skin .btn.search-btn-outline,
+.red-skin .dw-proprty-info li,
+.red-skin .ps-trep .ps-type,
+.red-skin .dash_user_menues ul li.active a,
+.red-skin span.mod-close,
+.red-skin .blog-page .article_detail_wrapss blockquote .icon,
+.red-skin .single_article_pagination .article_pagination_center_grid a,
+.red-skin .blog-page .article_detail_wrapss .comment-area .all-comments article .comment-details .comment-meta .comment-left-meta .comment-date,
+.red-skin .cn-info-icon i, .red-skin .client-info h5,
+.red-skin .listing-card-info-price{
+	color:#D70040;
+}
+
+.red-skin .pagination>.active>a, .red-skin .pagination>.active>a:focus, .red-skin .pagination>.active>a:hover, .red-skin .pagination>.active>span, .red-skin .pagination>.active>span:focus, .red-skin .pagination>.active>span:hover, .red-skin .pagination>li>a:focus, .red-skin .pagination>li>a:hover,
+.red-skin .pagination li:first-child a,
+.red-skin .range-slider .ui-slider .ui-slider-handle,
+.red-skin .attributes li.submit-attri.theme-log a,
+.red-skin .header-dark-transparent.header-fixed .attributes li.submit-attri a,
+.red-skin .btn.btn-theme,
+.red-skin .btn-theme-2:hover, .red-skin .btn-theme-2:focus,
+.red-skin .btn.btn-theme:hover, .red-skin .btn.btn-theme:focus,
+.red-skin .btn-outline-theme:hover, .red-skin .btn-outline-theme:focus,
+.red-skin .btn-outline-theme,
+.red-skin .simple-search-wrap .pk-input-group .pk-subscribe-submit,
+.red-skin .btn.search-btn-outline,
+.red-skin .btn.search-btn-outline:hover, .red-skin .btn.search-btn-outline:focus,
+.red-skin .single_property_style.property-1 .listing-detail-btn .more-btn,
+.red-skin .nav-tabs .nav-item.show .nav-link, .red-skin .nav-tabs .nav-link.active,
+.red-skin .btn.pop-login,
+.red-skin .single_widgets.widget_tags ul li a:hover, .red-skin .single_widgets.widget_tags ul li a:focus{
+	border-color:#D70040;
+}
+
+.red-skin .nav-menu>.active>a, .red-skin .nav-menu>.focus>a, .red-skin .nav-menu>li:hover>a {
+    color: #D70040 !important;
+}
+.red-skin .nav-menu>.active>a .submenu-indicator-chevron, .red-skin .nav-menu>.focus>a .submenu-indicator-chevron, .red-skin .nav-menu>li:hover>a .submenu-indicator-chevron {
+    border-color: transparent #D70040 #D70040 transparent;
+}
+.red-skin .nav-dropdown>.focus>a .submenu-indicator-chevron,
+.red-skin .nav-dropdown>li:hover>a .submenu-indicator-chevron {
+    border-color: transparent #D70040 #D70040 transparent
+}
+.red-skin .btn-group .btn-secondary .nav-link.active, .red-skin .btn-group .btn-secondary .nav-link:hover, .red-skin .btn-group .btn-secondary .nav-link:focus {
+    background-color: #D70040 !important;
+}
+.red-skin .btn-group .btn-secondary .nav-link.active, .red-skin .btn-group .btn-secondary .nav-link:hover, .red-skin .btn-group .btn-secondary .nav-link:focus {
+    background-color: #D70040 !important;
+}
+
+.red-skin .nav-menu.nav-menu-social>li.add-listing a {
+    color: #ffffff !important;
+}
+.red-skin .nav-dropdown>.focus>a, .red-skin .nav-dropdown>li:hover>a {
+    color: #D70040;
+}
+.red-skin li.login-attri.theme-log a {
+    box-shadow:0 8px 5px rgba(240, 44, 45, 0.2);
+	-webkit-box-shadow:0 8px 5px rgba(240, 44, 45, 0.2);
+}
+.red-skin .btn.btn-theme-light, .red-skin .theme-bg-light{
+	background:rgba(240, 44, 45, 0.1);
+}
+
+/*-------------- Green Color Option --------------------*/
+.green-skin .theme-bg,.green-skin .property_search_filter label:hover, .green-skin .property_search_filter label.active,
+.green-skin li.login-attri.theme-log a,
+.green-skin .range-slider .ui-slider .ui-slider-handle,
+.green-skin .range-slider .ui-widget-header,
+.green-skin .packages_bottombody .btn-pricing:hover, .green-skin .packages_bottombody .btn-pricing:focus
+.green-skin .select2-container--default .select2-results__option--highlighted[aria-selected],
+.green-skin .pagination li:first-child a,
+.green-skin .btn.btn-theme,
+.green-skin .btn.btn-theme:hover, .green-skin .btn.btn-theme:focus,
+.green-skin .btn.search-btn,
+.green-skin .btn-theme-2:hover, .green-skin .btn-theme-2:focus,
+.green-skin .btn-outline-theme:hover, .green-skin .btn-outline-theme:focus,
+.green-skin .btn.search-btn,
+.green-skin .simple-search-wrap .pk-input-group .pk-subscribe-submit,
+.green-skin .btn.search-btn-outline:hover, .green-skin .btn.search-btn-outline:focus,
+.green-skin .single_property_style.property-1 .listing-detail-btn .more-btn,
+.green-skin .home-slider-desc .read-more,
+.green-skin .nav-tabs .nav-item.show .nav-link, .green-skin .nav-tabs .nav-link.active,
+.green-skin .checkbox-custom:checked + .checkbox-custom-label:before,
+.green-skin .radio-custom:checked + .radio-custom-label:before,
+.green-skin .btn.pop-login,
+.green-skin .single_widgets.widget_search form button,
+.green-skin .single_widgets.widget_tags ul li a:hover, .green-skin .single_widgets.widget_tags ul li a:focus,
+.green-skin .pagination>.active>a, .green-skin .pagination>.active>a:focus, .green-skin .pagination>.active>a:hover, .green-skin .pagination>.active>span, .green-skin .pagination>.active>span:focus, .green-skin .pagination>.active>span:hover, .green-skin .pagination>li>a:focus, .green-skin .pagination>li>a:hover{
+	background-color:#00b074;
+	background:#00b074;
+}
+ 
+.green-skin a.link:hover, .green-skin a.link:focus, .green-skin a:hover, a:focus,
+.green-skin .theme-cl,
+.green-skin .btn.btn-theme-light,
+.green-skin .bl-continue,
+.green-skin .header-dark-transparent.header-fixed .attributes li.submit-attri a,
+.green-skin nav .menu li a.active,
+.green-skin nav .menu li.dropdown.open > a,
+.green-skin nav .menu .mg-menu li a i, .green-skin nav .menu li a:hover,
+.green-skin .recommended .pr-value,
+.green-skin .btn-outline-theme,
+.green-skin .attributes li.submit-attri.theme-log a,
+.green-skin .btn.search-btn-outline,
+.green-skin .dw-proprty-info li,
+.green-skin .ps-trep .ps-type,
+.green-skin .dash_user_menues ul li.active a,
+.green-skin span.mod-close,
+.green-skin .blog-page .article_detail_wrapss blockquote .icon,
+.green-skin .single_article_pagination .article_pagination_center_grid a,
+.green-skin .blog-page .article_detail_wrapss .comment-area .all-comments article .comment-details .comment-meta .comment-left-meta .comment-date,
+.green-skin .cn-info-icon i, .green-skin .client-info h5,
+.green-skin .listing-card-info-price{
+	color:#00b074;
+}
+
+.green-skin .pagination>.active>a, .green-skin .pagination>.active>a:focus, .green-skin .pagination>.active>a:hover, .green-skin .pagination>.active>span, .green-skin .pagination>.active>span:focus, .green-skin .pagination>.active>span:hover, .green-skin .pagination>li>a:focus, .green-skin .pagination>li>a:hover,
+.green-skin .pagination li:first-child a,
+.green-skin .range-slider .ui-slider .ui-slider-handle,
+.green-skin .attributes li.submit-attri.theme-log a,
+.green-skin .header-dark-transparent.header-fixed .attributes li.submit-attri a,
+.green-skin .btn.btn-theme,
+.green-skin .btn-theme-2:hover, .green-skin .btn-theme-2:focus,
+.green-skin .btn.btn-theme:hover, .green-skin .btn.btn-theme:focus,
+.green-skin .btn-outline-theme:hover, .green-skin .btn-outline-theme:focus,
+.green-skin .btn-outline-theme,
+.green-skin .simple-search-wrap .pk-input-group .pk-subscribe-submit,
+.green-skin .btn.search-btn-outline,
+.green-skin .btn.search-btn-outline:hover, .green-skin .btn.search-btn-outline:focus,
+.green-skin .single_property_style.property-1 .listing-detail-btn .more-btn,
+.green-skin .nav-tabs .nav-item.show .nav-link, .green-skin .nav-tabs .nav-link.active,
+.green-skin .btn.pop-login,
+.green-skin .single_widgets.widget_tags ul li a:hover, .green-skin .single_widgets.widget_tags ul li a:focus{
+	border-color:#00b074;
+}
+.green-skin .nav-menu>.active>a, .green-skin .nav-menu>.focus>a, .green-skin .nav-menu>li:hover>a {
+    color: #00b074 !important;
+}
+.green-skin .nav-menu>.active>a .submenu-indicator-chevron, .green-skin .nav-menu>.focus>a .submenu-indicator-chevron, .green-skin .nav-menu>li:hover>a .submenu-indicator-chevron {
+    border-color: transparent #00b074 #00b074 transparent;
+}
+.green-skin .nav-dropdown>.focus>a .submenu-indicator-chevron,
+.green-skin .nav-dropdown>li:hover>a .submenu-indicator-chevron {
+    border-color: transparent #00b074 #00b074 transparent
+}
+.green-skin .btn-group .btn-secondary .nav-link.active, .green-skin .btn-group .btn-secondary .nav-link:hover, .green-skin .btn-group .btn-secondary .nav-link:focus {
+    background-color: #00b074 !important;
+}
+.green-skin .btn-group .btn-secondary .nav-link.active, .green-skin .btn-group .btn-secondary .nav-link:hover, .green-skin .btn-group .btn-secondary .nav-link:focus {
+    background-color: #00b074 !important;
+}
+.green-skin .nav-dropdown>.focus>a, .green-skin .nav-dropdown>li:hover>a {
+    color: #00b074;
+}
+.green-skin .nav-menu.nav-menu-social>li.add-listing a {
+    color: #ffffff !important;
+}
+.green-skin li.login-attri.theme-log a {
+    box-shadow:0 8px 5px rgba(0, 186, 116, 0.2);
+	-webkit-box-shadow:0 8px 5px rgba(0, 186, 116,0.2);
+}
+.green-skin .btn.btn-theme-light, .green-skin .theme-bg-light{
+	background:rgba(0, 186, 116, 0.1);
+}
+/*-------------- Blue Color Option --------------------*/
+.blue-skin .theme-bg,.blue-skin .property_search_filter label:hover, .blue-skin .property_search_filter label.active,
+.blue-skin li.login-attri.theme-log a,
+.blue-skin .range-slider .ui-slider .ui-slider-handle,
+.blue-skin .range-slider .ui-widget-header,
+.blue-skin .packages_bottombody .btn-pricing:hover, .blue-skin .packages_bottombody .btn-pricing:focus
+.blue-skin .select2-container--default .select2-results__option--highlighted[aria-selected],
+.blue-skin .pagination li:first-child a,
+.blue-skin .btn.btn-theme,
+.blue-skin .btn.btn-theme:hover, .blue-skin .btn.btn-theme:focus,
+.blue-skin .btn.search-btn,
+.blue-skin .btn-theme-2:hover, .blue-skin .btn-theme-2:focus,
+.blue-skin .btn-outline-theme:hover, .blue-skin .btn-outline-theme:focus,
+.blue-skin .btn.search-btn,
+.blue-skin .simple-search-wrap .pk-input-group .pk-subscribe-submit,
+.blue-skin .btn.search-btn-outline:hover, .blue-skin .btn.search-btn-outline:focus,
+.blue-skin .single_property_style.property-1 .listing-detail-btn .more-btn,
+.blue-skin .home-slider-desc .read-more,
+.blue-skin .nav-tabs .nav-item.show .nav-link, .blue-skin .nav-tabs .nav-link.active,
+.blue-skin .checkbox-custom:checked + .checkbox-custom-label:before,
+.blue-skin .radio-custom:checked + .radio-custom-label:before,
+.blue-skin .btn.pop-login,
+.blue-skin .single_widgets.widget_search form button,
+.blue-skin .single_widgets.widget_tags ul li a:hover, .blue-skin .single_widgets.widget_tags ul li a:focus,
+.blue-skin .pagination>.active>a, .blue-skin .pagination>.active>a:focus, .blue-skin .pagination>.active>a:hover, .blue-skin .pagination>.active>span, .blue-skin .pagination>.active>span:focus, .blue-skin .pagination>.active>span:hover, .blue-skin .pagination>li>a:focus, .blue-skin .pagination>li>a:hover{
+	background-color:#0058f3;
+	background:#0058f3;
+}
+ 
+.blue-skin a.link:hover, .blue-skin a.link:focus, .blue-skin a:hover, a:focus,
+.blue-skin .theme-cl,
+.blue-skin .btn.btn-theme-light,
+.blue-skin .bl-continue,
+.blue-skin .header-dark-transparent.header-fixed .attributes li.submit-attri a,
+.blue-skin nav .menu li a.active,
+.blue-skin nav .menu li.dropdown.open > a,
+.blue-skin nav .menu .mg-menu li a i, .blue-skin nav .menu li a:hover,
+.blue-skin .recommended .pr-value,
+.blue-skin .btn-outline-theme,
+.blue-skin .attributes li.submit-attri.theme-log a,
+.blue-skin .btn.search-btn-outline,
+.blue-skin .dw-proprty-info li,
+.blue-skin .ps-trep .ps-type,
+.blue-skin .dash_user_menues ul li.active a,
+.blue-skin span.mod-close,
+.blue-skin .blog-page .article_detail_wrapss blockquote .icon,
+.blue-skin .single_article_pagination .article_pagination_center_grid a,
+.blue-skin .blog-page .article_detail_wrapss .comment-area .all-comments article .comment-details .comment-meta .comment-left-meta .comment-date,
+.blue-skin .cn-info-icon i, .blue-skin .client-info h5,
+.blue-skin .listing-card-info-price{
+	color:#0058f3;
+}
+
+.blue-skin .pagination>.active>a, .blue-skin .pagination>.active>a:focus, .blue-skin .pagination>.active>a:hover, .blue-skin .pagination>.active>span, .blue-skin .pagination>.active>span:focus, .blue-skin .pagination>.active>span:hover, .blue-skin .pagination>li>a:focus, .blue-skin .pagination>li>a:hover,
+.blue-skin .pagination li:first-child a,
+.blue-skin .range-slider .ui-slider .ui-slider-handle,
+.blue-skin .attributes li.submit-attri.theme-log a,
+.blue-skin .header-dark-transparent.header-fixed .attributes li.submit-attri a,
+.blue-skin .btn.btn-theme,
+.blue-skin .btn-theme-2:hover, .blue-skin .btn-theme-2:focus,
+.blue-skin .btn.btn-theme:hover, .blue-skin .btn.btn-theme:focus,
+.blue-skin .btn-outline-theme:hover, .blue-skin .btn-outline-theme:focus,
+.blue-skin .btn-outline-theme,
+.blue-skin .simple-search-wrap .pk-input-group .pk-subscribe-submit,
+.blue-skin .btn.search-btn-outline,
+.blue-skin .btn.search-btn-outline:hover, .blue-skin .btn.search-btn-outline:focus,
+.blue-skin .single_property_style.property-1 .listing-detail-btn .more-btn,
+.blue-skin .nav-tabs .nav-item.show .nav-link, .blue-skin .nav-tabs .nav-link.active,
+.blue-skin .btn.pop-login,
+.blue-skin .single_widgets.widget_tags ul li a:hover, .blue-skin .single_widgets.widget_tags ul li a:focus{
+	border-color:#0058f3;
+}
+.blue-skin .nav-menu>.active>a, .blue-skin .nav-menu>.focus>a, .blue-skin .nav-menu>li:hover>a {
+    color: #0058f3 !important;
+}
+.blue-skin .nav-menu>.active>a .submenu-indicator-chevron, .blue-skin .nav-menu>.focus>a .submenu-indicator-chevron, .blue-skin .nav-menu>li:hover>a .submenu-indicator-chevron {
+    border-color: transparent #0058f3 #0058f3 transparent;
+}
+.blue-skin .nav-dropdown>.focus>a .submenu-indicator-chevron,
+.blue-skin .nav-dropdown>li:hover>a .submenu-indicator-chevron {
+    border-color: transparent #0058f3 #0058f3 transparent
+}
+.blue-skin .btn-group .btn-secondary .nav-link.active, .blue-skin .btn-group .btn-secondary .nav-link:hover, .blue-skin .btn-group .btn-secondary .nav-link:focus {
+    background-color: #0058f3 !important;
+}
+.blue-skin .btn-group .btn-secondary .nav-link.active, .blue-skin .btn-group .btn-secondary .nav-link:hover, .blue-skin .btn-group .btn-secondary .nav-link:focus {
+    background-color: #0058f3 !important;
+}
+.blue-skin .nav-dropdown>.focus>a, .blue-skin .nav-dropdown>li:hover>a {
+    color: #0058f3;
+}
+.blue-skin .nav-menu.nav-menu-social>li.add-listing a {
+    color: #ffffff !important;
+}
+.blue-skin li.login-attri.theme-log a {
+    box-shadow:0 8px 5px rgba(0, 88, 243, 0.2);
+	-webkit-box-shadow:0 8px 5px rgba(0, 88, 243, 0.2);
+}
+.blue-skin .btn.btn-theme-light, .blue-skin .theme-bg-light{
+	background:rgba(0, 88, 243, 0.1);
+}
+/*-------------- Yellow Color Option --------------------*/
+.yellow-skin .theme-bg,.yellow-skin .property_search_filter label:hover, .yellow-skin .property_search_filter label.active,
+.yellow-skin li.login-attri.theme-log a,
+.yellow-skin .range-slider .ui-slider .ui-slider-handle,
+.yellow-skin .range-slider .ui-widget-header,
+.yellow-skin .packages_bottombody .btn-pricing:hover, .yellow-skin .packages_bottombody .btn-pricing:focus
+.yellow-skin .select2-container--default .select2-results__option--highlighted[aria-selected],
+.yellow-skin .pagination li:first-child a,
+.yellow-skin .btn.btn-theme,
+.yellow-skin .btn.btn-theme:hover, .yellow-skin .btn.btn-theme:focus,
+.yellow-skin .btn.search-btn,
+.yellow-skin .btn-theme-2:hover, .yellow-skin .btn-theme-2:focus,
+.yellow-skin .btn-outline-theme:hover, .yellow-skin .btn-outline-theme:focus,
+.yellow-skin .btn.search-btn,
+.yellow-skin .simple-search-wrap .pk-input-group .pk-subscribe-submit,
+.yellow-skin .btn.search-btn-outline:hover, .yellow-skin .btn.search-btn-outline:focus,
+.yellow-skin .single_property_style.property-1 .listing-detail-btn .more-btn,
+.yellow-skin .home-slider-desc .read-more,
+.yellow-skin .nav-tabs .nav-item.show .nav-link, .yellow-skin .nav-tabs .nav-link.active,
+.yellow-skin .checkbox-custom:checked + .checkbox-custom-label:before,
+.yellow-skin .radio-custom:checked + .radio-custom-label:before,
+.yellow-skin .btn.pop-login,
+.yellow-skin .single_widgets.widget_search form button,
+.yellow-skin .single_widgets.widget_tags ul li a:hover, .yellow-skin .single_widgets.widget_tags ul li a:focus,
+.yellow-skin .pagination>.active>a, .yellow-skin .pagination>.active>a:focus, .yellow-skin .pagination>.active>a:hover, .yellow-skin .pagination>.active>span, .yellow-skin .pagination>.active>span:focus, .yellow-skin .pagination>.active>span:hover, .yellow-skin .pagination>li>a:focus, .yellow-skin .pagination>li>a:hover{
+	background-color:#f95d02;
+	background:#f95d02;
+}
+ 
+.yellow-skin a.link:hover, .yellow-skin a.link:focus, .yellow-skin a:hover, a:focus,
+.yellow-skin .theme-cl,
+.yellow-skin .btn.btn-theme-light,
+.yellow-skin .bl-continue,
+.yellow-skin .header-dark-transparent.header-fixed .attributes li.submit-attri a,
+.yellow-skin nav .menu li a.active,
+.yellow-skin nav .menu li.dropdown.open > a,
+.yellow-skin nav .menu .mg-menu li a i, .yellow-skin nav .menu li a:hover,
+.yellow-skin .recommended .pr-value,
+.yellow-skin .btn-outline-theme,
+.yellow-skin .attributes li.submit-attri.theme-log a,
+.yellow-skin .btn.search-btn-outline,
+.yellow-skin .dw-proprty-info li,
+.yellow-skin .ps-trep .ps-type,
+.yellow-skin .dash_user_menues ul li.active a,
+.yellow-skin span.mod-close,
+.yellow-skin .blog-page .article_detail_wrapss blockquote .icon,
+.yellow-skin .single_article_pagination .article_pagination_center_grid a,
+.yellow-skin .blog-page .article_detail_wrapss .comment-area .all-comments article .comment-details .comment-meta .comment-left-meta .comment-date,
+.yellow-skin .cn-info-icon i, .yellow-skin .client-info h5,
+.yellow-skin .listing-card-info-price{
+	color:#f95d02;
+}
+
+.yellow-skin .pagination>.active>a, .yellow-skin .pagination>.active>a:focus, .yellow-skin .pagination>.active>a:hover, .yellow-skin .pagination>.active>span, .yellow-skin .pagination>.active>span:focus, .yellow-skin .pagination>.active>span:hover, .yellow-skin .pagination>li>a:focus, .yellow-skin .pagination>li>a:hover,
+.yellow-skin .pagination li:first-child a,
+.yellow-skin .range-slider .ui-slider .ui-slider-handle,
+.yellow-skin .attributes li.submit-attri.theme-log a,
+.yellow-skin .header-dark-transparent.header-fixed .attributes li.submit-attri a,
+.yellow-skin .btn.btn-theme,
+.yellow-skin .btn-theme-2:hover, .yellow-skin .btn-theme-2:focus,
+.yellow-skin .btn.btn-theme:hover, .yellow-skin .btn.btn-theme:focus,
+.yellow-skin .btn-outline-theme:hover, .yellow-skin .btn-outline-theme:focus,
+.yellow-skin .btn-outline-theme,
+.yellow-skin .simple-search-wrap .pk-input-group .pk-subscribe-submit,
+.yellow-skin .btn.search-btn-outline,
+.yellow-skin .btn.search-btn-outline:hover, .yellow-skin .btn.search-btn-outline:focus,
+.yellow-skin .single_property_style.property-1 .listing-detail-btn .more-btn,
+.yellow-skin .nav-tabs .nav-item.show .nav-link, .yellow-skin .nav-tabs .nav-link.active,
+.yellow-skin .btn.pop-login,
+.yellow-skin .single_widgets.widget_tags ul li a:hover, .yellow-skin .single_widgets.widget_tags ul li a:focus{
+	border-color:#f95d02;
+}
+.yellow-skin .nav-menu>.active>a, .yellow-skin .nav-menu>.focus>a, .yellow-skin .nav-menu>li:hover>a {
+    color:#4760ff !important;
+}
+.yellow-skin .nav-menu>.active>a .submenu-indicator-chevron, .yellow-skin .nav-menu>.focus>a .submenu-indicator-chevron, .yellow-skin .nav-menu>li:hover>a .submenu-indicator-chevron {
+    border-color: transparent #f95d02 #f95d02 transparent;
+}
+.yellow-skin .nav-dropdown>.focus>a .submenu-indicator-chevron,
+.yellow-skin .nav-dropdown>li:hover>a .submenu-indicator-chevron {
+    border-color: transparent #f95d02 #f95d02 transparent
+}
+.yellow-skin .btn-group .btn-secondary .nav-link.active, .yellow-skin .btn-group .btn-secondary .nav-link:hover, .yellow-skin .btn-group .btn-secondary .nav-link:focus {
+    background-color: #f95d02 !important;
+}
+.yellow-skin .btn-group .btn-secondary .nav-link.active, .yellow-skin .btn-group .btn-secondary .nav-link:hover, .yellow-skin .btn-group .btn-secondary .nav-link:focus {
+    background-color: #f95d02 !important;
+}
+.yellow-skin .nav-dropdown>.focus>a, .yellow-skin .nav-dropdown>li:hover>a {
+    color: #f95d02;
+}
+.yellow-skin .nav-menu.nav-menu-social>li.add-listing a {
+    color: #ffffff !important;
+}
+.yellow-skin li.login-attri.theme-log a {
+    box-shadow:0 8px 5px rgba(255, 165, 13, 0.2);
+	-webkit-box-shadow:0 8px 5px rgba(255, 165, 13, 0.2);
+}
+.yellow-skin .btn.btn-theme-light, .yellow-skin .theme-bg-light{
+	background:rgba(255, 165, 13, 0.1);
+}
+/*-------------- Blue Dark Color Option --------------------*/
+.darkblue-skin .theme-bg,.darkblue-skin .property_search_filter label:hover, .darkblue-skin .property_search_filter label.active,
+.darkblue-skin li.login-attri.theme-log a,
+.darkblue-skin .range-slider .ui-slider .ui-slider-handle,
+.darkblue-skin .range-slider .ui-widget-header,
+.darkblue-skin .packages_bottombody .btn-pricing:hover, .darkblue-skin .packages_bottombody .btn-pricing:focus
+.darkblue-skin .select2-container--default .select2-results__option--highlighted[aria-selected],
+.darkblue-skin .pagination li:first-child a,
+.darkblue-skin .btn.btn-theme,
+.darkblue-skin .btn.btn-theme:hover, .darkblue-skin .btn.btn-theme:focus,
+.darkblue-skin .btn.search-btn,
+.darkblue-skin .btn-theme-2:hover, .darkblue-skin .btn-theme-2:focus,
+.darkblue-skin .btn-outline-theme:hover, .darkblue-skin .btn-outline-theme:focus,
+.darkblue-skin .btn.search-btn,
+.darkblue-skin .simple-search-wrap .pk-input-group .pk-subscribe-submit,
+.darkblue-skin .btn.search-btn-outline:hover, .darkblue-skin .btn.search-btn-outline:focus,
+.darkblue-skin .single_property_style.property-1 .listing-detail-btn .more-btn,
+.darkblue-skin .home-slider-desc .read-more,
+.darkblue-skin .nav-tabs .nav-item.show .nav-link, .darkblue-skin .nav-tabs .nav-link.active,
+.darkblue-skin .checkbox-custom:checked + .checkbox-custom-label:before,
+.darkblue-skin .radio-custom:checked + .radio-custom-label:before,
+.darkblue-skin .btn.pop-login,
+.darkblue-skin .single_widgets.widget_search form button,
+.darkblue-skin .single_widgets.widget_tags ul li a:hover, .darkblue-skin .single_widgets.widget_tags ul li a:focus,
+.darkblue-skin .pagination>.active>a, .darkblue-skin .pagination>.active>a:focus, .darkblue-skin .pagination>.active>a:hover, .darkblue-skin .pagination>.active>span, .darkblue-skin .pagination>.active>span:focus, .darkblue-skin .pagination>.active>span:hover, .darkblue-skin .pagination>li>a:focus, .darkblue-skin .pagination>li>a:hover{
+	background-color:#0F52BA;
+	background:#0F52BA;
+}
+ 
+.darkblue-skin a.link:hover, .darkblue-skin a.link:focus, .darkblue-skin a:hover, a:focus,
+.darkblue-skin .theme-cl,
+.darkblue-skin .btn.btn-theme-light,
+.darkblue-skin .bl-continue,
+.darkblue-skin .header-dark-transparent.header-fixed .attributes li.submit-attri a,
+.darkblue-skin nav .menu li a.active,
+.darkblue-skin nav .menu li.dropdown.open > a,
+.darkblue-skin nav .menu .mg-menu li a i, .darkblue-skin nav .menu li a:hover,
+.darkblue-skin .recommended .pr-value,
+.darkblue-skin .btn-outline-theme,
+.darkblue-skin .attributes li.submit-attri.theme-log a,
+.darkblue-skin .btn.search-btn-outline,
+.darkblue-skin .dw-proprty-info li,
+.darkblue-skin .ps-trep .ps-type,
+.darkblue-skin .dash_user_menues ul li.active a,
+.darkblue-skin span.mod-close,
+.darkblue-skin .blog-page .article_detail_wrapss blockquote .icon,
+.darkblue-skin .single_article_pagination .article_pagination_center_grid a,
+.darkblue-skin .blog-page .article_detail_wrapss .comment-area .all-comments article .comment-details .comment-meta .comment-left-meta .comment-date,
+.darkblue-skin .cn-info-icon i, .darkblue-skin .client-info h5,
+.darkblue-skin .listing-card-info-price{
+	color:#0F52BA;
+}
+
+.darkblue-skin .pagination>.active>a, .darkblue-skin .pagination>.active>a:focus, .darkblue-skin .pagination>.active>a:hover, .darkblue-skin .pagination>.active>span, .darkblue-skin .pagination>.active>span:focus, .darkblue-skin .pagination>.active>span:hover, .darkblue-skin .pagination>li>a:focus, .darkblue-skin .pagination>li>a:hover,
+.darkblue-skin .pagination li:first-child a,
+.darkblue-skin .range-slider .ui-slider .ui-slider-handle,
+.darkblue-skin .attributes li.submit-attri.theme-log a,
+.darkblue-skin .header-dark-transparent.header-fixed .attributes li.submit-attri a,
+.darkblue-skin .btn.btn-theme,
+.darkblue-skin .btn-theme-2:hover, .darkblue-skin .btn-theme-2:focus,
+.darkblue-skin .btn.btn-theme:hover, .darkblue-skin .btn.btn-theme:focus,
+.darkblue-skin .btn-outline-theme:hover, .darkblue-skin .btn-outline-theme:focus,
+.darkblue-skin .btn-outline-theme,
+.darkblue-skin .simple-search-wrap .pk-input-group .pk-subscribe-submit,
+.darkblue-skin .btn.search-btn-outline,
+.darkblue-skin .btn.search-btn-outline:hover, .darkblue-skin .btn.search-btn-outline:focus,
+.darkblue-skin .single_property_style.property-1 .listing-detail-btn .more-btn,
+.darkblue-skin .nav-tabs .nav-item.show .nav-link, .darkblue-skin .nav-tabs .nav-link.active,
+.darkblue-skin .btn.pop-login,
+.darkblue-skin .single_widgets.widget_tags ul li a:hover, .darkblue-skin .single_widgets.widget_tags ul li a:focus{
+	border-color:#0F52BA;
+}
+.darkblue-skin .nav-menu>.active>a, .darkblue-skin .nav-menu>.focus>a, .darkblue-skin .nav-menu>li:hover>a {
+    color: #0F52BA !important;
+}
+.darkblue-skin .nav-menu>.active>a .submenu-indicator-chevron, .darkblue-skin .nav-menu>.focus>a .submenu-indicator-chevron, .darkblue-skin .nav-menu>li:hover>a .submenu-indicator-chevron {
+    border-color: transparent #0F52BA #0F52BA transparent;
+}
+.darkblue-skin .nav-dropdown>.focus>a .submenu-indicator-chevron,
+.darkblue-skin .nav-dropdown>li:hover>a .submenu-indicator-chevron {
+    border-color: transparent #0F52BA #0F52BA transparent
+}
+.darkblue-skin .btn-group .btn-secondary .nav-link.active, .darkblue-skin .btn-group .btn-secondary .nav-link:hover, .darkblue-skin .btn-group .btn-secondary .nav-link:focus {
+    background-color: #0F52BA !important;
+}
+.darkblue-skin .btn-group .btn-secondary .nav-link.active, .darkblue-skin .btn-group .btn-secondary .nav-link:hover, .darkblue-skin .btn-group .btn-secondary .nav-link:focus {
+    background-color: #0F52BA !important;
+}
+.darkblue-skin .nav-dropdown>.focus>a, .darkblue-skin .nav-dropdown>li:hover>a {
+    color: #0F52BA;
+}
+.darkblue-skin .nav-menu.nav-menu-social>li.add-listing a {
+    color: #ffffff !important;
+}
+.darkblue-skin li.login-attri.theme-log a {
+    box-shadow:0 8px 5px rgba(15, 82, 186, 0.2);
+	-webkit-box-shadow:0 8px 5px rgba(15, 82, 186, 0.2);
+}
+.darkblue-skin .btn.btn-theme-light, .darkblue-skin .theme-bg-light{
+	background:rgba(15, 82, 186, 0.1);
+}
+/*-------------- Ocean Green Color Option --------------------*/
+.oceangreen-skin .theme-bg,.oceangreen-skin .property_search_filter label:hover, .oceangreen-skin .property_search_filter label.active,
+.oceangreen-skin li.login-attri.theme-log a,
+.oceangreen-skin .range-slider .ui-slider .ui-slider-handle,
+.oceangreen-skin .range-slider .ui-widget-header,
+.oceangreen-skin .packages_bottombody .btn-pricing:hover, .oceangreen-skin .packages_bottombody .btn-pricing:focus
+.oceangreen-skin .select2-container--default .select2-results__option--highlighted[aria-selected],
+.oceangreen-skin .pagination li:first-child a,
+.oceangreen-skin .btn.btn-theme,
+.oceangreen-skin .btn.btn-theme:hover, .oceangreen-skin .btn.btn-theme:focus,
+.oceangreen-skin .btn.search-btn,
+.oceangreen-skin .btn-theme-2:hover, .oceangreen-skin .btn-theme-2:focus,
+.oceangreen-skin .btn-outline-theme:hover, .oceangreen-skin .btn-outline-theme:focus,
+.oceangreen-skin .btn.search-btn,
+.oceangreen-skin .simple-search-wrap .pk-input-group .pk-subscribe-submit,
+.oceangreen-skin .btn.search-btn-outline:hover, .oceangreen-skin .btn.search-btn-outline:focus,
+.oceangreen-skin .single_property_style.property-1 .listing-detail-btn .more-btn,
+.oceangreen-skin .home-slider-desc .read-more,
+.oceangreen-skin .nav-tabs .nav-item.show .nav-link, .oceangreen-skin .nav-tabs .nav-link.active,
+.oceangreen-skin .checkbox-custom:checked + .checkbox-custom-label:before,
+.oceangreen-skin .radio-custom:checked + .radio-custom-label:before,
+.oceangreen-skin .btn.pop-login,
+.oceangreen-skin .single_widgets.widget_search form button,
+.oceangreen-skin .single_widgets.widget_tags ul li a:hover, .oceangreen-skin .single_widgets.widget_tags ul li a:focus,
+.oceangreen-skin .pagination>.active>a, .oceangreen-skin .pagination>.active>a:focus, .oceangreen-skin .pagination>.active>a:hover, .oceangreen-skin .pagination>.active>span, .oceangreen-skin .pagination>.active>span:focus, .oceangreen-skin .pagination>.active>span:hover, .oceangreen-skin .pagination>li>a:focus, .oceangreen-skin .pagination>li>a:hover{
+	background-color:#023f54;
+	background:#023f54;
+}
+ 
+.oceangreen-skin a.link:hover, .oceangreen-skin a.link:focus, .oceangreen-skin a:hover, a:focus,
+.oceangreen-skin .theme-cl,
+.oceangreen-skin .btn.btn-theme-light,
+.oceangreen-skin .bl-continue,
+.oceangreen-skin .header-dark-transparent.header-fixed .attributes li.submit-attri a,
+.oceangreen-skin nav .menu li a.active,
+.oceangreen-skin nav .menu li.dropdown.open > a,
+.oceangreen-skin nav .menu .mg-menu li a i, .oceangreen-skin nav .menu li a:hover,
+.oceangreen-skin .recommended .pr-value,
+.oceangreen-skin .btn-outline-theme,
+.oceangreen-skin .attributes li.submit-attri.theme-log a,
+.oceangreen-skin .btn.search-btn-outline,
+.oceangreen-skin .dw-proprty-info li,
+.oceangreen-skin .ps-trep .ps-type,
+.oceangreen-skin .dash_user_menues ul li.active a,
+.oceangreen-skin span.mod-close,
+.oceangreen-skin .blog-page .article_detail_wrapss blockquote .icon,
+.oceangreen-skin .single_article_pagination .article_pagination_center_grid a,
+.oceangreen-skin .blog-page .article_detail_wrapss .comment-area .all-comments article .comment-details .comment-meta .comment-left-meta .comment-date,
+.oceangreen-skin .cn-info-icon i, .oceangreen-skin .client-info h5,
+.oceangreen-skin .listing-card-info-price{
+	color:#023f54;
+}
+
+.oceangreen-skin .pagination>.active>a, .oceangreen-skin .pagination>.active>a:focus, .oceangreen-skin .pagination>.active>a:hover, .oceangreen-skin .pagination>.active>span, .oceangreen-skin .pagination>.active>span:focus, .oceangreen-skin .pagination>.active>span:hover, .oceangreen-skin .pagination>li>a:focus, .oceangreen-skin .pagination>li>a:hover,
+.oceangreen-skin .pagination li:first-child a,
+.oceangreen-skin .range-slider .ui-slider .ui-slider-handle,
+.oceangreen-skin .attributes li.submit-attri.theme-log a,
+.oceangreen-skin .header-dark-transparent.header-fixed .attributes li.submit-attri a,
+.oceangreen-skin .btn.btn-theme,
+.oceangreen-skin .btn-theme-2:hover, .oceangreen-skin .btn-theme-2:focus,
+.oceangreen-skin .btn.btn-theme:hover, .oceangreen-skin .btn.btn-theme:focus,
+.oceangreen-skin .btn-outline-theme:hover, .oceangreen-skin .btn-outline-theme:focus,
+.oceangreen-skin .btn-outline-theme,
+.oceangreen-skin .simple-search-wrap .pk-input-group .pk-subscribe-submit,
+.oceangreen-skin .btn.search-btn-outline,
+.oceangreen-skin .btn.search-btn-outline:hover, .oceangreen-skin .btn.search-btn-outline:focus,
+.oceangreen-skin .single_property_style.property-1 .listing-detail-btn .more-btn,
+.oceangreen-skin .nav-tabs .nav-item.show .nav-link, .oceangreen-skin .nav-tabs .nav-link.active,
+.oceangreen-skin .btn.pop-login,
+.oceangreen-skin .single_widgets.widget_tags ul li a:hover, .oceangreen-skin .single_widgets.widget_tags ul li a:focus{
+	border-color:#023f54;
+}
+
+.oceangreen-skin .nav-menu>.active>a, .oceangreen-skin .nav-menu>.focus>a, .oceangreen-skin .nav-menu>li:hover>a {
+    color: #023f54 !important;
+}
+.oceangreen-skin .nav-menu>.active>a .submenu-indicator-chevron, .oceangreen-skin .nav-menu>.focus>a .submenu-indicator-chevron, .oceangreen-skin .nav-menu>li:hover>a .submenu-indicator-chevron {
+    border-color: transparent #023f54 #023f54 transparent;
+}
+.oceangreen-skin .nav-dropdown>.focus>a .submenu-indicator-chevron,
+.oceangreen-skin .nav-dropdown>li:hover>a .submenu-indicator-chevron {
+    border-color: transparent #023f54 #023f54 transparent
+}
+.oceangreen-skin .btn-group .btn-secondary .nav-link.active, .oceangreen-skin .btn-group .btn-secondary .nav-link:hover, .oceangreen-skin .btn-group .btn-secondary .nav-link:focus {
+    background-color: #023f54 !important;
+}
+.oceangreen-skin .btn-group .btn-secondary .nav-link.active, .oceangreen-skin .btn-group .btn-secondary .nav-link:hover, .oceangreen-skin .btn-group .btn-secondary .nav-link:focus {
+    background-color: #023f54 !important;
+}
+.oceangreen-skin .nav-dropdown>.focus>a, .oceangreen-skin .nav-dropdown>li:hover>a {
+    color: #023f54;
+}
+.oceangreen-skin .nav-menu.nav-menu-social>li.add-listing a {
+    color: #ffffff !important;
+}
+.oceangreen-skin li.login-attri.theme-log a {
+    box-shadow:0 8px 5px rgba(0, 168, 119, 0.2);
+	-webkit-box-shadow:0 8px 5px rgba(0, 168, 119, 0.2);
+}
+
+.oceangreen-skin .btn.btn-theme-light, .oceangreen-skin .theme-bg-light{
+	background:rgba(0, 168, 119, 0.1);
+}
+
+/*-------------- Purple Color Option --------------------*/
+.purple-skin .theme-bg,.purple-skin .property_search_filter label:hover, .purple-skin .property_search_filter label.active,
+.purple-skin li.login-attri.theme-log a,
+.purple-skin .range-slider .ui-slider .ui-slider-handle,
+.purple-skin .range-slider .ui-widget-header,
+.purple-skin .packages_bottombody .btn-pricing:hover, .purple-skin .packages_bottombody .btn-pricing:focus
+.purple-skin .select2-container--default .select2-results__option--highlighted[aria-selected],
+.purple-skin .pagination li:first-child a,
+.purple-skin .btn.btn-theme,
+.purple-skin .btn.btn-theme:hover, .purple-skin .btn.btn-theme:focus,
+.purple-skin .btn.search-btn,
+.purple-skin .btn-theme-2:hover, .purple-skin .btn-theme-2:focus,
+.purple-skin .btn-outline-theme:hover, .purple-skin .btn-outline-theme:focus,
+.purple-skin .btn.search-btn,
+.purple-skin .simple-search-wrap .pk-input-group .pk-subscribe-submit,
+.purple-skin .btn.search-btn-outline:hover, .purple-skin .btn.search-btn-outline:focus,
+.purple-skin .single_property_style.property-1 .listing-detail-btn .more-btn,
+.purple-skin .home-slider-desc .read-more,
+.purple-skin .nav-tabs .nav-item.show .nav-link, .purple-skin .nav-tabs .nav-link.active,
+.purple-skin .checkbox-custom:checked + .checkbox-custom-label:before,
+.purple-skin .radio-custom:checked + .radio-custom-label:before,
+.purple-skin .btn.pop-login,
+.purple-skin .single_widgets.widget_search form button,
+.purple-skin .single_widgets.widget_tags ul li a:hover, .purple-skin .single_widgets.widget_tags ul li a:focus,
+.purple-skin .pagination>.active>a, .purple-skin .pagination>.active>a:focus, .purple-skin .pagination>.active>a:hover, .purple-skin .pagination>.active>span, .purple-skin .pagination>.active>span:focus, .purple-skin .pagination>.active>span:hover, .purple-skin .pagination>li>a:focus, .purple-skin .pagination>li>a:hover{
+	background-color:#7065ef;
+	background:#7065ef;
+}
+ 
+.purple-skin a.link:hover, .purple-skin a.link:focus, .purple-skin a:hover, a:focus,
+.purple-skin .theme-cl,
+.purple-skin .btn.btn-theme-light,
+.purple-skin .bl-continue,
+.purple-skin .header-dark-transparent.header-fixed .attributes li.submit-attri a,
+.purple-skin nav .menu li a.active,
+.purple-skin nav .menu li.dropdown.open > a,
+.purple-skin nav .menu .mg-menu li a i, .purple-skin nav .menu li a:hover,
+.purple-skin .recommended .pr-value,
+.purple-skin .btn-outline-theme,
+.purple-skin .attributes li.submit-attri.theme-log a,
+.purple-skin .btn.search-btn-outline,
+.purple-skin .dw-proprty-info li,
+.purple-skin .ps-trep .ps-type,
+.purple-skin .dash_user_menues ul li.active a,
+.purple-skin span.mod-close,
+.purple-skin .blog-page .article_detail_wrapss blockquote .icon,
+.purple-skin .single_article_pagination .article_pagination_center_grid a,
+.purple-skin .blog-page .article_detail_wrapss .comment-area .all-comments article .comment-details .comment-meta .comment-left-meta .comment-date,
+.purple-skin .cn-info-icon i, .purple-skin .client-info h5,
+.purple-skin .listing-card-info-price{
+	color:#7065ef;
+}
+
+.purple-skin .pagination>.active>a, .purple-skin .pagination>.active>a:focus, .purple-skin .pagination>.active>a:hover, .purple-skin .pagination>.active>span, .purple-skin .pagination>.active>span:focus, .purple-skin .pagination>.active>span:hover, .purple-skin .pagination>li>a:focus, .purple-skin .pagination>li>a:hover,
+.purple-skin .pagination li:first-child a,
+.purple-skin .range-slider .ui-slider .ui-slider-handle,
+.purple-skin .attributes li.submit-attri.theme-log a,
+.purple-skin .header-dark-transparent.header-fixed .attributes li.submit-attri a,
+.purple-skin .btn.btn-theme,
+.purple-skin .btn-theme-2:hover, .purple-skin .btn-theme-2:focus,
+.purple-skin .btn.btn-theme:hover, .purple-skin .btn.btn-theme:focus,
+.purple-skin .btn-outline-theme:hover, .purple-skin .btn-outline-theme:focus,
+.purple-skin .btn-outline-theme,
+.purple-skin .simple-search-wrap .pk-input-group .pk-subscribe-submit,
+.purple-skin .btn.search-btn-outline,
+.purple-skin .btn.search-btn-outline:hover, .purple-skin .btn.search-btn-outline:focus,
+.purple-skin .single_property_style.property-1 .listing-detail-btn .more-btn,
+.purple-skin .nav-tabs .nav-item.show .nav-link, .purple-skin .nav-tabs .nav-link.active,
+.purple-skin .btn.pop-login,
+.purple-skin .single_widgets.widget_tags ul li a:hover, .purple-skin .single_widgets.widget_tags ul li a:focus{
+	border-color:#7065ef;
+}
+.purple-skin .nav-menu>.active>a, .purple-skin .nav-menu>.focus>a, .purple-skin .nav-menu>li:hover>a {
+    color: #7065ef !important;
+}
+.purple-skin .nav-menu>.active>a .submenu-indicator-chevron, .purple-skin .nav-menu>.focus>a .submenu-indicator-chevron, .purple-skin .nav-menu>li:hover>a .submenu-indicator-chevron {
+    border-color: transparent #7065ef #7065ef transparent;
+}
+.purple-skin .nav-dropdown>.focus>a .submenu-indicator-chevron,
+.purple-skin .nav-dropdown>li:hover>a .submenu-indicator-chevron {
+    border-color: transparent #7065ef #7065ef transparent
+}
+.purple-skin .btn-group .btn-secondary .nav-link.active, .purple-skin .btn-group .btn-secondary .nav-link:hover, .purple-skin .btn-group .btn-secondary .nav-link:focus {
+    background-color: #7065ef !important;
+}
+.purple-skin .btn-group .btn-secondary .nav-link.active, .purple-skin .btn-group .btn-secondary .nav-link:hover, .purple-skin .btn-group .btn-secondary .nav-link:focus {
+    background-color: #7065ef !important;
+}
+.purple-skin .nav-dropdown>.focus>a, .purple-skin .nav-dropdown>li:hover>a {
+    color: #7065ef;
+}
+.purple-skin .nav-menu.nav-menu-social>li.add-listing a {
+    color: #ffffff !important;
+}
+.purple-skin li.login-attri.theme-log a {
+    box-shadow:0 8px 5px rgba(112, 101, 239, 0.2);
+	-webkit-box-shadow:0 8px 5px rgba(112, 101, 239, 0.2);
+}
+
+.purple-skin .btn.btn-theme-light, .purple-skin .theme-bg-light{
+	background:rgba(112, 101, 239, 0.1);
+}
+
+/*-------------- Good Red Color Option --------------------*/
+.goodred-skin .theme-bg,.goodred-skin .property_search_filter label:hover, .goodred-skin .property_search_filter label.active,
+.goodred-skin li.login-attri.theme-log a,
+.goodred-skin .range-slider .ui-slider .ui-slider-handle,
+.goodred-skin .range-slider .ui-widget-header,
+.goodred-skin .packages_bottombody .btn-pricing:hover, .goodred-skin .packages_bottombody .btn-pricing:focus
+.goodred-skin .select2-container--default .select2-results__option--highlighted[aria-selected],
+.goodred-skin .pagination li:first-child a,
+.goodred-skin .btn.btn-theme,
+.goodred-skin .btn.btn-theme:hover, .goodred-skin .btn.btn-theme:focus,
+.goodred-skin .btn.search-btn,
+.goodred-skin .btn-theme-2:hover, .goodred-skin .btn-theme-2:focus,
+.goodred-skin .btn-outline-theme:hover, .goodred-skin .btn-outline-theme:focus,
+.goodred-skin .btn.search-btn,
+.goodred-skin .simple-search-wrap .pk-input-group .pk-subscribe-submit,
+.goodred-skin .btn.search-btn-outline:hover, .goodred-skin .btn.search-btn-outline:focus,
+.goodred-skin .single_property_style.property-1 .listing-detail-btn .more-btn,
+.goodred-skin .home-slider-desc .read-more,
+.goodred-skin .nav-tabs .nav-item.show .nav-link, .goodred-skin .nav-tabs .nav-link.active,
+.goodred-skin .checkbox-custom:checked + .checkbox-custom-label:before,
+.goodred-skin .radio-custom:checked + .radio-custom-label:before,
+.goodred-skin .btn.pop-login,
+.goodred-skin .single_widgets.widget_search form button,
+.goodred-skin .single_widgets.widget_tags ul li a:hover, .goodred-skin .single_widgets.widget_tags ul li a:focus,
+.goodred-skin .pagination>.active>a, .goodred-skin .pagination>.active>a:focus, .goodred-skin .pagination>.active>a:hover, .goodred-skin .pagination>.active>span, .goodred-skin .pagination>.active>span:focus, .goodred-skin .pagination>.active>span:hover, .goodred-skin .pagination>li>a:focus, .goodred-skin .pagination>li>a:hover{
+	background-color:#f40c43;
+	background:#f40c43;
+}
+ 
+.goodred-skin a.link:hover, .goodred-skin a.link:focus, .goodred-skin a:hover, a:focus,
+.goodred-skin .theme-cl,
+.goodred-skin .btn.btn-theme-light,
+.goodred-skin .bl-continue,
+.goodred-skin .header-dark-transparent.header-fixed .attributes li.submit-attri a,
+.goodred-skin nav .menu li a.active,
+.goodred-skin nav .menu li.dropdown.open > a,
+.goodred-skin nav .menu .mg-menu li a i, .goodred-skin nav .menu li a:hover,
+.goodred-skin .recommended .pr-value,
+.goodred-skin .btn-outline-theme,
+.goodred-skin .attributes li.submit-attri.theme-log a,
+.goodred-skin .btn.search-btn-outline,
+.goodred-skin .dw-proprty-info li,
+.goodred-skin .ps-trep .ps-type,
+.goodred-skin .dash_user_menues ul li.active a,
+.goodred-skin span.mod-close,
+.goodred-skin .blog-page .article_detail_wrapss blockquote .icon,
+.goodred-skin .single_article_pagination .article_pagination_center_grid a,
+.goodred-skin .blog-page .article_detail_wrapss .comment-area .all-comments article .comment-details .comment-meta .comment-left-meta .comment-date,
+.goodred-skin .cn-info-icon i, .goodred-skin .client-info h5,
+.goodred-skin .listing-card-info-price{
+	color:#f40c43;
+}
+
+.goodred-skin .pagination>.active>a, .goodred-skin .pagination>.active>a:focus, .goodred-skin .pagination>.active>a:hover, .goodred-skin .pagination>.active>span, .goodred-skin .pagination>.active>span:focus, .goodred-skin .pagination>.active>span:hover, .goodred-skin .pagination>li>a:focus, .goodred-skin .pagination>li>a:hover,
+.goodred-skin .pagination li:first-child a,
+.goodred-skin .range-slider .ui-slider .ui-slider-handle,
+.goodred-skin .attributes li.submit-attri.theme-log a,
+.goodred-skin .header-dark-transparent.header-fixed .attributes li.submit-attri a,
+.goodred-skin .btn.btn-theme,
+.goodred-skin .btn-theme-2:hover, .goodred-skin .btn-theme-2:focus,
+.goodred-skin .btn.btn-theme:hover, .goodred-skin .btn.btn-theme:focus,
+.goodred-skin .btn-outline-theme:hover, .goodred-skin .btn-outline-theme:focus,
+.goodred-skin .btn-outline-theme,
+.goodred-skin .simple-search-wrap .pk-input-group .pk-subscribe-submit,
+.goodred-skin .btn.search-btn-outline,
+.goodred-skin .btn.search-btn-outline:hover, .goodred-skin .btn.search-btn-outline:focus,
+.goodred-skin .single_property_style.property-1 .listing-detail-btn .more-btn,
+.goodred-skin .nav-tabs .nav-item.show .nav-link, .goodred-skin .nav-tabs .nav-link.active,
+.goodred-skin .btn.pop-login,
+.goodred-skin .single_widgets.widget_tags ul li a:hover, .goodred-skin .single_widgets.widget_tags ul li a:focus{
+	border-color:#f40c43;
+}
+.goodred-skin .nav-menu>.active>a, .goodred-skin .nav-menu>.focus>a, .goodred-skin .nav-menu>li:hover>a {
+    color: #f40c43 !important;
+}
+.goodred-skin .nav-menu>.active>a .submenu-indicator-chevron, .goodred-skin .nav-menu>.focus>a .submenu-indicator-chevron, .goodred-skin .nav-menu>li:hover>a .submenu-indicator-chevron {
+    border-color: transparent #f40c43 #f40c43 transparent;
+}
+.goodred-skin .nav-dropdown>.focus>a .submenu-indicator-chevron,
+.goodred-skin .nav-dropdown>li:hover>a .submenu-indicator-chevron {
+    border-color: transparent #f40c43 #f40c43 transparent
+}
+.goodred-skin .btn-group .btn-secondary .nav-link.active, .goodred-skin .btn-group .btn-secondary .nav-link:hover, .goodred-skin .btn-group .btn-secondary .nav-link:focus {
+    background-color: #f40c43 !important;
+}
+.goodred-skin .btn-group .btn-secondary .nav-link.active, .goodred-skin .btn-group .btn-secondary .nav-link:hover, .goodred-skin .btn-group .btn-secondary .nav-link:focus {
+    background-color: #f40c43 !important;
+}
+.goodred-skin .nav-dropdown>.focus>a, .goodred-skin .nav-dropdown>li:hover>a {
+    color: #f40c43;
+}
+.goodred-skin .nav-menu.nav-menu-social>li.add-listing a {
+    color: #ffffff !important;
+}
+.goodred-skin li.login-attri.theme-log a {
+    box-shadow:0 8px 5px rgba(244, 12, 67,0.2);
+	-webkit-box-shadow:0 8px 5px rgba(244, 12, 67, 0.2);
+}
+
+.goodred-skin .btn.btn-theme-light, .goodred-skin .theme-bg-light{
+	background:rgba(244, 12, 67,0.1);
+}
+
+/*-------------- Good Green Color Option --------------------*/
+.goodgreen-skin .theme-bg,.goodgreen-skin .property_search_filter label:hover, .goodgreen-skin .property_search_filter label.active,
+.goodgreen-skin li.login-attri.theme-log a,
+.goodgreen-skin .range-slider .ui-slider .ui-slider-handle,
+.goodgreen-skin .range-slider .ui-widget-header,
+.goodgreen-skin .packages_bottombody .btn-pricing:hover, .goodgreen-skin .packages_bottombody .btn-pricing:focus
+.goodgreen-skin .select2-container--default .select2-results__option--highlighted[aria-selected],
+.goodgreen-skin .pagination li:first-child a,
+.goodgreen-skin .btn.btn-theme,
+.goodgreen-skin .btn.btn-theme:hover, .goodgreen-skin .btn.btn-theme:focus,
+.goodgreen-skin .btn.search-btn,
+.goodgreen-skin .btn-theme-2:hover, .goodgreen-skin .btn-theme-2:focus,
+.goodgreen-skin .btn-outline-theme:hover, .goodgreen-skin .btn-outline-theme:focus,
+.goodgreen-skin .btn.search-btn,
+.goodgreen-skin .simple-search-wrap .pk-input-group .pk-subscribe-submit,
+.goodgreen-skin .btn.search-btn-outline:hover, .goodgreen-skin .btn.search-btn-outline:focus,
+.goodgreen-skin .single_property_style.property-1 .listing-detail-btn .more-btn,
+.goodgreen-skin .home-slider-desc .read-more,
+.goodgreen-skin .nav-tabs .nav-item.show .nav-link, .goodgreen-skin .nav-tabs .nav-link.active,
+.goodgreen-skin .checkbox-custom:checked + .checkbox-custom-label:before,
+.goodgreen-skin .radio-custom:checked + .radio-custom-label:before,
+.goodgreen-skin .btn.pop-login,
+.goodgreen-skin .single_widgets.widget_search form button,
+.goodgreen-skin .single_widgets.widget_tags ul li a:hover, .goodgreen-skin .single_widgets.widget_tags ul li a:focus,
+.goodgreen-skin .pagination>.active>a, .goodgreen-skin .pagination>.active>a:focus, .goodgreen-skin .pagination>.active>a:hover, .goodgreen-skin .pagination>.active>span, .goodgreen-skin .pagination>.active>span:focus, .goodgreen-skin .pagination>.active>span:hover, .goodgreen-skin .pagination>li>a:focus, .goodgreen-skin .pagination>li>a:hover{
+	background-color:#19b521;
+	background:#19b521;
+}
+ 
+.goodgreen-skin a.link:hover, .goodgreen-skin a.link:focus, .goodgreen-skin a:hover, a:focus,
+.goodgreen-skin .theme-cl,
+.goodgreen-skin .btn.btn-theme-light,
+.goodgreen-skin .bl-continue,
+.goodgreen-skin .header-dark-transparent.header-fixed .attributes li.submit-attri a,
+.goodgreen-skin nav .menu li a.active,
+.goodgreen-skin nav .menu li.dropdown.open > a,
+.goodgreen-skin nav .menu .mg-menu li a i, .goodgreen-skin nav .menu li a:hover,
+.goodgreen-skin .recommended .pr-value,
+.goodgreen-skin .btn-outline-theme,
+.goodgreen-skin .attributes li.submit-attri.theme-log a,
+.goodgreen-skin .btn.search-btn-outline,
+.goodgreen-skin .dw-proprty-info li,
+.goodgreen-skin .ps-trep .ps-type,
+.goodgreen-skin .dash_user_menues ul li.active a,
+.goodgreen-skin span.mod-close,
+.goodgreen-skin .blog-page .article_detail_wrapss blockquote .icon,
+.goodgreen-skin .single_article_pagination .article_pagination_center_grid a,
+.goodgreen-skin .blog-page .article_detail_wrapss .comment-area .all-comments article .comment-details .comment-meta .comment-left-meta .comment-date,
+.goodgreen-skin .cn-info-icon i, .goodgreen-skin .client-info h5,
+.goodgreen-skin .listing-card-info-price{
+	color:#19b521;
+}
+
+.goodgreen-skin .pagination>.active>a, .goodgreen-skin .pagination>.active>a:focus, .goodgreen-skin .pagination>.active>a:hover, .goodgreen-skin .pagination>.active>span, .goodgreen-skin .pagination>.active>span:focus, .goodgreen-skin .pagination>.active>span:hover, .goodgreen-skin .pagination>li>a:focus, .goodgreen-skin .pagination>li>a:hover,
+.goodgreen-skin .pagination li:first-child a,
+.goodgreen-skin .range-slider .ui-slider .ui-slider-handle,
+.goodgreen-skin .attributes li.submit-attri.theme-log a,
+.goodgreen-skin .header-dark-transparent.header-fixed .attributes li.submit-attri a,
+.goodgreen-skin .btn.btn-theme,
+.goodgreen-skin .btn-theme-2:hover, .goodgreen-skin .btn-theme-2:focus,
+.goodgreen-skin .btn.btn-theme:hover, .goodgreen-skin .btn.btn-theme:focus,
+.goodgreen-skin .btn-outline-theme:hover, .goodgreen-skin .btn-outline-theme:focus,
+.goodgreen-skin .btn-outline-theme,
+.goodgreen-skin .simple-search-wrap .pk-input-group .pk-subscribe-submit,
+.goodgreen-skin .btn.search-btn-outline,
+.goodgreen-skin .btn.search-btn-outline:hover, .goodgreen-skin .btn.search-btn-outline:focus,
+.goodgreen-skin .single_property_style.property-1 .listing-detail-btn .more-btn,
+.goodgreen-skin .nav-tabs .nav-item.show .nav-link, .goodgreen-skin .nav-tabs .nav-link.active,
+.goodgreen-skin .btn.pop-login,
+.goodgreen-skin .single_widgets.widget_tags ul li a:hover, .goodgreen-skin .single_widgets.widget_tags ul li a:focus{
+	border-color:#19b521;
+}
+.goodgreen-skin .nav-menu>.active>a, .goodgreen-skin .nav-menu>.focus>a, .goodgreen-skin .nav-menu>li:hover>a {
+    color: #19b521 !important;
+}
+.goodgreen-skin .nav-menu>.active>a .submenu-indicator-chevron, .goodgreen-skin .nav-menu>.focus>a .submenu-indicator-chevron, .goodgreen-skin .nav-menu>li:hover>a .submenu-indicator-chevron {
+    border-color: transparent #19b521 #19b521 transparent;
+}
+.goodgreen-skin .nav-dropdown>.focus>a .submenu-indicator-chevron,
+.goodgreen-skin .nav-dropdown>li:hover>a .submenu-indicator-chevron {
+    border-color: transparent #19b521 #19b521 transparent
+}
+.goodgreen-skin .btn-group .btn-secondary .nav-link.active, .goodgreen-skin .btn-group .btn-secondary .nav-link:hover, .goodgreen-skin .btn-group .btn-secondary .nav-link:focus {
+    background-color: #19b521 !important;
+}
+.goodgreen-skin .btn-group .btn-secondary .nav-link.active, .goodgreen-skin .btn-group .btn-secondary .nav-link:hover, .goodgreen-skin .btn-group .btn-secondary .nav-link:focus {
+    background-color: #19b521 !important;
+}
+.goodgreen-skin .nav-dropdown>.focus>a, .goodgreen-skin .nav-dropdown>li:hover>a {
+    color: #19b521;
+}
+.goodgreen-skin .nav-menu.nav-menu-social>li.add-listing a {
+    color: #ffffff !important;
+}
+.goodgreen-skin li.login-attri.theme-log a {
+    box-shadow:0 8px 5px rgba(25, 181, 33, 0.2);
+	-webkit-box-shadow:0 8px 5px rgba(25, 181, 33, 0.2);
+}
+
+.goodgreen-skin .btn.btn-theme-light, .goodgreen-skin .theme-bg-light{
+	background:rgba(25, 181, 33, 0.1);
+}
+
+/*-------------- Blue 2 Color Option --------------------*/
+.blue2-skin .theme-bg,.blue2-skin .property_search_filter label:hover, .blue2-skin .property_search_filter label.active,
+.blue2-skin li.login-attri.theme-log a,
+.blue2-skin .range-slider .ui-slider .ui-slider-handle,
+.blue2-skin .range-slider .ui-widget-header,
+.blue2-skin .packages_bottombody .btn-pricing:hover, .blue2-skin .packages_bottombody .btn-pricing:focus
+.blue2-skin .select2-container--default .select2-results__option--highlighted[aria-selected],
+.blue2-skin .pagination li:first-child a,
+.blue2-skin .btn.btn-theme,
+.blue2-skin .btn.btn-theme:hover, .blue2-skin .btn.btn-theme:focus,
+.blue2-skin .btn.search-btn,
+.blue2-skin .btn-theme-2:hover, .blue2-skin .btn-theme-2:focus,
+.blue2-skin .btn-outline-theme:hover, .blue2-skin .btn-outline-theme:focus,
+.blue2-skin .btn.search-btn,
+.blue2-skin .simple-search-wrap .pk-input-group .pk-subscribe-submit,
+.blue2-skin .btn.search-btn-outline:hover, .blue2-skin .btn.search-btn-outline:focus,
+.blue2-skin .single_property_style.property-1 .listing-detail-btn .more-btn,
+.blue2-skin .home-slider-desc .read-more,
+.blue2-skin .nav-tabs .nav-item.show .nav-link, .blue2-skin .nav-tabs .nav-link.active,
+.blue2-skin .checkbox-custom:checked + .checkbox-custom-label:before,
+.blue2-skin .radio-custom:checked + .radio-custom-label:before,
+.blue2-skin .btn.pop-login,
+.blue2-skin .single_widgets.widget_search form button,
+.blue2-skin .single_widgets.widget_tags ul li a:hover, .blue2-skin .single_widgets.widget_tags ul li a:focus,
+.blue2-skin .pagination>.active>a, .blue2-skin .pagination>.active>a:focus, .blue2-skin .pagination>.active>a:hover, .blue2-skin .pagination>.active>span, .blue2-skin .pagination>.active>span:focus, .blue2-skin .pagination>.active>span:hover, .blue2-skin .pagination>li>a:focus, .blue2-skin .pagination>li>a:hover{
+	background-color:#0176ff;
+	background:#0176ff;
+}
+ 
+.blue2-skin a.link:hover, .blue2-skin a.link:focus, .blue2-skin a:hover, a:focus,
+.blue2-skin .theme-cl,
+.blue2-skin .btn.btn-theme-light,
+.blue2-skin .bl-continue,
+.blue2-skin .header-dark-transparent.header-fixed .attributes li.submit-attri a,
+.blue2-skin nav .menu li a.active,
+.blue2-skin nav .menu li.dropdown.open > a,
+.blue2-skin nav .menu .mg-menu li a i, .blue2-skin nav .menu li a:hover,
+.blue2-skin .recommended .pr-value,
+.blue2-skin .btn-outline-theme,
+.blue2-skin .attributes li.submit-attri.theme-log a,
+.blue2-skin .btn.search-btn-outline,
+.blue2-skin .dw-proprty-info li,
+.blue2-skin .ps-trep .ps-type,
+.blue2-skin .dash_user_menues ul li.active a,
+.blue2-skin span.mod-close,
+.blue2-skin .blog-page .article_detail_wrapss blockquote .icon,
+.blue2-skin .single_article_pagination .article_pagination_center_grid a,
+.blue2-skin .blog-page .article_detail_wrapss .comment-area .all-comments article .comment-details .comment-meta .comment-left-meta .comment-date,
+.blue2-skin .cn-info-icon i, .blue2-skin .client-info h5,
+.blue2-skin .listing-card-info-price{
+	color:#0176ff;
+}
+
+.blue2-skin .pagination>.active>a, .blue2-skin .pagination>.active>a:focus, .blue2-skin .pagination>.active>a:hover, .blue2-skin .pagination>.active>span, .blue2-skin .pagination>.active>span:focus, .blue2-skin .pagination>.active>span:hover, .blue2-skin .pagination>li>a:focus, .blue2-skin .pagination>li>a:hover,
+.blue2-skin .pagination li:first-child a,
+.blue2-skin .range-slider .ui-slider .ui-slider-handle,
+.blue2-skin .attributes li.submit-attri.theme-log a,
+.blue2-skin .header-dark-transparent.header-fixed .attributes li.submit-attri a,
+.blue2-skin .btn.btn-theme,
+.blue2-skin .btn-theme-2:hover, .blue2-skin .btn-theme-2:focus,
+.blue2-skin .btn.btn-theme:hover, .blue2-skin .btn.btn-theme:focus,
+.blue2-skin .btn-outline-theme:hover, .blue2-skin .btn-outline-theme:focus,
+.blue2-skin .btn-outline-theme,
+.blue2-skin .simple-search-wrap .pk-input-group .pk-subscribe-submit,
+.blue2-skin .btn.search-btn-outline,
+.blue2-skin .btn.search-btn-outline:hover, .blue2-skin .btn.search-btn-outline:focus,
+.blue2-skin .single_property_style.property-1 .listing-detail-btn .more-btn,
+.blue2-skin .nav-tabs .nav-item.show .nav-link, .blue2-skin .nav-tabs .nav-link.active,
+.blue2-skin .btn.pop-login,
+.blue2-skin .single_widgets.widget_tags ul li a:hover, .blue2-skin .single_widgets.widget_tags ul li a:focus{
+	border-color:#0176ff;
+}
+
+.blue2-skin li.login-attri.theme-log a {
+    box-shadow:0 8px 5px rgba(1, 118, 255,0 .2);
+	-webkit-box-shadow:0 8px 5px rgba(1, 118, 255, 0.2);
+}
+
+.blue2-skin .btn.btn-theme-light, .blue2-skin .theme-bg-light{
+	background:rgba(1, 118, 255,0.1);
+}

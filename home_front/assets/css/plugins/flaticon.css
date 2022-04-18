@@ -1,0 +1,116 @@
+	/*
+  	Flaticon icon font: Flaticon
+  	Creation date: 22/06/2016 15:07
+  	*/
+
+@font-face {
+  font-family: "Flaticon";
+  src: url("../fonts/Flaticon.eot");
+  src: url("../fonts/Flaticon.eot?#iefix") format("embedded-opentype"),
+       url("../fonts/Flaticon.woff") format("woff"),
+       url("../fonts/Flaticon.ttf") format("truetype"),
+       url("../fonts/Flaticon.svg#Flaticon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Flaticon";
+  src: url("../fonts/houses.eot");
+  src: url("../fonts/houses.eot?#iefix") format("embedded-opentype"),
+       url("../fonts/houses.woff") format("woff"),
+       url("../fonts/houses.ttf") format("truetype"),
+       url("../fonts/houses.svg#Flaticon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: "Flaticon";
+    src: url("../fonts/Flaticon.svg#Flaticon") format("svg");
+  }
+}
+
+[class^="flaticon-"]:before, [class*=" flaticon-"]:before,
+[class^="flaticon-"]:after, [class*=" flaticon-"]:after {   
+  font-family: Flaticon;
+font-style: normal;
+}
+
+.flaticon-ecological-house-real-estate-business-symbol:before { content: "\f100"; }
+.flaticon-favorite-home-symbol-of-real-estate:before { content: "\f101"; }
+.flaticon-for-rent-signal:before { content: "\f102"; }
+.flaticon-for-sale-real-estate-hanging-signal:before { content: "\f103"; }
+.flaticon-home-shape:before { content: "\f104"; }
+.flaticon-home-with-a-heart:before { content: "\f105"; }
+.flaticon-house:before { content: "\f106"; }
+.flaticon-house-1:before { content: "\f107"; }
+.flaticon-house-at-night:before { content: "\f108"; }
+.flaticon-house-with-down-arrow:before { content: "\f109"; }
+.flaticon-percentage-symbol-on-a-house-for-real-estate-business:before { content: "\f10a"; }
+.flaticon-real-estate-business-symbol-of-a-house-with-owner-on-a-badge:before { content: "\f10b"; }
+.flaticon-real-estate-commercial-symbol-of-a-house-with-dollar-sign:before { content: "\f10c"; }
+.flaticon-real-estate-deal-symbol:before { content: "\f10d"; }
+.flaticon-real-estate-house-property-for-business:before { content: "\f10e"; }
+.flaticon-real-estate-house-proposal-for-a-bigger-size:before { content: "\f10f"; }
+.flaticon-real-estate-symbol-of-bigger-house-proposal:before { content: "\f110"; }
+.flaticon-realty-home-symbol:before { content: "\f111"; }
+.flaticon-sold-real-estate-hanging-signal:before { content: "\f112"; }
+.flaticon-thumb-up-real-estate-symbol-on-a-house:before { content: "\f113"; }
+.flaticon-armchair:before { content: "\f100"; }
+.flaticon-armchair-1:before { content: "\f101"; }
+.flaticon-bed:before { content: "\f102"; }
+.flaticon-bed-1:before { content: "\f103"; }
+.flaticon-shower:before { content: "\f123"; }
+
+.flaticon-window-1:before { content: "\f131"; }
+.flaticon-american-house:before { content: "\f100"; }
+.flaticon-apartments:before { content: "\f101"; }
+.flaticon-apartments-1:before { content: "\f102"; }
+.flaticon-apartments-3:before { content: "\f104"; }
+.flaticon-apartments-4:before { content: "\f105"; }
+.flaticon-beach-house:before { content: "\f106"; }
+.flaticon-beach-house-1:before { content: "\f107"; }
+.flaticon-beach-house-2:before { content: "\f108"; }
+.flaticon-bungalow:before { content: "\f109"; }
+.flaticon-bungalow-1:before { content: "\f10a"; }
+.flaticon-cabin:before { content: "\f10b"; }
+.flaticon-cabin-1:before { content: "\f10c"; }
+.flaticon-cabin-2:before { content: "\f10d"; }
+.flaticon-cabin-3:before { content: "\f10e"; }
+.flaticon-caravan:before { content: "\f10f"; }
+.flaticon-caravan-1:before { content: "\f110"; }
+.flaticon-cotagge:before { content: "\f111"; }
+.flaticon-cottage:before { content: "\f112"; }
+.flaticon-cottage-1:before { content: "\f113"; }
+.flaticon-cottage-2:before { content: "\f114"; }
+.flaticon-cottage-3:before { content: "\f115"; }
+.flaticon-house:before { content: "\f116"; }
+.flaticon-house-1:before { content: "\f117"; }
+.flaticon-house-2:before { content: "\f118"; }
+.flaticon-house-3:before { content: "\f119"; }
+.flaticon-house-4:before { content: "\f11a"; }
+.flaticon-house-5:before { content: "\f11b"; }
+.flaticon-house-6:before { content: "\f11c"; }
+.flaticon-ibiza-house:before { content: "\f11d"; }
+.flaticon-ibiza-house-1:before { content: "\f11e"; }
+.flaticon-mobile-home:before { content: "\f11f"; }
+.flaticon-mobile-home-1:before { content: "\f120"; }
+.flaticon-mobile-home-2:before { content: "\f121"; }
+.flaticon-mobile-home-3:before { content: "\f122"; }
+.flaticon-modern-house:before { content: "\f124"; }
+.flaticon-modern-house-1:before { content: "\f125"; }
+.flaticon-modern-house-2:before { content: "\f126"; }
+.flaticon-modern-house-3:before { content: "\f127"; }
+.flaticon-modern-house-4:before { content: "\f128"; }
+.flaticon-palace:before { content: "\f129"; }
+.flaticon-palace-1:before { content: "\f12a"; }
+.flaticon-rural-house:before { content: "\f12b"; }
+.flaticon-rustic-house:before { content: "\f12c"; }
+.flaticon-small-house:before { content: "\f12d"; }
+.flaticon-student-housing:before { content: "\f12e"; }
+.flaticon-student-housing-1:before { content: "\f12f"; }
+.flaticon-tree-house:before { content: "\f130"; }
+.flaticon-tree-house-1:before { content: "\f131"; }

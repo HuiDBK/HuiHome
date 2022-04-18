@@ -1,0 +1,407 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="author" content="Drizvato"/>
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+        <title>房屋租赁系统，一起合租吧！</title>
+
+        <!-- Custom CSS -->
+        <link href="assets/css/styles.css?v=20210423" rel="stylesheet">
+
+        <!-- Custom Color Option -->
+        <link href="assets/css/colors.css" rel="stylesheet">
+
+    </head>
+
+    <body class="yellow-skin">
+
+        <!-- ============================================================== -->
+        <!-- Preloader - style you can find in spinners.css -->
+        <!-- ============================================================== -->
+        <div class="preloader"></div>
+
+        <!-- ============================================================== -->
+        <!-- Main wrapper - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <div id="main-wrapper">
+
+            <!-- ============================================================== -->
+            <!-- Top header  -->
+            <!-- ============================================================== -->
+            <!-- Start Navigation -->
+            <div class="header header-light dark-text">
+                <div class="container">
+                    <nav id="navigation" class="navigation navigation-landscape">
+                        <div class="nav-header">
+                            <a class="nav-brand" href="/">
+                                <img src="assets/img/logo.png" class="logo" alt=""/>
+                            </a>
+                            <div class="nav-toggle"></div>
+                        </div>
+                        <div class="nav-menus-wrapper" style="transition-property: none;">
+                            <ul class="nav-menu">
+
+                                <li><a href="/" style="font-size: 15px;">首页</a></li>
+                                <li><a href="/house?rentType=whole" style="font-size: 15px;">整租</a></li>
+                                <li><a href="/house?rentType=share" style="font-size: 15px;">合租</a></li>
+                                <li><a href="/post" style="font-size: 15px;">求租</a></li>
+                                <li><a href="/news" style="font-size: 15px;">新闻资讯</a></li>
+                                <li><a href="/feedback" style="font-size: 15px;">用户反馈</a></li>
+
+                            </ul>
+
+                            <ul class="nav-menu nav-menu-social align-to-right dhsbrd">
+
+                                        <li>
+                                            <a href="#" data-toggle="modal" id="gotoLogin" data-target="#login" class="text-blue">
+                                                <i class="fas fa-user-circle mr-1"></i><span class="dn-lg">登录</span>
+                                            </a>
+                                        </li>
+                                        <li class="add-listing dark-bg">
+                                            <a href="#" data-toggle="modal" data-target="#signup" class="theme-cl">
+                                                <i class="fas fa-arrow-alt-circle-right mr-1"></i>注册
+                                            </a>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                    </nav>
+                </div>
+            </div>
+            <!-- End Navigation -->
+            <div class="clearfix"></div>
+            <!-- ============================================================== -->
+            <!-- Top header  -->
+            <!-- ============================================================== -->
+<!-- ============================ Page Title Start================================== -->
+<div class="page-title" style="background:#f4f4f4 url(assets/img/inner-banner.jpg);" data-overlay="5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+
+                <div class="breadcrumbs-wrap">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active" aria-current="page">用户反馈</li>
+                    </ol>
+                    <h2 class="breadcrumb-title">快速反馈，联系我们</h2>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ============================ Page Title End ================================== -->
+
+<!-- ============================ Agency List Start ================================== -->
+<section class="gray-simple">
+
+    <div class="container">
+
+        <!-- row Start -->
+        <div class="row">
+
+            <div class="col-lg-8 col-md-7">
+                <div class="property_block_wrap style-2">
+
+                    <div class="property_block_wrap_header no-collapse">
+                        <h4 class="property_block_title">填写你的反馈信息</h4>
+                    </div>
+
+                    <div class="block-body">
+                        <form class="form-simple" id="feedbackForm">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <label>姓名</label>
+                                        <input type="text" name="contactName" class="form-control simple">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <label>电子邮箱</label>
+                                        <input type="email" name="contactEmail" class="form-control simple">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>标题</label>
+                                <input type="text" name="title" class="form-control simple">
+                            </div>
+
+                            <div class="form-group">
+                                <label>内容</label>
+                                <textarea class="form-control simple" name="content"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <button class="btn btn-theme bg-2" type="button" onclick="submitFeedback()">提交</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4 col-md-5">
+
+                <div class="contact-box">
+                    <i class="ti-location-pin"></i>
+                    <h4>公司地址位置</h4>
+                    <p>北京XXXXXX</p>
+                </div>
+
+                <div class="contact-box">
+                    <i class="ti-email"></i>
+                    <h4>联系我们</h4>
+                    <p>contact@abcd.com</p>
+                    <span>400 100 1234</span>
+                </div>
+
+            </div>
+
+        </div>
+        <!-- /row -->
+
+    </div>
+
+</section>
+<!-- ============================ Agency List End ================================== -->
+
+
+<!-- ============================ Footer Start ================================== -->
+<footer class="dark-footer skin-dark-footer style-2" style="padding-top: 0;">
+
+<div class="footer-bottom">
+        <div class="container">
+            <div class="row align-items-center">
+
+                <div class="col-lg-12 col-md-12">
+                    <p class="mb-0">© 2021 Saysky</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- ============================ Footer End ================================== -->
+
+<!-- 登录弹出框 Modal -->
+<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="registermodal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered login-pop-form" role="document">
+        <header class="modal_content_header">
+            <div class="hm_nav">
+                <h3 class="hm_nav_title">登录</h3>
+                <span class="mod-close" data-dismiss="modal" aria-hidden="true"><i class="ti-close"></i></span>
+            </div>
+        </header>
+        <div class="modal-content" id="registermodal">
+            <div class="modal-body">
+                <div class="login-form">
+                    <form id="loginForm">
+
+                        <div class="form-group">
+                            <label>账号</label>
+                            <div class="input-with-icon">
+                                <input type="text" class="form-control" name="userName" placeholder="账号">
+                                <i class="ti-user"></i>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>密码</label>
+                            <div class="input-with-icon">
+                                <input type="password" class="form-control" name="userPass" placeholder="*******">
+                                <i class="ti-unlock"></i>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="button" onclick="submitLogin()" class="btn btn-md full-width pop-login bg-2">登录</button>
+                        </div>
+
+                    </form>
+                </div>
+
+                <div class="text-center">
+                    <p class="mt-3"><i class="ti-user mr-1"></i>忘记密码? <a href="#" data-toggle="modal"  data-target="#forget"class="link">点此重置</a></p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal -->
+
+<!-- 注册 Modal -->
+<div class="modal fade" id="signup" tabindex="-1" role="dialog" aria-labelledby="sign-up" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered login-pop-form" role="document">
+        <header class="modal_content_header">
+            <div class="hm_nav">
+                <h3 class="hm_nav_title">注册</h3>
+                <span class="mod-close" data-dismiss="modal" aria-hidden="true"><i class="ti-close"></i></span>
+            </div>
+        </header>
+        <div class="modal-content" id="sign-up">
+            <div class="modal-body">
+                <div class="login-form">
+                    <form id="registerForm">
+
+                        <div class="row">
+
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <label>姓名</label>
+                                    <div class="input-with-icon">
+                                        <input type="text" name="userDisplayName" class="form-control" placeholder="姓名">
+                                        <i class="ti-user"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <label>电子邮箱</label>
+                                    <div class="input-with-icon">
+                                        <input type="email" name="email" class="form-control" placeholder="电子邮箱，用于重置密码">
+                                        <i class="ti-email"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <label>手机号</label>
+                                    <div class="input-with-icon">
+                                        <input type="text" name="phone" class="form-control" placeholder="手机号">
+                                        <i class="ti-mobile"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <label>账号</label>
+                                    <div class="input-with-icon">
+                                        <input type="text" name="userName" class="form-control" placeholder="登录账号">
+                                        <i class="ti-user"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <label>密码</label>
+                                    <div class="input-with-icon">
+                                        <input type="password" name="userPass" class="form-control" placeholder="登录密码">
+                                        <i class="ti-unlock"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <label>角色</label>
+                                    <div class="simple-input">
+                                        <select name="role" class="form-control">
+                                            <option value="customer">租客</option>
+                                            <option value="owner">房东</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <button type="button" onclick="submitRegister()" class="btn btn-md full-width pop-login bg-2">创建账号</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal -->
+
+<!-- 找回密码弹出框 Modal -->
+<div class="modal fade" id="forget" tabindex="-1" role="dialog" aria-labelledby="forgetmodal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered login-pop-form" role="document">
+        <header class="modal_content_header">
+            <div class="hm_nav">
+                <h3 class="hm_nav_title">找回密码</h3>
+                <span class="mod-close" data-dismiss="modal" aria-hidden="true"><i class="ti-close"></i></span>
+            </div>
+        </header>
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="login-form">
+                    <form id="forgetForm">
+
+                        <div class="form-group">
+                            <label>账号</label>
+                            <div class="input-with-icon">
+                                <input type="text" class="form-control" name="userName" placeholder="账号">
+                                <i class="ti-user"></i>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>邮箱地址</label>
+                            <div class="input-with-icon">
+                                <input type="email" class="form-control" name="email" placeholder="注册时填写的电子邮箱地址">
+                                <i class="ti-unlock"></i>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="button" onclick="submitForget()" class="btn btn-md full-width pop-login bg-2">重置密码</button>
+                        </div>
+
+                    </form>
+                </div>
+
+                <div class="text-center">
+                    <p class="mt-3"><i class="ti-user mr-1"></i>我们会向您的邮箱发送一封邮件，请注意查收</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal -->
+
+<!-- End Video Modal -->
+<a id="back2Top" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>
+
+
+</div>
+<!-- ============================================================== -->
+<!-- End Wrapper -->
+<!-- ============================================================== -->
+
+<!-- ============================================================== -->
+<!-- All Jquery -->
+<!-- ============================================================== -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/popper.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/ion.rangeSlider.min.js"></script>
+<script src="assets/js/select2.min.js"></script>
+<script src="assets/js/jquery.magnific-popup.min.js"></script>
+<script src="assets/js/slick.js"></script>
+<script src="assets/js/slider-bg.js"></script>
+<script src="assets/js/lightbox.js"></script>
+<script src="assets/js/imagesloaded.js"></script>
+<script src="assets/js/daterangepicker.js"></script>
+<script src="assets/js/custom.js"></script>
+<script src="assets/js/script.js"></script>
+<!-- ============================================================== -->
+<!-- This page plugins -->
+<!-- ============================================================== -->
+</body>
+</html>
