@@ -12,7 +12,7 @@ from house_rental.constants.enums import UserRole
 
 class UserRegisterIn(BaseModel):
     """ 用户注册入参 """
-    username: str = Field(..., description='用户名')
+    username: str = Field(..., min_length=3, max_length=20, description='用户名')
     mobile: str = Field(..., min_length=11, description='用户手机号')
     sms_code: str = Field(..., min_length=6, max_length=6, description='手机验证码')
     password: str = Field(..., min_length=6, max_length=20, description='用户密码')
@@ -26,3 +26,9 @@ class UserRegisterIn(BaseModel):
         if not result:
             raise ValueError(f'mobile {field_value}, 手机号格式错误')
         return field_value
+
+
+class UserLoginIn(BaseModel):
+    """ 用户登录入参 """
+    account: str = Field(..., description='用户账号')
+    password: str = Field(..., description='用户密码')

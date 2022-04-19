@@ -1,1012 +1,1072 @@
-
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8"/>
-        <meta name="author" content="Drizvato"/>
-        <meta name="viewport"
-              content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="author" content="Drizvato"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 
-        <title>房屋租赁系统，一起合租吧！</title>
+    <title>房屋租赁系统，一起合租吧！</title>
 
-        <!-- Custom CSS -->
-        <link href="assets/css/styles.css?v=20210423" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="assets/css/styles.css?v=20210423" rel="stylesheet">
 
-        <!-- Custom Color Option -->
-        <link href="assets/css/colors.css" rel="stylesheet">
+    <!-- Custom Color Option -->
+    <link href="assets/css/colors.css" rel="stylesheet">
 
-        <!--  Vue and axios -->
-        <script src="assets/js/common/vue-2.5.16.js"></script>
-        <script src="assets/js/common/axios.min.js"></script>
+    <!--  Vue and axios -->
+    <script src="assets/js/common/vue-2.5.16.js"></script>
+    <script src="assets/js/common/axios.min.js"></script>
 
-    </head>
+</head>
 
-    <body class="yellow-skin">
+<body class="yellow-skin">
+
+<!-- ============================================================== -->
+<!-- Preloader - style you can find in spinners.css -->
+<!-- ============================================================== -->
+<div class="preloader"></div>
+
+<!-- ============================================================== -->
+<!-- Main wrapper - style you can find in pages.scss -->
+<!-- ============================================================== -->
+<div id="app">
+    <div id="main-wrapper">
 
         <!-- ============================================================== -->
-        <!-- Preloader - style you can find in spinners.css -->
+        <!-- Top header  -->
         <!-- ============================================================== -->
-        <div class="preloader"></div>
+        <!-- Start Navigation -->
+        <div class="header header-light dark-text">
+            <div class="container">
+                <nav id="navigation" class="navigation navigation-landscape">
+                    <div class="nav-header">
+                        <a class="nav-brand" href="/">
+                            <img src="assets/img/logo.png" class="logo" alt=""/>
+                        </a>
+                        <div class="nav-toggle"></div>
+                    </div>
+                    <div class="nav-menus-wrapper" style="transition-property: none;">
+                        <ul class="nav-menu">
 
-        <!-- ============================================================== -->
-        <!-- Main wrapper - style you can find in pages.scss -->
-        <!-- ============================================================== -->
-        <div id="app">
-            <div id="main-wrapper">
+                            <li><a href="/" style="font-size: 15px;">首页</a></li>
+                            <li><a href="/house?rentType=whole" style="font-size: 15px;">整租</a></li>
+                            <li><a href="/house?rentType=share" style="font-size: 15px;">合租</a></li>
+                            <li><a href="/post" style="font-size: 15px;">求租</a></li>
+                            <li><a href="/news" style="font-size: 15px;">新闻资讯</a></li>
+                            <li><a href="/feedback" style="font-size: 15px;">用户反馈</a></li>
 
-            <!-- ============================================================== -->
-            <!-- Top header  -->
-            <!-- ============================================================== -->
-            <!-- Start Navigation -->
-            <div class="header header-light dark-text">
-                <div class="container">
-                    <nav id="navigation" class="navigation navigation-landscape">
-                        <div class="nav-header">
-                            <a class="nav-brand" href="/">
-                                <img src="assets/img/logo.png" class="logo" alt=""/>
-                            </a>
-                            <div class="nav-toggle"></div>
+                        </ul>
+
+                        <ul class="nav-menu nav-menu-social align-to-right dhsbrd" v-show="login_register_btn_show">
+
+                            <li>
+                                <a href="#" data-toggle="modal" id="gotoLogin" data-target="#login" class="text-blue">
+                                    <i class="fas fa-user-circle mr-1"></i><span class="dn-lg">登录</span>
+                                </a>
+                            </li>
+                            <li class="add-listing dark-bg">
+                                <a href="#" data-toggle="modal" data-target="#signup" class="theme-cl">
+                                    <i class="fas fa-arrow-alt-circle-right mr-1"></i>注册
+                                </a>
+                            </li>
+                        </ul>
+
+                        <ul class="nav-menu nav-menu-social align-to-right dhsbrd" v-show="user_show">
+
+                            <li>
+                                <div class="btn-group account-drop">
+                                    <button type="button" class="btn btn-order-by-filt"
+                                            data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                        <img src="https://eu.ui-avatars.com/api/?background=random&length=1&rounded=true&bold=true&name=张三"
+                                             class="avater-img"
+                                             alt="">
+                                        {{ user_info.username }}
+                                    </button>
+
+
+                                    <div class="dropdown-menu pull-right animated flipInX">
+                                        <a href="/admin/profile">
+                                            <i class="ti-user"></i>个人信息
+                                        </a>
+                                        <a href="/admin/home">
+                                            <i class="ti-home"></i>我的家
+                                        </a>
+                                        <a href="/admin/mark">
+                                            <i class="ti-bookmark"></i>我的收藏
+                                        </a>
+                                        <a href="/logout">
+                                            <i class="ti-power-off"></i>退出登录
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!-- End Navigation -->
+        <div class="clearfix"></div>
+        <!-- ============================================================== -->
+        <!-- Top header  -->
+
+
+        <!-- ============================ Hero Banner Start================================== -->
+        <div class="image-cover hero_banner" style="background:#334aca url(assets/img/banner-3.jpg) no-repeat;"
+             data-overlay="1">
+            <div class="container">
+
+                <h1 class="big-header-capt mb-0">安得广厦千万间，大批天下寒士俱欢颜！</h1>
+                <p class="text-center mb-5">搜索你所在的城市的小区或房屋类型吧！</p>
+                <!-- Type -->
+                <div class="full_search_box nexio_search lightanic_search hero_search-radius modern">
+                    <div class="search_hero_wrapping">
+                        <form action="/house">
+
+                            <div class="row">
+
+                                <div class="col-lg-3 col-md-3 col-sm-12">
+                                    <div class="form-group">
+                                        <label>小区名称</label>
+                                        <div class="input-with-icon">
+                                            <input type="text" name="address" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2 col-md-2 col-sm-12">
+                                    <div class="form-group">
+                                        <label>城市名称</label>
+                                        <div class="input-with-icon">
+                                            <select id="city" name="city" class="form-control">
+                                                <option value="">不限</option>
+                                                <option value="北京">北京</option>
+                                                <option value="上海">上海</option>
+                                                <option value="广州">广州</option>
+                                                <option value="深圳">深圳</option>
+                                                <option value="天津">天津</option>
+                                                <option value="武汉">武汉</option>
+                                                <option value="长沙">长沙</option>
+                                                <option value="杭州">杭州</option>
+                                                <option value="宁波">宁波</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-2 col-md-2 col-sm-12">
+                                    <div class="form-group">
+                                        <label>租房类型</label>
+                                        <div class="input-with-icon">
+                                            <select id="selectRentType" name="rentType" class="form-control">
+                                                <option value="">不限</option>
+                                                <option value="whole">整租</option>
+                                                <option value="share">合租</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-sm-12">
+                                    <div class="form-group">
+                                        <label>月租金范围</label>
+                                        <div class="input-with-icon">
+                                            <select id="price" class="form-control" name="priceRange">
+                                                <option value="">不限</option>
+                                                <option value="0;999">1000以内</option>
+                                                <option value="1000;1999">1000-1999</option>
+                                                <option value="2000;3999">2000-3999</option>
+                                                <option value="4000;5999">4000-5999</option>
+                                                <option value="6000;7999">6000-7999</option>
+                                                <option value="8000;9999">8000-9999</option>
+                                                <option value="10000;14999">10000-14999</option>
+                                                <option value="15000;19999">15000-19999</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2 col-md-2 col-sm-12 small-padd">
+                                    <div class="form-group none">
+                                        <button type="submit" class="btn search-btn">搜索</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================ Hero Banner End ================================== -->
+
+        <!-- ============================ 最新发布整租 Start ================================== -->
+        <section class="gray-simple">
+            <div class="container">
+
+                <div class="row justify-content-center">
+                    <div class="col-lg-7 col-md-8">
+                        <div class="sec-heading center">
+                            <h2>最新整租</h2>
+                            <p>给你推荐了一些最新的发布的整租房子</p>
                         </div>
-                        <div class="nav-menus-wrapper" style="transition-property: none;">
-                            <ul class="nav-menu">
+                    </div>
+                </div>
 
-                                <li><a href="/" style="font-size: 15px;">首页</a></li>
-                                <li><a href="/house?rentType=whole" style="font-size: 15px;">整租</a></li>
-                                <li><a href="/house?rentType=share" style="font-size: 15px;">合租</a></li>
-                                <li><a href="/post" style="font-size: 15px;">求租</a></li>
-                                <li><a href="/news" style="font-size: 15px;">新闻资讯</a></li>
-                                <li><a href="/feedback" style="font-size: 15px;">用户反馈</a></li>
+                <div class="row">
+                    <!-- Single Property -->
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="single_property_style property_style_2 modern">
 
-                            </ul>
+                            <div class="listing_thumb_wrapper">
+                                <div class="property_gallery_slide-thumb">
+                                    <a href="/house/detail/100">
+                                        <img src="assets/img/indoors/5.jpg" class="img-fluid mx-auto" alt=""></a>
+                                </div>
+                            </div>
 
-                            <ul class="nav-menu nav-menu-social align-to-right dhsbrd">
+                            <div class="property_caption_wrappers pb-0">
+                                <div class="property_short_detail">
+                                    <div class="pr_type_status">
+                                        <h4 class="pr-property_title mb-1">
+                                            <a href="/house/detail/100">
+                                                整租-桃苑公寓-3室1厅</a>
+                                        </h4>
+                                        <div class="listing-location-name">
+                                            <a href="/house/detail/100">
+                                                广东省深圳市南山区南头桃苑公寓12栋602室</a>
+                                        </div>
+                                    </div>
+                                    <div class="property-real-price">
+                                        <a href="/house/detail/100" class="cl-blue">
+                                            ¥ 8800<span class="price_status">/月</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
 
-                                        <li>
-                                            <a href="#" data-toggle="modal" id="gotoLogin" data-target="#login" class="text-blue">
-                                                <i class="fas fa-user-circle mr-1"></i><span class="dn-lg">登录</span>
-                                            </a>
+                            <div class="modern_property_footer">
+                                <div class="property-lists flex-1">
+                                    <ul>
+                                        <li><span class="flatcons"><img src="assets/img/bed.svg"
+                                                                        alt=""></span>3 卧室
                                         </li>
-                                        <li class="add-listing dark-bg">
-                                            <a href="#" data-toggle="modal" data-target="#signup" class="theme-cl">
-                                                <i class="fas fa-arrow-alt-circle-right mr-1"></i>注册
-                                            </a>
+                                        <li><span class="flatcons"><img src="assets/img/bath.svg"
+                                                                        alt=""></span>1 卫生间
                                         </li>
                                     </ul>
-
                                 </div>
-                    </nav>
-                </div>
-            </div>
-            <!-- End Navigation -->
-            <div class="clearfix"></div>
-            <!-- ============================================================== -->
-            <!-- Top header  -->
-
-
-
-
-<!-- ============================ Hero Banner Start================================== -->
-<div class="image-cover hero_banner" style="background:#334aca url(assets/img/banner-3.jpg) no-repeat;"
-     data-overlay="1">
-    <div class="container">
-
-        <h1 class="big-header-capt mb-0">开始一段美好的生活吧！</h1>
-        <p class="text-center mb-5">搜索你所在的城市的小区或房屋类型吧！</p>
-        <!-- Type -->
-        <div class="full_search_box nexio_search lightanic_search hero_search-radius modern">
-            <div class="search_hero_wrapping">
-                <form action="/house">
-
-                    <div class="row">
-
-                        <div class="col-lg-3 col-md-3 col-sm-12">
-                            <div class="form-group">
-                                <label>小区名称</label>
-                                <div class="input-with-icon">
-                                    <input type="text" name="address" class="form-control">
-                                </div>
+                                <div class="fp_types"><a href="javascript:void(0)" class="markHouse" data-id="100"
+                                                         onclick="submitMark(100)">收藏</a></div>
                             </div>
                         </div>
-
-                        <div class="col-lg-2 col-md-2 col-sm-12">
-                            <div class="form-group">
-                                <label>城市名称</label>
-                                <div class="input-with-icon">
-                                    <select id="city" name="city" class="form-control">
-                                        <option value="">不限</option>
-                                        <option value="北京">北京</option>
-                                        <option value="上海">上海</option>
-                                        <option value="广州">广州</option>
-                                        <option value="深圳">深圳</option>
-                                        <option value="天津">天津</option>
-                                        <option value="武汉">武汉</option>
-                                        <option value="长沙">长沙</option>
-                                        <option value="杭州">杭州</option>
-                                        <option value="宁波">宁波</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="col-lg-2 col-md-2 col-sm-12">
-                            <div class="form-group">
-                                <label>租房类型</label>
-                                <div class="input-with-icon">
-                                    <select id="selectRentType" name="rentType" class="form-control">
-                                        <option value="">不限</option>
-                                        <option value="whole">整租</option>
-                                        <option value="share">合租</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3 col-md-3 col-sm-12">
-                            <div class="form-group">
-                                <label>月租金范围</label>
-                                <div class="input-with-icon">
-                                    <select id="price" class="form-control" name="priceRange">
-                                        <option value="">不限</option>
-                                        <option value="0;999">1000以内</option>
-                                        <option value="1000;1999">1000-1999</option>
-                                        <option value="2000;3999">2000-3999</option>
-                                        <option value="4000;5999">4000-5999</option>
-                                        <option value="6000;7999">6000-7999</option>
-                                        <option value="8000;9999">8000-9999</option>
-                                        <option value="10000;14999">10000-14999</option>
-                                        <option value="15000;19999">15000-19999</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-2 col-md-2 col-sm-12 small-padd">
-                            <div class="form-group none">
-                                <button type="submit" class="btn search-btn">搜索</button>
-                            </div>
-                        </div>
-
                     </div>
-                </form>
+                    <!-- Single Property -->
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="single_property_style property_style_2 modern">
 
-
-            </div>
-        </div>
-    </div>
-</div>
-<!-- ============================ Hero Banner End ================================== -->
-
-<!-- ============================ 最新发布整租 Start ================================== -->
-<section class="gray-simple">
-    <div class="container">
-
-        <div class="row justify-content-center">
-            <div class="col-lg-7 col-md-8">
-                <div class="sec-heading center">
-                    <h2>最新整租</h2>
-                    <p>给你推荐了一些最新的发布的整租房子</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <!-- Single Property -->
-                <div class="col-lg-4 col-md-6 col-sm-12">
-                    <div class="single_property_style property_style_2 modern">
-
-                        <div class="listing_thumb_wrapper">
-                            <div class="property_gallery_slide-thumb">
-                                <a href="/house/detail/100">
-                                    <img src="assets/img/indoors/5.jpg" class="img-fluid mx-auto" alt=""></a>
+                            <div class="listing_thumb_wrapper">
+                                <div class="property_gallery_slide-thumb">
+                                    <a href="/house/detail/102">
+                                        <img src="assets/img/indoors/1.jpg" class="img-fluid mx-auto" alt=""></a>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="property_caption_wrappers pb-0">
-                            <div class="property_short_detail">
-                                <div class="pr_type_status">
-                                    <h4 class="pr-property_title mb-1">
-                                        <a href="/house/detail/100">
+                            <div class="property_caption_wrappers pb-0">
+                                <div class="property_short_detail">
+                                    <div class="pr_type_status">
+                                        <h4 class="pr-property_title mb-1">
+                                            <a href="/house/detail/102">
                                                 整租-桃苑公寓-3室1厅</a>
-                                    </h4>
-                                    <div class="listing-location-name">
-                                        <a href="/house/detail/100">
+                                        </h4>
+                                        <div class="listing-location-name">
+                                            <a href="/house/detail/102">
                                                 广东省深圳市南山区南头桃苑公寓12栋602室</a>
+                                        </div>
+                                    </div>
+                                    <div class="property-real-price">
+                                        <a href="/house/detail/102" class="cl-blue">
+                                            ¥ 8800<span class="price_status">/月</span>
+                                        </a>
                                     </div>
                                 </div>
-                                <div class="property-real-price">
-                                    <a href="/house/detail/100" class="cl-blue">
-                                        ¥ 8800<span class="price_status">/月</span>
-                                    </a>
-                                </div>
                             </div>
-                        </div>
 
-                        <div class="modern_property_footer">
-                            <div class="property-lists flex-1">
-                                <ul>
-                                    <li><span class="flatcons"><img src="assets/img/bed.svg"
-                                                                    alt=""></span>3 卧室
-                                    </li>
-                                    <li><span class="flatcons"><img src="assets/img/bath.svg"
-                                                                    alt=""></span>1 卫生间
-                                    </li>
-                                </ul>
+                            <div class="modern_property_footer">
+                                <div class="property-lists flex-1">
+                                    <ul>
+                                        <li><span class="flatcons"><img src="assets/img/bed.svg"
+                                                                        alt=""></span>3 卧室
+                                        </li>
+                                        <li><span class="flatcons"><img src="assets/img/bath.svg"
+                                                                        alt=""></span>1 卫生间
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="fp_types"><a href="javascript:void(0)" class="markHouse" data-id="102"
+                                                         onclick="submitMark(102)">收藏</a></div>
                             </div>
-                            <div class="fp_types"><a href="javascript:void(0)" class="markHouse" data-id="100"
-                                                     onclick="submitMark(100)">收藏</a></div>
                         </div>
                     </div>
-                </div>
-            <!-- Single Property -->
-                <div class="col-lg-4 col-md-6 col-sm-12">
-                    <div class="single_property_style property_style_2 modern">
+                    <!-- Single Property -->
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="single_property_style property_style_2 modern">
 
-                        <div class="listing_thumb_wrapper">
-                            <div class="property_gallery_slide-thumb">
-                                <a href="/house/detail/102">
-                                    <img src="assets/img/indoors/1.jpg" class="img-fluid mx-auto" alt=""></a>
-                            </div>
-                        </div>
-
-                        <div class="property_caption_wrappers pb-0">
-                            <div class="property_short_detail">
-                                <div class="pr_type_status">
-                                    <h4 class="pr-property_title mb-1">
-                                        <a href="/house/detail/102">
-                                                整租-桃苑公寓-3室1厅</a>
-                                    </h4>
-                                    <div class="listing-location-name">
-                                        <a href="/house/detail/102">
-                                                广东省深圳市南山区南头桃苑公寓12栋602室</a>
-                                    </div>
-                                </div>
-                                <div class="property-real-price">
-                                    <a href="/house/detail/102" class="cl-blue">
-                                        ¥ 8800<span class="price_status">/月</span>
-                                    </a>
+                            <div class="listing_thumb_wrapper">
+                                <div class="property_gallery_slide-thumb">
+                                    <a href="/house/detail/103">
+                                        <img src="assets/img/indoors/2.jpg" class="img-fluid mx-auto" alt=""></a>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="modern_property_footer">
-                            <div class="property-lists flex-1">
-                                <ul>
-                                    <li><span class="flatcons"><img src="assets/img/bed.svg"
-                                                                    alt=""></span>3 卧室
-                                    </li>
-                                    <li><span class="flatcons"><img src="assets/img/bath.svg"
-                                                                    alt=""></span>1 卫生间
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="fp_types"><a href="javascript:void(0)" class="markHouse" data-id="102"
-                                                     onclick="submitMark(102)">收藏</a></div>
-                        </div>
-                    </div>
-                </div>
-            <!-- Single Property -->
-                <div class="col-lg-4 col-md-6 col-sm-12">
-                    <div class="single_property_style property_style_2 modern">
-
-                        <div class="listing_thumb_wrapper">
-                            <div class="property_gallery_slide-thumb">
-                                <a href="/house/detail/103">
-                                    <img src="assets/img/indoors/2.jpg" class="img-fluid mx-auto" alt=""></a>
-                            </div>
-                        </div>
-
-                        <div class="property_caption_wrappers pb-0">
-                            <div class="property_short_detail">
-                                <div class="pr_type_status">
-                                    <h4 class="pr-property_title mb-1">
-                                        <a href="/house/detail/103">
+                            <div class="property_caption_wrappers pb-0">
+                                <div class="property_short_detail">
+                                    <div class="pr_type_status">
+                                        <h4 class="pr-property_title mb-1">
+                                            <a href="/house/detail/103">
                                                 整租-桃苑公寓-3室1厅</a>
-                                    </h4>
-                                    <div class="listing-location-name">
-                                        <a href="/house/detail/103">
+                                        </h4>
+                                        <div class="listing-location-name">
+                                            <a href="/house/detail/103">
                                                 广东省深圳市南山区南头桃苑公寓11栋603室</a>
+                                        </div>
+                                    </div>
+                                    <div class="property-real-price">
+                                        <a href="/house/detail/103" class="cl-blue">
+                                            ¥ 8800<span class="price_status">/月</span>
+                                        </a>
                                     </div>
                                 </div>
-                                <div class="property-real-price">
-                                    <a href="/house/detail/103" class="cl-blue">
-                                        ¥ 8800<span class="price_status">/月</span>
-                                    </a>
-                                </div>
                             </div>
-                        </div>
 
-                        <div class="modern_property_footer">
-                            <div class="property-lists flex-1">
-                                <ul>
-                                    <li><span class="flatcons"><img src="assets/img/bed.svg"
-                                                                    alt=""></span>3 卧室
-                                    </li>
-                                    <li><span class="flatcons"><img src="assets/img/bath.svg"
-                                                                    alt=""></span>1 卫生间
-                                    </li>
-                                </ul>
+                            <div class="modern_property_footer">
+                                <div class="property-lists flex-1">
+                                    <ul>
+                                        <li><span class="flatcons"><img src="assets/img/bed.svg"
+                                                                        alt=""></span>3 卧室
+                                        </li>
+                                        <li><span class="flatcons"><img src="assets/img/bath.svg"
+                                                                        alt=""></span>1 卫生间
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="fp_types"><a href="javascript:void(0)" class="markHouse" data-id="103"
+                                                         onclick="submitMark(103)">收藏</a></div>
                             </div>
-                            <div class="fp_types"><a href="javascript:void(0)" class="markHouse" data-id="103"
-                                                     onclick="submitMark(103)">收藏</a></div>
                         </div>
                     </div>
-                </div>
-            <!-- Single Property -->
-                <div class="col-lg-4 col-md-6 col-sm-12">
-                    <div class="single_property_style property_style_2 modern">
+                    <!-- Single Property -->
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="single_property_style property_style_2 modern">
 
-                        <div class="listing_thumb_wrapper">
-                            <div class="property_gallery_slide-thumb">
-                                <a href="/house/detail/104">
-                                    <img src="assets/img/indoors/3.jpg" class="img-fluid mx-auto" alt=""></a>
+                            <div class="listing_thumb_wrapper">
+                                <div class="property_gallery_slide-thumb">
+                                    <a href="/house/detail/104">
+                                        <img src="assets/img/indoors/3.jpg" class="img-fluid mx-auto" alt=""></a>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="property_caption_wrappers pb-0">
-                            <div class="property_short_detail">
-                                <div class="pr_type_status">
-                                    <h4 class="pr-property_title mb-1">
-                                        <a href="/house/detail/104">
+                            <div class="property_caption_wrappers pb-0">
+                                <div class="property_short_detail">
+                                    <div class="pr_type_status">
+                                        <h4 class="pr-property_title mb-1">
+                                            <a href="/house/detail/104">
                                                 整租-桃苑公寓-3室1厅</a>
-                                    </h4>
-                                    <div class="listing-location-name">
-                                        <a href="/house/detail/104">
+                                        </h4>
+                                        <div class="listing-location-name">
+                                            <a href="/house/detail/104">
                                                 广东省深圳市南山区南头桃苑公寓12栋604室</a>
+                                        </div>
+                                    </div>
+                                    <div class="property-real-price">
+                                        <a href="/house/detail/104" class="cl-blue">
+                                            ¥ 8800<span class="price_status">/月</span>
+                                        </a>
                                     </div>
                                 </div>
-                                <div class="property-real-price">
-                                    <a href="/house/detail/104" class="cl-blue">
-                                        ¥ 8800<span class="price_status">/月</span>
-                                    </a>
-                                </div>
                             </div>
-                        </div>
 
-                        <div class="modern_property_footer">
-                            <div class="property-lists flex-1">
-                                <ul>
-                                    <li><span class="flatcons"><img src="assets/img/bed.svg"
-                                                                    alt=""></span>3 卧室
-                                    </li>
-                                    <li><span class="flatcons"><img src="assets/img/bath.svg"
-                                                                    alt=""></span>1 卫生间
-                                    </li>
-                                </ul>
+                            <div class="modern_property_footer">
+                                <div class="property-lists flex-1">
+                                    <ul>
+                                        <li><span class="flatcons"><img src="assets/img/bed.svg"
+                                                                        alt=""></span>3 卧室
+                                        </li>
+                                        <li><span class="flatcons"><img src="assets/img/bath.svg"
+                                                                        alt=""></span>1 卫生间
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="fp_types"><a href="javascript:void(0)" class="markHouse" data-id="104"
+                                                         onclick="submitMark(104)">收藏</a></div>
                             </div>
-                            <div class="fp_types"><a href="javascript:void(0)" class="markHouse" data-id="104"
-                                                     onclick="submitMark(104)">收藏</a></div>
                         </div>
                     </div>
-                </div>
-            <!-- Single Property -->
-                <div class="col-lg-4 col-md-6 col-sm-12">
-                    <div class="single_property_style property_style_2 modern">
+                    <!-- Single Property -->
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="single_property_style property_style_2 modern">
 
-                        <div class="listing_thumb_wrapper">
-                            <div class="property_gallery_slide-thumb">
-                                <a href="/house/detail/105">
-                                    <img src="assets/img/indoors/4.jpg" class="img-fluid mx-auto" alt=""></a>
+                            <div class="listing_thumb_wrapper">
+                                <div class="property_gallery_slide-thumb">
+                                    <a href="/house/detail/105">
+                                        <img src="assets/img/indoors/4.jpg" class="img-fluid mx-auto" alt=""></a>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="property_caption_wrappers pb-0">
-                            <div class="property_short_detail">
-                                <div class="pr_type_status">
-                                    <h4 class="pr-property_title mb-1">
-                                        <a href="/house/detail/105">
+                            <div class="property_caption_wrappers pb-0">
+                                <div class="property_short_detail">
+                                    <div class="pr_type_status">
+                                        <h4 class="pr-property_title mb-1">
+                                            <a href="/house/detail/105">
                                                 整租-桃苑公寓-3室1厅</a>
-                                    </h4>
-                                    <div class="listing-location-name">
-                                        <a href="/house/detail/105">
+                                        </h4>
+                                        <div class="listing-location-name">
+                                            <a href="/house/detail/105">
                                                 广东省深圳市南山区南头桃苑公寓11栋605室</a>
+                                        </div>
+                                    </div>
+                                    <div class="property-real-price">
+                                        <a href="/house/detail/105" class="cl-blue">
+                                            ¥ 8800<span class="price_status">/月</span>
+                                        </a>
                                     </div>
                                 </div>
-                                <div class="property-real-price">
-                                    <a href="/house/detail/105" class="cl-blue">
-                                        ¥ 8800<span class="price_status">/月</span>
-                                    </a>
-                                </div>
                             </div>
-                        </div>
 
-                        <div class="modern_property_footer">
-                            <div class="property-lists flex-1">
-                                <ul>
-                                    <li><span class="flatcons"><img src="assets/img/bed.svg"
-                                                                    alt=""></span>3 卧室
-                                    </li>
-                                    <li><span class="flatcons"><img src="assets/img/bath.svg"
-                                                                    alt=""></span>1 卫生间
-                                    </li>
-                                </ul>
+                            <div class="modern_property_footer">
+                                <div class="property-lists flex-1">
+                                    <ul>
+                                        <li><span class="flatcons"><img src="assets/img/bed.svg"
+                                                                        alt=""></span>3 卧室
+                                        </li>
+                                        <li><span class="flatcons"><img src="assets/img/bath.svg"
+                                                                        alt=""></span>1 卫生间
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="fp_types"><a href="javascript:void(0)" class="markHouse" data-id="105"
+                                                         onclick="submitMark(105)">收藏</a></div>
                             </div>
-                            <div class="fp_types"><a href="javascript:void(0)" class="markHouse" data-id="105"
-                                                     onclick="submitMark(105)">收藏</a></div>
                         </div>
                     </div>
-                </div>
-            <!-- Single Property -->
-                <div class="col-lg-4 col-md-6 col-sm-12">
-                    <div class="single_property_style property_style_2 modern">
+                    <!-- Single Property -->
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="single_property_style property_style_2 modern">
 
-                        <div class="listing_thumb_wrapper">
-                            <div class="property_gallery_slide-thumb">
-                                <a href="/house/detail/106">
-                                    <img src="assets/img/indoors/5.jpg" class="img-fluid mx-auto" alt=""></a>
+                            <div class="listing_thumb_wrapper">
+                                <div class="property_gallery_slide-thumb">
+                                    <a href="/house/detail/106">
+                                        <img src="assets/img/indoors/5.jpg" class="img-fluid mx-auto" alt=""></a>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="property_caption_wrappers pb-0">
-                            <div class="property_short_detail">
-                                <div class="pr_type_status">
-                                    <h4 class="pr-property_title mb-1">
-                                        <a href="/house/detail/106">
+                            <div class="property_caption_wrappers pb-0">
+                                <div class="property_short_detail">
+                                    <div class="pr_type_status">
+                                        <h4 class="pr-property_title mb-1">
+                                            <a href="/house/detail/106">
                                                 整租-桃苑公寓-3室1厅</a>
-                                    </h4>
-                                    <div class="listing-location-name">
-                                        <a href="/house/detail/106">
+                                        </h4>
+                                        <div class="listing-location-name">
+                                            <a href="/house/detail/106">
                                                 广东省深圳市南山区南头桃苑公寓12栋606室</a>
+                                        </div>
+                                    </div>
+                                    <div class="property-real-price">
+                                        <a href="/house/detail/106" class="cl-blue">
+                                            ¥ 8800<span class="price_status">/月</span>
+                                        </a>
                                     </div>
                                 </div>
-                                <div class="property-real-price">
-                                    <a href="/house/detail/106" class="cl-blue">
-                                        ¥ 8800<span class="price_status">/月</span>
-                                    </a>
-                                </div>
                             </div>
-                        </div>
 
-                        <div class="modern_property_footer">
-                            <div class="property-lists flex-1">
-                                <ul>
-                                    <li><span class="flatcons"><img src="assets/img/bed.svg"
-                                                                    alt=""></span>3 卧室
-                                    </li>
-                                    <li><span class="flatcons"><img src="assets/img/bath.svg"
-                                                                    alt=""></span>1 卫生间
-                                    </li>
-                                </ul>
+                            <div class="modern_property_footer">
+                                <div class="property-lists flex-1">
+                                    <ul>
+                                        <li><span class="flatcons"><img src="assets/img/bed.svg"
+                                                                        alt=""></span>3 卧室
+                                        </li>
+                                        <li><span class="flatcons"><img src="assets/img/bath.svg"
+                                                                        alt=""></span>1 卫生间
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="fp_types"><a href="javascript:void(0)" class="markHouse" data-id="106"
+                                                         onclick="submitMark(106)">收藏</a></div>
                             </div>
-                            <div class="fp_types"><a href="javascript:void(0)" class="markHouse" data-id="106"
-                                                     onclick="submitMark(106)">收藏</a></div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 text-center">
-                <a href="/house?rentType=whole" class="btn btn-theme arrow-btn bg-2">查看更多
-                    <span><i class="ti-arrow-right"></i></span>
-                </a>
-            </div>
-        </div>
-
-    </div>
-</section>
-<div class="clearfix"></div>
-<!-- ============================ 最新发布整租 End ================================== -->
-
-
-<!-- ============================ 最新发布合租 Start ================================== -->
-<section class="gray-simple">
-    <div class="container">
-
-        <div class="row justify-content-center">
-            <div class="col-lg-7 col-md-8">
-                <div class="sec-heading center">
-                    <h2>最新合租</h2>
-                    <p>给你推荐了一些最新的发布的合租房子</p>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+                        <a href="/house?rentType=whole" class="btn btn-theme arrow-btn bg-2">查看更多
+                            <span><i class="ti-arrow-right"></i></span>
+                        </a>
+                    </div>
                 </div>
+
             </div>
-        </div>
+        </section>
+        <div class="clearfix"></div>
+        <!-- ============================ 最新发布整租 End ================================== -->
 
-        <div class="row">
-            <!-- Single Property -->
-                <div class="col-lg-4 col-md-6 col-sm-12">
-                    <div class="single_property_style property_style_2 modern">
 
-                        <div class="listing_thumb_wrapper">
-                            <div class="property_gallery_slide-thumb">
-                                <a href="/house/detail/1">
-                                    <img src="/uploads/f73c9a99609345fba643e8106dea6b4e.png" class="img-fluid mx-auto" alt=""></a>
-                            </div>
+        <!-- ============================ 最新发布合租 Start ================================== -->
+        <section class="gray-simple">
+            <div class="container">
+
+                <div class="row justify-content-center">
+                    <div class="col-lg-7 col-md-8">
+                        <div class="sec-heading center">
+                            <h2>最新合租</h2>
+                            <p>给你推荐了一些最新的发布的合租房子</p>
                         </div>
+                    </div>
+                </div>
 
-                        <div class="property_caption_wrappers pb-0">
-                            <div class="property_short_detail">
-                                <div class="pr_type_status">
-                                    <h4 class="pr-property_title mb-1">
-                                        <a href="/house/detail/1">
+                <div class="row">
+                    <!-- Single Property -->
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="single_property_style property_style_2 modern">
+
+                            <div class="listing_thumb_wrapper">
+                                <div class="property_gallery_slide-thumb">
+                                    <a href="/house/detail/1">
+                                        <img src="/uploads/f73c9a99609345fba643e8106dea6b4e.png"
+                                             class="img-fluid mx-auto" alt=""></a>
+                                </div>
+                            </div>
+
+                            <div class="property_caption_wrappers pb-0">
+                                <div class="property_short_detail">
+                                    <div class="pr_type_status">
+                                        <h4 class="pr-property_title mb-1">
+                                            <a href="/house/detail/1">
                                                 合租-世界花园-4居室-A卧</a>
-                                    </h4>
-                                    <div class="listing-location-name">
-                                        <a href="/house/detail/1">
+                                        </h4>
+                                        <div class="listing-location-name">
+                                            <a href="/house/detail/1">
                                                 广东省深圳市南山区世界之窗世纪花园小区12栋305室A卧</a>
+                                        </div>
+                                    </div>
+                                    <div class="property-real-price">
+                                        <a href="/house/detail/1" class="cl-blue">
+                                            ¥ 2500<span class="price_status">/月</span>
+                                        </a>
                                     </div>
                                 </div>
-                                <div class="property-real-price">
-                                    <a href="/house/detail/1" class="cl-blue">
-                                        ¥ 2500<span class="price_status">/月</span>
-                                    </a>
-                                </div>
                             </div>
-                        </div>
 
-                        <div class="modern_property_footer">
-                            <div class="property-lists flex-1">
-                                <ul>
-                                    <li><span class="flatcons">
+                            <div class="modern_property_footer">
+                                <div class="property-lists flex-1">
+                                    <ul>
+                                        <li><span class="flatcons">
                                         <img src="assets/img/bed.svg" alt=""></span>4 卧室
-                                    </li>
-                                    <li><span class="flatcons">
+                                        </li>
+                                        <li><span class="flatcons">
                                         <img src="assets/img/bath.svg"
                                              alt=""></span>1 卫生间
-                                    </li>
-                                </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="fp_types"><a href="javascript:void(0)" class="markHouse" data-id="1"
+                                                         onclick="submitMark(1)">收藏</a></div>
                             </div>
-                            <div class="fp_types"><a href="javascript:void(0)" class="markHouse" data-id="1"
-                                                     onclick="submitMark(1)">收藏</a></div>
                         </div>
                     </div>
-                </div>
-            <!-- Single Property -->
-                <div class="col-lg-4 col-md-6 col-sm-12">
-                    <div class="single_property_style property_style_2 modern">
+                    <!-- Single Property -->
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="single_property_style property_style_2 modern">
 
-                        <div class="listing_thumb_wrapper">
-                            <div class="property_gallery_slide-thumb">
-                                <a href="/house/detail/3">
-                                    <img src="assets/img/indoors/4.jpg" class="img-fluid mx-auto" alt=""></a>
+                            <div class="listing_thumb_wrapper">
+                                <div class="property_gallery_slide-thumb">
+                                    <a href="/house/detail/3">
+                                        <img src="assets/img/indoors/4.jpg" class="img-fluid mx-auto" alt=""></a>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="property_caption_wrappers pb-0">
-                            <div class="property_short_detail">
-                                <div class="pr_type_status">
-                                    <h4 class="pr-property_title mb-1">
-                                        <a href="/house/detail/3">
+                            <div class="property_caption_wrappers pb-0">
+                                <div class="property_short_detail">
+                                    <div class="pr_type_status">
+                                        <h4 class="pr-property_title mb-1">
+                                            <a href="/house/detail/3">
                                                 合租-世界花园-4居室-C卧</a>
-                                    </h4>
-                                    <div class="listing-location-name">
-                                        <a href="/house/detail/3">
+                                        </h4>
+                                        <div class="listing-location-name">
+                                            <a href="/house/detail/3">
                                                 广东省深圳市南山区世界之窗世纪花园小区12栋305室C卧</a>
+                                        </div>
+                                    </div>
+                                    <div class="property-real-price">
+                                        <a href="/house/detail/3" class="cl-blue">
+                                            ¥ 3000<span class="price_status">/月</span>
+                                        </a>
                                     </div>
                                 </div>
-                                <div class="property-real-price">
-                                    <a href="/house/detail/3" class="cl-blue">
-                                        ¥ 3000<span class="price_status">/月</span>
-                                    </a>
-                                </div>
                             </div>
-                        </div>
 
-                        <div class="modern_property_footer">
-                            <div class="property-lists flex-1">
-                                <ul>
-                                    <li><span class="flatcons">
+                            <div class="modern_property_footer">
+                                <div class="property-lists flex-1">
+                                    <ul>
+                                        <li><span class="flatcons">
                                         <img src="assets/img/bed.svg" alt=""></span>4 卧室
-                                    </li>
-                                    <li><span class="flatcons">
+                                        </li>
+                                        <li><span class="flatcons">
                                         <img src="assets/img/bath.svg"
                                              alt=""></span>1 卫生间
-                                    </li>
-                                </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="fp_types"><a href="javascript:void(0)" class="markHouse" data-id="3"
+                                                         onclick="submitMark(3)">收藏</a></div>
                             </div>
-                            <div class="fp_types"><a href="javascript:void(0)" class="markHouse" data-id="3"
-                                                     onclick="submitMark(3)">收藏</a></div>
                         </div>
                     </div>
-                </div>
-            <!-- Single Property -->
-                <div class="col-lg-4 col-md-6 col-sm-12">
-                    <div class="single_property_style property_style_2 modern">
+                    <!-- Single Property -->
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="single_property_style property_style_2 modern">
 
-                        <div class="listing_thumb_wrapper">
-                            <div class="property_gallery_slide-thumb">
-                                <a href="/house/detail/11">
-                                    <img src="assets/img/indoors/6.jpg" class="img-fluid mx-auto" alt=""></a>
+                            <div class="listing_thumb_wrapper">
+                                <div class="property_gallery_slide-thumb">
+                                    <a href="/house/detail/11">
+                                        <img src="assets/img/indoors/6.jpg" class="img-fluid mx-auto" alt=""></a>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="property_caption_wrappers pb-0">
-                            <div class="property_short_detail">
-                                <div class="pr_type_status">
-                                    <h4 class="pr-property_title mb-1">
-                                        <a href="/house/detail/11">
+                            <div class="property_caption_wrappers pb-0">
+                                <div class="property_short_detail">
+                                    <div class="pr_type_status">
+                                        <h4 class="pr-property_title mb-1">
+                                            <a href="/house/detail/11">
                                                 合租-龙城西苑-4居室-A卧</a>
-                                    </h4>
-                                    <div class="listing-location-name">
-                                        <a href="/house/detail/11">
+                                        </h4>
+                                        <div class="listing-location-name">
+                                            <a href="/house/detail/11">
                                                 广东省深圳市南山区科技园南龙城新苑小区12栋305室A卧</a>
+                                        </div>
+                                    </div>
+                                    <div class="property-real-price">
+                                        <a href="/house/detail/11" class="cl-blue">
+                                            ¥ 3000<span class="price_status">/月</span>
+                                        </a>
                                     </div>
                                 </div>
-                                <div class="property-real-price">
-                                    <a href="/house/detail/11" class="cl-blue">
-                                        ¥ 3000<span class="price_status">/月</span>
-                                    </a>
-                                </div>
                             </div>
-                        </div>
 
-                        <div class="modern_property_footer">
-                            <div class="property-lists flex-1">
-                                <ul>
-                                    <li><span class="flatcons">
+                            <div class="modern_property_footer">
+                                <div class="property-lists flex-1">
+                                    <ul>
+                                        <li><span class="flatcons">
                                         <img src="assets/img/bed.svg" alt=""></span>4 卧室
-                                    </li>
-                                    <li><span class="flatcons">
+                                        </li>
+                                        <li><span class="flatcons">
                                         <img src="assets/img/bath.svg"
                                              alt=""></span>1 卫生间
-                                    </li>
-                                </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="fp_types"><a href="javascript:void(0)" class="markHouse" data-id="11"
+                                                         onclick="submitMark(11)">收藏</a></div>
                             </div>
-                            <div class="fp_types"><a href="javascript:void(0)" class="markHouse" data-id="11"
-                                                     onclick="submitMark(11)">收藏</a></div>
                         </div>
                     </div>
-                </div>
-            <!-- Single Property -->
-                <div class="col-lg-4 col-md-6 col-sm-12">
-                    <div class="single_property_style property_style_2 modern">
+                    <!-- Single Property -->
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="single_property_style property_style_2 modern">
 
-                        <div class="listing_thumb_wrapper">
-                            <div class="property_gallery_slide-thumb">
-                                <a href="/house/detail/12">
-                                    <img src="assets/img/indoors/1.jpg" class="img-fluid mx-auto" alt=""></a>
+                            <div class="listing_thumb_wrapper">
+                                <div class="property_gallery_slide-thumb">
+                                    <a href="/house/detail/12">
+                                        <img src="assets/img/indoors/1.jpg" class="img-fluid mx-auto" alt=""></a>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="property_caption_wrappers pb-0">
-                            <div class="property_short_detail">
-                                <div class="pr_type_status">
-                                    <h4 class="pr-property_title mb-1">
-                                        <a href="/house/detail/12">
+                            <div class="property_caption_wrappers pb-0">
+                                <div class="property_short_detail">
+                                    <div class="pr_type_status">
+                                        <h4 class="pr-property_title mb-1">
+                                            <a href="/house/detail/12">
                                                 合租-龙城西苑-4居室-B卧</a>
-                                    </h4>
-                                    <div class="listing-location-name">
-                                        <a href="/house/detail/12">
+                                        </h4>
+                                        <div class="listing-location-name">
+                                            <a href="/house/detail/12">
                                                 广东省深圳市南山区科技园南龙城新苑小区12栋305室B卧</a>
+                                        </div>
+                                    </div>
+                                    <div class="property-real-price">
+                                        <a href="/house/detail/12" class="cl-blue">
+                                            ¥ 2800<span class="price_status">/月</span>
+                                        </a>
                                     </div>
                                 </div>
-                                <div class="property-real-price">
-                                    <a href="/house/detail/12" class="cl-blue">
-                                        ¥ 2800<span class="price_status">/月</span>
-                                    </a>
-                                </div>
                             </div>
-                        </div>
 
-                        <div class="modern_property_footer">
-                            <div class="property-lists flex-1">
-                                <ul>
-                                    <li><span class="flatcons">
+                            <div class="modern_property_footer">
+                                <div class="property-lists flex-1">
+                                    <ul>
+                                        <li><span class="flatcons">
                                         <img src="assets/img/bed.svg" alt=""></span>4 卧室
-                                    </li>
-                                    <li><span class="flatcons">
+                                        </li>
+                                        <li><span class="flatcons">
                                         <img src="assets/img/bath.svg"
                                              alt=""></span>1 卫生间
-                                    </li>
-                                </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="fp_types"><a href="javascript:void(0)" class="markHouse" data-id="12"
+                                                         onclick="submitMark(12)">收藏</a></div>
                             </div>
-                            <div class="fp_types"><a href="javascript:void(0)" class="markHouse" data-id="12"
-                                                     onclick="submitMark(12)">收藏</a></div>
                         </div>
                     </div>
-                </div>
-            <!-- Single Property -->
-                <div class="col-lg-4 col-md-6 col-sm-12">
-                    <div class="single_property_style property_style_2 modern">
+                    <!-- Single Property -->
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="single_property_style property_style_2 modern">
 
-                        <div class="listing_thumb_wrapper">
-                            <div class="property_gallery_slide-thumb">
-                                <a href="/house/detail/13">
-                                    <img src="assets/img/indoors/2.jpg" class="img-fluid mx-auto" alt=""></a>
+                            <div class="listing_thumb_wrapper">
+                                <div class="property_gallery_slide-thumb">
+                                    <a href="/house/detail/13">
+                                        <img src="assets/img/indoors/2.jpg" class="img-fluid mx-auto" alt=""></a>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="property_caption_wrappers pb-0">
-                            <div class="property_short_detail">
-                                <div class="pr_type_status">
-                                    <h4 class="pr-property_title mb-1">
-                                        <a href="/house/detail/13">
+                            <div class="property_caption_wrappers pb-0">
+                                <div class="property_short_detail">
+                                    <div class="pr_type_status">
+                                        <h4 class="pr-property_title mb-1">
+                                            <a href="/house/detail/13">
                                                 合租-龙城西苑-4居室-C卧</a>
-                                    </h4>
-                                    <div class="listing-location-name">
-                                        <a href="/house/detail/13">
+                                        </h4>
+                                        <div class="listing-location-name">
+                                            <a href="/house/detail/13">
                                                 广东省深圳市南山区科技园南龙城新苑小区12栋305室C卧</a>
+                                        </div>
+                                    </div>
+                                    <div class="property-real-price">
+                                        <a href="/house/detail/13" class="cl-blue">
+                                            ¥ 2600<span class="price_status">/月</span>
+                                        </a>
                                     </div>
                                 </div>
-                                <div class="property-real-price">
-                                    <a href="/house/detail/13" class="cl-blue">
-                                        ¥ 2600<span class="price_status">/月</span>
-                                    </a>
-                                </div>
                             </div>
-                        </div>
 
-                        <div class="modern_property_footer">
-                            <div class="property-lists flex-1">
-                                <ul>
-                                    <li><span class="flatcons">
+                            <div class="modern_property_footer">
+                                <div class="property-lists flex-1">
+                                    <ul>
+                                        <li><span class="flatcons">
                                         <img src="assets/img/bed.svg" alt=""></span>4 卧室
-                                    </li>
-                                    <li><span class="flatcons">
+                                        </li>
+                                        <li><span class="flatcons">
                                         <img src="assets/img/bath.svg"
                                              alt=""></span>1 卫生间
-                                    </li>
-                                </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="fp_types"><a href="javascript:void(0)" class="markHouse" data-id="13"
+                                                         onclick="submitMark(13)">收藏</a></div>
                             </div>
-                            <div class="fp_types"><a href="javascript:void(0)" class="markHouse" data-id="13"
-                                                     onclick="submitMark(13)">收藏</a></div>
                         </div>
                     </div>
-                </div>
-            <!-- Single Property -->
-                <div class="col-lg-4 col-md-6 col-sm-12">
-                    <div class="single_property_style property_style_2 modern">
+                    <!-- Single Property -->
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="single_property_style property_style_2 modern">
 
-                        <div class="listing_thumb_wrapper">
-                            <div class="property_gallery_slide-thumb">
-                                <a href="/house/detail/14">
-                                    <img src="assets/img/indoors/3.jpg" class="img-fluid mx-auto" alt=""></a>
+                            <div class="listing_thumb_wrapper">
+                                <div class="property_gallery_slide-thumb">
+                                    <a href="/house/detail/14">
+                                        <img src="assets/img/indoors/3.jpg" class="img-fluid mx-auto" alt=""></a>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="property_caption_wrappers pb-0">
-                            <div class="property_short_detail">
-                                <div class="pr_type_status">
-                                    <h4 class="pr-property_title mb-1">
-                                        <a href="/house/detail/14">
+                            <div class="property_caption_wrappers pb-0">
+                                <div class="property_short_detail">
+                                    <div class="pr_type_status">
+                                        <h4 class="pr-property_title mb-1">
+                                            <a href="/house/detail/14">
                                                 合租-龙城西苑-4居室-D卧</a>
-                                    </h4>
-                                    <div class="listing-location-name">
-                                        <a href="/house/detail/14">
+                                        </h4>
+                                        <div class="listing-location-name">
+                                            <a href="/house/detail/14">
                                                 广东省深圳市南山区科技园南龙城新苑小区12栋305室D卧</a>
+                                        </div>
+                                    </div>
+                                    <div class="property-real-price">
+                                        <a href="/house/detail/14" class="cl-blue">
+                                            ¥ 2400<span class="price_status">/月</span>
+                                        </a>
                                     </div>
                                 </div>
-                                <div class="property-real-price">
-                                    <a href="/house/detail/14" class="cl-blue">
-                                        ¥ 2400<span class="price_status">/月</span>
-                                    </a>
-                                </div>
                             </div>
-                        </div>
 
-                        <div class="modern_property_footer">
-                            <div class="property-lists flex-1">
-                                <ul>
-                                    <li><span class="flatcons">
+                            <div class="modern_property_footer">
+                                <div class="property-lists flex-1">
+                                    <ul>
+                                        <li><span class="flatcons">
                                         <img src="assets/img/bed.svg" alt=""></span>4 卧室
-                                    </li>
-                                    <li><span class="flatcons">
+                                        </li>
+                                        <li><span class="flatcons">
                                         <img src="assets/img/bath.svg"
                                              alt=""></span>1 卫生间
-                                    </li>
-                                </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="fp_types"><a href="javascript:void(0)" class="markHouse" data-id="14"
+                                                         onclick="submitMark(14)">收藏</a></div>
                             </div>
-                            <div class="fp_types"><a href="javascript:void(0)" class="markHouse" data-id="14"
-                                                     onclick="submitMark(14)">收藏</a></div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 text-center">
-                <a href="/house?rentType=share" class="btn btn-theme arrow-btn bg-2">查看更多
-                    <span><i class="ti-arrow-right"></i></span>
-                </a>
-            </div>
-        </div>
-
-    </div>
-</section>
-<div class="clearfix"></div>
-<!-- ============================ 最新发布合租 End ================================== -->
-
-
-<!-- ============================ Footer Start ================================== -->
-<footer class="dark-footer skin-dark-footer style-2" style="padding-top: 0;">
-
-<div class="footer-bottom">
-        <div class="container">
-            <div class="row align-items-center">
-
-                <div class="col-lg-12 col-md-12">
-                    <p class="mb-0">© 2021 Saysky</p>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+                        <a href="/house?rentType=share" class="btn btn-theme arrow-btn bg-2">查看更多
+                            <span><i class="ti-arrow-right"></i></span>
+                        </a>
+                    </div>
                 </div>
 
             </div>
-        </div>
-    </div>
-</footer>
-<!-- ============================ Footer End ================================== -->
+        </section>
+        <div class="clearfix"></div>
+        <!-- ============================ 最新发布合租 End ================================== -->
 
-<!-- 登录弹出框 Modal -->
-<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="registermodal" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered login-pop-form" role="document">
-        <header class="modal_content_header">
-            <div class="hm_nav">
-                <h3 class="hm_nav_title">登录</h3>
-                <span class="mod-close" data-dismiss="modal" aria-hidden="true"><i class="ti-close"></i></span>
-            </div>
-        </header>
-        <div class="modal-content" id="registermodal">
-            <div class="modal-body">
-                <div class="login-form">
-                    <form id="loginForm">
 
-                        <div class="form-group">
-                            <label>账号</label>
-                            <div class="input-with-icon">
-                                <input type="text" class="form-control" name="userName" placeholder="请输入用户名或手机号">
-                                <i class="ti-user"></i>
-                            </div>
+        <!-- ============================ Footer Start ================================== -->
+        <footer class="dark-footer skin-dark-footer style-2" style="padding-top: 0;">
+
+            <div class="footer-bottom">
+                <div class="container">
+                    <div class="row align-items-center">
+
+                        <div class="col-lg-12 col-md-12">
+                            <p class="mb-0">© 2021 Saysky</p>
                         </div>
 
-                        <div class="form-group">
-                            <label>密码</label>
-                            <div class="input-with-icon">
-                                <input type="password" class="form-control" name="userPass" placeholder="*******">
-                                <i class="ti-unlock"></i>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <button type="button" onclick="submitLogin()" class="btn btn-md full-width pop-login bg-2">登录</button>
-                        </div>
-
-                    </form>
+                    </div>
                 </div>
-
-                <div class="text-center">
-                    <p class="mt-3"><i class="ti-user mr-1"></i>忘记密码? <a href="#" data-toggle="modal"  data-target="#forget"class="link">点此重置</a></p>
-                </div>
-
             </div>
-        </div>
-    </div>
-</div>
-<!-- End Modal -->
+        </footer>
+        <!-- ============================ Footer End ================================== -->
 
-<!-- 注册 Modal -->
-<div class="modal fade" id="signup" tabindex="-1" role="dialog" aria-labelledby="sign-up" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered login-pop-form" role="document">
-        <header class="modal_content_header">
-            <div class="hm_nav">
-                <h3 class="hm_nav_title">注册</h3>
-                <span class="mod-close" data-dismiss="modal" aria-hidden="true"><i class="ti-close"></i></span>
-            </div>
-        </header>
-        <div class="modal-content" id="sign-up">
-            <div class="modal-body">
-                <div class="login-form">
-                    <form id="registerForm" onsubmit="return false">
+        <!-- 登录弹出框 Modal -->
+        <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="registermodal"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered login-pop-form" role="document">
+                <header class="modal_content_header">
+                    <div class="hm_nav">
+                        <h3 class="hm_nav_title">登录</h3>
+                        <span class="mod-close" data-dismiss="modal" aria-hidden="true"><i class="ti-close"></i></span>
+                    </div>
+                </header>
+                <div class="modal-content" id="registermodal">
+                    <div class="modal-body">
+                        <div class="login-form">
+                            <form id="loginForm">
 
-                        <div class="row">
-
-                            <div class="col-lg-12 col-md-12">
                                 <div class="form-group">
-                                    <label>用户名</label>
+                                    <label>账号</label>
                                     <div class="input-with-icon">
-                                        <input type="text" name="realname" v-model="registerForm.username" class="form-control" placeholder="姓名">
+                                        <input type="text" class="form-control" name="account"
+                                               v-model="loginForm.account"
+                                               placeholder="请输入用户名或手机号">
                                         <i class="ti-user"></i>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="col-lg-12 col-md-12" >
-                                <div class="form-group">
-                                    <label>手机号</label>
-                                    <div class="input-with-icon">
-                                        <input type="text" required name="mobile" v-model="registerForm.mobile" @blur="check_mobile" class="form-control" placeholder="手机号">
-                                        <i class="ti-mobile"></i>
-                                    </div>
-                                </div>
-                                <span class="error_tip" v-show="error_mobile_show">{{ error_mobile_msg }}</span>
-                            </div>
-
-                            <div class="col-lg-12 col-md-12">
-                                <div class="form-group form-inline">
-                                    <div class="input-with-icon">
-                                        <input style="width: 64%" type="text" required name="sms_code" v-model="registerForm.sms_code" class="form-control" placeholder="请输入手机验证码">
-                                        <i class="ti-mobile"></i>
-                                        <button style="width: 35%" :disabled="sms_code_btn_disable" @click="send_sms_code()" class="btn btn-md bg-2">{{ sms_code_tip }}</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-12 col-md-12">
                                 <div class="form-group">
                                     <label>密码</label>
                                     <div class="input-with-icon">
-                                        <input @blur="check_password()" type="password" required name="password" v-model="registerForm.password" class="form-control" placeholder="请输入6-20位的密码">
+                                        <input type="password" class="form-control" name="password"
+                                               v-model="loginForm.password"
+                                               placeholder="请输入账号密码">
                                         <i class="ti-unlock"></i>
                                     </div>
                                 </div>
-                                <span class="error_tip" v-show="error_password_show">请输入6-20位的密码</span>
-                            </div>
-
-                            <div class="col-lg-12 col-md-12">
+                                <span class="error_tip" v-show="error_login_show">{{ error_login_msg }}</span>
                                 <div class="form-group">
-                                    <label>角色</label>
-                                    <div class="simple-input">
-                                        <select name="role" v-model="registerForm.role" class="form-control">
-                                            <option value="tenant">租客</option>
-                                            <option value="landlord">房东</option>
-                                            <option value="steward">管家</option>
-                                        </select>
+                                    <button type="button" @click="submitLogin()"
+                                            class="btn btn-md full-width pop-login bg-2">登录
+                                    </button>
+                                </div>
+
+                            </form>
+                        </div>
+
+                        <div class="text-center">
+                            <p class="mt-3"><i class="ti-user mr-1"></i>忘记密码? <a href="#" data-toggle="modal"
+                                                                                 data-target="#forget"
+                                                                                 class="link">点此重置</a></p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Modal -->
+
+        <!-- 注册 Modal -->
+        <div class="modal fade" id="signup" tabindex="-1" role="dialog" aria-labelledby="sign-up" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered login-pop-form" role="document">
+                <header class="modal_content_header">
+                    <div class="hm_nav">
+                        <h3 class="hm_nav_title">注册</h3>
+                        <span class="mod-close" data-dismiss="modal" aria-hidden="true"><i class="ti-close"></i></span>
+                    </div>
+                </header>
+                <div class="modal-content" id="sign-up">
+                    <div class="modal-body">
+                        <div class="login-form">
+                            <form id="registerForm" onsubmit="return false">
+
+                                <div class="row">
+
+                                    <div class="col-lg-12 col-md-12">
+                                        <div class="form-group">
+                                            <label>用户名</label>
+                                            <div class="input-with-icon">
+                                                <input type="text" name="username" required
+                                                       v-model="registerForm.username" @blur="check_username()"
+                                                       class="form-control" placeholder="请输入用户名">
+                                                <i class="ti-user"></i>
+                                            </div>
+                                        </div>
+                                        <span class="error_tip"
+                                              v-show="error_username_show">{{ error_username_msg }}</span>
+                                    </div>
+
+                                    <div class="col-lg-12 col-md-12">
+                                        <div class="form-group">
+                                            <label>手机号</label>
+                                            <div class="input-with-icon">
+                                                <input type="text" required name="mobile" v-model="registerForm.mobile"
+                                                       @blur="check_mobile()" @input="verify_mobile()"
+                                                       class="form-control" placeholder="手机号">
+                                                <i class="ti-mobile"></i>
+                                            </div>
+                                        </div>
+                                        <span class="error_tip" v-show="error_mobile_show">{{ error_mobile_msg }}</span>
+                                    </div>
+
+                                    <div class="col-lg-12 col-md-12">
+                                        <div class="form-group form-inline">
+                                            <div class="input-with-icon">
+                                                <input style="width: 64%" type="text" required name="sms_code"
+                                                       v-model="registerForm.sms_code" class="form-control"
+                                                       placeholder="请输入手机验证码">
+                                                <i class="ti-mobile"></i>
+                                                <button style="width: 35%" :disabled="sms_code_btn_disable"
+                                                        @click="send_sms_code()" class="btn btn-md bg-2">{{ sms_code_tip
+                                                    }}
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <span class="error_tip"
+                                              v-show="error_sms_code_show">{{ error_sms_code_msg }}</span>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12">
+                                        <div class="form-group">
+                                            <label>密码</label>
+                                            <div class="input-with-icon">
+                                                <input @blur="check_password()" type="password" required name="password"
+                                                       v-model="registerForm.password" class="form-control"
+                                                       placeholder="请输入6-20位的密码">
+                                                <i class="ti-unlock"></i>
+                                            </div>
+                                        </div>
+                                        <span class="error_tip" v-show="error_password_show">请输入6-20位的密码</span>
+                                    </div>
+
+                                    <div class="col-lg-12 col-md-12">
+                                        <div class="form-group">
+                                            <label>角色</label>
+                                            <div class="simple-input">
+                                                <select name="role" v-model="registerForm.role" class="form-control">
+                                                    <option value="tenant">租客</option>
+                                                    <option value="landlord">房东</option>
+                                                    <option value="steward">管家</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="submit" @click="submitRegister()"
+                                            class="btn btn-md full-width pop-login bg-2">创建账号
+                                    </button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Modal -->
+
+        <!-- 找回密码弹出框 Modal -->
+        <div class="modal fade" id="forget" tabindex="-1" role="dialog" aria-labelledby="forgetmodal"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered login-pop-form" role="document">
+                <header class="modal_content_header">
+                    <div class="hm_nav">
+                        <h3 class="hm_nav_title">找回密码</h3>
+                        <span class="mod-close" data-dismiss="modal" aria-hidden="true"><i class="ti-close"></i></span>
+                    </div>
+                </header>
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="login-form">
+                            <form id="forgetForm">
+
+                                <div class="form-group">
+                                    <label>账号</label>
+                                    <div class="input-with-icon">
+                                        <input type="text" class="form-control" name="userName" placeholder="账号">
+                                        <i class="ti-user"></i>
                                     </div>
                                 </div>
-                            </div>
+                                <div class="form-group">
+                                    <label>邮箱地址</label>
+                                    <div class="input-with-icon">
+                                        <input type="email" class="form-control" name="email"
+                                               placeholder="注册时填写的电子邮箱地址">
+                                        <i class="ti-unlock"></i>
+                                    </div>
+                                </div>
 
+                                <div class="form-group">
+                                    <button type="button" onclick="submitForget()"
+                                            class="btn btn-md full-width pop-login bg-2">重置密码
+                                    </button>
+                                </div>
+
+                            </form>
                         </div>
 
-                        <div class="form-group">
-                            <button type="submit" @click="submitRegister()" class="btn btn-md full-width pop-login bg-2">创建账号</button>
+                        <div class="text-center">
+                            <p class="mt-3"><i class="ti-user mr-1"></i>我们会向您的邮箱发送一封邮件，请注意查收</p>
                         </div>
 
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
+        <!-- End Modal -->
+
+        <!-- End Video Modal -->
+        <a id="back2Top" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>
+
+
     </div>
 </div>
-<!-- End Modal -->
-
-<!-- 找回密码弹出框 Modal -->
-<div class="modal fade" id="forget" tabindex="-1" role="dialog" aria-labelledby="forgetmodal" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered login-pop-form" role="document">
-        <header class="modal_content_header">
-            <div class="hm_nav">
-                <h3 class="hm_nav_title">找回密码</h3>
-                <span class="mod-close" data-dismiss="modal" aria-hidden="true"><i class="ti-close"></i></span>
-            </div>
-        </header>
-        <div class="modal-content">
-            <div class="modal-body">
-                <div class="login-form">
-                    <form id="forgetForm">
-
-                        <div class="form-group">
-                            <label>账号</label>
-                            <div class="input-with-icon">
-                                <input type="text" class="form-control" name="userName" placeholder="账号">
-                                <i class="ti-user"></i>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>邮箱地址</label>
-                            <div class="input-with-icon">
-                                <input type="email" class="form-control" name="email" placeholder="注册时填写的电子邮箱地址">
-                                <i class="ti-unlock"></i>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <button type="button" onclick="submitForget()" class="btn btn-md full-width pop-login bg-2">重置密码</button>
-                        </div>
-
-                    </form>
-                </div>
-
-                <div class="text-center">
-                    <p class="mt-3"><i class="ti-user mr-1"></i>我们会向您的邮箱发送一封邮件，请注意查收</p>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</div>
-<!-- End Modal -->
-
-<!-- End Video Modal -->
-<a id="back2Top" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>
-
-
-</div>
-        </div>
 
 <!-- ============================================================== -->
 <!-- End Wrapper -->
@@ -1029,6 +1089,7 @@
 <script src="assets/js/custom.js"></script>
 <!--<script src="assets/js/script.js"></script>-->
 <script src="assets/js/common/constants.js"></script>
+<script src="assets/js/common/utils.js"></script>
 <script src="assets/js/user/register.js"></script>
 <!-- ============================================================== -->
 <!-- This page plugins -->

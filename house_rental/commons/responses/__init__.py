@@ -35,3 +35,9 @@ def success_response(data=None):
 def fail_response(message, data=None, code=-1):
     """ 失败的响应 """
     return _format_fail_response(message, data, code)
+
+
+def result_response(data: dict):
+    """ 最终结果的响应 """
+    data = data or {}
+    pass

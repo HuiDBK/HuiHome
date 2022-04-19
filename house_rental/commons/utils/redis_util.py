@@ -17,7 +17,7 @@ class RedisCacheInfo(object):
         """
         缓存信息类初始化
         :param key: 缓存的key
-        :param timeout: 缓存过期时间
+        :param timeout: 缓存过期时间, 单位秒
         :param data_type: 缓存采用的数据结构 (不传并不影响，用于标记业务采用的是什么数据结构)
         """
         self.key = key
@@ -29,31 +29,31 @@ class RedisKey(object):
     """ Redis Key 统一管理"""
 
     @classmethod
-    def mobile_sms_code(cls, mobile):
+    def mobile_sms_code(cls, mobile) -> RedisCacheInfo:
         """
         获取手机验证码 Redis key
         :param mobile: 手机号
         :return:
         """
-        redis_cache_info = RedisCacheInfo(
-            key=f'{constants.APP_NAME}:user:{mobile}',
+        sms_code_cache_info = RedisCacheInfo(
+            key=f'{constants.APP_NAME}:user:sms_code:{mobile}',
             timeout=constants.SMS_CODE_TIMEOUT
         )
-        return redis_cache_info
+        return sms_code_cache_info
 
     @classmethod
-    def user_house_collect(cls, user_id):
+    def user_house_collect(cls, user_id) -> RedisCacheInfo:
         """
         获取用户房源收藏 Redis key
         :param user_id: 用户id
         :return:
         """
-        redis_cache_info = RedisCacheInfo(
+        house_collect_cache_info = RedisCacheInfo(
             key=f'{constants.APP_NAME}:house:{user_id}',
             timeout=constants.SMS_CODE_TIMEOUT,
             data_type=RedisDataType.LIST.value
         )
-        return redis_cache_info
+        return house_collect_cache_info
 
 
 @singleton
@@ -67,8 +67,6 @@ class RedisUtil(object):
         """
         self.default_conn = 'default'  # 默认连接名
         self.redis_client = redis_client
-        if not self.redis_client:
-            self.redis_client = self.get_redis_conn()
 
     async def init_redis_pool(self, redis_conf: dict):
         """
@@ -78,6 +76,8 @@ class RedisUtil(object):
         for conn_name, conf in redis_conf.items():
             redis_pool = await self._create_redis_pool(**conf)
             self.__setattr__(conn_name, redis_pool)
+        if not self.redis_client:
+            self.redis_client = await self.get_redis_conn()
 
     async def _create_redis_pool(self, host, port, db, password, **kwargs) -> aioredis.Redis:
         """ 创建redis连接池【显式传参】 """

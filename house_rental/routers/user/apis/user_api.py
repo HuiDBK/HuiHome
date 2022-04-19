@@ -3,9 +3,13 @@
 # @Author: Hui
 # @Desc: { 用户管理API模块 }
 # @Date: 2022/02/27 21:48
+from fastapi import Path
 from house_rental.logic import user_logic
-from house_rental.commons.responses import success_response
-from house_rental.routers.user.request_models import UserRegisterIn
+from house_rental.commons.responses import success_response, fail_response
+from house_rental.routers.user.request_models import (
+    UserRegisterIn,
+    UserLoginIn
+)
 
 
 async def user_register(request: UserRegisterIn):
@@ -14,16 +18,34 @@ async def user_register(request: UserRegisterIn):
     return success_response(data)
 
 
-async def user_mobile_count(request: UserRegisterIn):
+async def user_login(request: UserLoginIn):
+    """ 用户登录 """
+    data = await user_logic.user_login_logic(request)
+    return success_response(data)
+
+
+async def user_mobile_verify(
+        mobile: str = Path(..., min_length=11, max_length=11, description='手机号')
+):
     """ 用户手机号重复校验 """
-    result = await user_logic.user_register_logic(request)
-    return {'success': '注册成功'}
+    data = await user_logic.user_mobile_verify_logic(mobile)
+    return success_response(data)
 
 
-async def username_count(request: UserRegisterIn):
+async def username_verify(
+        username: str = Path(..., min_length=3, max_length=20, description='用户名')
+):
     """ 用户名重复校验 """
-    result = await user_logic.user_register_logic(request)
-    return {'success': '注册成功'}
+    data = await user_logic.username_verify_logic(username)
+    return success_response(data)
+
+
+async def send_sms_code(
+        mobile: str = Path(..., min_length=11, max_length=11, description='手机号')
+):
+    """ 发送短信验证码 """
+    data = await user_logic.send_sms_code_logic(mobile)
+    return success_response(data)
 
 
 async def get_author_info():

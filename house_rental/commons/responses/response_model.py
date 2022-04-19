@@ -24,3 +24,7 @@ class ListResponseDataModel(BaseModel):
 class ListResponseModel(ResponseBaseModel):
     """ 分页列表响应统一返回 """
     data: ListResponseDataModel
+
+
+class SuccessModel(ResponseBaseModel):
+    """ 请求成功响应模型 """
