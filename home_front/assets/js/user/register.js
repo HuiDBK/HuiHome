@@ -30,6 +30,9 @@ let vm = new Vue({
         },
         sms_code_tip: '获取短信验证码',
 
+        // 用户真实密码
+        real_password: '',
+
         error_mobile_msg: '',
         error_mobile_show: false,
 
@@ -208,6 +211,9 @@ let vm = new Vue({
                 window.event.returnValue = false;
                 console.log('args error')
             }
+
+            // 加密密码
+            this.registerForm.password = md5(this.registerForm.password)
             axios.post(register_url, this.registerForm)
                 .then(response => {
                     if (response.data.code === 0) {
@@ -227,8 +233,11 @@ let vm = new Vue({
                 .catch(error => {
                     console.log(error)
                 })
+            this.registerForm.password = ''
         },
         submitLogin() {
+            // 加密密码
+            this.loginForm.password = md5(this.loginForm.password)
             axios.post(login_url, this.loginForm)
                 .then(response => {
                     if (response.data.code === 0) {
@@ -248,6 +257,7 @@ let vm = new Vue({
                 .catch(error => {
                     console.log(error)
                 })
+            this.loginForm.password = ''
         },
     },
 

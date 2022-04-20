@@ -5,7 +5,7 @@
 # @Date: 2022/03/06 17:41
 from tortoise import fields
 from house_rental.constants import constants
-from house_rental.constants.enums import UserRole, UserState
+from house_rental.constants.enums import UserRole, UserState, UserAuthStatus
 from house_rental.models import BaseModel
 
 
@@ -16,7 +16,8 @@ class UserModel(BaseModel):
     password = fields.CharField(max_length=30, description='用户密码')
     mobile = fields.CharField(max_length=30, description='手机号')
     role = fields.CharEnumField(UserRole, description='用户角色')
-    state = fields.CharEnumField(UserState, description='用户状态')
+    state = fields.CharEnumField(UserState, default=UserState.normal, description='用户状态')
+    auth_status = fields.CharEnumField(UserAuthStatus, default=UserAuthStatus.unauthorized, description='实名认证状态')
     json_extend = fields.JSONField(description='扩展字段')
 
     class Meta:
@@ -33,10 +34,12 @@ class UserProfile(BaseModel):
     mobile = fields.CharField(max_length=30, description='手机号')
     id_card = fields.CharField(max_length=30, description='身份证号')
     user_desc = fields.CharField(max_length=200, description='用户简介')
-    sex = fields.CharField(max_length=30, description='用户性别')
+    gender = fields.CharField(max_length=30, description='用户性别')
     hobby = fields.CharField(max_length=200, description='用户爱好')
-    job = fields.CharField(max_length=30, description='职业')
+    career = fields.CharField(max_length=30, description='职业')
     state = fields.CharEnumField(UserState, description='用户状态')
+    id_card_front = fields.CharField(max_length=200, description='身份证正面')
+    id_card_back = fields.CharField(max_length=200, description='身份证反面')
     json_extend = fields.JSONField(description='扩展字段')
 
     class Meta:

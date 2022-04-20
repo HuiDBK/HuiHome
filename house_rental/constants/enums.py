@@ -30,16 +30,22 @@ class IntEnum(int, BaseEnum):
 
 class UserRole(StrEnum):
     """用户角色"""
-    admin = 'admin'         # 管理员
-    tenant = 'tenant'       # 租客
-    landlord = 'landlord'   # 房东
-    steward = 'steward'     # 管家
+    admin = 'admin'  # 管理员
+    tenant = 'tenant'  # 租客
+    landlord = 'landlord'  # 房东
+    steward = 'steward'  # 管家
 
 
 class UserState(StrEnum):
     """用户状态"""
     normal = 'normal'
     deleted = 'deleted'
+
+
+class UserAuthStatus(StrEnum):
+    """用户实名认证状态"""
+    unauthorized = 'unauthorized'
+    authorized = 'authorized'
 
 
 class RentType(StrEnum):
@@ -75,4 +81,3 @@ class RedisDataType(StrEnum):
     HASH = 'HASH'
     SET = 'SET'
     ZSET = 'ZSET'
-
