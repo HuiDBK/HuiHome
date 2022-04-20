@@ -5,5 +5,6 @@
 # @Date: 2022/04/04 18:11
 from .user_in import UserRegisterIn
 from .user_in import UserLoginIn
+from .user_in import UserProfileUpdateIn
 
 

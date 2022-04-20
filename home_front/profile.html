@@ -194,8 +194,8 @@
                                                     <label>职业</label>
                                                     <select name="career" v-model="user_profile.career"
                                                             class="form-control">
-                                                        <option value="other">其他</option>
-                                                        <option value="IT">互联网/计算机</option>
+                                                        <option value="其他">其他</option>
+                                                        <option value="互联网/计算机">互联网/计算机</option>
                                                         <option value="生产/制造">生产/制造</option>
                                                         <option value="教育/培训">教育/培训</option>
                                                         <option value="教育/培训">教育/培训</option>
@@ -249,7 +249,7 @@
 
                                                 <div class="form-group col-lg-12 col-md-12">
                                                     <button class="btn btn-theme bg-2" type="button"
-                                                            onclick="submitProfile()">
+                                                            @click="submitProfile()">
                                                         保存
                                                     </button>
                                                 </div>

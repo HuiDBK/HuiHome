@@ -3,11 +3,11 @@
 # @Author: Hui
 # @Desc: { 用户管理API模块 }
 # @Date: 2022/02/27 21:48
-from fastapi import Path
-from house_rental.logic import user_logic
-from house_rental.commons.responses import success_response, fail_response
+from fastapi import Path, Body
+from house_rental.logic.user_logic import user_logic
+from house_rental.commons.responses import success_response
 from house_rental.routers.user.request_models import (
-    UserRegisterIn, UserLoginIn
+    UserRegisterIn, UserLoginIn, UserProfileUpdateIn
 )
 
 
@@ -50,8 +50,17 @@ async def send_sms_code(
 async def user_profile(
         user_id: int = Path(..., description='用户id')
 ):
-    """ 获取用户详情 """
+    """ 获取用户详情信息 """
     data = await user_logic.get_user_profile_logic(user_id)
+    return success_response(data)
+
+
+async def update_user_profile(
+        user_id: int = Path(..., description='用户id'),
+        request: UserProfileUpdateIn = Body(..., description='用户详情信息')
+):
+    """ 更新用户详情信息 """
+    data = await user_logic.update_user_profile_logic(user_id, request)
     return success_response(data)
 
 

@@ -74,6 +74,14 @@ router.add_api_route(
     summary='获取用户详情'
 )
 
+router.add_api_route(
+    '/profile/{user_id}',
+    user_api.update_user_profile,
+    response_model=user_out.UserProfileOut,
+    methods=['put'],
+    summary='更新用户详情'
+)
+
 # 用户模块 api版本v2
 router_v2.add_api_route(
     '/author',

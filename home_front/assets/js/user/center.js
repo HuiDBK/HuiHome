@@ -40,7 +40,6 @@ let vm = new Vue({
     },
 
     mounted() {
-        console.log('重新加载')
         let token = localStorage.getItem('token')
         if (token != null) {
             this.user_info = parser_jwt(token)
@@ -49,10 +48,12 @@ let vm = new Vue({
             console.log(now_timestamp)
             console.log(this.user_info.exp)
             if (this.user_info.exp < now_timestamp) {
-                // 已过期
+                // token已过期
                 alert('登录状态已失效，请重新登录')
                 window.location.href = '/house_rental/home_front/index.html'
             }
+        }else {
+            window.location.href = '/house_rental/home_front/index.html'
         }
         this.get_user_profile()
     },
@@ -66,6 +67,25 @@ let vm = new Vue({
                 .then(response => {
                     console.log(response.data.data)
                     this.user_profile = response.data.data
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        },
+        submitProfile(){
+            // 更新用户信息
+            console.log(this.user_profile)
+            let _user_profile_url = user_profile_url.format({'user_id': this.user_info.user_id})
+            axios.put(_user_profile_url, this.user_profile, {'headers': get_token_headers()})
+                .then(response => {
+                    if (response.data.status === 200){
+                        if (response.data.data.code === 0){
+                            this.user_profile = response.data.data
+                        }
+                    }else if(response.data.status === 401){
+                        // 未认证
+                    }
+
                 })
                 .catch(error => {
                     console.log(error)

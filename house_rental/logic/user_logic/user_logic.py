@@ -10,8 +10,7 @@ from house_rental.routers.user.response_models import (
     TokenItem, VerifyItem, UserProfileItem
 )
 from house_rental.routers.user.request_models import (
-    UserRegisterIn,
-    UserLoginIn
+    UserRegisterIn, UserLoginIn, UserProfileUpdateIn
 )
 from house_rental.constants import constants
 from house_rental.managers.user_manager import UserManager, UserProfileManager
@@ -149,5 +148,24 @@ async def get_user_profile_logic(user_id: int):
     user, user_profile = user.to_dict(), user_profile.to_dict()
     user_profile.update(user)
     user_profile['user_id'] = user.get('id')
-    print(user_profile)
     return UserProfileItem(**user_profile)
+
+
+async def update_user_profile_logic(user_id: int, user_profile_item: UserProfileUpdateIn):
+    """ 更新用户详情信息 """
+    user = await UserManager.get_by_id(user_id)
+    user_profile = await UserProfileManager.get_by_id(user_id)
+
+    # 去除空值
+    user_profile_item = {k: v for k, v in user_profile_item.dict().items() if v is not None}
+    user.update_from_dict(user_profile_item)
+    user_profile.update_from_dict(user_profile_item)
+    await user.save()
+    await user_profile.save()
+
+    # 把更新后数据返回
+    user, user_profile = user.to_dict(), user_profile.to_dict()
+    user_profile.update(user)
+    user_profile['user_id'] = user.get('id')
+    return UserProfileItem(**user_profile)
+
