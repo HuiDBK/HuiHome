@@ -56,7 +56,6 @@ let vm = new Vue({
 
     mounted() {
         let token = localStorage.getItem('token')
-        console.log(token)
         if (token != null) {
             this.user_info = parser_jwt(token)
             // 判断token有没有过期

@@ -18,20 +18,6 @@ class UserManager(BaseManager):
         user = await cls.model.create(**user_item, state=UserState.normal.value)
         return user
 
-    @classmethod
-    async def username_existed(cls, username):
-        """ 校验用户名是否重复 """
-        filter_params = dict(username=username)
-        result = await cls.filter_existed(filter_params)
-        return result
-
-    @classmethod
-    async def mobile_existed(cls, mobile):
-        """ 手机号重复校验 """
-        filter_params = dict(mobile=mobile)
-        result = await cls.filter_existed(filter_params)
-        return result
-
 
 class UserProfileManager(BaseManager):
 

@@ -13,13 +13,13 @@ from house_rental import constants
 from house_rental.commons import settings
 from house_rental.routers import api_router
 from house_rental.commons.utils.redis_util import RedisUtil
-from house_rental.middlewares.middlewares import CheckJwtToken
+from house_rental.middlewares.middlewares import AuthorizationMiddleware
 from house_rental.commons.exceptions.exception_handler import (
     business_exception_handler,
     validation_exception_handler,
-    global_exception_handler
+    global_exception_handler, authorization_exception_handler
 )
-from house_rental.commons.exceptions.global_exception import BusinessException
+from house_rental.commons.exceptions.global_exception import BusinessException, AuthorizationException
 
 app = FastAPI(title='房屋租赁系统')
 
@@ -44,12 +44,16 @@ async def startup_event():
 async def create_global_exception_handler(_app: FastAPI):
     """ 创建全局异常处理器 """
     _app.add_exception_handler(RequestValidationError, validation_exception_handler)
+    _app.add_exception_handler(AuthorizationException, authorization_exception_handler)
     _app.add_exception_handler(BusinessException, business_exception_handler)
     _app.add_exception_handler(Exception, global_exception_handler)
 
 
 async def register_middlewares(_app: FastAPI):
     """注册中间件"""
+    middleware_list = [AuthorizationMiddleware]
+    for middleware in middleware_list:
+        _app.add_middleware(middleware)
 
     # 设置跨域中间件
     _app.add_middleware(
@@ -59,10 +63,6 @@ async def register_middlewares(_app: FastAPI):
         allow_methods=["*"],
         allow_headers=["*"],
     )
-
-    middleware_list = [CheckJwtToken]
-    for middleware in middleware_list:
-        _app.add_middleware(middleware)
 
 
 async def init_mysql(_app: FastAPI, db_config: dict):

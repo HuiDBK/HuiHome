@@ -9,7 +9,7 @@ from fastapi.requests import Request
 from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
 from house_rental.commons.responses import fail_response
-from .global_exception import BusinessException
+from .global_exception import BusinessException, AuthorizationException
 
 logger = logging.getLogger()
 
@@ -29,6 +29,18 @@ async def business_exception_handler(
     )
     return JSONResponse(
         status_code=200,
+        content=fail_response(code=exc.code, message=exc.message)
+    )
+
+
+async def authorization_exception_handler(
+        request: Request,
+        exc: AuthorizationException
+):
+    """ 认证异常处理 """
+    print('认证失败')
+    return JSONResponse(
+        status_code=401,
         content=fail_response(code=exc.code, message=exc.message)
     )
 

@@ -16,7 +16,7 @@ class ErrorCodeEnum(BaseEnum):
     THROTTLING_ERR = (4002, '访问过于频繁')
     NECESSARY_PARAM_ERR = (4003, '缺少必传参数')
     ACCOUNT_ERR = (4004, '账号或密码错误')
-    PWD_ERR = (4005, '密码错误')
+    AUTHORIZATION_ERR = (4005, '权限认证错误')
     CPWD_ERR = (4006, '密码不一致')
     MOBILE_ERR = (4007, '手机号错误')
     SMS_CODE_ERR = (4008, '短信验证码有误')

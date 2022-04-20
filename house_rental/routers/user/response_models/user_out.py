@@ -3,8 +3,8 @@
 # @Author: Hui
 # @Desc: { 用户模块响应模型 }
 # @Date: 2022/04/11 20:23
+from typing import Union
 from pydantic import Field, BaseModel
-
 from house_rental.constants.enums import UserRole
 from house_rental.commons.responses.response_model import ResponseBaseModel
 
@@ -45,3 +45,28 @@ class UserMobileVerifyOut(ResponseBaseModel):
 class UsernameVerifyOut(ResponseBaseModel):
     """ 用户名校验出参 """
     data: VerifyItem = Field(description='校验结果')
+
+
+class UserProfileItem(BaseModel):
+    """ 用户详情信息 """
+    user_id: str = Field(description='用户id')
+    username: str = Field(description='用户名')
+    mobile: str = Field(description='手机号')
+    role: str = Field(description='用户角色')
+    state: str = Field(description='用户状态')
+    auth_status: str = Field(description='实名认证状态')
+    real_name: Union[str, None] = Field(description='用户真姓名')
+    avatar: Union[str, None] = Field(description='用户头像')
+    mail: Union[str, None] = Field(description='电子邮件')
+    id_card: Union[str, None] = Field(description='身份证号')
+    gender: Union[str, None] = Field(description='性别')
+    hobby: Union[str, None] = Field(description='用户爱好')
+    career: Union[str, None] = Field(description='用户职业')
+    id_card_front: Union[str, None] = Field(description='身份证正面')
+    id_card_back: Union[str, None] = Field(description='身份证反面')
+    create_ts: Union[int, None] = Field(description='用户创建时间（时间戳）')
+
+
+class UserProfileOut(ResponseBaseModel):
+    """ 用户详情信息出参 """
+    data = UserProfileItem

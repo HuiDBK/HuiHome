@@ -3,7 +3,7 @@
 # @Author: Hui
 # @Desc: { 项目数据库模型模块 }
 # @Date: 2022/02/27 22:14
-from tortoise import fields
+from tortoise import fields, Tortoise
 from tortoise.models import Model
 
 
@@ -11,6 +11,14 @@ class BaseModel(Model):
     """ 数据库模型基类 """
     create_time = fields.DatetimeField(auto_now_add=True, description='创建时间')
     update_time = fields.DatetimeField(auto_now=True, description='更新时间')
+
+    @classmethod
+    def db_conn(cls, using=None):
+        if not using:
+            assert cls._meta.app, f"请检查{cls._meta.db_table}表的 Meta.app 配置"
+            using = cls._meta.app
+        conn = Tortoise.get_connection(using)
+        return conn
 
     def to_dict(self):
         """ 数据模型对象转字典 """
@@ -20,6 +28,12 @@ class BaseModel(Model):
             if str(k).startswith('_'):
                 # 前缀带下划线不要
                 continue
+            if str(k) in ['create_time', 'update_time']:
+                # 时间转成时间戳
+                k = k[:-4] + 'ts'
+                data_dict[k] = int(self.create_time.timestamp())
+                continue
+
             data_dict[k] = v
         return data_dict
 

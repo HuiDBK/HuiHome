@@ -3,14 +3,14 @@
 # @Author: Hui
 # @Desc: { 模块描述 }
 # @Date: 2022/04/05 23:24
-from typing import Union
+from typing import Union, Tuple, Set
 from tortoise.models import Model
 from house_rental.models import BaseModel
 
 
 class BaseManager(object):
     """ 数据库模型 Manager基类 """
-    model: Model = None
+    model: BaseModel = None
 
     @classmethod
     def model_test(cls):
@@ -48,3 +48,27 @@ class BaseManager(object):
         存在性判断
         """
         return await cls.model.filter(**filter_params).exists()
+
+    @classmethod
+    async def get_by_id(cls, model_id):
+        """
+        主键单个查询
+        """
+        return await cls.model.filter(pk=model_id).first()
+
+    @classmethod
+    def danger_keywords(cls) -> Set:
+        """高危操作检测关键字"""
+        return {"delete", "drop", "select *"}
+
+    @classmethod
+    async def execute_sql(cls, sql: str) -> Tuple:
+        """
+        执行 sql
+        """
+        check_res = map(lambda x: x in sql.lower(), cls.danger_keywords())
+        if any(list(check_res)):
+            raise Exception('sql 危险操作')
+        con = cls.model.db_conn()
+        res = await con.execute_query(sql)
+        return res

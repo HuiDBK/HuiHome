@@ -7,8 +7,7 @@ from fastapi import Path
 from house_rental.logic import user_logic
 from house_rental.commons.responses import success_response, fail_response
 from house_rental.routers.user.request_models import (
-    UserRegisterIn,
-    UserLoginIn
+    UserRegisterIn, UserLoginIn
 )
 
 
@@ -45,6 +44,14 @@ async def send_sms_code(
 ):
     """ 发送短信验证码 """
     data = await user_logic.send_sms_code_logic(mobile)
+    return success_response(data)
+
+
+async def user_profile(
+        user_id: int = Path(..., description='用户id')
+):
+    """ 获取用户详情 """
+    data = await user_logic.get_user_profile_logic(user_id)
     return success_response(data)
 
 

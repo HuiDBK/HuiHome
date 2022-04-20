@@ -4,8 +4,11 @@
 # @Desc: { 项目中间件 }
 # @Date: 2022/02/28 15:07
 from starlette.requests import Request
-from starlette.responses import Response
+from starlette.responses import Response, JSONResponse
 from starlette.types import ASGIApp, Scope, Receive, Send, Message
+from house_rental.commons import settings
+from house_rental.commons.utils import jwt_util
+from house_rental.managers.user_manager import UserManager
 
 
 class BaseMiddleware(object):
@@ -38,10 +41,28 @@ class BaseMiddleware(object):
         return None
 
 
-class CheckJwtToken(BaseMiddleware):
-    """校验jwt_token中间件"""
+class AuthorizationMiddleware(BaseMiddleware):
+    """ 权限认证中间件 """
 
     async def before_request(self, request: Request):
-        """在请求前校验jwt_token"""
-        print(request.query_params)
-        token = request.query_params.get('token') or request.headers.get('')
+        """ 在请求前校验jwt """
+
+        for api_url in settings.API_URL_WHITE_LIST:
+            # 在白名单的接口无需token验证
+            if str(request.url.path).startswith(api_url):
+                return
+
+        token = request.headers.get('Authorization') or None
+        if not token:
+            return JSONResponse(status_code=401)
+
+        token = str(token)[7:]
+        user_info = jwt_util.verify_jwt(token)
+        if not user_info:
+            # 无效token
+            return JSONResponse(status_code=401)
+
+        # 校验通过保存到request.user中
+        user_id = user_info.get('user_id')
+        user = await UserManager.get_by_id(user_id)
+        request.scope['user'] = user

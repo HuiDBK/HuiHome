@@ -27,3 +27,7 @@ class BusinessException(Exception):
         self.code = error_enum.code
         self.message = error_enum.msg
         return self
+
+
+class AuthorizationException(BusinessException):
+    """ 认证异常类 """

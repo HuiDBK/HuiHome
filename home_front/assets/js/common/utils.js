@@ -24,3 +24,9 @@ function parser_jwt(token) {
     let payload = jwt_list[1]
     return JSON.parse(decodeURIComponent(escape(window.atob(payload.replace(/-/g, "+").replace(/_/g, "/")))))
 }
+
+
+function get_token_headers(){
+    // 获取带token信息的http头部信息
+    return {'Authorization': 'Bearer ' + localStorage.getItem('token')}
+}

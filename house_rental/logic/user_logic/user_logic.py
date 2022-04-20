@@ -6,7 +6,9 @@
 import re
 from datetime import datetime, timedelta
 from house_rental.models.user_model import UserModel
-from house_rental.routers.user.response_models import TokenItem
+from house_rental.routers.user.response_models import (
+    TokenItem, VerifyItem, UserProfileItem
+)
 from house_rental.routers.user.request_models import (
     UserRegisterIn,
     UserLoginIn
@@ -25,14 +27,14 @@ async def username_verify_logic(username: str):
     """ 校验用户名是否存在 """
     filter_params = dict(username=username)
     result = await UserManager.filter_existed(filter_params)
-    return {'verify_result': result}
+    return VerifyItem(verify_result=result)
 
 
 async def user_mobile_verify_logic(mobile: str):
     """ 校验用户名是否存在 """
     filter_params = dict(mobile=mobile)
     result = await UserManager.filter_existed(filter_params)
-    return {'verify_result': result}
+    return VerifyItem(verify_result=result)
 
 
 async def verify_user_register_info(user_item: UserRegisterIn):
@@ -98,7 +100,7 @@ async def user_register_logic(user_item: UserRegisterIn):
 
     # 注册成功则保存登录状态，签发token
     token, refresh_token = await generate_user_token(user)
-    return {'token': token, 'refresh_token': refresh_token}
+    return TokenItem(token=token, refresh_token=refresh_token)
 
 
 async def send_sms_code_logic(mobile: str):
@@ -137,4 +139,15 @@ async def user_login_logic(account_item: UserLoginIn):
 
     # 登录成功签发token, 保存用户状态
     token, refresh_token = await generate_user_token(user)
-    return TokenItem(token=token, refresh_token=refresh_token).dict()
+    return TokenItem(token=token, refresh_token=refresh_token)
+
+
+async def get_user_profile_logic(user_id: int):
+    """ 获取用户详情信息逻辑 """
+    user = await UserManager.get_by_id(user_id)
+    user_profile = await UserProfileManager.get_by_id(user_id)
+    user, user_profile = user.to_dict(), user_profile.to_dict()
+    user_profile.update(user)
+    user_profile['user_id'] = user.get('id')
+    print(user_profile)
+    return UserProfileItem(**user_profile)
