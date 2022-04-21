@@ -38,7 +38,7 @@ async def startup_event():
     await create_global_exception_handler(app)
 
     # 数据库初始化
-    await db_init(app)
+    # await db_init(app)
 
 
 async def create_global_exception_handler(_app: FastAPI):
