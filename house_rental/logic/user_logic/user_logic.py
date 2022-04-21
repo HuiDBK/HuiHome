@@ -4,17 +4,19 @@
 # @Desc: { 用户登录注册相关逻辑模块 }
 # @Date: 2022/04/04 20:53
 import re
+from fastapi import Path, File, UploadFile, Form
 from datetime import datetime, timedelta
 from house_rental.models.user_model import UserModel
 from house_rental.routers.user.response_models import (
-    TokenItem, VerifyItem, UserProfileItem
+    TokenItem, VerifyItem, UserProfileItem, UserRealNameAuthItem
 )
 from house_rental.routers.user.request_models import (
     UserRegisterIn, UserLoginIn, UserProfileUpdateIn
 )
 from house_rental.constants import constants
+from house_rental.constants.enums import UserAuthStatus
 from house_rental.managers.user_manager import UserManager, UserProfileManager
-from house_rental.commons.libs import sms
+from house_rental.commons.libs import sms, qiniu_tools
 from house_rental.commons import settings
 from house_rental.commons.utils import jwt_util
 from house_rental.commons.utils import RedisUtil, RedisKey
@@ -169,3 +171,36 @@ async def update_user_profile_logic(user_id: int, user_profile_item: UserProfile
     user_profile['user_id'] = user.get('id')
     return UserProfileItem(**user_profile)
 
+
+async def user_name_auth_logic(
+        user_id: int = Path(..., description='用户id'),
+        real_name: str = Form(..., description='真实姓名'),
+        id_card: str = Form(..., description='身份证号'),
+        id_card_front: UploadFile = File(..., description='身份证正面'),
+        id_card_back: UploadFile = File(..., description='身份证背面')
+):
+    """ 用户实名认证逻辑 """
+    id_card_front_content = await id_card_front.read()
+    id_card_back_content = await id_card_back.read()
+
+    # 把图片上传到七牛云
+    id_card_front_key = await qiniu_tools.upload_image_to_qiniu(id_card_front_content)
+    id_card_back_key = await qiniu_tools.upload_image_to_qiniu(id_card_back_content)
+
+    user_profile = await UserProfileManager.get_by_id(user_id)
+    update_params = dict(
+        real_name=real_name,
+        id_card=id_card,
+        id_card_front=id_card_front_key,
+        id_card_back=id_card_back_key,
+        auth_status=UserAuthStatus.auditing
+    )
+    user_profile.update_from_dict(update_params)
+    await user_profile.save(update_fields=list(update_params.keys()))
+
+    # 返回数据, 认证图片地址返回完整
+    user_profile.id_card_front = settings.QINIU_DOMAIN + user_profile.id_card_front
+    user_profile.id_card_back = settings.QINIU_DOMAIN + user_profile.id_card_back
+    user_profile = user_profile.to_dict()
+    user_profile['user_id'] = user_profile.get('id')
+    return UserRealNameAuthItem(**user_profile)

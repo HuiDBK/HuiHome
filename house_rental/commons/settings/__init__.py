@@ -8,6 +8,7 @@ from .db_config import REDIS_CONFIG
 from .third_party_config import QINIU_ACCESS_KEY
 from .third_party_config import QINIU_SECRET_KEY
 from .third_party_config import QINIU_BUCKET_NAME
+from .third_party_config import QINIU_DOMAIN
 
 JWT_SECRET = 'NmUzODk2ZGUtYmZjYy0xMWVjLWI5YTctZjQzMGI5YTUwMzQ2aHVp'
 JWT_EXPIRY_HOURS = 2

@@ -70,3 +70,19 @@ class UserProfileItem(BaseModel):
 class UserProfileOut(ResponseBaseModel):
     """ 用户详情信息出参 """
     data = UserProfileItem
+
+
+class UserRealNameAuthItem(BaseModel):
+    """ 用户实名认证数据 """
+    user_id: str = Field(description='用户id')
+    state: str = Field(description='用户状态')
+    real_name: Union[str, None] = Field(description='用户真姓名')
+    id_card: Union[str, None] = Field(description='身份证号')
+    auth_status: str = Field(description='实名认证状态')
+    id_card_front: Union[str, None] = Field(description='身份证正面')
+    id_card_back: Union[str, None] = Field(description='身份证反面')
+
+
+class UserRealNameAuthOut(ResponseBaseModel):
+    """ 用户实名认证出参 """
+    data = UserRealNameAuthItem

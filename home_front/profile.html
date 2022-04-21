@@ -225,21 +225,27 @@
 
                                                 <div class="form-group col-md-6">
                                                     <label>身份证正面</label>
-                                                    <input name="id_card_front" v-model="user_profile.id_card_front" class="form-control"
-                                                           onclick="$('#card_front_file').click();">
+                                                    <div>
+                                                        <img id="id_card_front" src="https://repo.bfw.wiki/bfwrepo/image/606e33d87a964.png" alt="身份证正面"
+                                                         class="img-thumbnail" onclick="$('#card_front_file').click();">
+                                                    </div>
                                                     <label class="input-group-btn">
-                                                        <input type="file" id="card_front_file" accept=".png, .jpg, .jpeg"
-                                                               style="display: none">
+                                                        <input type="file" id="card_front_file" name="id_card_front"
+                                                               accept=".png, .jpg, .jpeg"
+                                                               style="display: none" @change="update_id_card_img($event)">
                                                     </label>
                                                 </div>
 
                                                 <div class="form-group col-md-6">
                                                     <label>身份证反面</label>
-                                                    <input name="id_card_back" v-model="user_profile.id_card_back" class="form-control"
-                                                           onclick="$('#card_back_file').click();">
+                                                    <div>
+                                                         <img id="id_card_back" src="https://repo.bfw.wiki/bfwrepo/image/606e33ec83a76.png" alt="身份证反面"
+                                                         class="img-thumbnail" onclick="$('#card_back_file').click();">
+                                                    </div>
                                                     <label class="input-group-btn">
-                                                        <input type="file" id="card_back_file" accept=".png, .jpg, .jpeg"
-                                                               style="display: none">
+                                                        <input type="file" id="card_back_file" name="id_card_back"
+                                                               accept=".png, .jpg, .jpeg"
+                                                               style="display: none" @change="update_id_card_img($event)">
                                                     </label>
                                                 </div>
 
@@ -252,9 +258,11 @@
                                                             @click="submitProfile()">
                                                         保存
                                                     </button>
+                                                     <button class="btn btn-theme bg-2" type="button"
+                                                            @click="real_name_auth()">
+                                                        实名认证
+                                                    </button>
                                                 </div>
-
-
                                             </div>
                                         </form>
                                     </div>

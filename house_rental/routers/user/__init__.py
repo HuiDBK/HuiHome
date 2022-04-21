@@ -82,6 +82,14 @@ router.add_api_route(
     summary='更新用户详情'
 )
 
+router.add_api_route(
+    '/name_auth/{user_id}',
+    user_api.user_name_auth,
+    response_model=user_out.UserRealNameAuthOut,
+    methods=['post'],
+    summary='用户实名认证接口'
+)
+
 # 用户模块 api版本v2
 router_v2.add_api_route(
     '/author',

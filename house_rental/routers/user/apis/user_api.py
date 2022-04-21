@@ -3,7 +3,7 @@
 # @Author: Hui
 # @Desc: { 用户管理API模块 }
 # @Date: 2022/02/27 21:48
-from fastapi import Path, Body
+from fastapi import Path, Form, Body, UploadFile, File
 from house_rental.logic.user_logic import user_logic
 from house_rental.commons.responses import success_response
 from house_rental.routers.user.request_models import (
@@ -61,6 +61,20 @@ async def update_user_profile(
 ):
     """ 更新用户详情信息 """
     data = await user_logic.update_user_profile_logic(user_id, request)
+    return success_response(data)
+
+
+async def user_name_auth(
+        user_id: int = Path(..., description='用户id'),
+        real_name: str = Form(..., min_length=1, description='真实姓名'),
+        id_card: str = Form(..., min_length=18, description='身份证号'),
+        id_card_front: UploadFile = File(..., description='身份证正面'),
+        id_card_back: UploadFile = File(..., description='身份证背面')
+):
+    """ 用户实名认证接口 """
+    data = await user_logic.user_name_auth_logic(
+        user_id, real_name, id_card, id_card_front, id_card_back
+    )
     return success_response(data)
 
 

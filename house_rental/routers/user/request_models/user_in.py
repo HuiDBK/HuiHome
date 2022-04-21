@@ -7,6 +7,7 @@ import re
 from typing import Union
 from house_rental import constants
 from pydantic import Field, BaseModel, validator
+from fastapi import File, UploadFile, Form
 
 from house_rental.constants.enums import UserRole
 
@@ -46,5 +47,3 @@ class UserProfileUpdateIn(BaseModel):
     gender: Union[str, None] = Field(description='性别')
     hobby: Union[str, None] = Field(description='用户爱好')
     career: Union[str, None] = Field(description='用户职业')
-    id_card_front: Union[str, None] = Field(description='身份证正面')
-    id_card_back: Union[str, None] = Field(description='身份证反面')

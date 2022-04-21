@@ -6,3 +6,4 @@
 from .user_out import TokenItem
 from .user_out import VerifyItem
 from .user_out import UserProfileItem
+from .user_out import UserRealNameAuthItem

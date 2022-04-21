@@ -17,7 +17,6 @@ class UserModel(BaseModel):
     mobile = fields.CharField(max_length=30, description='手机号')
     role = fields.CharEnumField(UserRole, description='用户角色')
     state = fields.CharEnumField(UserState, default=UserState.normal, description='用户状态')
-    auth_status = fields.CharEnumField(UserAuthStatus, default=UserAuthStatus.unauthorized, description='实名认证状态')
     json_extend = fields.JSONField(description='扩展字段')
 
     class Meta:
@@ -37,6 +36,7 @@ class UserProfile(BaseModel):
     gender = fields.CharField(max_length=30, description='用户性别')
     hobby = fields.CharField(max_length=200, description='用户爱好')
     career = fields.CharField(max_length=30, description='职业')
+    auth_status = fields.CharEnumField(UserAuthStatus, default=UserAuthStatus.unauthorized, description='实名认证状态')
     state = fields.CharEnumField(UserState, description='用户状态')
     id_card_front = fields.CharField(max_length=200, description='身份证正面')
     id_card_back = fields.CharField(max_length=200, description='身份证反面')
