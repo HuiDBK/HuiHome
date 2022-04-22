@@ -19,6 +19,12 @@ class UserModel(BaseModel):
     state = fields.CharEnumField(UserState, default=UserState.normal, description='用户状态')
     json_extend = fields.JSONField(description='扩展字段')
 
+    def to_dict(self):
+        """ 重写不返回密码数据 """
+        user_dict = super().to_dict()
+        del user_dict['password']
+        return user_dict
+
     class Meta:
         app = constants.APP_NAME
         table = 'user'

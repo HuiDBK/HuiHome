@@ -69,7 +69,7 @@ class UserProfileItem(BaseModel):
 
 class UserProfileOut(ResponseBaseModel):
     """ 用户详情信息出参 """
-    data = UserProfileItem
+    data: UserProfileItem
 
 
 class UserRealNameAuthItem(BaseModel):
@@ -85,4 +85,4 @@ class UserRealNameAuthItem(BaseModel):
 
 class UserRealNameAuthOut(ResponseBaseModel):
     """ 用户实名认证出参 """
-    data = UserRealNameAuthItem
+    data: UserRealNameAuthItem

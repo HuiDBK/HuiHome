@@ -18,6 +18,12 @@ class UserManager(BaseManager):
         user = await cls.model.create(**user_item, state=UserState.normal.value)
         return user
 
+    @classmethod
+    async def get_users_by_ids(cls, user_ids: list):
+        """ 用户注册 """
+        filter_params = dict(id__in=user_ids)
+        return await cls.get_with_params(filter_params)
+
 
 class UserProfileManager(BaseManager):
 
@@ -29,5 +35,10 @@ class UserProfileManager(BaseManager):
         user = await cls.model.create(**user_profile_item)
         return user
 
+    @classmethod
+    async def get_users_by_ids(cls, user_ids: list):
+        """ 用户注册 """
+        filter_params = dict(id__in=user_ids)
+        return await cls.get_with_params(filter_params)
 
 

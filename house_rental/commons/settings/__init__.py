@@ -24,6 +24,9 @@ sms_code_ttl = 5  # 短信验证码有效时间 单位/分钟
 
 # 不需要登录验证的接口
 API_URL_WHITE_LIST = [
+    '/docs',
+    '/openapi.json',
+    '/api/v1/admin',
     '/api/v1/user/login',
     '/api/v1/user/register',
     '/api/v1/user/mobile',

@@ -3,7 +3,7 @@
 # @Author: Hui
 # @Desc: { 模块描述 }
 # @Date: 2022/04/05 23:24
-from typing import Union, Tuple, Set, Dict
+from typing import Union, Tuple, Set, Dict, List
 from house_rental.models import BaseModel
 
 
@@ -19,7 +19,7 @@ class BaseManager(object):
     @classmethod
     async def get_with_params(cls, filter_params: dict):
         """"""
-        return cls.model.filter(**filter_params).order_by('id').all()
+        return await cls.model.filter(**filter_params).order_by('id').all()
 
     @classmethod
     async def update(cls, model_id: int, to_update: Dict) -> bool:
@@ -83,6 +83,40 @@ class BaseManager(object):
         主键单个查询
         """
         return await cls.model.filter(pk=model_id).first()
+
+    @classmethod
+    async def filter_page(
+            cls,
+            filter_params: Dict = None,
+            orderings: List = None,
+            offset: int = 0, limit: int = 10
+    ) -> List[BaseModel]:
+        """
+        分页筛选：条件筛选 + 排序规则 + 条数限制
+        默认按照主键id排序
+        返回模型列表
+        """
+        if not orderings:
+            orderings = ['id']
+        if not filter_params:
+            filter_params = {}
+        return await cls.model.filter(**filter_params).order_by(*orderings).offset(offset).limit(limit)
+
+    @classmethod
+    async def filter_values_page(
+            cls,
+            filter_params: Dict,
+            values: List,
+            orderings: List = None,
+            offset: int = 0, limit: int = 10
+    ) -> List[Dict]:
+        """
+        分页字段筛选：分页筛选 + 自定字段列表
+        返属性字典
+        """
+        if orderings is None:
+            orderings = ['id']
+        return await cls.model.filter(**filter_params).order_by(*orderings).offset(offset).limit(limit).values(*values)
 
     @classmethod
     def danger_keywords(cls) -> Set:
