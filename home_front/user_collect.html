@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="author" content="Drizvato"/>
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+        <title>房屋租赁系统，一起合租吧！</title>
+
+        <!-- Custom CSS -->
+        <link href="/assets/css/styles.css?v=20210423" rel="stylesheet">
+        <link href="/assets/css/message.css" rel="stylesheet">
+
+        <!-- Custom Color Option -->
+        <link href="/assets/css/colors.css" rel="stylesheet">
+
+    </head>
+
+    <body class="yellow-skin">
+
+        <!-- ============================================================== -->
+        <!-- Preloader - style you can find in spinners.css -->
+        <!-- ============================================================== -->
+        <div class="preloader"></div>
+
+        <!-- ============================================================== -->
+        <!-- Main wrapper - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <div id="main-wrapper">
+
+            <!-- ============================================================== -->
+            <!-- Top header  -->
+            <!-- ============================================================== -->
+            <!-- Start Navigation -->
+            <div class="header header-light dark-text">
+                <div class="container">
+                    <nav id="navigation" class="navigation navigation-landscape">
+                        <div class="nav-header">
+                            <a class="nav-brand" href="/">
+                                <img src="/assets/img/logo.png" class="logo" alt=""/>
+                            </a>
+                            <div class="nav-toggle"></div>
+                        </div>
+                        <div class="nav-menus-wrapper" style="transition-property: none;">
+                            <ul class="nav-menu">
+
+                                <li><a href="/" style="font-size: 15px;">首页</a></li>
+                                <li><a href="/house?rentType=whole" style="font-size: 15px;">整租</a></li>
+                                <li><a href="/house?rentType=share" style="font-size: 15px;">合租</a></li>
+                                <li><a href="/post" style="font-size: 15px;">求租</a></li>
+                                <li><a href="/news" style="font-size: 15px;">新闻资讯</a></li>
+                                <li><a href="/feedback" style="font-size: 15px;">用户反馈</a></li>
+                                <li><a href="/message" style="font-size: 15px;">未读消息
+                                    <span style="color: red;">(0)</span>
+                                    </a>
+                                </li>
+                                </ul>
+
+                            <ul class="nav-menu nav-menu-social align-to-right dhsbrd">
+
+                                        <li>
+                                            <div class="btn-group account-drop">
+                                                <button type="button" class="btn btn-order-by-filt"
+                                                        data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                    <img src="https://eu.ui-avatars.com/api/?background=random&length=1&rounded=true&bold=true&name=张三" class="avater-img"
+                                                         alt="">
+                                                        张三(
+                                                    租客)
+                                                </button>
+
+
+                                                <div class="dropdown-menu pull-right animated flipInX">
+                                                            <a href="/admin/profile">
+                                                                <i class="ti-user"></i>个人信息
+                                                            </a>
+                                                            <a href="/admin/home">
+                                                                <i class="ti-home"></i>我的家
+                                                            </a>
+                                                            <a href="/admin/mark">
+                                                                <i class="ti-bookmark"></i>我的收藏
+                                                            </a>
+                                                            <a href="/logout">
+                                                                <i class="ti-power-off"></i>退出登录
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                    </nav>
+                </div>
+            </div>
+            <!-- End Navigation -->
+            <div class="clearfix"></div>
+            <!-- ============================================================== -->
+            <!-- Top header  -->
+            <!-- ============================================================== -->
+<!-- ============================ User Dashboard ================================== -->
+<section class="p-0">
+    <div class="container-fluid p-0">
+
+        <div class="row">
+
+            <div class="col-lg-3 col-md-4 col-sm-12">
+    <div class="property_dashboard_navbar">
+
+        <div class="dash_user_menues">
+                    <ul>
+                        <li ><a href="/admin/profile"><i
+                                class="ti-user"></i>个人信息</a></li>
+                        <li ><a
+                                href="/admin/home"><i class="ti-home"></i>我的家</a></li>
+                        <li ><a
+                                href="/admin/order"><i class="ti-gift"></i>订单管理</a></li>
+                        <li  class="active"><a href="/admin/mark"><i
+                                class="ti-bookmark"></i>我的收藏</a></li>
+                        <li ><a href="/admin/feedback"><i
+                                class="ti-alert"></i>我的反馈</a></li>
+                        <li ><a href="/admin/post"><i
+                                class="ti-pencil"></i>求租管理</a></li>
+                        <li ><a href="/admin/comment"><i
+                                class="ti-comment"></i>求租留言</a></li>
+                        <li ><a href="/admin/password"><i
+                                class="ti-unlock"></i>密码修改</a></li>
+                        <li><a href="/logout"><i class="ti-power-off"></i>退出登录</a></li>
+                    </ul>
+                </div>
+            </div>
+</div><div class="col-lg-9 col-md-8 col-sm-12">
+                <div class="dashboard-body">
+
+                    <div class="dashboard-wraper">
+
+                        <!-- Bookmark Property -->
+                        <div class="frm_submit_block">
+                            <h4>我的收藏</h4>
+                        </div>
+
+                        <table class="property-table-wrap responsive-table bkmark">
+
+                            <tbody>
+                            <tr>
+                                <th><i class="fa fa-file-text"></i> 收藏列表</th>
+                                <th></th>
+                            </tr>
+
+                            <tr>
+                                    <td class="dashboard_propert_wrapper">
+                                        <img src="/assets/img/indoors/1.jpg" alt="">
+                                        <div class="title">
+                                            <h4><a href="/house/detail/12" target="_blank">合租-龙城西苑-4居室-B卧</a></h4>
+                                            <span>广东省深圳市南山区科技园南龙城新苑小区12栋305室B卧</span>
+                                            <span class="table-property-price">¥2800 / 月</span>
+                                        </div>
+                                    </td>
+                                    <td class="action">
+                                        <a href="javascript:void(0)" class="delete" onclick="cancelMark(16)"><i class="ti-close"></i>取消收藏</a>
+                                    </td>
+                                </tr>
+                            <tr>
+                                    <td class="dashboard_propert_wrapper">
+                                        <img src="/assets/img/indoors/4.jpg" alt="">
+                                        <div class="title">
+                                            <h4><a href="/house/detail/105" target="_blank">整租-桃苑公寓-3室1厅</a></h4>
+                                            <span>广东省深圳市南山区南头桃苑公寓11栋605室</span>
+                                            <span class="table-property-price">¥8800 / 月</span>
+                                        </div>
+                                    </td>
+                                    <td class="action">
+                                        <a href="javascript:void(0)" class="delete" onclick="cancelMark(15)"><i class="ti-close"></i>取消收藏</a>
+                                    </td>
+                                </tr>
+                            <tr>
+                                    <td class="dashboard_propert_wrapper">
+                                        <img src="/assets/img/indoors/3.jpg" alt="">
+                                        <div class="title">
+                                            <h4><a href="/house/detail/104" target="_blank">整租-桃苑公寓-3室1厅</a></h4>
+                                            <span>广东省深圳市南山区南头桃苑公寓12栋604室</span>
+                                            <span class="table-property-price">¥8800 / 月</span>
+                                        </div>
+                                    </td>
+                                    <td class="action">
+                                        <a href="javascript:void(0)" class="delete" onclick="cancelMark(14)"><i class="ti-close"></i>取消收藏</a>
+                                    </td>
+                                </tr>
+                            <tr>
+                                    <td class="dashboard_propert_wrapper">
+                                        <img src="/assets/img/indoors/5.jpg" alt="">
+                                        <div class="title">
+                                            <h4><a href="/house/detail/100" target="_blank">整租-桃苑公寓-3室1厅</a></h4>
+                                            <span>广东省深圳市南山区南头桃苑公寓12栋602室</span>
+                                            <span class="table-property-price">¥8800 / 月</span>
+                                        </div>
+                                    </td>
+                                    <td class="action">
+                                        <a href="javascript:void(0)" class="delete" onclick="cancelMark(13)"><i class="ti-close"></i>取消收藏</a>
+                                    </td>
+                                </tr>
+                            <tr>
+                                    <td class="dashboard_propert_wrapper">
+                                        <img src="/assets/img/indoors/3.jpg" alt="">
+                                        <div class="title">
+                                            <h4><a href="/house/detail/116" target="_blank">整租-泰安轩-3室1厅</a></h4>
+                                            <span>广东省深圳市南山区南头泰安轩12栋507</span>
+                                            <span class="table-property-price">¥8800 / 月</span>
+                                        </div>
+                                    </td>
+                                    <td class="action">
+                                        <a href="javascript:void(0)" class="delete" onclick="cancelMark(3)"><i class="ti-close"></i>取消收藏</a>
+                                    </td>
+                                </tr>
+                            <tr>
+                                    <td class="dashboard_propert_wrapper">
+                                        <img src="/assets/img/indoors/1.jpg" alt="">
+                                        <div class="title">
+                                            <h4><a href="/house/detail/42" target="_blank">合租-竹园小区-4居室-B卧</a></h4>
+                                            <span>广东省深圳市福田区竹园小区12栋305室B卧</span>
+                                            <span class="table-property-price">¥2800 / 月</span>
+                                        </div>
+                                    </td>
+                                    <td class="action">
+                                        <a href="javascript:void(0)" class="delete" onclick="cancelMark(2)"><i class="ti-close"></i>取消收藏</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                    <!-- Pagination 分页 -->
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12 mt-4">
+                            <footer class="text-center">
+                                <p class="mb-0">© 2021 Saysky. All Rights Reserved</p>
+                            </footer>
+                        </div>
+                    </div>
+                    <!-- row -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ============================ User Dashboard End ================================== -->
+
+
+<!-- ============================ Footer Start ================================== -->
+<footer class="dark-footer skin-dark-footer style-2" style="padding-top: 0;">
+
+<div class="footer-bottom">
+        <div class="container">
+            <div class="row align-items-center">
+
+                <div class="col-lg-12 col-md-12">
+                    <p class="mb-0">© 2021 Saysky</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- ============================ Footer End ================================== -->
+
+<!-- 登录弹出框 Modal -->
+<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="registermodal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered login-pop-form" role="document">
+        <header class="modal_content_header">
+            <div class="hm_nav">
+                <h3 class="hm_nav_title">登录</h3>
+                <span class="mod-close" data-dismiss="modal" aria-hidden="true"><i class="ti-close"></i></span>
+            </div>
+        </header>
+        <div class="modal-content" id="registermodal">
+            <div class="modal-body">
+                <div class="login-form">
+                    <form id="loginForm">
+
+                        <div class="form-group">
+                            <label>账号</label>
+                            <div class="input-with-icon">
+                                <input type="text" class="form-control" name="userName" placeholder="账号">
+                                <i class="ti-user"></i>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>密码</label>
+                            <div class="input-with-icon">
+                                <input type="password" class="form-control" name="userPass" placeholder="*******">
+                                <i class="ti-unlock"></i>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="button" onclick="submitLogin()" class="btn btn-md full-width pop-login bg-2">登录</button>
+                        </div>
+
+                    </form>
+                </div>
+
+                <div class="text-center">
+                    <p class="mt-3"><i class="ti-user mr-1"></i>忘记密码? <a href="#" data-toggle="modal"  data-target="#forget"class="link">点此重置</a></p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal -->
+
+<!-- 注册 Modal -->
+<div class="modal fade" id="signup" tabindex="-1" role="dialog" aria-labelledby="sign-up" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered login-pop-form" role="document">
+        <header class="modal_content_header">
+            <div class="hm_nav">
+                <h3 class="hm_nav_title">注册</h3>
+                <span class="mod-close" data-dismiss="modal" aria-hidden="true"><i class="ti-close"></i></span>
+            </div>
+        </header>
+        <div class="modal-content" id="sign-up">
+            <div class="modal-body">
+                <div class="login-form">
+                    <form id="registerForm">
+
+                        <div class="row">
+
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <label>姓名</label>
+                                    <div class="input-with-icon">
+                                        <input type="text" name="userDisplayName" class="form-control" placeholder="姓名">
+                                        <i class="ti-user"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <label>电子邮箱</label>
+                                    <div class="input-with-icon">
+                                        <input type="email" name="email" class="form-control" placeholder="电子邮箱，用于重置密码">
+                                        <i class="ti-email"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <label>手机号</label>
+                                    <div class="input-with-icon">
+                                        <input type="text" name="phone" class="form-control" placeholder="手机号">
+                                        <i class="ti-mobile"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <label>账号</label>
+                                    <div class="input-with-icon">
+                                        <input type="text" name="userName" class="form-control" placeholder="登录账号">
+                                        <i class="ti-user"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <label>密码</label>
+                                    <div class="input-with-icon">
+                                        <input type="password" name="userPass" class="form-control" placeholder="登录密码">
+                                        <i class="ti-unlock"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <label>角色</label>
+                                    <div class="simple-input">
+                                        <select name="role" class="form-control">
+                                            <option value="customer">租客</option>
+                                            <option value="owner">房东</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <button type="button" onclick="submitRegister()" class="btn btn-md full-width pop-login bg-2">创建账号</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal -->
+
+<!-- 找回密码弹出框 Modal -->
+<div class="modal fade" id="forget" tabindex="-1" role="dialog" aria-labelledby="forgetmodal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered login-pop-form" role="document">
+        <header class="modal_content_header">
+            <div class="hm_nav">
+                <h3 class="hm_nav_title">找回密码</h3>
+                <span class="mod-close" data-dismiss="modal" aria-hidden="true"><i class="ti-close"></i></span>
+            </div>
+        </header>
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="login-form">
+                    <form id="forgetForm">
+
+                        <div class="form-group">
+                            <label>账号</label>
+                            <div class="input-with-icon">
+                                <input type="text" class="form-control" name="userName" placeholder="账号">
+                                <i class="ti-user"></i>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>邮箱地址</label>
+                            <div class="input-with-icon">
+                                <input type="email" class="form-control" name="email" placeholder="注册时填写的电子邮箱地址">
+                                <i class="ti-unlock"></i>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="button" onclick="submitForget()" class="btn btn-md full-width pop-login bg-2">重置密码</button>
+                        </div>
+
+                    </form>
+                </div>
+
+                <div class="text-center">
+                    <p class="mt-3"><i class="ti-user mr-1"></i>我们会向您的邮箱发送一封邮件，请注意查收</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal -->
+
+<!-- End Video Modal -->
+<a id="back2Top" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>
+
+
+</div>
+<!-- ============================================================== -->
+<!-- End Wrapper -->
+<!-- ============================================================== -->
+
+<!-- ============================================================== -->
+<!-- All Jquery -->
+<!-- ============================================================== -->
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/popper.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/ion.rangeSlider.min.js"></script>
+<script src="/assets/js/select2.min.js"></script>
+<script src="/assets/js/jquery.magnific-popup.min.js"></script>
+<script src="/assets/js/slick.js"></script>
+<script src="/assets/js/slider-bg.js"></script>
+<script src="/assets/js/lightbox.js"></script>
+<script src="/assets/js/imagesloaded.js"></script>
+<script src="/assets/js/daterangepicker.js"></script>
+<script src="/assets/js/custom.js"></script>
+<script src="/assets/js/script.js?v=2"></script>
+<!-- ============================================================== -->
+<!-- This page plugins -->
+<!-- ============================================================== -->
+</body>
+</html>
