@@ -20,7 +20,12 @@ class UserItem(BaseModel):
 class TokenItem(BaseModel):
     """ token数据模型 """
     token: str = Field(description='token信息')
-    refresh_token: str = Field(description='刷新后的token')
+    refresh_token: Union[str, None] = Field(description='刷新后的token')
+
+
+class UserPwdChangeOut(ResponseBaseModel):
+    """ 用户密码更改出参 """
+    data: TokenItem
 
 
 class VerifyItem(BaseModel):
@@ -55,6 +60,7 @@ class UserProfileItem(BaseModel):
     role: str = Field(description='用户角色')
     state: str = Field(description='用户状态')
     auth_status: str = Field(description='实名认证状态')
+    auth_apply_ts: Union[int, None] = Field(description='实名认证申请时间（时间戳）')
     real_name: Union[str, None] = Field(description='用户真姓名')
     avatar: Union[str, None] = Field(description='用户头像')
     mail: Union[str, None] = Field(description='电子邮件')

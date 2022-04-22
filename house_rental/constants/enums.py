@@ -44,9 +44,10 @@ class UserState(StrEnum):
 
 class UserAuthStatus(StrEnum):
     """用户实名认证状态"""
-    unauthorized = 'unauthorized'
-    authorized = 'authorized'
-    auditing = 'auditing'   # 审核中
+    unauthorized = 'unauthorized'  # 未实名认证
+    authorized = 'authorized'  # 已实名认证
+    auditing = 'auditing'  # 审核中
+    unapprove = 'unapprove'  # 审核未通过
 
 
 class RentType(StrEnum):

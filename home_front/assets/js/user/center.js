@@ -1,6 +1,7 @@
 // 用户个人中心模块
 const user_profile_url = api_domain + '/api/v1/user/profile/{user_id}'
 const user_real_name_auth_url = api_domain + '/api/v1/user/name_auth/{user_id}'
+const user_pwd_change_url = api_domain + '/api/v1/user/{user_id}/pwd_change'
 
 let vm = new Vue({
     el: "#app",
@@ -12,7 +13,11 @@ let vm = new Vue({
             refresh: '',
             exp: ''
         },
-
+        user_pwd_change_info: {
+            src_password: '',
+            new_password: '',
+            confirm_password: ''
+        },
         // 用户详情信息
         user_profile: {
             auth_status: '',
@@ -33,11 +38,8 @@ let vm = new Vue({
             username: ''
         },
 
-        // 用户真实密码
-        real_password: '',
-
-        error_mobile_msg: '',
-        error_mobile_show: false,
+        error_password_msg: '',
+        error_password_show: false,
     },
 
     mounted() {
@@ -82,13 +84,15 @@ let vm = new Vue({
             axios.get(_user_profile_url, {'headers': token_headers})
                 .then(response => {
                     console.log(response.data.data)
-                    this.user_profile = response.data.data
+                    if (response.status === 200) {
+                        this.user_profile = response.data.data
+                    }
                 })
                 .catch(error => {
                     console.log(error)
                 })
         },
-        real_name_auth(){
+        real_name_auth() {
             // 实名认证
             let _user_real_name_auth_url = user_real_name_auth_url.format({'user_id': this.user_info.user_id})
             let user_name_auth_data = {
@@ -107,8 +111,8 @@ let vm = new Vue({
             }
             axios.post(_user_real_name_auth_url, user_name_auth_form_data, config)
                 .then(response => {
-                    if (response.data.status === 200) {
-                        if (response.data.data.code === 0) {
+                    if (response.status === 200) {
+                        if (response.data.code === 0) {
                             // this.user_profile = response.data.data
                         }
                     } else if (response.data.status === 401) {
@@ -118,6 +122,30 @@ let vm = new Vue({
                 .catch(error => {
                     console.log(error)
                 })
+        },
+        user_change_pwd() {
+            let _user_pwd_change_url = user_pwd_change_url.format({'user_id': this.user_info.user_id})
+            this.user_pwd_change_info.src_password = md5(this.user_pwd_change_info.src_password)
+            this.user_pwd_change_info.new_password = md5(this.user_pwd_change_info.new_password)
+            this.user_pwd_change_info.confirm_password = md5(this.user_pwd_change_info.confirm_password)
+            axios.put(_user_pwd_change_url, this.user_pwd_change_info, {'headers': get_token_headers()})
+                .then(response => {
+                    if (response.status === 200) {
+                        if (response.data.code === 0) {
+                            const {token} = response.data.data
+                            localStorage.setItem('token', token)
+                            this.user_info = parser_jwt(token)
+                            layer.msg('更新成功');
+                            this.user_pwd_change_info = {}
+                        }
+                    } else if (response.data.status === 401) {
+                        // 未认证
+                    }
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+
         },
         submitProfile() {
             // 更新用户信息

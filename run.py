@@ -8,4 +8,4 @@ from house_rental import app
 
 if __name__ == '__main__':
     # uvicorn.run(app, host='0.0.0.0', port=8080)
-    uvicorn.run('house_rental:app', host='0.0.0.0', port=8080, reload=True, debug=True)
+    uvicorn.run('house_rental:app', host='0.0.0.0', port=8080, reload=False, debug=True)

@@ -43,6 +43,7 @@ class UserProfile(BaseModel):
     hobby = fields.CharField(max_length=200, description='用户爱好')
     career = fields.CharField(max_length=30, description='职业')
     auth_status = fields.CharEnumField(UserAuthStatus, default=UserAuthStatus.unauthorized, description='实名认证状态')
+    auth_apply_time = fields.DatetimeField(description='实名认证申请时间')
     state = fields.CharEnumField(UserState, description='用户状态')
     id_card_front = fields.CharField(max_length=200, description='身份证正面')
     id_card_back = fields.CharField(max_length=200, description='身份证反面')

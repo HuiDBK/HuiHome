@@ -11,7 +11,7 @@ from house_rental.routers.user.response_models import (
     TokenItem, VerifyItem, UserProfileItem, UserRealNameAuthItem
 )
 from house_rental.routers.user.request_models import (
-    UserRegisterIn, UserLoginIn, UserProfileUpdateIn
+    UserRegisterIn, UserLoginIn, UserProfileUpdateIn, UserPwdChangeIn
 )
 from house_rental.constants import constants
 from house_rental.constants.enums import UserAuthStatus
@@ -147,6 +147,8 @@ async def get_user_profile_logic(user_id: int):
     """ 获取用户详情信息逻辑 """
     user = await UserManager.get_by_id(user_id)
     user_profile = await UserProfileManager.get_by_id(user_id)
+    user_profile.id_card_front = settings.QINIU_DOMAIN + user_profile.id_card_front
+    user_profile.id_card_back = settings.QINIU_DOMAIN + user_profile.id_card_back
     user, user_profile = user.to_dict(), user_profile.to_dict()
     user_profile.update(user)
     user_profile['user_id'] = user.get('id')
@@ -193,7 +195,8 @@ async def user_name_auth_logic(
         id_card=id_card,
         id_card_front=id_card_front_key,
         id_card_back=id_card_back_key,
-        auth_status=UserAuthStatus.auditing
+        auth_status=UserAuthStatus.auditing,
+        auth_apply_time=datetime.utcnow()
     )
     user_profile.update_from_dict(update_params)
     await user_profile.save(update_fields=list(update_params.keys()))
@@ -204,3 +207,20 @@ async def user_name_auth_logic(
     user_profile = user_profile.to_dict()
     user_profile['user_id'] = user_profile.get('id')
     return UserRealNameAuthItem(**user_profile)
+
+
+async def user_password_change_logic(user_id, user_pwd_item: UserPwdChangeIn):
+    """ 用户修改密码逻辑 """
+    filter_params = dict(id=user_id, password=user_pwd_item.src_password)
+    user = await UserManager.filter_first(filter_params)
+    if not user:
+        raise BusinessException().exc_data(ErrorCodeEnum.ACCOUNT_ERR)
+
+    if user_pwd_item.new_password != user_pwd_item.confirm_password:
+        raise BusinessException().exc_data(ErrorCodeEnum.CPWD_ERR)
+
+    # 更新密码和token
+    user.password = user_pwd_item.new_password
+    await user.save(update_fields=['password'])
+    token, refresh_token = await generate_user_token(user, with_refresh_token=False)
+    return TokenItem(token=token, refresh_token=refresh_token)

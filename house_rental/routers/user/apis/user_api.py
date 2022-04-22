@@ -9,6 +9,7 @@ from house_rental.commons.responses import success_response
 from house_rental.routers.user.request_models import (
     UserRegisterIn, UserLoginIn, UserProfileUpdateIn
 )
+from house_rental.routers.user.request_models.user_in import UserPwdChangeIn
 
 
 async def user_register(request: UserRegisterIn):
@@ -75,6 +76,14 @@ async def user_name_auth(
     data = await user_logic.user_name_auth_logic(
         user_id, real_name, id_card, id_card_front, id_card_back
     )
+    return success_response(data)
+
+
+async def user_password_change(
+        user_id: int = Path(..., description='用户id'),
+        request: UserPwdChangeIn = Body(..., description='用户修改密码入参')
+):
+    data = await user_logic.user_password_change_logic(user_id, request)
     return success_response(data)
 
 

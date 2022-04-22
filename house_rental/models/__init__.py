@@ -3,6 +3,8 @@
 # @Author: Hui
 # @Desc: { 项目数据库模型模块 }
 # @Date: 2022/02/27 22:14
+from datetime import datetime
+
 from tortoise import fields, Tortoise
 from tortoise.models import Model
 
@@ -28,10 +30,10 @@ class BaseModel(Model):
             if str(k).startswith('_'):
                 # 前缀带下划线不要
                 continue
-            if str(k) in ['create_time', 'update_time']:
-                # 时间转成时间戳
+            if str(k).endswith('_time') and isinstance(v, datetime):
+                # 时间字段转成时间戳
                 k = k[:-4] + 'ts'
-                data_dict[k] = int(self.create_time.timestamp())
+                data_dict[k] = int(v.timestamp()) if v else None
                 continue
 
             data_dict[k] = v

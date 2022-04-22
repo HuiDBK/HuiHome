@@ -90,6 +90,14 @@ router.add_api_route(
     summary='用户实名认证接口'
 )
 
+router.add_api_route(
+    '/{user_id}/pwd_change',
+    user_api.user_password_change,
+    response_model=user_out.UserPwdChangeOut,
+    methods=['put'],
+    summary='用户密码修改'
+)
+
 # 用户模块 api版本v2
 router_v2.add_api_route(
     '/author',

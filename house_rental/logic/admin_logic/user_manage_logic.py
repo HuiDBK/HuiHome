@@ -12,14 +12,15 @@ from house_rental.routers.admin.response_models import UserListItem
 
 async def get_user_list_logic(page_item: UserListIn):
     """ 获取用户列表信息 逻辑"""
-    total, users = await UserManager.filter_page(
+    total, user_profiles = await UserProfileManager.filter_page(
         filter_params=page_item.query_params,
         orderings=page_item.orderings,
         offset=page_item.offset,
         limit=page_item.limit
     )
-    user_ids = [user.id for user in users]
-    user_profiles = await UserProfileManager.get_users_by_ids(user_ids)
+    user_ids = [user_profile.id for user_profile in user_profiles]
+    users = await UserManager.get_users_by_ids(user_ids)
+
     user_profile_dict = {user_profile.id: user_profile for user_profile in user_profiles}
     user_data_list = [user.to_dict() for user in users]
 
@@ -31,8 +32,8 @@ async def get_user_list_logic(page_item: UserListIn):
         user['user_id'] = user_id
 
         # 把图片数据补充完整
-        id_card_front = user.get('id_card_front')
-        id_card_back = user.get('id_card_front')
+        id_card_front = user_profile.id_card_front
+        id_card_back = user_profile.id_card_front
         user['id_card_front'] = settings.QINIU_DOMAIN + id_card_front if id_card_front else None
         user['id_card_back'] = settings.QINIU_DOMAIN + id_card_back if id_card_back else None
 
