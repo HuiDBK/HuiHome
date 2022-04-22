@@ -7,6 +7,7 @@ from pydantic import BaseModel
 
 
 def get_list_page_response_data(
+        total: int,
         data_list: list,
         offset: int,
         limit: int,
@@ -14,13 +15,13 @@ def get_list_page_response_data(
 ):
     """
     获取分页响应数据
+    :param total:
     :param data_list:
     :param offset:
     :param limit:
     :param data_model: 数据模型，转换成对应业务数据模型
     :return:
     """
-    total = len(data_list)
     next_offset = offset + limit
     if data_model and issubclass(data_model, BaseModel):
         data_list = [data_model(**item) for item in data_list]

@@ -9,9 +9,10 @@ DB_NAME = 'house_rental'
 
 # 允许的跨域请求
 ALLOW_ORIGINS = [
-    "http://localhost",
-    "http://localhost:8080",
-    "http://localhost:63342",
+    'http://localhost',
+    'http://localhost:8080',
+    'http://localhost:63342',
+    'http://localhost:9528'
 ]
 
 # 手机号正则

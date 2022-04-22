@@ -51,7 +51,8 @@ async def create_global_exception_handler(_app: FastAPI):
 
 async def register_middlewares(_app: FastAPI):
     """注册中间件"""
-    middleware_list = [AuthorizationMiddleware]
+    # middleware_list = [AuthorizationMiddleware]
+    middleware_list = []
     for middleware in middleware_list:
         _app.add_middleware(middleware)
 

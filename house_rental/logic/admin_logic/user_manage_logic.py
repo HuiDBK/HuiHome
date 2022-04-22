@@ -12,7 +12,8 @@ from house_rental.routers.admin.response_models import UserListItem
 
 async def get_user_list_logic(page_item: UserListIn):
     """ 获取用户列表信息 逻辑"""
-    users = await UserManager.filter_page(
+    total, users = await UserManager.filter_page(
+        filter_params=page_item.query_params,
         orderings=page_item.orderings,
         offset=page_item.offset,
         limit=page_item.limit
@@ -37,6 +38,7 @@ async def get_user_list_logic(page_item: UserListIn):
 
     # 出参数据转换
     response_data = get_list_page_response_data(
+        total=total,
         data_list=user_data_list,
         data_model=UserListItem,
         offset=page_item.offset, limit=page_item.limit

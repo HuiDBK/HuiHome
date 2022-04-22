@@ -90,17 +90,21 @@ class BaseManager(object):
             filter_params: Dict = None,
             orderings: List = None,
             offset: int = 0, limit: int = 10
-    ) -> List[BaseModel]:
+    ):
         """
         分页筛选：条件筛选 + 排序规则 + 条数限制
         默认按照主键id排序
         返回模型列表
         """
+        print(offset)
+        print(limit)
         if not orderings:
             orderings = ['id']
         if not filter_params:
             filter_params = {}
-        return await cls.model.filter(**filter_params).order_by(*orderings).offset(offset).limit(limit)
+        total = await cls.model.filter(**filter_params).count()
+        data_list = await cls.model.filter(**filter_params).offset(offset).limit(limit).order_by(*orderings)
+        return total, data_list
 
     @classmethod
     async def filter_values_page(
