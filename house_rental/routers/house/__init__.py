@@ -16,3 +16,20 @@ router.add_api_route(
     response_model=house_out.HomeHouseInfoOut,
     summary='获取首页房源'
 )
+
+router.add_api_route(
+    '/houses',
+    house_api.get_house_list,
+    methods=['post'],
+    response_model=house_out.HouseListOut,
+    summary='获取房源列表信息'
+)
+
+
+router.add_api_route(
+    '/houses/{house_id}',
+    house_api.get_house_detail,
+    methods=['get'],
+    response_model=house_out.HouseListOut,
+    summary='获取房源列表信息'
+)

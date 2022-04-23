@@ -29,7 +29,7 @@ class HouseInfo(BaseModel):
     kitchen_num = fields.IntField(description='厨房数量')
     toilet_num = fields.IntField(description='卫生间数量')
     area = fields.IntField(description='房屋总体面积')
-    json_extend = fields.JSONField(description='扩展字段')
+    json_extend = fields.JSONField(null=True, description='扩展字段')
 
     def to_dict(self):
         house_dict = super().to_dict()
@@ -52,9 +52,9 @@ class HouseDetail(BaseModel):
     has_elevator = fields.BooleanField(description='是否有电梯')
     build_year = fields.DateField(description='建成年份')
     direction = fields.CharEnumField(HouseDirection, description='房屋朝向')
-    near_traffic_json = fields.JSONField(description='附近交通信息')
+    near_traffic_json = fields.JSONField(null=True, description='附近交通信息')
     certificate_no = fields.CharField(max_length=50, description='房产证号')
-    json_extend = fields.JSONField(description='扩展字段')
+    json_extend = fields.JSONField(null=True, description='扩展字段')
 
     class Meta:
         app = constants.APP_NAME

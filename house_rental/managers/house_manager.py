@@ -33,3 +33,12 @@ class HouseInfoManager(BaseManager):
         )
         return await cls.model.filter(**filter_params).order_by('update_time').limit(limit)
 
+
+class HouseDetailManager(BaseManager):
+    model = HouseDetail
+
+    @classmethod
+    async def get_houses_by_ids(cls, user_ids: list):
+        """ 获取房源数据 """
+        filter_params = dict(id__in=user_ids)
+        return await cls.get_with_params(filter_params)

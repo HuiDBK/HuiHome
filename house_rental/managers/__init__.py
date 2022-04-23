@@ -22,6 +22,19 @@ class BaseManager(object):
         return await cls.model.filter(**filter_params).order_by('id').all()
 
     @classmethod
+    async def create(cls, to_create: Dict) -> BaseModel:
+        """
+        创建一个
+        """
+        try:
+            print(to_create)
+            model_obj = await cls.model.create(**to_create)
+            return model_obj
+        except Exception as e:
+            print(e)
+            return None
+
+    @classmethod
     async def update(cls, model_id: int, to_update: Dict) -> bool:
         """
         更新一个

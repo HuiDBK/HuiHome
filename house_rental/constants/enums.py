@@ -52,14 +52,14 @@ class UserAuthStatus(StrEnum):
 
 class RentType(StrEnum):
     """出租类型"""
-    whole = 'whole'
-    share = 'share'
+    whole = 'whole'  # 整租
+    share = 'share'  # 合租
 
 
 class RentState(StrEnum):
     """出租状态"""
-    rent = 'rent'
-    not_rent = 'not_rent'
+    rent = 'rent'  # 已出租
+    not_rent = 'not_rent'  # 未出租
 
 
 class HouseDirection(StrEnum):
