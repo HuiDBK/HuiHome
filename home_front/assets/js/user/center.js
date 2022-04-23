@@ -41,7 +41,6 @@ let vm = new Vue({
         error_password_msg: '',
         error_password_show: false,
     },
-
     mounted() {
         let token = localStorage.getItem('token')
         if (token != null) {
@@ -123,7 +122,24 @@ let vm = new Vue({
                     console.log(error)
                 })
         },
+        check_change_password() {
+            // 修改密码校验
+            if (this.user_pwd_change_info.new_password !== this.user_pwd_change_info.confirm_password) {
+                this.error_password_msg = '两次密码不一致';
+                this.error_password_show = true;
+            } else if (this.user_pwd_change_info.new_password.length < 6 || this.user_pwd_change_info.new_password.length > 20) {
+                this.error_password_msg = '请输入6-20字符的密码';
+                this.error_password_show = true;
+            } else {
+                this.error_password_msg = ''
+                this.error_password_show = false;
+            }
+        },
         user_change_pwd() {
+            this.check_change_password()
+            if (this.error_password_show === true) {
+                return
+            }
             let _user_pwd_change_url = user_pwd_change_url.format({'user_id': this.user_info.user_id})
             this.user_pwd_change_info.src_password = md5(this.user_pwd_change_info.src_password)
             this.user_pwd_change_info.new_password = md5(this.user_pwd_change_info.new_password)
@@ -135,11 +151,15 @@ let vm = new Vue({
                             const {token} = response.data.data
                             localStorage.setItem('token', token)
                             this.user_info = parser_jwt(token)
-                            layer.msg('更新成功');
+                            layer.msg('更新成功!', {icon: 1, time: 1000});
                             this.user_pwd_change_info = {}
+                        } else {
+                            this.error_password_msg = response.data.message;
+                            this.error_password_show = true;
                         }
                     } else if (response.data.status === 401) {
                         // 未认证
+                        layer.msg('401 更新失败!', {icon: 1, time: 1000});
                     }
                 })
                 .catch(error => {

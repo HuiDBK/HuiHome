@@ -8,6 +8,7 @@ from starlette.responses import Response, JSONResponse
 from starlette.types import ASGIApp, Scope, Receive, Send, Message
 from house_rental.commons import settings
 from house_rental.commons.utils import jwt_util
+from house_rental.constants.enums import UserRole
 from house_rental.managers.user_manager import UserManager
 
 
@@ -65,4 +66,9 @@ class AuthorizationMiddleware(BaseMiddleware):
         # 校验通过保存到request.user中
         user_id = user_info.get('user_id')
         user = await UserManager.get_by_id(user_id)
+
+        if user.role != UserRole.admin.value and str(request.url.path).startswith('/api/v1/admin'):
+            # 不是管理员无法访问了后台模块接口
+            return JSONResponse(status_code=401)
+
         request.scope['user'] = user

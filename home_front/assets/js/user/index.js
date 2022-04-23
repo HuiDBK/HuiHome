@@ -4,6 +4,7 @@ const username_verify_url = api_domain + '/api/v1/user/username/{username}/verif
 const mobile_verify_url = api_domain + '/api/v1/user/mobile/{mobile}/verify'
 const sms_code_url = api_domain + '/api/v1/user/sms_code/{mobile}'
 const login_url = api_domain + '/api/v1/user/login'
+const home_houses_url = api_domain + '/api/v1/house/home_houses'
 
 let vm = new Vue({
     el: "#app",
@@ -30,6 +31,8 @@ let vm = new Vue({
         },
         sms_code_tip: '获取短信验证码',
 
+        city_name: '',
+
         // 用户真实密码
         real_password: '',
 
@@ -53,8 +56,9 @@ let vm = new Vue({
         error_login_msg: '',
         error_login_show: false
     },
-
     mounted() {
+		this.city_name = returnCitySN.cname
+        this.get_home_houses()
         let token = localStorage.getItem('token')
         if (token != null) {
             this.user_info = parser_jwt(token)
@@ -257,6 +261,19 @@ let vm = new Vue({
                     console.log(error)
                 })
             this.loginForm.password = ''
+        },
+        get_home_houses(){
+            // 获取首页房源信息
+            let params = {
+                'params': {'city': this.city_name}
+            }
+
+            axios.get(home_houses_url, params)
+                .then(response => {
+                    if(response.status === 200 && response.data.code === 0){
+                        console.log(response.data.data)
+                    }
+                })
         },
     },
 

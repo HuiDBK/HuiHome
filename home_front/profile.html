@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
-    <meta name="author" content="Drizvato"/>
+    <meta name="author" content="hui"/>
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 
@@ -41,28 +41,25 @@
             <div class="container">
                 <nav id="navigation" class="navigation navigation-landscape">
                     <div class="nav-header">
-                        <a class="nav-brand" href="/">
-                            <img src="/assets/img/logo.png" class="logo" alt=""/>
+                        <a class="nav-brand" href="./index.html">
+                            <img src="./assets/img/logo.png" class="logo" alt=""/>
                         </a>
                         <div class="nav-toggle"></div>
                     </div>
                     <div class="nav-menus-wrapper" style="transition-property: none;">
                         <ul class="nav-menu">
 
-                            <li><a href="/" style="font-size: 15px;">首页</a></li>
+                            <li><a href="./index.html" style="font-size: 15px;">首页</a></li>
                             <li><a href="/house?rentType=whole" style="font-size: 15px;">整租</a></li>
                             <li><a href="/house?rentType=share" style="font-size: 15px;">合租</a></li>
                             <li><a href="/post" style="font-size: 15px;">求租</a></li>
-                            <li><a href="/news" style="font-size: 15px;">新闻资讯</a></li>
-                            <li><a href="/feedback" style="font-size: 15px;">用户反馈</a></li>
+                            <li><a href="/news" style="font-size: 15px;">公告资讯</a></li>
                             <li><a href="/message" style="font-size: 15px;">未读消息
                                 <span style="color: red;">(0)</span>
                             </a>
                             </li>
                         </ul>
-
                         <ul class="nav-menu nav-menu-social align-to-right dhsbrd">
-
                             <li>
                                 <div class="btn-group account-drop">
                                     <button type="button" class="btn btn-order-by-filt"
@@ -71,13 +68,12 @@
                                         <img src="https://eu.ui-avatars.com/api/?background=random&length=1&rounded=true&bold=true&name=张三"
                                              class="avater-img"
                                              alt="">
-                                        张三(
-                                        租客)
+                                        {{ user_info.username }}
                                     </button>
 
 
                                     <div class="dropdown-menu pull-right animated flipInX">
-                                        <a href="/admin/profile">
+                                        <a href="./profile.html">
                                             <i class="ti-user"></i>个人信息
                                         </a>
                                         <a href="/admin/home">
@@ -86,7 +82,7 @@
                                         <a href="/admin/mark">
                                             <i class="ti-bookmark"></i>我的收藏
                                         </a>
-                                        <a href="/logout">
+                                        <a href="#" onclick="user_logout()">
                                             <i class="ti-power-off"></i>退出登录
                                         </a>
                                     </div>
@@ -226,26 +222,34 @@
                                                 <div class="form-group col-md-6">
                                                     <label>身份证正面</label>
                                                     <div>
-                                                        <img id="id_card_front" src="https://repo.bfw.wiki/bfwrepo/image/606e33d87a964.png" alt="身份证正面"
-                                                         class="img-thumbnail" onclick="$('#card_front_file').click();">
+                                                        <img id="id_card_front"
+                                                             src="https://repo.bfw.wiki/bfwrepo/image/606e33d87a964.png"
+                                                             alt="身份证正面"
+                                                             class="img-thumbnail"
+                                                             onclick="$('#card_front_file').click();">
                                                     </div>
                                                     <label class="input-group-btn">
                                                         <input type="file" id="card_front_file" name="id_card_front"
                                                                accept=".png, .jpg, .jpeg"
-                                                               style="display: none" @change="update_id_card_img($event)">
+                                                               style="display: none"
+                                                               @change="update_id_card_img($event)">
                                                     </label>
                                                 </div>
 
                                                 <div class="form-group col-md-6">
                                                     <label>身份证反面</label>
                                                     <div>
-                                                         <img id="id_card_back" src="https://repo.bfw.wiki/bfwrepo/image/606e33ec83a76.png" alt="身份证反面"
-                                                         class="img-thumbnail" onclick="$('#card_back_file').click();">
+                                                        <img id="id_card_back"
+                                                             src="https://repo.bfw.wiki/bfwrepo/image/606e33ec83a76.png"
+                                                             alt="身份证反面"
+                                                             class="img-thumbnail"
+                                                             onclick="$('#card_back_file').click();">
                                                     </div>
                                                     <label class="input-group-btn">
                                                         <input type="file" id="card_back_file" name="id_card_back"
                                                                accept=".png, .jpg, .jpeg"
-                                                               style="display: none" @change="update_id_card_img($event)">
+                                                               style="display: none"
+                                                               @change="update_id_card_img($event)">
                                                     </label>
                                                 </div>
 
@@ -258,7 +262,7 @@
                                                             @click="submitProfile()">
                                                         保存
                                                     </button>
-                                                     <button class="btn btn-theme bg-2" type="button"
+                                                    <button class="btn btn-theme bg-2" type="button"
                                                             @click="real_name_auth()">
                                                         实名认证
                                                     </button>

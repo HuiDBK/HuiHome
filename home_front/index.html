@@ -18,6 +18,8 @@
     <script src="assets/js/common/vue-2.5.16.js"></script>
     <script src="assets/js/common/axios.min.js"></script>
 
+    <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+
 </head>
 
 <body class="yellow-skin">
@@ -37,23 +39,28 @@
         <!-- Top header  -->
         <!-- ============================================================== -->
         <!-- Start Navigation -->
+
         <div class="header header-light dark-text">
             <div class="container">
                 <nav id="navigation" class="navigation navigation-landscape">
                     <div class="nav-header">
-                        <a class="nav-brand" href="/">
-                            <img src="assets/img/logo.png" class="logo" alt=""/>
+                        <a class="nav-brand" href="./index.html">
+                            <img src="./assets/img/logo.png" class="logo" alt=""/>
                         </a>
                         <div class="nav-toggle"></div>
                     </div>
                     <div class="nav-menus-wrapper" style="transition-property: none;">
                         <ul class="nav-menu">
 
-                            <li><a href="/" style="font-size: 15px;">首页</a></li>
+                            <li><a href="./index.html" style="font-size: 15px;">首页</a></li>
                             <li><a href="/house?rentType=whole" style="font-size: 15px;">整租</a></li>
                             <li><a href="/house?rentType=share" style="font-size: 15px;">合租</a></li>
                             <li><a href="/post" style="font-size: 15px;">求租</a></li>
-                            <li><a href="/news" style="font-size: 15px;">新闻资讯</a></li>
+                            <li><a href="/news" style="font-size: 15px;">公告资讯</a></li>
+                            <li><a href="/message" style="font-size: 15px;">未读消息
+                                <span style="color: red;">(0)</span>
+                            </a>
+                            </li>
                         </ul>
 
                         <ul class="nav-menu nav-menu-social align-to-right dhsbrd" v-show="login_register_btn_show">
@@ -85,7 +92,7 @@
 
 
                                     <div class="dropdown-menu pull-right animated flipInX">
-                                        <a href="/house_rental/home_front/profile.html">
+                                        <a href="./profile.html">
                                             <i class="ti-user"></i>个人信息
                                         </a>
                                         <a href="/admin/home">
@@ -94,14 +101,13 @@
                                         <a href="/admin/mark">
                                             <i class="ti-bookmark"></i>我的收藏
                                         </a>
-                                        <a href="/logout">
+                                        <a href="#" onclick="user_logout()">
                                             <i class="ti-power-off"></i>退出登录
                                         </a>
                                     </div>
                                 </div>
                             </li>
                         </ul>
-
                     </div>
                 </nav>
             </div>
@@ -1089,7 +1095,7 @@
 <script src="assets/js/common/md5.min.js"></script>
 <script src="assets/js/common/constants.js"></script>
 <script src="assets/js/common/utils.js"></script>
-<script src="assets/js/user/register.js"></script>
+<script src="assets/js/user/index.js"></script>
 <!-- ============================================================== -->
 <!-- This page plugins -->
 <!-- ============================================================== -->

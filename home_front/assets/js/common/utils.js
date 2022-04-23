@@ -56,6 +56,7 @@ function refresh_token() {
 }
 
 function paramsToFormData(obj) {
+    // js对象转FormData
     const formData = new FormData();
     Object.keys(obj).forEach((key) => {
         if (obj[key] instanceof Array) {
@@ -67,4 +68,11 @@ function paramsToFormData(obj) {
         formData.append(key, obj[key]);
     });
     return formData;
+}
+
+
+function user_logout() {
+    // 用户退出登录
+    localStorage.clear()
+    window.location.href = './index.html'
 }

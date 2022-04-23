@@ -52,14 +52,14 @@ class UserAuthStatus(StrEnum):
 
 class RentType(StrEnum):
     """出租类型"""
-    normal = 'normal'
-    deleted = 'deleted'
+    whole = 'whole'
+    share = 'share'
 
 
 class RentState(StrEnum):
     """出租状态"""
-    normal = 'normal'
-    deleted = 'deleted'
+    rent = 'rent'
+    not_rent = 'not_rent'
 
 
 class HouseDirection(StrEnum):
@@ -72,8 +72,17 @@ class HouseDirection(StrEnum):
 
 class HouseType(StrEnum):
     """房屋类型"""
-    housing_development = 'housing_development_test'
-    department = 'department'
+    department = 'department'  # 公寓
+    community = 'community'  # 小区
+    residential = 'residential'  # 普通住宅
+
+
+class HouseState(StrEnum):
+    """ 房屋状态 """
+    up = 'up'  # 已上架
+    down = 'down'  # 已下架
+    auditing = 'auditing'  # 审核中状态
+    deleted = 'deleted'  # 已删除
 
 
 class RedisDataType(StrEnum):
