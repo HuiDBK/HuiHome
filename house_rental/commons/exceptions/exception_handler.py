@@ -7,8 +7,10 @@ import logging
 import traceback
 from fastapi.requests import Request
 from fastapi.responses import JSONResponse
+from requests.exceptions import ConnectionError
 from fastapi.exceptions import RequestValidationError
 from house_rental.commons.responses import fail_response
+from house_rental.commons.responses.response_code import ErrorCodeEnum
 from .global_exception import BusinessException, AuthorizationException
 
 logger = logging.getLogger()
@@ -64,9 +66,15 @@ async def global_exception_handler(
         exc: Exception
 ):
     """ 全局系统异常处理器 """
-    message = f'系统异常, {traceback.format_exc()}'
+
+    if isinstance(exc, ConnectionError):
+        message = f'网络异常, {traceback.format_exc()}'
+        error = ErrorCodeEnum.SOCKET_ERR
+    else:
+        message = f'系统异常, {traceback.format_exc()}'
+        error = ErrorCodeEnum.SYSTEM_ERR
     logger.error(message)
     return JSONResponse(
         status_code=500,
-        content='系统内部异常'
+        content=fail_response(code=error.code, message=error.msg)
     )

@@ -32,6 +32,8 @@ class ErrorCodeEnum(BaseEnum):
     OPENID_ERR = (5005, '无效的openid')
     PARAM_ERR = (5006, '参数错误')
     STOCK_ERR = (5007, '库存不足')
+    SOCKET_ERR = (5008, '网络错误')
+    SYSTEM_ERR = (5009, '系统错误')
 
     @property
     def code(self):
