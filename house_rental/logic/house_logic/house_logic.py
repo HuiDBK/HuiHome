@@ -3,10 +3,13 @@
 # @Author: Hui
 # @Desc: { 房源逻辑模块 }
 # @Date: 2022/04/23 20:32
+from typing import Union
+
 from house_rental.constants.enums import RentType
 from house_rental.managers.house_manager import HouseInfoManager
-from house_rental.commons.utils import serialize_util
+from house_rental.commons.utils import serialize_util, add_param_if_true
 from house_rental.routers.house.request_models import HouseListIn
+from house_rental.routers.house.request_models.house_in import HouseListQueryItem
 from house_rental.routers.house.response_models import HouseListItem, HomeHouseDataItem
 from house_rental.routers.house.response_models.house_out import HouseListDataItem
 
@@ -16,7 +19,6 @@ async def get_home_house_list_logic(city: str):
     获取首页房源列表, 最近整租、合租
     :return: 6整租、6合租
     """
-    print(city)
     whole_house_list = await HouseInfoManager.get_recent_house(RentType.whole.value, city)
     share_house_list = await HouseInfoManager.get_recent_house(RentType.share.value, city)
 
@@ -32,20 +34,37 @@ async def get_home_house_list_logic(city: str):
     )
 
 
+def format_house_query_params(query_params: Union[HouseListQueryItem, dict]) -> dict:
+    """ 格式化房源信息查询参数 """
+    if not query_params:
+        return {}
+
+    if isinstance(query_params, HouseListQueryItem):
+        query_params = query_params.dict()
+
+    # 去除空值None
+    query_params = {k: v for k, v in query_params.items() if v is not None}
+
+    # 租金范围查询条件转换
+    add_param_if_true(query_params, 'rent_money__range', query_params.pop('rent_money_range', None))
+
+    # 房源类型、租赁类型、状态、出租状态列表参数转换
+    list_params = ['house_type', 'rent_type', 'state', 'rent_state']
+    for key in list_params:
+        add_param_if_true(query_params, f'{key}__in', query_params.pop(key, None))
+
+    # 房源标题、地址、所在城市支持模糊查询
+    like_params = ['title', 'address', 'city']
+    for key in like_params:
+        add_param_if_true(query_params, f'{key}__icontains', query_params.pop(key, None))
+    return query_params
+
+
 async def get_house_list_logic(item: HouseListIn):
     """ 获取房源列表 """
-    print(item.dict())
-    filter_params = None
-    if item.query_params:
-        filter_params = {k: v for k, v in item.query_params.dict().items() if v is not None}
-        print(filter_params)
-        if filter_params.get('rent_money_range'):
-            # 租金范围查询条件转换
-            filter_params['rent_money__range'] = filter_params.get('rent_money_range')
-            del filter_params['rent_money_range']
-
+    query_params = format_house_query_params(item.query_params)
     total, house_data_list = await HouseInfoManager.filter_page(
-        filter_params=filter_params,
+        filter_params=query_params,
         orderings=item.orderings,
         offset=item.offset,
         limit=item.limit

@@ -109,8 +109,6 @@ class BaseManager(object):
         默认按照主键id排序
         返回模型列表
         """
-        print(offset)
-        print(limit)
         if not orderings:
             orderings = ['id']
         if not filter_params:
