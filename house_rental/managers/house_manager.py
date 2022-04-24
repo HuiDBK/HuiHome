@@ -6,7 +6,8 @@
 from typing import List
 from house_rental.constants.enums import RentType, HouseState, RentState
 from house_rental.managers import BaseManager
-from house_rental.models.house_model import HouseInfo, HouseDetail
+from house_rental.models.house_model import HouseInfo, HouseDetail, FacilityInfo
+from house_rental.models.house_mapping_model import HouseFacilityMapping
 
 
 class HouseInfoManager(BaseManager):
@@ -42,3 +43,19 @@ class HouseDetailManager(BaseManager):
         """ 获取房源数据 """
         filter_params = dict(id__in=user_ids)
         return await cls.get_with_params(filter_params)
+
+
+class HouseFacilityManager(BaseManager):
+    model = FacilityInfo
+
+    @classmethod
+    async def get_facility_info_by_ids(cls, facility_ids: list):
+        """ 根据设施id列表获取设施信息 """
+        filter_params = dict(id__in=facility_ids)
+        return await cls.get_with_params(filter_params)
+
+    @classmethod
+    async def get_facility_by_house_id(cls, house_id: int):
+        """ 根据房屋id获取房源设施数据 """
+        house_facility_ids = await HouseFacilityMapping.filter(house_id=house_id).values_list('facility_id', flat=True)
+        return await cls.get_facility_info_by_ids(house_facility_ids)

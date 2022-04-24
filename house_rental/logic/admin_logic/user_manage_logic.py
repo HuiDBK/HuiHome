@@ -7,7 +7,7 @@ from typing import Union
 from house_rental.commons import settings
 from house_rental.commons.utils import add_param_if_true
 from house_rental.logic.common_logic import get_list_page_response_data
-from house_rental.managers.user_manager import UserManager, UserProfileManager
+from house_rental.managers.user_manager import UserBasicManager, UserProfileManager
 from house_rental.routers.admin.request_models import UserListIn
 from house_rental.routers.admin.request_models.user_manage_in import UserListQueryItem
 from house_rental.routers.admin.response_models import UserListItem
@@ -47,7 +47,7 @@ async def get_user_list_logic(page_item: UserListIn):
         limit=page_item.limit
     )
     user_ids = [user_profile.id for user_profile in user_profiles]
-    users = await UserManager.get_users_by_ids(user_ids)
+    users = await UserBasicManager.get_users_by_ids(user_ids)
 
     user_profile_dict = {user_profile.id: user_profile for user_profile in user_profiles}
     user_data_list = [user.to_dict() for user in users]
@@ -57,13 +57,6 @@ async def get_user_list_logic(page_item: UserListIn):
         user_id = user.get('id')
         user_profile = user_profile_dict.get(user_id)
         user.update(user_profile.to_dict())
-        user['user_id'] = user_id
-
-        # 把图片数据补充完整
-        id_card_front = user_profile.id_card_front
-        id_card_back = user_profile.id_card_front
-        user['id_card_front'] = settings.QINIU_DOMAIN + id_card_front if id_card_front else None
-        user['id_card_back'] = settings.QINIU_DOMAIN + id_card_back if id_card_back else None
 
     # 出参数据转换
     response_data = get_list_page_response_data(

@@ -30,6 +30,6 @@ router.add_api_route(
     '/houses/{house_id}',
     house_api.get_house_detail,
     methods=['get'],
-    response_model=house_out.HouseListOut,
-    summary='获取房源列表信息'
+    response_model=house_out.HouseDetailOut,
+    summary='获取房源详情信息'
 )

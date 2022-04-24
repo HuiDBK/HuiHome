@@ -6,12 +6,14 @@
 from typing import Union
 
 from house_rental.constants.enums import RentType
-from house_rental.managers.house_manager import HouseInfoManager
+from house_rental.managers.house_manager import HouseInfoManager, HouseDetailManager, HouseFacilityManager
 from house_rental.commons.utils import serialize_util, add_param_if_true
+from house_rental.managers.user_manager import UserBasicManager, UserProfileManager
 from house_rental.routers.house.request_models import HouseListIn
 from house_rental.routers.house.request_models.house_in import HouseListQueryItem
 from house_rental.routers.house.response_models import HouseListItem, HomeHouseDataItem
-from house_rental.routers.house.response_models.house_out import HouseListDataItem
+from house_rental.routers.house.response_models.house_out import HouseListDataItem, HouseDetailDataItem, \
+    HouseContactDataItem
 
 
 async def get_home_house_list_logic(city: str):
@@ -44,6 +46,8 @@ def format_house_query_params(query_params: Union[HouseListQueryItem, dict]) -> 
 
     # 去除空值None
     query_params = {k: v for k, v in query_params.items() if v is not None}
+
+    add_param_if_true(query_params, 'id', query_params.pop('house_id', None))
 
     # 租金范围查询条件转换
     add_param_if_true(query_params, 'rent_money__range', query_params.pop('rent_money_range', None))
@@ -80,6 +84,23 @@ async def get_house_list_logic(item: HouseListIn):
     )
 
 
-async def get_house_detail(house_id: int):
-    """ 获取房源详情 """
-    pass
+async def get_house_detail_logic(house_id: int):
+    """ 获取房源详情逻辑 """
+    house_info = await HouseInfoManager.get_by_id(house_id)
+    house_detail = await HouseDetailManager.get_by_id(house_id)
+
+    # 获取房源设施信息
+    house_facility_list = await HouseFacilityManager.get_facility_by_house_id(house_id)
+    house_facility_list = [item.to_dict() for item in house_facility_list]
+
+    # 获取房源联系人信息，如果没有设置联系人信息就获取房屋拥有者信息
+    user_id = house_detail.contact_id or house_detail.house_owner
+    house_contact = await UserProfileManager.get_by_id(user_id)
+    house_contact_info = HouseContactDataItem(**house_contact.to_dict())
+
+    # 房源信息组装
+    house_info, house_detail = house_info.to_dict(), house_detail.to_dict()
+    house_info.update(**house_detail)
+    house_info.update(dict(house_facility_list=house_facility_list))
+
+    return HouseDetailDataItem(**house_info, house_contact_info=house_contact_info)

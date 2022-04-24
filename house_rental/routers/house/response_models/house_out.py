@@ -3,9 +3,10 @@
 # @Author: Hui
 # @Desc: { 用户模块响应模型 }
 # @Date: 2022/04/11 20:23
-from typing import Union, List
+from datetime import date
+from typing import Union, List, Optional
 from pydantic import Field, BaseModel
-from house_rental.constants.enums import UserRole, RentType, HouseType, RentState, HouseState
+from house_rental.constants.enums import RentType, HouseType, RentState, HouseState, HouseDirection
 from house_rental.commons.responses.response_model import ResponseBaseModel, ListResponseModel, ListResponseDataModel
 
 
@@ -44,3 +45,44 @@ class HouseListDataItem(ListResponseDataModel):
 class HouseListOut(ListResponseModel):
     """ 房源列表出参 """
     data: HouseListDataItem
+
+
+class HouseFacilityListItem(BaseModel):
+    """ 房屋设施列表项数据 """
+    facility_id: int = Field(description='房屋设施id')
+    name: str = Field(description='房屋设施名称')
+    icon: Union[str, None] = Field(description='房屋设施图标')
+
+
+class HouseContactDataItem(BaseModel):
+    """ 房源联系人信息 """
+    user_id: int = Field(description='联系人用户id')
+    real_name: Optional[str] = Field(description='联系人姓名')
+    mobile: Optional[str] = Field(description='联系人手机号')
+    email: Optional[str] = Field(description='联系人邮箱')
+
+
+class HouseDetailDataItem(HouseListItem):
+    """ 房源详情数据 """
+    house_owner: Union[int, None] = Field(description='房屋拥有者')
+    contact_id: Union[int, None] = Field(description='房源联系人id')
+    house_desc: Union[str, None] = Field(description='房屋描述')
+    area: Union[int, None] = Field(description='房间面积')
+    room_num: Union[int, None] = Field(description='房间号')
+    toilet_num: Union[int, None] = Field(description='卫生间数量')
+    display_content: Union[dict, None] = Field(description='房屋展示内容')
+    floor: Union[int, None] = Field(description='房屋所在楼层')
+    max_floor: Union[int, None] = Field(description='房屋最大楼层')
+    has_elevator: Union[bool, None] = Field(description='是否有电梯')
+    build_year: Union[date, None] = Field(description='建成年份')
+    direction: Union[HouseDirection, None] = Field(description='房屋朝向')
+    near_traffic_json: Union[dict, None] = Field(description='附近交通信息')
+    certificate_no: Union[str, None] = Field(max_length=50, description='房产证号')
+
+    house_facility_list: List[HouseFacilityListItem] = Field(description='房源设施数据')
+    house_contact_info: Optional[HouseContactDataItem] = Field(description='房源联系人信息')
+
+
+class HouseDetailOut(ResponseBaseModel):
+    """ 房源详情出参 """
+    data: HouseDetailDataItem

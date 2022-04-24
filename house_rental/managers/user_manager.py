@@ -3,14 +3,14 @@
 # @Author: Hui
 # @Desc: { 模块描述 }
 # @Date: 2022/04/05 23:25
-from house_rental.models.user_model import UserModel, UserProfile
+from house_rental.models.user_model import UserBasicModel, UserProfileModel
 from house_rental.managers import BaseManager
 from house_rental.constants.enums import UserState
 
 
-class UserManager(BaseManager):
+class UserBasicManager(BaseManager):
     # 设置对应数据库模型
-    model = UserModel
+    model = UserBasicModel
 
     @classmethod
     async def register(cls, user_item: dict):
@@ -27,7 +27,7 @@ class UserManager(BaseManager):
 
 class UserProfileManager(BaseManager):
 
-    model = UserProfile
+    model = UserProfileModel
 
     @classmethod
     async def create(cls, user_profile_item: dict):

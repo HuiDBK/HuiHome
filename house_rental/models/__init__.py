@@ -45,10 +45,13 @@ class BaseModel(Model):
 
 # 循环依赖, 记得放在下面
 from .user_model import (
-    UserModel,
-    UserProfile
+    UserBasicModel,
+    UserProfileModel
 )
 from .house_model import (
     HouseInfo,
-    HouseDetail
+    HouseDetail,
+    FacilityInfo
 )
+
+from .house_mapping_model import HouseFacilityMapping

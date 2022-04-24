@@ -45,7 +45,10 @@ class HouseDetail(BaseModel):
     """ 房屋详情表 """
     id = fields.IntField(pk=True)
     house_id = fields.IntField(description='房屋id')
+    house_owner = fields.IntField(description='房房源拥有者id')
+    contact_id = fields.IntField(description='联系人id')
     address = fields.CharField(max_length=200, description='房屋详细地址')
+    room_num = fields.IntField(description='房间号')
     display_content = fields.JSONField(description='房屋展示内容')
     floor = fields.IntField(description='房屋所在楼层')
     max_floor = fields.IntField(description='房屋最大楼层')
@@ -65,6 +68,12 @@ class FacilityInfo(BaseModel):
     """ 房屋设施表 """
     id = fields.IntField(pk=True)
     name = fields.CharField(max_length=30, description='房屋设施名称')
+    icon = fields.CharField(max_length=100, description='房屋设施图标')
+
+    def to_dict(self):
+        facility_dict = super().to_dict()
+        facility_dict['facility_id'] = self.id
+        return facility_dict
 
     class Meta:
         app = constants.APP_NAME

@@ -6,7 +6,7 @@
 import re
 from fastapi import Path, File, UploadFile, Form
 from datetime import datetime, timedelta
-from house_rental.models.user_model import UserModel
+from house_rental.models.user_model import UserBasicModel
 from house_rental.routers.user.request_models.user_in import UserRealNameAuthIn
 from house_rental.routers.user.response_models import (
     TokenItem, VerifyItem, UserProfileItem, UserRealNameAuthItem
@@ -16,7 +16,7 @@ from house_rental.routers.user.request_models import (
 )
 from house_rental.constants import constants
 from house_rental.constants.enums import UserAuthStatus
-from house_rental.managers.user_manager import UserManager, UserProfileManager
+from house_rental.managers.user_manager import UserBasicManager, UserProfileManager
 from house_rental.commons.libs import sms, qiniu_tools
 from house_rental.commons import settings
 from house_rental.commons.utils import jwt_util, add_param_if_true
@@ -28,14 +28,14 @@ from house_rental.commons.exceptions.global_exception import BusinessException
 async def username_verify_logic(username: str):
     """ 校验用户名是否存在 """
     filter_params = dict(username=username)
-    result = await UserManager.filter_existed(filter_params)
+    result = await UserBasicManager.filter_existed(filter_params)
     return VerifyItem(verify_result=result)
 
 
 async def user_mobile_verify_logic(mobile: str):
     """ 校验用户名是否存在 """
     filter_params = dict(mobile=mobile)
-    result = await UserManager.filter_existed(filter_params)
+    result = await UserBasicManager.filter_existed(filter_params)
     return VerifyItem(verify_result=result)
 
 
@@ -49,18 +49,18 @@ async def verify_user_register_info(user_item: UserRegisterIn):
 
     # 校验用户名是否存在
     filter_params = dict(username=user_item.username)
-    result = await UserManager.filter_existed(filter_params)
+    result = await UserBasicManager.filter_existed(filter_params)
     if result:
         raise BusinessException(ErrorCodeEnum.ACCOUNT_ERR.code, ErrorCodeEnum.ACCOUNT_ERR.msg)
 
     # 校验手机号是否存在
     filter_params = dict(mobile=user_item.mobile)
-    result = await UserManager.filter_existed(filter_params)
+    result = await UserBasicManager.filter_existed(filter_params)
     if result:
         raise BusinessException(ErrorCodeEnum.ACCOUNT_ERR.code, ErrorCodeEnum.ACCOUNT_ERR.msg)
 
 
-async def generate_user_token(user: UserModel, with_refresh_token=True):
+async def generate_user_token(user: UserBasicModel, with_refresh_token=True):
     """
     生成用户token
     :param user: 用户模型对象
@@ -92,7 +92,7 @@ async def user_register_logic(user_item: UserRegisterIn):
     await verify_user_register_info(user_item)
 
     # 创建注册用户
-    user = await UserManager.register(user_item.dict())
+    user = await UserBasicManager.register(user_item.dict())
     user_profile_item = dict(
         id=user.id,
         mobile=user.mobile,
@@ -135,7 +135,7 @@ async def user_login_logic(account_item: UserLoginIn):
         filter_params['username'] = account_item.account
 
     # 查询用户是否存在
-    user = await UserManager.filter_first(filter_params)
+    user = await UserBasicManager.filter_first(filter_params)
     if not user:
         raise BusinessException().exc_data(ErrorCodeEnum.ACCOUNT_ERR)
 
@@ -146,10 +146,8 @@ async def user_login_logic(account_item: UserLoginIn):
 
 async def get_user_profile_logic(user_id: int):
     """ 获取用户详情信息逻辑 """
-    user = await UserManager.get_by_id(user_id)
+    user = await UserBasicManager.get_by_id(user_id)
     user_profile = await UserProfileManager.get_by_id(user_id)
-    user_profile.id_card_front = settings.QINIU_DOMAIN + user_profile.id_card_front
-    user_profile.id_card_back = settings.QINIU_DOMAIN + user_profile.id_card_back
     user, user_profile = user.to_dict(), user_profile.to_dict()
     user_profile.update(user)
     user_profile['user_id'] = user.get('id')
@@ -158,7 +156,7 @@ async def get_user_profile_logic(user_id: int):
 
 async def update_user_profile_logic(user_id: int, user_profile_item: UserProfileUpdateIn):
     """ 更新用户详情信息 """
-    user = await UserManager.get_by_id(user_id)
+    user = await UserBasicManager.get_by_id(user_id)
     user_profile = await UserProfileManager.get_by_id(user_id)
 
     # 去除空值
@@ -192,7 +190,7 @@ async def user_name_auth_logic(
 async def user_password_change_logic(user_id, user_pwd_item: UserPwdChangeIn):
     """ 用户修改密码逻辑 """
     filter_params = dict(id=user_id, password=user_pwd_item.src_password)
-    user = await UserManager.filter_first(filter_params)
+    user = await UserBasicManager.filter_first(filter_params)
     if not user:
         raise BusinessException().exc_data(ErrorCodeEnum.ACCOUNT_ERR)
 
