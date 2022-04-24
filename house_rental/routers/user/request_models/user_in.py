@@ -55,3 +55,12 @@ class UserProfileUpdateIn(BaseModel):
     hobby: Union[str, None] = Field(description='用户爱好')
     career: Union[str, None] = Field(description='用户职业')
     auth_status: Union[UserAuthStatus, None] = Field(description='用户实名认证状态')
+
+
+class UserRealNameAuthIn(BaseModel):
+    """ 用户实名认证入参 """
+    user_id: int = Field(..., description='用户id')
+    real_name: str = Field(..., min_length=1, description='真实姓名')
+    id_card: str = Field(..., min_length=18, description='身份证号')
+    id_card_front: str = Field(..., description='身份证正面')
+    id_card_back: str = Field(..., description='身份证背面')

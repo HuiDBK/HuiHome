@@ -9,7 +9,7 @@ from house_rental.commons.responses import success_response
 from house_rental.routers.user.request_models import (
     UserRegisterIn, UserLoginIn, UserProfileUpdateIn
 )
-from house_rental.routers.user.request_models.user_in import UserPwdChangeIn
+from house_rental.routers.user.request_models.user_in import UserPwdChangeIn, UserRealNameAuthIn
 
 
 async def user_register(request: UserRegisterIn):
@@ -66,16 +66,10 @@ async def update_user_profile(
 
 
 async def user_name_auth(
-        user_id: int = Path(..., description='用户id'),
-        real_name: str = Form(..., min_length=1, description='真实姓名'),
-        id_card: str = Form(..., min_length=18, description='身份证号'),
-        id_card_front: UploadFile = File(..., description='身份证正面'),
-        id_card_back: UploadFile = File(..., description='身份证背面')
+        request: UserRealNameAuthIn
 ):
     """ 用户实名认证接口 """
-    data = await user_logic.user_name_auth_logic(
-        user_id, real_name, id_card, id_card_front, id_card_back
-    )
+    data = await user_logic.user_name_auth_logic(request)
     return success_response(data)
 
 

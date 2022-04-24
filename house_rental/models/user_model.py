@@ -4,6 +4,8 @@
 # @Desc: { 用户数据库模型模块 }
 # @Date: 2022/03/06 17:41
 from tortoise import fields
+
+from house_rental.commons import settings
 from house_rental.constants import constants
 from house_rental.constants.enums import UserRole, UserState, UserAuthStatus
 from house_rental.models import BaseModel
@@ -52,3 +54,14 @@ class UserProfile(BaseModel):
     class Meta:
         app = constants.APP_NAME
         table = 'user_profile'
+
+    def to_dict(self):
+        user_profile_dict = super().to_dict()
+        user_profile_dict['user_id'] = self.id
+
+        # 图片数据添加七牛云域名
+        img_fields = ['avatar', 'id_card_front', 'id_card_back']
+        for key in img_fields:
+            if user_profile_dict.get(key):
+                user_profile_dict[key] = settings.QINIU_DOMAIN + user_profile_dict.get(key)
+        return user_profile_dict

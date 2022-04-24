@@ -51,14 +51,6 @@ router.add_api_route(
 )
 
 router.add_api_route(
-    '/register',
-    user_api.user_register,
-    response_model=user_out.UserRegisterOut,
-    methods=['post'],
-    summary='用户注册'
-)
-
-router.add_api_route(
     '/login',
     user_api.user_login,
     response_model=user_out.UserLoginOut,
@@ -83,7 +75,7 @@ router.add_api_route(
 )
 
 router.add_api_route(
-    '/name_auth/{user_id}',
+    '/name_auth',
     user_api.user_name_auth,
     response_model=user_out.UserRealNameAuthOut,
     methods=['post'],

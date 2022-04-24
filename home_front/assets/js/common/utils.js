@@ -1,5 +1,7 @@
 // 工具类模块
 refresh_token_url = api_domain + '/api/v1/auth/refresh'
+upload_file_url = api_domain + '/api/v1/upload/'
+batch_upload_file_url = api_domain + '/api/v1/upload/batch'
 
 // 字符串格式化方法
 String.prototype.format = function (args) {
@@ -75,4 +77,36 @@ function user_logout() {
     // 用户退出登录
     localStorage.clear()
     window.location.href = './index.html'
+
+}
+
+async function upload_file(file) {
+    // 文件上传
+    let upload_form_data, upload_url;
+    if (file instanceof Array) {
+        // 批量上传
+        upload_form_data = paramsToFormData({'files': file});
+        upload_url = batch_upload_file_url
+    } else {
+        // 单文件上传
+        upload_form_data = paramsToFormData({'file': file});
+        upload_url = upload_file_url
+    }
+    let config = {
+        'headers': get_token_headers(),
+        'Content-Type': 'multipart/form-data'
+    }
+    return new Promise((resolve, reject) => {
+        axios.post(upload_url, upload_form_data, config)
+            .then(response => {
+                if (response.status === 200 && response.data.code === 0) {
+                    resolve(response.data.data);
+                    return response.data.data;
+                }
+            })
+            .catch(error => {
+                reject(error.data)
+                console.log(error)
+            })
+    });
 }
