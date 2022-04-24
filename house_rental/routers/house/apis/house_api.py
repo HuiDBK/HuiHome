@@ -25,3 +25,9 @@ async def get_house_detail(house_id: int = Path(..., description='房源id')):
     """ 获取房源详情 """
     data = await house_logic.get_house_detail_logic(house_id)
     return success_response(data)
+
+
+async def get_all_house_facility():
+    """ 获取所有的房屋设施信息 """
+    data = await house_logic.get_all_house_facility_logic()
+    return success_response(data)

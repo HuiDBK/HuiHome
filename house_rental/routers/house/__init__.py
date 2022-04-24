@@ -33,3 +33,12 @@ router.add_api_route(
     response_model=house_out.HouseDetailOut,
     summary='获取房源详情信息'
 )
+
+
+router.add_api_route(
+    '/facilities',
+    house_api.get_all_house_facility,
+    methods=['get'],
+    response_model=house_out.HouseFacilitiesOut,
+    summary='获取全部房屋设施信息'
+)

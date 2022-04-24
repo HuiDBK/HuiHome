@@ -86,3 +86,13 @@ class HouseDetailDataItem(HouseListItem):
 class HouseDetailOut(ResponseBaseModel):
     """ 房源详情出参 """
     data: HouseDetailDataItem
+
+
+class HouseFacilitiesDataItem(BaseModel):
+    """ 所有房屋设施信息 """
+    house_facility_list: List[HouseFacilityListItem] = Field(description='房源设施数据')
+
+
+class HouseFacilitiesOut(ResponseBaseModel):
+    """ 所有房源设施出参 """
+    data: HouseFacilitiesDataItem

@@ -13,7 +13,7 @@ from house_rental.routers.house.request_models import HouseListIn
 from house_rental.routers.house.request_models.house_in import HouseListQueryItem
 from house_rental.routers.house.response_models import HouseListItem, HomeHouseDataItem
 from house_rental.routers.house.response_models.house_out import HouseListDataItem, HouseDetailDataItem, \
-    HouseContactDataItem
+    HouseContactDataItem, HouseFacilitiesDataItem
 
 
 async def get_home_house_list_logic(city: str):
@@ -104,3 +104,10 @@ async def get_house_detail_logic(house_id: int):
     house_info.update(dict(house_facility_list=house_facility_list))
 
     return HouseDetailDataItem(**house_info, house_contact_info=house_contact_info)
+
+
+async def get_all_house_facility_logic():
+    """ 获取所有的房屋设施信息 """
+    house_facilities = await HouseFacilityManager.get_all_facility_info()
+    house_facilities = [item.to_dict() for item in house_facilities]
+    return HouseFacilitiesDataItem(house_facility_list=house_facilities)

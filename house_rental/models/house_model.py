@@ -4,6 +4,8 @@
 # @Desc: { 房屋数据库模型模块 }
 # @Date: 2022/03/06 20:47
 from tortoise import fields
+
+from house_rental.commons import settings
 from house_rental.models import BaseModel
 from house_rental.constants import constants
 from house_rental.constants.enums import RentType, HouseType, RentState, HouseDirection, HouseState
@@ -34,6 +36,7 @@ class HouseInfo(BaseModel):
     def to_dict(self):
         house_dict = super().to_dict()
         house_dict['house_id'] = self.id
+        house_dict['index_img'] = settings.QINIU_DOMAIN + self.index_img
         return house_dict
 
     class Meta:
@@ -73,6 +76,7 @@ class FacilityInfo(BaseModel):
     def to_dict(self):
         facility_dict = super().to_dict()
         facility_dict['facility_id'] = self.id
+        facility_dict['icon'] = settings.QINIU_DOMAIN + self.icon
         return facility_dict
 
     class Meta:

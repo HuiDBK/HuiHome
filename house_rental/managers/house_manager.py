@@ -49,6 +49,11 @@ class HouseFacilityManager(BaseManager):
     model = FacilityInfo
 
     @classmethod
+    async def get_all_facility_info(cls):
+        """ 获取所有的房屋设施 """
+        return await cls.model.all()
+
+    @classmethod
     async def get_facility_info_by_ids(cls, facility_ids: list):
         """ 根据设施id列表获取设施信息 """
         filter_params = dict(id__in=facility_ids)
