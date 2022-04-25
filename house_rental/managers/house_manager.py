@@ -64,3 +64,12 @@ class HouseFacilityManager(BaseManager):
         """ 根据房屋id获取房源设施数据 """
         house_facility_ids = await HouseFacilityMapping.filter(house_id=house_id).values_list('facility_id', flat=True)
         return await cls.get_facility_info_by_ids(house_facility_ids)
+
+    @classmethod
+    async def set_house_facility(cls, house_id, house_facility_ids):
+        """ 设置房源设施 """
+        house_facility_mappings = [
+            HouseFacilityMapping(house_id=house_id, facility_id=facility_id)
+            for facility_id in house_facility_ids
+        ]
+        return await HouseFacilityMapping.bulk_create(objects=house_facility_mappings)

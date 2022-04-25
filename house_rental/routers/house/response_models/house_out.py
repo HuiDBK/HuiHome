@@ -6,7 +6,7 @@
 from datetime import date
 from typing import Union, List, Optional
 from pydantic import Field, BaseModel
-from house_rental.constants.enums import RentType, HouseType, RentState, HouseState, HouseDirection
+from house_rental.constants.enums import RentType, HouseType, RentState, HouseState, HouseDirectionEnum
 from house_rental.commons.responses.response_model import ResponseBaseModel, ListResponseModel, ListResponseDataModel
 
 
@@ -56,9 +56,9 @@ class HouseFacilityListItem(BaseModel):
 
 class HouseContactDataItem(BaseModel):
     """ 房源联系人信息 """
-    user_id: int = Field(description='联系人用户id')
+    user_id: Optional[int] = Field(description='联系人用户id')
     real_name: Optional[str] = Field(description='联系人姓名')
-    mobile: Optional[str] = Field(description='联系人手机号')
+    mobile: str = Field(description='联系人手机号')
     email: Optional[str] = Field(description='联系人邮箱')
 
 
@@ -75,7 +75,7 @@ class HouseDetailDataItem(HouseListItem):
     max_floor: Union[int, None] = Field(description='房屋最大楼层')
     has_elevator: Union[bool, None] = Field(description='是否有电梯')
     build_year: Union[date, None] = Field(description='建成年份')
-    direction: Union[HouseDirection, None] = Field(description='房屋朝向')
+    direction: Union[HouseDirectionEnum, None] = Field(description='房屋朝向')
     near_traffic_json: Union[dict, None] = Field(description='附近交通信息')
     certificate_no: Union[str, None] = Field(max_length=50, description='房产证号')
 

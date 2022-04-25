@@ -62,12 +62,30 @@ class RentState(StrEnum):
     not_rent = 'not_rent'  # 未出租
 
 
-class HouseDirection(StrEnum):
+class RentTimeUnitEnum(StrEnum):
+    """ 租赁时间单位枚举 """
+    day = 'day'  # 日结
+    month = 'month'  # 月结
+    quarter = 'quarter'  # 季度结
+    half_year = 'half_year'  # 半年结
+    year = 'year'  # 年结
+
+
+class HouseDirectionEnum(StrEnum):
     """房屋朝向"""
     north = 'north'
     south = 'south'
     east = 'east'
     west = 'west'
+
+
+class HouseLightingEnum(IntEnum):
+    """ 房屋采光情况 """
+    bad = 0  # 差
+    general = 1  # 一般
+    normal = 2  # 正常
+    good = 3  # 良好
+    excellent = 0  # 极好
 
 
 class HouseType(StrEnum):

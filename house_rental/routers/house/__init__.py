@@ -42,3 +42,12 @@ router.add_api_route(
     response_model=house_out.HouseFacilitiesOut,
     summary='获取全部房屋设施信息'
 )
+
+
+router.add_api_route(
+    '/publish',
+    house_api.publish_house,
+    methods=['post'],
+    response_model=house_out.HouseDetailOut,
+    summary='发布房源信息'
+)
