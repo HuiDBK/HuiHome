@@ -79,13 +79,19 @@ class HouseDirectionEnum(StrEnum):
     west = 'west'
 
 
+class HouseElevatorEnum(IntEnum):
+    """ 房屋电梯情况 """
+    no = 0  # 没有
+    yes = 1  # 有
+
+
 class HouseLightingEnum(IntEnum):
     """ 房屋采光情况 """
     bad = 0  # 差
     general = 1  # 一般
     normal = 2  # 正常
     good = 3  # 良好
-    excellent = 0  # 极好
+    excellent = 4  # 极好
 
 
 class HouseType(StrEnum):

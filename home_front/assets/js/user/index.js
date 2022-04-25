@@ -22,6 +22,27 @@ let vm = new Vue({
             password: '',
         },
 
+        // 首页房屋信息
+        home_house_info: {
+            whole_house_list: [],
+            share_house_list: [],
+        },
+
+        house_item: {
+            house_id: '',
+            title: '',
+            house_desc: '',
+            index_img: '',
+            rent_money: '',
+            state: '',
+            rent_type: '',
+            house_type: '',
+            rent_state: '',
+            city: '',
+            bedroom_num: '',
+            living_room_num: '',
+        },
+
         // 登录成功的用户信息
         user_info: {
             user_id: '',
@@ -272,6 +293,7 @@ let vm = new Vue({
                 .then(response => {
                     if(response.status === 200 && response.data.code === 0){
                         console.log(response.data.data)
+                        this.home_house_info = response.data.data
                     }
                 })
         },

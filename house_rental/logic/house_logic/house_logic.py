@@ -3,17 +3,20 @@
 # @Author: Hui
 # @Desc: { 房源逻辑模块 }
 # @Date: 2022/04/23 20:32
+from datetime import datetime
 from typing import Union
-
+from tortoise.transactions import in_transaction
+from house_rental.commons.exceptions.global_exception import BusinessException
+from house_rental.commons.responses import ErrorCodeEnum
 from house_rental.constants.enums import RentType
 from house_rental.managers.house_manager import HouseInfoManager, HouseDetailManager, HouseFacilityManager
 from house_rental.commons.utils import serialize_util, add_param_if_true
 from house_rental.managers.user_manager import UserBasicManager, UserProfileManager
 from house_rental.routers.house.request_models import HouseListIn
-from house_rental.routers.house.request_models.house_in import HouseListQueryItem, PublishHouseIn
+from house_rental.routers.house.request_models.house_in import HouseListQueryItem, PublishHouseIn, HouseFacilityAddIn
 from house_rental.routers.house.response_models import HouseListItem, HomeHouseDataItem
 from house_rental.routers.house.response_models.house_out import HouseListDataItem, HouseDetailDataItem, \
-    HouseContactDataItem, HouseFacilitiesDataItem
+    HouseContactDataItem, HouseFacilitiesDataItem, HouseFacilityListItem
 
 
 async def get_home_house_list_logic(city: str):
@@ -131,7 +134,30 @@ async def get_all_house_facility_logic():
 async def publish_house_logic(house_item: PublishHouseIn):
     """ 发布房源信息 """
     # 获取房源基本信息并保存
+    async with in_transaction():
+        # 开始事务
+        try:
+            house_detail, house_info = await _publish_house_logic(house_item)
+        except Exception as e:
+            print(e)
+            raise BusinessException().exc_data(ErrorCodeEnum.PUBLISH_HOUSE_ERR)
+
+    # 组装出参信息
+    contact_info = house_detail.json_extend.get('contact_info', {}) if house_detail.json_extend else {}
+    house_contact_info = contact_info or house_item.house_contact_info
+    print(house_contact_info)
+    house_info, house_detail = house_info.to_dict(), house_detail.to_dict()
+    house_info.update(**house_detail)
+    return HouseDetailDataItem(
+        **house_info,
+        house_contact_info=house_contact_info
+    )
+
+
+async def _publish_house_logic(house_item):
+    """ 发布房源信息 """
     house_dict = house_item.dict()
+    house_dict['publish_time'] = datetime.utcnow()
     house_info = await HouseInfoManager.create(house_dict)
 
     # 获取房源详情信息并保存
@@ -140,12 +166,11 @@ async def publish_house_logic(house_item: PublishHouseIn):
 
     # 获取房源设施信息并保存
     house_facility_ids = [item.facility_id for item in house_item.house_facility_list]
-    house_facility_list = await HouseFacilityManager.set_house_facility(house_info.id, house_facility_ids)
+    await HouseFacilityManager.set_house_facility(house_info.id, house_facility_ids)
 
     # 获取房源联系人信息并保存, 如果没有设置, 默认设置房源拥有者为联系人
     house_contact_info = house_item.house_contact_info
     contact_id = house_contact_info.user_id if house_contact_info else house_item.house_owner
-
     if contact_id:
         # 有更新房源信息
         house_detail.contract_id = contact_id
@@ -159,15 +184,15 @@ async def publish_house_logic(house_item: PublishHouseIn):
                 email=house_contact_info.email
             )
         )
-    await house_detail.save(update_fields=['contract_id', 'json_extend'])
+    await house_detail.save(update_fields=['contact_id', 'json_extend'])
+    return house_detail, house_info
 
-    # 组装出参信息
-    house_info, house_detail = house_info.to_dict(), house_detail.to_dict()
-    house_info.update(**house_detail)
-    house_facility_list = [item.to_dict() for item in house_facility_list]
-    house_contact_info = house_detail.json_extend or house_item.house_contact_info
-    return HouseDetailDataItem(
-        **house_info,
-        house_facility_list=house_facility_list,
-        house_contact_info=house_contact_info
-    )
+
+async def add_house_facility_logic(facility_item: HouseFacilityAddIn):
+    """ 添加房源设施逻辑 """
+    house_facility = await HouseFacilityManager.filter_existed(dict(name=facility_item.name))
+    if house_facility:
+        raise BusinessException().exc_data(ErrorCodeEnum.FACILITY_EXIST_ERR)
+    facility_item = facility_item.dict()
+    house_facility = await HouseFacilityManager.create(facility_item)
+    return HouseFacilityListItem(**house_facility.to_dict())

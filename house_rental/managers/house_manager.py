@@ -32,7 +32,7 @@ class HouseInfoManager(BaseManager):
             state=HouseState.up.value,
             rent_state=RentState.not_rent.value
         )
-        return await cls.model.filter(**filter_params).order_by('update_time').limit(limit)
+        return await cls.model.filter(**filter_params).order_by('publish_time').limit(limit)
 
 
 class HouseDetailManager(BaseManager):

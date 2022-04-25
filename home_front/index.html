@@ -225,13 +225,14 @@
 
                 <div class="row">
                     <!-- Single Property -->
-                    <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="col-lg-4 col-md-6 col-sm-12" v-for="(item, index) in home_house_info.whole_house_list">
                         <div class="single_property_style property_style_2 modern">
 
                             <div class="listing_thumb_wrapper">
                                 <div class="property_gallery_slide-thumb">
-                                    <a href="/house/detail/100">
-                                        <img src="assets/img/indoors/5.jpg" class="img-fluid mx-auto" alt=""></a>
+                                    <a href="/house/detail/1">
+                                        <img :src="item.index_img"
+                                             class="img-fluid mx-auto" alt=""></a>
                                 </div>
                             </div>
 
@@ -239,17 +240,17 @@
                                 <div class="property_short_detail">
                                     <div class="pr_type_status">
                                         <h4 class="pr-property_title mb-1">
-                                            <a href="/house/detail/100">
-                                                整租-桃苑公寓-3室1厅</a>
+                                            <a href="/house/detail/1">
+                                                {{ item.title }}</a>
                                         </h4>
                                         <div class="listing-location-name">
-                                            <a href="/house/detail/100">
-                                                广东省深圳市南山区南头桃苑公寓12栋602室</a>
+                                            <a href="/house/detail/1">
+                                                {{ item.house_desc }}</a>
                                         </div>
                                     </div>
                                     <div class="property-real-price">
-                                        <a href="/house/detail/100" class="cl-blue">
-                                            ¥ 8800<span class="price_status">/月</span>
+                                        <a href="/house/detail/1" class="cl-blue">
+                                            ¥ {{ item.rent_money }}<span class="price_status">/月</span>
                                         </a>
                                     </div>
                                 </div>
@@ -258,251 +259,17 @@
                             <div class="modern_property_footer">
                                 <div class="property-lists flex-1">
                                     <ul>
-                                        <li><span class="flatcons"><img src="assets/img/bed.svg"
-                                                                        alt=""></span>3 卧室
+                                        <li><span class="flatcons">
+                                        <img src="assets/img/bed.svg" alt=""></span>{{ item.bedroom_num }} 卧室
                                         </li>
-                                        <li><span class="flatcons"><img src="assets/img/bath.svg"
-                                                                        alt=""></span>1 卫生间
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="fp_types"><a href="javascript:void(0)" class="markHouse" data-id="100"
-                                                         onclick="submitMark(100)">收藏</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single Property -->
-                    <div class="col-lg-4 col-md-6 col-sm-12">
-                        <div class="single_property_style property_style_2 modern">
-
-                            <div class="listing_thumb_wrapper">
-                                <div class="property_gallery_slide-thumb">
-                                    <a href="/house/detail/102">
-                                        <img src="assets/img/indoors/1.jpg" class="img-fluid mx-auto" alt=""></a>
-                                </div>
-                            </div>
-
-                            <div class="property_caption_wrappers pb-0">
-                                <div class="property_short_detail">
-                                    <div class="pr_type_status">
-                                        <h4 class="pr-property_title mb-1">
-                                            <a href="/house/detail/102">
-                                                整租-桃苑公寓-3室1厅</a>
-                                        </h4>
-                                        <div class="listing-location-name">
-                                            <a href="/house/detail/102">
-                                                广东省深圳市南山区南头桃苑公寓12栋602室</a>
-                                        </div>
-                                    </div>
-                                    <div class="property-real-price">
-                                        <a href="/house/detail/102" class="cl-blue">
-                                            ¥ 8800<span class="price_status">/月</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="modern_property_footer">
-                                <div class="property-lists flex-1">
-                                    <ul>
-                                        <li><span class="flatcons"><img src="assets/img/bed.svg"
-                                                                        alt=""></span>3 卧室
-                                        </li>
-                                        <li><span class="flatcons"><img src="assets/img/bath.svg"
-                                                                        alt=""></span>1 卫生间
+                                        <li><span class="flatcons">
+                                        <img src="assets/img/bath.svg"
+                                             alt=""></span>{{ item.living_room_num }} 客厅
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="fp_types"><a href="javascript:void(0)" class="markHouse" data-id="102"
-                                                         onclick="submitMark(102)">收藏</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single Property -->
-                    <div class="col-lg-4 col-md-6 col-sm-12">
-                        <div class="single_property_style property_style_2 modern">
-
-                            <div class="listing_thumb_wrapper">
-                                <div class="property_gallery_slide-thumb">
-                                    <a href="/house/detail/103">
-                                        <img src="assets/img/indoors/2.jpg" class="img-fluid mx-auto" alt=""></a>
-                                </div>
-                            </div>
-
-                            <div class="property_caption_wrappers pb-0">
-                                <div class="property_short_detail">
-                                    <div class="pr_type_status">
-                                        <h4 class="pr-property_title mb-1">
-                                            <a href="/house/detail/103">
-                                                整租-桃苑公寓-3室1厅</a>
-                                        </h4>
-                                        <div class="listing-location-name">
-                                            <a href="/house/detail/103">
-                                                广东省深圳市南山区南头桃苑公寓11栋603室</a>
-                                        </div>
-                                    </div>
-                                    <div class="property-real-price">
-                                        <a href="/house/detail/103" class="cl-blue">
-                                            ¥ 8800<span class="price_status">/月</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="modern_property_footer">
-                                <div class="property-lists flex-1">
-                                    <ul>
-                                        <li><span class="flatcons"><img src="assets/img/bed.svg"
-                                                                        alt=""></span>3 卧室
-                                        </li>
-                                        <li><span class="flatcons"><img src="assets/img/bath.svg"
-                                                                        alt=""></span>1 卫生间
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="fp_types"><a href="javascript:void(0)" class="markHouse" data-id="103"
-                                                         onclick="submitMark(103)">收藏</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single Property -->
-                    <div class="col-lg-4 col-md-6 col-sm-12">
-                        <div class="single_property_style property_style_2 modern">
-
-                            <div class="listing_thumb_wrapper">
-                                <div class="property_gallery_slide-thumb">
-                                    <a href="/house/detail/104">
-                                        <img src="assets/img/indoors/3.jpg" class="img-fluid mx-auto" alt=""></a>
-                                </div>
-                            </div>
-
-                            <div class="property_caption_wrappers pb-0">
-                                <div class="property_short_detail">
-                                    <div class="pr_type_status">
-                                        <h4 class="pr-property_title mb-1">
-                                            <a href="/house/detail/104">
-                                                整租-桃苑公寓-3室1厅</a>
-                                        </h4>
-                                        <div class="listing-location-name">
-                                            <a href="/house/detail/104">
-                                                广东省深圳市南山区南头桃苑公寓12栋604室</a>
-                                        </div>
-                                    </div>
-                                    <div class="property-real-price">
-                                        <a href="/house/detail/104" class="cl-blue">
-                                            ¥ 8800<span class="price_status">/月</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="modern_property_footer">
-                                <div class="property-lists flex-1">
-                                    <ul>
-                                        <li><span class="flatcons"><img src="assets/img/bed.svg"
-                                                                        alt=""></span>3 卧室
-                                        </li>
-                                        <li><span class="flatcons"><img src="assets/img/bath.svg"
-                                                                        alt=""></span>1 卫生间
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="fp_types"><a href="javascript:void(0)" class="markHouse" data-id="104"
-                                                         onclick="submitMark(104)">收藏</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single Property -->
-                    <div class="col-lg-4 col-md-6 col-sm-12">
-                        <div class="single_property_style property_style_2 modern">
-
-                            <div class="listing_thumb_wrapper">
-                                <div class="property_gallery_slide-thumb">
-                                    <a href="/house/detail/105">
-                                        <img src="assets/img/indoors/4.jpg" class="img-fluid mx-auto" alt=""></a>
-                                </div>
-                            </div>
-
-                            <div class="property_caption_wrappers pb-0">
-                                <div class="property_short_detail">
-                                    <div class="pr_type_status">
-                                        <h4 class="pr-property_title mb-1">
-                                            <a href="/house/detail/105">
-                                                整租-桃苑公寓-3室1厅</a>
-                                        </h4>
-                                        <div class="listing-location-name">
-                                            <a href="/house/detail/105">
-                                                广东省深圳市南山区南头桃苑公寓11栋605室</a>
-                                        </div>
-                                    </div>
-                                    <div class="property-real-price">
-                                        <a href="/house/detail/105" class="cl-blue">
-                                            ¥ 8800<span class="price_status">/月</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="modern_property_footer">
-                                <div class="property-lists flex-1">
-                                    <ul>
-                                        <li><span class="flatcons"><img src="assets/img/bed.svg"
-                                                                        alt=""></span>3 卧室
-                                        </li>
-                                        <li><span class="flatcons"><img src="assets/img/bath.svg"
-                                                                        alt=""></span>1 卫生间
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="fp_types"><a href="javascript:void(0)" class="markHouse" data-id="105"
-                                                         onclick="submitMark(105)">收藏</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single Property -->
-                    <div class="col-lg-4 col-md-6 col-sm-12">
-                        <div class="single_property_style property_style_2 modern">
-
-                            <div class="listing_thumb_wrapper">
-                                <div class="property_gallery_slide-thumb">
-                                    <a href="/house/detail/106">
-                                        <img src="assets/img/indoors/5.jpg" class="img-fluid mx-auto" alt=""></a>
-                                </div>
-                            </div>
-
-                            <div class="property_caption_wrappers pb-0">
-                                <div class="property_short_detail">
-                                    <div class="pr_type_status">
-                                        <h4 class="pr-property_title mb-1">
-                                            <a href="/house/detail/106">
-                                                整租-桃苑公寓-3室1厅</a>
-                                        </h4>
-                                        <div class="listing-location-name">
-                                            <a href="/house/detail/106">
-                                                广东省深圳市南山区南头桃苑公寓12栋606室</a>
-                                        </div>
-                                    </div>
-                                    <div class="property-real-price">
-                                        <a href="/house/detail/106" class="cl-blue">
-                                            ¥ 8800<span class="price_status">/月</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="modern_property_footer">
-                                <div class="property-lists flex-1">
-                                    <ul>
-                                        <li><span class="flatcons"><img src="assets/img/bed.svg"
-                                                                        alt=""></span>3 卧室
-                                        </li>
-                                        <li><span class="flatcons"><img src="assets/img/bath.svg"
-                                                                        alt=""></span>1 卫生间
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="fp_types"><a href="javascript:void(0)" class="markHouse" data-id="106"
-                                                         onclick="submitMark(106)">收藏</a></div>
+                                <div class="fp_types"><a href="javascript:void(0)" class="markHouse" data-id="1"
+                                                         onclick="submitMark(1)">收藏</a></div>
                             </div>
                         </div>
                     </div>
@@ -510,7 +277,7 @@
 
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 text-center">
-                        <a href="/house?rentType=whole" class="btn btn-theme arrow-btn bg-2">查看更多
+                        <a href="/house?rentType=share" class="btn btn-theme arrow-btn bg-2">查看更多
                             <span><i class="ti-arrow-right"></i></span>
                         </a>
                     </div>
@@ -537,13 +304,13 @@
 
                 <div class="row">
                     <!-- Single Property -->
-                    <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="col-lg-4 col-md-6 col-sm-12" v-for="(item, index) in home_house_info.share_house_list">
                         <div class="single_property_style property_style_2 modern">
 
                             <div class="listing_thumb_wrapper">
                                 <div class="property_gallery_slide-thumb">
                                     <a href="/house/detail/1">
-                                        <img src="/uploads/f73c9a99609345fba643e8106dea6b4e.png"
+                                        <img :src="item.index_img"
                                              class="img-fluid mx-auto" alt=""></a>
                                 </div>
                             </div>
@@ -553,16 +320,16 @@
                                     <div class="pr_type_status">
                                         <h4 class="pr-property_title mb-1">
                                             <a href="/house/detail/1">
-                                                合租-世界花园-4居室-A卧</a>
+                                                {{ item.title }}</a>
                                         </h4>
                                         <div class="listing-location-name">
                                             <a href="/house/detail/1">
-                                                广东省深圳市南山区世界之窗世纪花园小区12栋305室A卧</a>
+                                                {{ item.house_desc }}</a>
                                         </div>
                                     </div>
                                     <div class="property-real-price">
                                         <a href="/house/detail/1" class="cl-blue">
-                                            ¥ 2500<span class="price_status">/月</span>
+                                            ¥ {{ item.rent_money }}<span class="price_status">/月</span>
                                         </a>
                                     </div>
                                 </div>
@@ -572,256 +339,16 @@
                                 <div class="property-lists flex-1">
                                     <ul>
                                         <li><span class="flatcons">
-                                        <img src="assets/img/bed.svg" alt=""></span>4 卧室
+                                        <img src="assets/img/bed.svg" alt=""></span>{{ item.bedroom_num }} 卧室
                                         </li>
                                         <li><span class="flatcons">
                                         <img src="assets/img/bath.svg"
-                                             alt=""></span>1 卫生间
+                                             alt=""></span>{{ item.living_room_num }} 客厅
                                         </li>
                                     </ul>
                                 </div>
                                 <div class="fp_types"><a href="javascript:void(0)" class="markHouse" data-id="1"
                                                          onclick="submitMark(1)">收藏</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single Property -->
-                    <div class="col-lg-4 col-md-6 col-sm-12">
-                        <div class="single_property_style property_style_2 modern">
-
-                            <div class="listing_thumb_wrapper">
-                                <div class="property_gallery_slide-thumb">
-                                    <a href="/house/detail/3">
-                                        <img src="assets/img/indoors/4.jpg" class="img-fluid mx-auto" alt=""></a>
-                                </div>
-                            </div>
-
-                            <div class="property_caption_wrappers pb-0">
-                                <div class="property_short_detail">
-                                    <div class="pr_type_status">
-                                        <h4 class="pr-property_title mb-1">
-                                            <a href="/house/detail/3">
-                                                合租-世界花园-4居室-C卧</a>
-                                        </h4>
-                                        <div class="listing-location-name">
-                                            <a href="/house/detail/3">
-                                                广东省深圳市南山区世界之窗世纪花园小区12栋305室C卧</a>
-                                        </div>
-                                    </div>
-                                    <div class="property-real-price">
-                                        <a href="/house/detail/3" class="cl-blue">
-                                            ¥ 3000<span class="price_status">/月</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="modern_property_footer">
-                                <div class="property-lists flex-1">
-                                    <ul>
-                                        <li><span class="flatcons">
-                                        <img src="assets/img/bed.svg" alt=""></span>4 卧室
-                                        </li>
-                                        <li><span class="flatcons">
-                                        <img src="assets/img/bath.svg"
-                                             alt=""></span>1 卫生间
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="fp_types"><a href="javascript:void(0)" class="markHouse" data-id="3"
-                                                         onclick="submitMark(3)">收藏</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single Property -->
-                    <div class="col-lg-4 col-md-6 col-sm-12">
-                        <div class="single_property_style property_style_2 modern">
-
-                            <div class="listing_thumb_wrapper">
-                                <div class="property_gallery_slide-thumb">
-                                    <a href="/house/detail/11">
-                                        <img src="assets/img/indoors/6.jpg" class="img-fluid mx-auto" alt=""></a>
-                                </div>
-                            </div>
-
-                            <div class="property_caption_wrappers pb-0">
-                                <div class="property_short_detail">
-                                    <div class="pr_type_status">
-                                        <h4 class="pr-property_title mb-1">
-                                            <a href="/house/detail/11">
-                                                合租-龙城西苑-4居室-A卧</a>
-                                        </h4>
-                                        <div class="listing-location-name">
-                                            <a href="/house/detail/11">
-                                                广东省深圳市南山区科技园南龙城新苑小区12栋305室A卧</a>
-                                        </div>
-                                    </div>
-                                    <div class="property-real-price">
-                                        <a href="/house/detail/11" class="cl-blue">
-                                            ¥ 3000<span class="price_status">/月</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="modern_property_footer">
-                                <div class="property-lists flex-1">
-                                    <ul>
-                                        <li><span class="flatcons">
-                                        <img src="assets/img/bed.svg" alt=""></span>4 卧室
-                                        </li>
-                                        <li><span class="flatcons">
-                                        <img src="assets/img/bath.svg"
-                                             alt=""></span>1 卫生间
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="fp_types"><a href="javascript:void(0)" class="markHouse" data-id="11"
-                                                         onclick="submitMark(11)">收藏</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single Property -->
-                    <div class="col-lg-4 col-md-6 col-sm-12">
-                        <div class="single_property_style property_style_2 modern">
-
-                            <div class="listing_thumb_wrapper">
-                                <div class="property_gallery_slide-thumb">
-                                    <a href="/house/detail/12">
-                                        <img src="assets/img/indoors/1.jpg" class="img-fluid mx-auto" alt=""></a>
-                                </div>
-                            </div>
-
-                            <div class="property_caption_wrappers pb-0">
-                                <div class="property_short_detail">
-                                    <div class="pr_type_status">
-                                        <h4 class="pr-property_title mb-1">
-                                            <a href="/house/detail/12">
-                                                合租-龙城西苑-4居室-B卧</a>
-                                        </h4>
-                                        <div class="listing-location-name">
-                                            <a href="/house/detail/12">
-                                                广东省深圳市南山区科技园南龙城新苑小区12栋305室B卧</a>
-                                        </div>
-                                    </div>
-                                    <div class="property-real-price">
-                                        <a href="/house/detail/12" class="cl-blue">
-                                            ¥ 2800<span class="price_status">/月</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="modern_property_footer">
-                                <div class="property-lists flex-1">
-                                    <ul>
-                                        <li><span class="flatcons">
-                                        <img src="assets/img/bed.svg" alt=""></span>4 卧室
-                                        </li>
-                                        <li><span class="flatcons">
-                                        <img src="assets/img/bath.svg"
-                                             alt=""></span>1 卫生间
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="fp_types"><a href="javascript:void(0)" class="markHouse" data-id="12"
-                                                         onclick="submitMark(12)">收藏</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single Property -->
-                    <div class="col-lg-4 col-md-6 col-sm-12">
-                        <div class="single_property_style property_style_2 modern">
-
-                            <div class="listing_thumb_wrapper">
-                                <div class="property_gallery_slide-thumb">
-                                    <a href="/house/detail/13">
-                                        <img src="assets/img/indoors/2.jpg" class="img-fluid mx-auto" alt=""></a>
-                                </div>
-                            </div>
-
-                            <div class="property_caption_wrappers pb-0">
-                                <div class="property_short_detail">
-                                    <div class="pr_type_status">
-                                        <h4 class="pr-property_title mb-1">
-                                            <a href="/house/detail/13">
-                                                合租-龙城西苑-4居室-C卧</a>
-                                        </h4>
-                                        <div class="listing-location-name">
-                                            <a href="/house/detail/13">
-                                                广东省深圳市南山区科技园南龙城新苑小区12栋305室C卧</a>
-                                        </div>
-                                    </div>
-                                    <div class="property-real-price">
-                                        <a href="/house/detail/13" class="cl-blue">
-                                            ¥ 2600<span class="price_status">/月</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="modern_property_footer">
-                                <div class="property-lists flex-1">
-                                    <ul>
-                                        <li><span class="flatcons">
-                                        <img src="assets/img/bed.svg" alt=""></span>4 卧室
-                                        </li>
-                                        <li><span class="flatcons">
-                                        <img src="assets/img/bath.svg"
-                                             alt=""></span>1 卫生间
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="fp_types"><a href="javascript:void(0)" class="markHouse" data-id="13"
-                                                         onclick="submitMark(13)">收藏</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single Property -->
-                    <div class="col-lg-4 col-md-6 col-sm-12">
-                        <div class="single_property_style property_style_2 modern">
-
-                            <div class="listing_thumb_wrapper">
-                                <div class="property_gallery_slide-thumb">
-                                    <a href="/house/detail/14">
-                                        <img src="assets/img/indoors/3.jpg" class="img-fluid mx-auto" alt=""></a>
-                                </div>
-                            </div>
-
-                            <div class="property_caption_wrappers pb-0">
-                                <div class="property_short_detail">
-                                    <div class="pr_type_status">
-                                        <h4 class="pr-property_title mb-1">
-                                            <a href="/house/detail/14">
-                                                合租-龙城西苑-4居室-D卧</a>
-                                        </h4>
-                                        <div class="listing-location-name">
-                                            <a href="/house/detail/14">
-                                                广东省深圳市南山区科技园南龙城新苑小区12栋305室D卧</a>
-                                        </div>
-                                    </div>
-                                    <div class="property-real-price">
-                                        <a href="/house/detail/14" class="cl-blue">
-                                            ¥ 2400<span class="price_status">/月</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="modern_property_footer">
-                                <div class="property-lists flex-1">
-                                    <ul>
-                                        <li><span class="flatcons">
-                                        <img src="assets/img/bed.svg" alt=""></span>4 卧室
-                                        </li>
-                                        <li><span class="flatcons">
-                                        <img src="assets/img/bath.svg"
-                                             alt=""></span>1 卫生间
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="fp_types"><a href="javascript:void(0)" class="markHouse" data-id="14"
-                                                         onclick="submitMark(14)">收藏</a></div>
                             </div>
                         </div>
                     </div>

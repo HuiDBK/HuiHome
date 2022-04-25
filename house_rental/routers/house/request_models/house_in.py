@@ -9,7 +9,7 @@ from pydantic import BaseModel, Field
 from house_rental.commons.request_models import ListPageModel
 
 from house_rental.constants.enums import RentType, HouseType, RentState, HouseState, HouseDirectionEnum, \
-    RentTimeUnitEnum
+    RentTimeUnitEnum, HouseElevatorEnum
 from house_rental.routers.house.response_models.house_out import HouseFacilityListItem, HouseContactDataItem
 
 
@@ -37,16 +37,22 @@ class HouseListIn(ListPageModel):
     query_params: Optional[HouseListQueryItem] = Field(default={}, description='房源列表查询参数')
 
 
+class HouseDisplayContentItem(BaseModel):
+    """ 房源展示内容信息 """
+    images: list = Field(description='房源图片内容')
+    videos: list = Field(description='房源视频内容')
+
+
 class PublishHouseIn(BaseModel):
-    """ 发布房源数据 """
+    """ 发布房源入参数据 """
     title: str = Field(description='房源标题')
-    index_img: Union[str, None] = Field(description='房源图片')
+    index_img: Union[str, None] = Field(description='房源首页展示图片')
     address: str = Field(description='房源地址')
     rent_money: int = Field(description='月租金')
     rent_time_unit: RentTimeUnitEnum = Field(default=RentTimeUnitEnum.month, description='租赁时间单位，默认month（月结）')
-    water_rent: int = Field(description='水费 (单位/分，元/100)')
-    electricity_rent: int = Field(description='电费 (单位/分，元/100)')
-    strata_fee: int = Field(description='管理费 (单位/分，元/100)')
+    water_rent: int = Field(default=0, description='水费 (单位/元)')
+    electricity_rent: int = Field(default=0, description='电费 (单位/元)')
+    strata_fee: int = Field(default=0, description='管理费 (单位/元)')
     deposit_ratio: int = Field(description='租赁费用的押金倍数 (押几付几)')
     pay_ratio: int = Field(description='租赁费用的支付倍数 (押几付几)')
     rent_type: RentType = Field(description='租赁类型')
@@ -60,10 +66,10 @@ class PublishHouseIn(BaseModel):
     area: Union[int, None] = Field(description='房间面积')
     room_num: Union[int, None] = Field(description='房间号')
     toilet_num: Union[int, None] = Field(description='卫生间数量')
-    display_content: Union[dict, None] = Field(description='房屋展示内容')
+    display_content: Union[HouseDisplayContentItem, None] = Field(description='房屋展示内容')
     floor: Union[int, None] = Field(description='房屋所在楼层')
     max_floor: Union[int, None] = Field(description='房屋最大楼层')
-    has_elevator: Union[bool, None] = Field(description='是否有电梯')
+    has_elevator: Union[HouseElevatorEnum, None] = Field(description='是否有电梯')
     build_year: Union[date, None] = Field(description='建成年份')
     direction: Union[HouseDirectionEnum, None] = Field(description='房屋朝向')
     near_traffic_json: Union[dict, None] = Field(description='附近交通信息')
@@ -71,3 +77,9 @@ class PublishHouseIn(BaseModel):
 
     house_facility_list: List[HouseFacilityListItem] = Field([], description='房源设施数据')
     house_contact_info: Optional[HouseContactDataItem] = Field(description='房源联系人信息')
+
+
+class HouseFacilityAddIn(BaseModel):
+    """ 添加房源设施入参 """
+    name: str = Field(description='房屋设施名称')
+    icon: Union[str, None] = Field(description='房屋设施图标')

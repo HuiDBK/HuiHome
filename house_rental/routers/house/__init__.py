@@ -25,7 +25,6 @@ router.add_api_route(
     summary='获取房源列表信息'
 )
 
-
 router.add_api_route(
     '/houses/{house_id}',
     house_api.get_house_detail,
@@ -33,7 +32,6 @@ router.add_api_route(
     response_model=house_out.HouseDetailOut,
     summary='获取房源详情信息'
 )
-
 
 router.add_api_route(
     '/facilities',
@@ -43,11 +41,18 @@ router.add_api_route(
     summary='获取全部房屋设施信息'
 )
 
-
 router.add_api_route(
     '/publish',
     house_api.publish_house,
     methods=['post'],
     response_model=house_out.HouseDetailOut,
     summary='发布房源信息'
+)
+
+router.add_api_route(
+    '/facilities/',
+    house_api.add_house_facility,
+    methods=['post'],
+    response_model=house_out.HouseFacilityAddOut,
+    summary='添加房源设施'
 )

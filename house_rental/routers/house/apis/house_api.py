@@ -7,7 +7,7 @@ from fastapi import Query, Path
 from house_rental.logic.house_logic import house_logic
 from house_rental.commons.responses import success_response
 from house_rental.routers.house.request_models import HouseListIn
-from house_rental.routers.house.request_models.house_in import PublishHouseIn
+from house_rental.routers.house.request_models.house_in import PublishHouseIn, HouseFacilityAddIn
 
 
 async def get_home_house_list(city: str = Query(..., description='房源所在城市')):
@@ -37,4 +37,10 @@ async def get_all_house_facility():
 async def publish_house(request: PublishHouseIn):
     """ 发布房源信息 """
     data = await house_logic.publish_house_logic(request)
+    return success_response(data)
+
+
+async def add_house_facility(request: HouseFacilityAddIn):
+    """ 添加房源设施 """
+    data = await house_logic.add_house_facility_logic(request)
     return success_response(data)

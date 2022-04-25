@@ -15,7 +15,6 @@ class HouseListItem(BaseModel):
     house_id: int = Field(description='房源id')
     title: str = Field(description='房源标题')
     index_img: Union[str, None] = Field(description='房源图片')
-    address: str = Field(description='房源地址')
     rent_money: int = Field(description='月租金')
     state: HouseState = Field(description='房屋状态')
     rent_type: RentType = Field(description='租赁类型')
@@ -79,7 +78,7 @@ class HouseDetailDataItem(HouseListItem):
     near_traffic_json: Union[dict, None] = Field(description='附近交通信息')
     certificate_no: Union[str, None] = Field(max_length=50, description='房产证号')
 
-    house_facility_list: List[HouseFacilityListItem] = Field(description='房源设施数据')
+    house_facility_list: Optional[List[HouseFacilityListItem]] = Field(description='房源设施数据')
     house_contact_info: Optional[HouseContactDataItem] = Field(description='房源联系人信息')
 
 
@@ -96,3 +95,8 @@ class HouseFacilitiesDataItem(BaseModel):
 class HouseFacilitiesOut(ResponseBaseModel):
     """ 所有房源设施出参 """
     data: HouseFacilitiesDataItem
+
+
+class HouseFacilityAddOut(ResponseBaseModel):
+    """ 所有房源设施出参 """
+    data: HouseFacilityListItem
