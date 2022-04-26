@@ -52,7 +52,7 @@ async def add_house_facility(request: HouseFacilityAddIn):
 async def user_house_collect(
         request: HouseCollectIn
 ):
-    """ 添加房源设施 """
+    """ 用户房源收藏 """
     data = await house_logic.user_house_collect_logic(**request.dict())
     return success_response(data)
 
@@ -60,6 +60,6 @@ async def user_house_collect(
 async def get_user_house_collect(
         user_id: int = Path(..., description='用户id')
 ):
-    """ 添加房源设施 """
+    """ 获取用户收藏的房源信息 """
     data = await house_logic.get_user_house_collect_logic(user_id)
     return success_response(data)

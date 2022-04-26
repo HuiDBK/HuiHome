@@ -8,7 +8,7 @@ from typing import Union, Dict, List
 from tortoise.models import Model
 
 
-def obj2model(
+def obj2DataModel(
         data_obj: Union[
             Dict,
             Model,
@@ -16,7 +16,7 @@ def obj2model(
             List[Model]
         ],
         data_model: BaseModel
-):
+) -> Union[BaseModel, List[BaseModel], None]:
     """
     将数据对象转换成 pydantic的响应模型对象, 如果是数据库模型对象则调用to_dict()后递归
     :param data_obj: 支持 字典对象, 列表对象
@@ -30,12 +30,12 @@ def obj2model(
 
     elif isinstance(data_obj, Model):
         # 数据模型对象处理, to_dict()后递归调用
-        return obj2model(data_obj.to_dict(), data_model=data_model)
+        return obj2DataModel(data_obj.to_dict(), data_model=data_model)
 
     elif isinstance(data_obj, list):
         # 列表处理
-        return [obj2model(item, data_model=data_model) for item in data_obj]
+        return [obj2DataModel(item, data_model=data_model) for item in data_obj]
 
     else:
         print(f'不支持此{data_obj}类型的转换')
-        return
+    return

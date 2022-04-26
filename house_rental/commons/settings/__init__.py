@@ -20,7 +20,6 @@ accToken = '311e282f76914d1ab9f66dd314659efc'
 appId = '8a216da87ba59937017c1804694f1bfa'
 test_mobile = '13033221752'
 sms_template_id = '1'  # 短信模板
-sms_code_ttl = 5  # 短信验证码有效时间 单位/分钟
 
 # 不需要登录验证的接口
 API_URL_WHITE_LIST = [

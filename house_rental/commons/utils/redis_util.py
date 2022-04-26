@@ -5,7 +5,6 @@
 # @Date: 2022/04/17 0:13
 import aioredis
 from house_rental.commons import settings
-from house_rental.commons.utils.decorators import singleton
 from house_rental.constants import constants
 from house_rental.constants.enums import RedisDataType
 
@@ -51,9 +50,39 @@ class RedisKey(object):
         house_collect_cache_info = RedisCacheInfo(
             key=f'{constants.APP_NAME}:house:{user_id}',
             timeout=constants.SMS_CODE_TIMEOUT,
-            data_type=RedisDataType.LIST.value
+            data_type=RedisDataType.SET.value
         )
         return house_collect_cache_info
+
+    @classmethod
+    def house_detail(cls, house_id) -> RedisCacheInfo:
+        """
+        获取房源详情 Redis key
+        :param house_id: 房源id
+        :return:
+        """
+        house_detail_cache_info = RedisCacheInfo(
+            key=f'{constants.APP_NAME}:house:detail:{house_id}',
+            timeout=constants.HOUSE_DETAIL_TIMEOUT,
+            data_type=RedisDataType.STRING.value
+        )
+        return house_detail_cache_info
+
+    @classmethod
+    def house_facilities(cls) -> RedisCacheInfo:
+        """
+        获取全部的房源设施 Redis key
+        :return:
+        """
+        house_facilities_cache_info = RedisCacheInfo(
+            key=f'{constants.APP_NAME}:house:facilities',
+            timeout=constants.HOUSE_FACILITIES_TIMEOUT,
+            data_type=RedisDataType.STRING.value
+        )
+        return house_facilities_cache_info
+
+
+from house_rental.commons.utils.decorators import singleton
 
 
 @singleton

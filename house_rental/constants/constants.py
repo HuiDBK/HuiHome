@@ -21,3 +21,5 @@ PHONE_REGEX = r'^0?(13|14|15|17|18)[0-9]{9}$'
 
 # Redis Key 过期时间常量 单位秒
 SMS_CODE_TIMEOUT = 5 * 60
+HOUSE_DETAIL_TIMEOUT = 60 * 60 * 24 * 15    # 15天
+HOUSE_FACILITIES_TIMEOUT = 60 * 60 * 24 * 15    # 30天

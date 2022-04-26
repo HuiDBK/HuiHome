@@ -3,6 +3,7 @@
 # @Author: Hui
 # @Desc: { 房源逻辑模块 }
 # @Date: 2022/04/23 20:32
+import json
 from datetime import datetime
 from typing import Union
 
@@ -12,6 +13,7 @@ from tortoise.transactions import in_transaction
 from house_rental.commons.utils import RedisUtil, RedisKey
 from house_rental.commons.exceptions.global_exception import BusinessException
 from house_rental.commons.responses import ErrorCodeEnum
+from house_rental.commons.utils.decorators import cache_json
 from house_rental.constants.enums import RentType
 from house_rental.managers.house_manager import HouseInfoManager, HouseDetailManager, HouseFacilityManager
 from house_rental.commons.utils import serialize_util, add_param_if_true
@@ -34,8 +36,8 @@ async def get_home_house_list_logic(city: str):
     whole_house_list = [item.to_dict() for item in whole_house_list]
     share_house_list = [item.to_dict() for item in share_house_list]
 
-    whole_house_list = serialize_util.obj2model(data_obj=whole_house_list, data_model=HouseListItem)
-    share_house_list = serialize_util.obj2model(data_obj=share_house_list, data_model=HouseListItem)
+    whole_house_list = serialize_util.obj2DataModel(data_obj=whole_house_list, data_model=HouseListItem)
+    share_house_list = serialize_util.obj2DataModel(data_obj=share_house_list, data_model=HouseListItem)
 
     return HomeHouseDataItem(
         whole_house_list=whole_house_list,
@@ -88,7 +90,7 @@ async def get_house_list_logic(item: HouseListIn):
         limit=item.limit
     )
     house_data_list = [item.to_dict() for item in house_data_list]
-    house_data_list = serialize_util.obj2model(data_obj=house_data_list, data_model=HouseListItem)
+    house_data_list = serialize_util.obj2DataModel(data_obj=house_data_list, data_model=HouseListItem)
 
     return HouseListDataItem(
         total=total,
@@ -100,6 +102,14 @@ async def get_house_list_logic(item: HouseListIn):
 
 async def get_house_detail_logic(house_id: int):
     """ 获取房源详情逻辑 """
+
+    # 先看redis缓存是否有
+    house_detail_cache_info = RedisKey.house_detail(house_id)
+    house_detail_json = await RedisUtil().get_with_cache_info(house_detail_cache_info)
+    if house_detail_json:
+        house_detail_info = json.loads(house_detail_json)
+        return HouseDetailDataItem(**house_detail_info)
+
     house_info = await HouseInfoManager.get_by_id(house_id)
     house_detail = await HouseDetailManager.get_by_id(house_id)
 
@@ -128,18 +138,24 @@ async def get_house_detail_logic(house_id: int):
     house_info, house_detail = house_info.to_dict(), house_detail.to_dict()
     house_info.update(**house_detail)
 
-    return HouseDetailDataItem(
+    house_detail_info = HouseDetailDataItem(
         **house_info,
         house_facility_list=house_facility_list,
         house_contact_info=house_contact_info
     )
 
+    # 设置房屋详情缓存
+    await RedisUtil().set_with_cache_info(house_detail_cache_info, house_detail_info.json())
+    return house_detail_info
 
+
+@cache_json(RedisKey.house_facilities())
 async def get_all_house_facility_logic():
     """ 获取所有的房屋设施信息 """
     house_facilities = await HouseFacilityManager.get_all_facility_info()
     house_facilities = [item.to_dict() for item in house_facilities]
-    return HouseFacilitiesDataItem(house_facility_list=house_facilities)
+    hose_facilities_info = HouseFacilitiesDataItem(house_facility_list=house_facilities)
+    return hose_facilities_info
 
 
 async def publish_house_logic(house_item: PublishHouseIn):
@@ -159,6 +175,7 @@ async def publish_house_logic(house_item: PublishHouseIn):
     print(house_contact_info)
     house_info, house_detail = house_info.to_dict(), house_detail.to_dict()
     house_info.update(**house_detail)
+
     return HouseDetailDataItem(
         **house_info,
         house_contact_info=house_contact_info
@@ -211,7 +228,6 @@ async def add_house_facility_logic(facility_item: HouseFacilityAddIn):
 
 async def user_house_collect_logic(user_id, house_id: int):
     """ 用户房源收藏逻辑 """
-    print(house_id)
     collect_cache_info = RedisKey.user_house_collect(user_id)
     redis_client = await RedisUtil().get_redis_conn()
     redis_client.sadd(key=collect_cache_info.key, member=house_id)
@@ -226,5 +242,5 @@ async def get_user_house_collect_logic(user_id):
     house_ids = [int(house_id) for house_id in user_house_collects]
 
     house_collect_list = await HouseInfoManager.get_houses_by_ids(house_ids)
-    house_collect_list = serialize_util.obj2model(house_collect_list, data_model=HouseListItem)
+    house_collect_list = serialize_util.obj2DataModel(house_collect_list, data_model=HouseListItem)
     return UserHouseCollectDataItem(user_house_collects=house_collect_list)
