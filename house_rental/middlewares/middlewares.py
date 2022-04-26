@@ -6,6 +6,8 @@
 from starlette.requests import Request
 from starlette.responses import Response, JSONResponse
 from starlette.types import ASGIApp, Scope, Receive, Send, Message
+
+from house_rental import jwt_authentication
 from house_rental.commons import settings
 from house_rental.commons.utils import jwt_util
 from house_rental.constants.enums import UserRole
@@ -47,28 +49,8 @@ class AuthorizationMiddleware(BaseMiddleware):
 
     async def before_request(self, request: Request):
         """ 在请求前校验jwt """
-
         for api_url in settings.API_URL_WHITE_LIST:
             # 在白名单的接口无需token验证
             if str(request.url.path).startswith(api_url):
                 return
-
-        token = request.headers.get('Authorization') or None
-        if not token:
-            return JSONResponse(status_code=401)
-
-        token = str(token)[7:]
-        user_info = jwt_util.verify_jwt(token)
-        if not user_info:
-            # 无效token
-            return JSONResponse(status_code=401)
-
-        # 校验通过保存到request.user中
-        user_id = user_info.get('user_id')
-        user = await UserBasicManager.get_by_id(user_id)
-
-        if user.role != UserRole.admin.value and str(request.url.path).startswith('/api/v1/admin'):
-            # 不是管理员无法访问了后台模块接口
-            return JSONResponse(status_code=401)
-
-        request.scope['user'] = user
+        # await jwt_authentication(request)

@@ -70,9 +70,12 @@ async def global_exception_handler(
     if isinstance(exc, ConnectionError):
         message = f'网络异常, {traceback.format_exc()}'
         error = ErrorCodeEnum.SOCKET_ERR
+    elif isinstance(exc, AuthorizationException):
+        return await authorization_exception_handler(request, exc)
     else:
         message = f'系统异常, {traceback.format_exc()}'
         error = ErrorCodeEnum.SYSTEM_ERR
+
     logger.error(message)
     return JSONResponse(
         status_code=500,

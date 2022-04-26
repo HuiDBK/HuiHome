@@ -18,7 +18,7 @@ def obj2model(
         data_model: BaseModel
 ):
     """
-    将数据对象转换成 pydantic的响应模型对象
+    将数据对象转换成 pydantic的响应模型对象, 如果是数据库模型对象则调用to_dict()后递归
     :param data_obj: 支持 字典对象, 列表对象
     :param data_model: 转换后数据模型
     :return:
@@ -28,5 +28,14 @@ def obj2model(
         # 字典处理
         return data_model(**data_obj)
 
-    if isinstance(data_obj, list):
-        return [data_model(**item) for item in data_obj if isinstance(item, dict)]
+    elif isinstance(data_obj, Model):
+        # 数据模型对象处理, to_dict()后递归调用
+        return obj2model(data_obj.to_dict(), data_model=data_model)
+
+    elif isinstance(data_obj, list):
+        # 列表处理
+        return [obj2model(item, data_model=data_model) for item in data_obj]
+
+    else:
+        print(f'不支持此{data_obj}类型的转换')
+        return

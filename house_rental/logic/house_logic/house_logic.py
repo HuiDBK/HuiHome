@@ -5,7 +5,11 @@
 # @Date: 2022/04/23 20:32
 from datetime import datetime
 from typing import Union
+
+from starlette.requests import Request
 from tortoise.transactions import in_transaction
+
+from house_rental.commons.utils import RedisUtil, RedisKey
 from house_rental.commons.exceptions.global_exception import BusinessException
 from house_rental.commons.responses import ErrorCodeEnum
 from house_rental.constants.enums import RentType
@@ -16,7 +20,7 @@ from house_rental.routers.house.request_models import HouseListIn
 from house_rental.routers.house.request_models.house_in import HouseListQueryItem, PublishHouseIn, HouseFacilityAddIn
 from house_rental.routers.house.response_models import HouseListItem, HomeHouseDataItem
 from house_rental.routers.house.response_models.house_out import HouseListDataItem, HouseDetailDataItem, \
-    HouseContactDataItem, HouseFacilitiesDataItem, HouseFacilityListItem
+    HouseContactDataItem, HouseFacilitiesDataItem, HouseFacilityListItem, UserHouseCollectDataItem
 
 
 async def get_home_house_list_logic(city: str):
@@ -60,10 +64,12 @@ def format_house_query_params(query_params: Union[HouseListQueryItem, dict]) -> 
     query_params['area_range'] = [area * 100 for area in query_params.get('area_range', [])]
     add_param_if_true(query_params, 'area__range', query_params.pop('area_range', None), False)
 
-    # 房源类型、租赁类型、状态、出租状态列表参数转换
+    # 房源类型、租赁类型、状态、出租状态参数转换, 支持列表和单个查询
     list_params = ['house_type', 'rent_type', 'state', 'rent_state']
     for key in list_params:
-        add_param_if_true(query_params, f'{key}__in', query_params.pop(key, None))
+        value = query_params.get(key)
+        if isinstance(value, list):
+            add_param_if_true(query_params, f'{key}__in', query_params.pop(key, None))
 
     # 房源标题、地址、所在城市支持模糊查询
     like_params = ['title', 'address', 'city']
@@ -201,3 +207,24 @@ async def add_house_facility_logic(facility_item: HouseFacilityAddIn):
     facility_item = facility_item.dict()
     house_facility = await HouseFacilityManager.create(facility_item)
     return HouseFacilityListItem(**house_facility.to_dict())
+
+
+async def user_house_collect_logic(user_id, house_id: int):
+    """ 用户房源收藏逻辑 """
+    print(house_id)
+    collect_cache_info = RedisKey.user_house_collect(user_id)
+    redis_client = await RedisUtil().get_redis_conn()
+    redis_client.sadd(key=collect_cache_info.key, member=house_id)
+
+
+async def get_user_house_collect_logic(user_id):
+    """ 获取用户房源收藏逻辑 """
+    # 先从redis获取用户收藏过的房源id
+    collect_cache_info = RedisKey.user_house_collect(user_id)
+    redis_client = await RedisUtil().get_redis_conn()
+    user_house_collects = await redis_client.smembers(collect_cache_info.key)
+    house_ids = [int(house_id) for house_id in user_house_collects]
+
+    house_collect_list = await HouseInfoManager.get_houses_by_ids(house_ids)
+    house_collect_list = serialize_util.obj2model(house_collect_list, data_model=HouseListItem)
+    return UserHouseCollectDataItem(user_house_collects=house_collect_list)

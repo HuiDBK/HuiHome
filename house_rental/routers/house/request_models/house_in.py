@@ -22,10 +22,17 @@ class HouseListQueryItem(BaseModel):
     title: Optional[str] = Field(description='房屋标题')
     address: Optional[str] = Field(description='房源地址')
     city: Optional[str] = Field(mdescription='所在城市')
-    rent_type: Optional[List[RentType]] = Field(description='租赁类型')
-    house_type: Optional[List[HouseType]] = Field(description='房屋类型')
-    state: Optional[List[HouseState]] = Field(description='房源状态')
-    rent_state: Optional[List[RentState]] = Field(description='房源出租状态')
+
+    rent_type: Optional[
+        Union[
+            List[RentType],
+            str
+        ]
+    ] = Field(description='租赁类型')
+
+    house_type: Optional[Union[List[HouseType], str]] = Field(description='房屋类型')
+    state: Optional[Union[List[HouseState], str]] = Field(description='房源状态')
+    rent_state: Optional[Union[List[RentState], str]] = Field(description='房源出租状态')
     area: Optional[int] = Field(gt=0, description='面积')
     bedroom_num: Optional[int] = Field(gt=0, description='卧室数量')
     living_room_num: Optional[int] = Field(ge=0, description='客厅数量')
@@ -84,3 +91,9 @@ class HouseFacilityAddIn(BaseModel):
     """ 添加房源设施入参 """
     name: str = Field(description='房屋设施名称')
     icon: Union[str, None] = Field(description='房屋设施图标')
+
+
+class HouseCollectIn(BaseModel):
+    """ 房源收藏入参 """
+    user_id: int = Field(description='用户id')
+    house_id: int = Field(description='房源id')

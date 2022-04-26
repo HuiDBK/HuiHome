@@ -6,7 +6,8 @@
 from datetime import date
 from typing import Union, List, Optional
 from pydantic import Field, BaseModel
-from house_rental.constants.enums import RentType, HouseType, RentState, HouseState, HouseDirectionEnum
+from house_rental.constants.enums import RentType, HouseType, RentState, HouseState, HouseDirectionEnum, \
+    RentTimeUnitEnum
 from house_rental.commons.responses.response_model import ResponseBaseModel, ListResponseModel, ListResponseDataModel
 
 
@@ -69,6 +70,12 @@ class HouseDetailDataItem(HouseListItem):
     """ 房源详情数据 """
     house_owner: Union[int, None] = Field(description='房屋拥有者')
     contact_id: Union[int, None] = Field(description='房源联系人id')
+    rent_time_unit: RentTimeUnitEnum = Field(description='租赁时间单位，默认month（月结）')
+    water_rent: int = Field(description='水费 (单位/分，元/100)')
+    electricity_rent: int = Field(description='电费 (单位/分，元/100)')
+    strata_fee: int = Field(description='管理费 (单位/分，元/100)')
+    deposit_ratio: Union[int, None] = Field(description='租赁费用的押金倍数 (押几付几)')
+    pay_ratio: Union[int, None] = Field(description='租赁费用的支付倍数 (押几付几)')
     house_desc: Union[str, None] = Field(description='房屋描述')
     area: Union[int, None] = Field(description='房间面积')
     room_num: Union[int, None] = Field(description='房间号')
@@ -104,3 +111,13 @@ class HouseFacilitiesOut(ResponseBaseModel):
 class HouseFacilityAddOut(ResponseBaseModel):
     """ 所有房源设施出参 """
     data: HouseFacilityListItem
+
+
+class UserHouseCollectDataItem(BaseModel):
+    """ 用户房源收藏数据 """
+    user_house_collects: List[HouseListItem]
+
+
+class GetUserHouseCollectOut(ResponseBaseModel):
+    """ 获取用户房源收藏出参 """
+    data: UserHouseCollectDataItem

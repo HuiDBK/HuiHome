@@ -6,6 +6,7 @@
 from fastapi import APIRouter
 from .apis import house_api
 from house_rental.routers.house.response_models import house_out
+from ...commons.responses.response_model import SuccessModel
 
 router = APIRouter()
 
@@ -55,4 +56,20 @@ router.add_api_route(
     methods=['post'],
     response_model=house_out.HouseFacilityAddOut,
     summary='添加房源设施'
+)
+
+router.add_api_route(
+    '/user_collects',
+    house_api.user_house_collect,
+    methods=['post'],
+    response_model=SuccessModel,
+    summary='用户收藏房源'
+)
+
+router.add_api_route(
+    '/user_collects/{user_id}',
+    house_api.get_user_house_collect,
+    methods=['get'],
+    response_model=house_out.GetUserHouseCollectOut,
+    summary='获取用户收藏房源'
 )

@@ -14,9 +14,9 @@ class HouseInfoManager(BaseManager):
     model = HouseInfo
 
     @classmethod
-    async def get_houses_by_ids(cls, user_ids: list):
+    async def get_houses_by_ids(cls, house_ids: list):
         """ 获取房源数据 """
-        filter_params = dict(id__in=user_ids)
+        filter_params = dict(id__in=house_ids)
         return await cls.get_with_params(filter_params)
 
     @classmethod

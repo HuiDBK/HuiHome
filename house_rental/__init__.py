@@ -4,13 +4,14 @@
 # @Desc: { 房屋租赁系统初始化模块 }
 # @Date: 2022/02/27 20:59
 import aioredis
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.exceptions import RequestValidationError
 from tortoise.contrib.fastapi import register_tortoise
 
 from house_rental import constants
 from house_rental.commons import settings
+from house_rental.commons.utils.dependencies import jwt_authentication
 from house_rental.routers import api_router
 from house_rental.commons.utils.redis_util import RedisUtil
 from house_rental.middlewares.middlewares import AuthorizationMiddleware
@@ -29,6 +30,7 @@ async def startup_event():
     """项目启动时准备环境"""
 
     # 加载路由
+    # app.include_router(api_router, prefix='/api', dependencies=[Depends(jwt_authentication)])
     app.include_router(api_router, prefix='/api')
 
     # 注册中间件
@@ -51,8 +53,7 @@ async def create_global_exception_handler(_app: FastAPI):
 
 async def register_middlewares(_app: FastAPI):
     """注册中间件"""
-    # middleware_list = [AuthorizationMiddleware]
-    middleware_list = []
+    middleware_list = [AuthorizationMiddleware]
     for middleware in middleware_list:
         _app.add_middleware(middleware)
 
