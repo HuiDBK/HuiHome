@@ -39,6 +39,7 @@ let vm = new Vue({
             house_type: '',
             rent_state: '',
             city: '',
+            area: '',
             bedroom_num: '',
             living_room_num: '',
         },

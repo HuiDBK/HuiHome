@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
-    <meta name="author" content="hui"/>
+    <meta name="author" content="Drizvato"/>
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 
@@ -16,7 +16,13 @@
 
     <!--  Vue and axios -->
     <script src="assets/js/common/vue-2.5.16.js"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
     <script src="assets/js/common/axios.min.js"></script>
+
+    <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
 
 </head>
 
@@ -27,10 +33,11 @@
 <!-- ============================================================== -->
 <div class="preloader"></div>
 
-<!-- ============================================================== -->
-<!-- Main wrapper - style you can find in pages.scss -->
-<!-- ============================================================== -->
 <div id="app">
+
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
     <div id="main-wrapper">
 
         <!-- ============================================================== -->
@@ -59,7 +66,8 @@
                             </a>
                             </li>
                         </ul>
-                        <ul class="nav-menu nav-menu-social align-to-right dhsbrd">
+                        <ul class="nav-menu nav-menu-social align-to-right dhsbrd" v-show="user_show">
+
                             <li>
                                 <div class="btn-group account-drop">
                                     <button type="button" class="btn btn-order-by-filt"
@@ -98,200 +106,195 @@
         <!-- ============================================================== -->
         <!-- Top header  -->
         <!-- ============================================================== -->
-        <!-- ============================ User Dashboard ================================== -->
-        <section class="gray p-0">
-            <div class="container-fluid p-0">
+        <!-- ============================ All Property ================================== -->
+        <section class="gray-simple">
+
+            <div class="container-fluid" style="margin-top: -30px;">
 
                 <div class="row">
 
-                    <div class="col-lg-3 col-md-4 col-sm-12">
-                        <div class="property_dashboard_navbar">
+                    <!-- property Sidebar -->
+                    <div class="col-lg-3 col-md-12 col-sm-12" style="">
+                        <div class="hidden-md-down">
 
-                            <div class="dash_user_menues">
-                                <ul>
-                                    <li class="active"><a href="/admin/profile"><i
-                                            class="ti-user"></i>个人信息</a></li>
-                                    <li><a
-                                            href="/admin/home"><i class="ti-home"></i>我的家</a></li>
-                                    <li><a
-                                            href="/admin/order"><i class="ti-gift"></i>订单管理</a></li>
-                                    <li><a href="/admin/mark"><i
-                                            class="ti-bookmark"></i>我的收藏</a></li>
-                                    <li><a href="/admin/feedback"><i
-                                            class="ti-alert"></i>我的反馈</a></li>
-                                    <li><a href="/admin/post"><i
-                                            class="ti-pencil"></i>求租管理</a></li>
-                                    <li><a href="/admin/comment"><i
-                                            class="ti-comment"></i>求租留言</a></li>
-                                    <li><a href="/admin/password"><i
-                                            class="ti-unlock"></i>密码修改</a></li>
-                                    <li><a href="/logout"><i class="ti-power-off"></i>退出登录</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-9 col-md-8 col-sm-12">
-                        <div class="dashboard-body">
+                            <div class="page-sidebar">
 
-                            <div class="dashboard-wraper">
+                                <!-- Find New Property -->
+                                <div class="sidebar-widgets" data-select2-id="28">
 
-                                <!-- Basic Information -->
-                                <div class="frm_submit_block">
-                                    <h4>个人信息</h4>
-                                    <div class="frm_submit_wrap">
-                                        <form action="" id="profileForm">
-                                            <div class="form-row">
+                                    <form action="">
 
-                                                <div class="form-group col-md-6">
-                                                    <label>用户名</label>
-                                                    <input type="text" class="form-control" name="username"
-                                                           v-model="user_profile.username"
-                                                           disabled>
-                                                </div>
+                                        <div class="form-group">
+                                            <div class="simple-input">
+                                                <select id="city" name="city" class="form-control">
+                                                    <option value="">&nbsp;</option>
+                                                    <option v-for="city_name in city_list">
+                                                        {{ city_name }}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
 
-                                                <div class="form-group col-md-6">
-                                                    <label>真实姓名</label>
-                                                    <input type="text" class="form-control" name="real_name"
-                                                           v-model="user_profile.real_name">
-                                                </div>
+                                        <div class="form-group">
+                                            <div class="simple-input">
+                                                <select id="district" name="district" class="form-control">
+                                                    <option value="">&nbsp;</option>
+                                                    <option v-for="district_name in district_list">
+                                                        {{ district_name }}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
 
-                                                <div class="form-group col-md-6">
-                                                    <label>电子邮箱</label>
-                                                    <input type="email" class="form-control" name="mail"
-                                                           v-model="user_profile.mail">
-                                                </div>
+                                        <div class="form-group">
+                                            <div class="simple-input">
+                                                <select id="rent_type" name="rentType" class="form-control">
+                                                    <option value="all">不限</option>
+                                                    <option value="whole">整租
+                                                    </option>
+                                                    <option value="share">合租
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
 
-                                                <div class="form-group col-md-6">
-                                                    <label>手机号</label>
-                                                    <input type="text" class="form-control" name="mobile"
-                                                           v-model="user_profile.mobile">
-                                                </div>
+                                        <div class="form-group">
+                                            <div class="input-with-icon">
+                                                <input type="text" class="form-control" v-model="house_query_params.address" name="address" placeholder="地址"
+                                                       value="">
+                                                <i class="ti-search"></i>
+                                            </div>
+                                        </div>
 
-                                                <div class="form-group col-md-6">
-                                                    <label>身份证号码</label>
-                                                    <input type="text" class="form-control" name="id_card"
-                                                           v-model="user_profile.id_card">
-                                                </div>
 
-                                                <div class="form-group col-md-6">
-                                                    <label>性别</label>
-                                                    <select name="gender" v-model="user_profile.gender"
-                                                            class="form-control">
-                                                        <option value="male">
-                                                            男
-                                                        </option>
-                                                        <option value="female">
-                                                            女
-                                                        </option>
-                                                    </select>
-                                                </div>
-
-                                                <div class="form-group col-md-6">
-                                                    <label>职业</label>
-                                                    <select name="career" v-model="user_profile.career"
-                                                            class="form-control">
-                                                        <option value="其他">其他</option>
-                                                        <option value="互联网/计算机">互联网/计算机</option>
-                                                        <option value="生产/制造">生产/制造</option>
-                                                        <option value="教育/培训">教育/培训</option>
-                                                        <option value="教育/培训">教育/培训</option>
-                                                        <option value="金融/银行">金融/银行</option>
-                                                        <option value="保险/投资">保险/投资</option>
-                                                        <option value="文化/传媒">文化/传媒</option>
-                                                        <option value="公务员">公务员</option>
-                                                        <option value="服务行业">服务行业</option>
-                                                        <option value="学生">学生</option>
-                                                    </select>
-                                                </div>
-
-                                                <div class="form-group col-md-6">
-                                                    <label>爱好</label>
-                                                    <input type="text" class="form-control" v-model="user_profile.hobby"
-                                                           name="hobby">
-                                                </div>
-
-                                                <div class="form-group col-md-12">
-                                                    <label>个人简介</label>
-                                                    <textarea class="form-control"
-                                                              name="user_desc"
-                                                              v-model="user_profile.user_desc">
-
-                                                    </textarea>
-                                                </div>
-
-                                                <div class="form-group col-md-6">
-                                                    <label>身份证正面</label>
-                                                    <div>
-                                                        <img id="id_card_front"
-                                                             src="https://repo.bfw.wiki/bfwrepo/image/606e33d87a964.png"
-                                                             alt="身份证正面"
-                                                             class="img-thumbnail"
-                                                             onclick="$('#card_front_file').click();">
-                                                    </div>
-                                                    <label class="input-group-btn">
-                                                        <input type="file" id="card_front_file" name="id_card_front"
-                                                               accept=".png, .jpg, .jpeg"
-                                                               style="display: none"
-                                                               @change="update_id_card_img($event)">
-                                                    </label>
-                                                </div>
-
-                                                <div class="form-group col-md-6">
-                                                    <label>身份证反面</label>
-                                                    <div>
-                                                        <img id="id_card_back"
-                                                             src="https://repo.bfw.wiki/bfwrepo/image/606e33ec83a76.png"
-                                                             alt="身份证反面"
-                                                             class="img-thumbnail"
-                                                             onclick="$('#card_back_file').click();">
-                                                    </div>
-                                                    <label class="input-group-btn">
-                                                        <input type="file" id="card_back_file" name="id_card_back"
-                                                               accept=".png, .jpg, .jpeg"
-                                                               style="display: none"
-                                                               @change="update_id_card_img($event)">
-                                                    </label>
-                                                </div>
-
-                                                <div class="form-group col-md-6">
-                                                    <img src="" id="imgUrl" style="height: 100px;" alt="">
-                                                </div>
-
-                                                <div class="form-group col-lg-12 col-md-12">
-                                                    <button class="btn btn-theme bg-2" type="button"
-                                                            @click="submitProfile()">
-                                                        保存
-                                                    </button>
-                                                    <button class="btn btn-theme bg-2" type="button"
-                                                            @click="real_name_auth()">
-                                                        实名认证
-                                                    </button>
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 pt-4 pb-4">
+                                                <h6>选择价格范围</h6>
+                                                <div class="rg-slider">
+                                                    <input type="text" class="js-range-slider-price" name="priceRange"
+                                                           value=""/>
                                                 </div>
                                             </div>
-                                        </form>
+                                        </div>
+
+
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 pt-4 pb-4">
+                                                <h6>选择面积范围</h6>
+                                                <div class="rg-slider">
+                                                    <input type="text" class="js-range-slider-area" name="areaRange"
+                                                           value=""/>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="ameneties-features">
+                                            <button type="button" @click="search_houses()"
+                                                    class="btn btn-theme full-width bg-2">搜索
+                                            </button>
+                                        </div>
+                                    </form>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- Sidebar End -->
+
+                    </div>
+
+                    <div class="col-lg-9 col-md-12 col-sm-12" style="">
+
+                        <div class="row">
+                            <!-- Single Property -->
+                            <div class="col-lg-4 col-md-4 col-sm-12" v-for="(item, index) in house_list">
+                                <div class="single_property_style property_style_2 modern">
+
+                                    <div class="listing_thumb_wrapper">
+                                        <div class="property_gallery_slide-thumb">
+                                            <a href="/house/detail/100">
+                                                <img :src="item.index_img" class="img-fluid mx-auto" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div class="property_caption_wrappers pb-0">
+                                        <div class="property_short_detail">
+                                            <div class="pr_type_status">
+                                                <h4 class="pr-property_title mb-1">
+                                                    <a href="javascript:void(0)">{{ item.title }}</a>
+                                                </h4>
+                                                <div class="listing-location-name">
+                                                    <a href="javascript:void(0)">{{ item.address }} /
+                                                        {{ item.area }}m²</a>
+                                                </div>
+                                            </div>
+                                            <div class="property-real-price">
+                                                <a href="javascript:void(0)" class="cl-blue">¥ {{ item.rent_money
+                                                    }}<span
+                                                            class="price_status">/月</span></a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="modern_property_footer">
+                                        <div class="property-lists flex-1">
+                                            <ul>
+                                                <li>
+                                                    <span class="flatcons">
+                                                        <img src="assets/img/bed.svg" alt="">
+                                                    </span>
+                                                    {{ item.bedroom_num }}卧室
+                                                </li>
+                                                <li>
+                                                    <span class="flatcons">
+                                                        <img src="assets/img/bath.svg" alt="">
+                                                    </span>
+                                                    {{ item.living_room_num }}客厅
+                                                </li>
+                                                <li>
+                                                    <span class="flatcons">
+                                                        <img src="assets/img/bath.svg" alt="">
+                                                    </span>
+                                                    {{ item.toilet_num }}卫生间
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="fp_types">
+                                            <a href="javascript:void(0)" class="markHouse"
+                                               onclick="submitMark(100)">收藏</a>
+                                        </div>
+
                                     </div>
                                 </div>
-
-
                             </div>
-
-                            <div class="row">
-                                <div class="col-md-12 col-lg-12 mt-4">
-                                    <footer class="text-center">
-                                        <p class="mb-0">© 2021 Saysky. All Rights
-                                            Reserved</p>
-                                    </footer>
-                                </div>
-                            </div>
-                            <!-- row -->
-
                         </div>
+
+                        <!-- Pagination 分页 -->
+                        <template>
+                            <div class="block">
+                                <el-pagination
+                                        background
+                                        @size-change="handleSizeChange"
+                                        @current-change="handleCurrentChange"
+                                        :current-page="current_page_num"
+                                        :page-sizes="page_sizes"
+                                        :page-size="limit"
+                                        layout="total, sizes, prev, pager, next, jumper"
+                                        :total="house_total">
+                                </el-pagination>
+                            </div>
+                        </template>
+
                     </div>
+
 
                 </div>
             </div>
         </section>
-        <!-- ============================ User Dashboard End ================================== -->
+
+        <!-- ============================ All Property ================================== -->
 
 
         <!-- ============================ Footer Start ================================== -->
@@ -517,20 +520,19 @@
 
 
     </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
 </div>
-<!-- ============================================================== -->
-<!-- End Wrapper -->
-<!-- ============================================================== -->
 
 <!-- ============================================================== -->
 <!-- All Jquery -->
 <!-- ============================================================== -->
-
 <script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/ion.rangeSlider.min.js"></script>
 <script src="assets/js/layui/layui.js"></script>
 <script src="assets/js/popper.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>
-<script src="assets/js/ion.rangeSlider.min.js"></script>
 <script src="assets/js/select2.min.js"></script>
 <script src="assets/js/jquery.magnific-popup.min.js"></script>
 <script src="assets/js/slick.js"></script>
@@ -539,10 +541,9 @@
 <script src="assets/js/imagesloaded.js"></script>
 <script src="assets/js/daterangepicker.js"></script>
 <script src="assets/js/custom.js"></script>
-<script src="assets/js/common/md5.min.js"></script>
 <script src="assets/js/common/constants.js"></script>
 <script src="assets/js/common/utils.js"></script>
-<script src="assets/js/user/center.js"></script>
+<script src="assets/js/house/house_list.js"></script>
 <!-- ============================================================== -->
 <!-- This page plugins -->
 <!-- ============================================================== -->

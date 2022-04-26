@@ -17,6 +17,7 @@ class HouseListQueryItem(BaseModel):
     """ 房源列表查询参数 """
     house_id: Optional[int] = Field(description='房屋id')
     rent_money_range: Optional[List[int]] = Field(description='月租金范围')
+    area_range: Optional[List[int]] = Field(description='房屋面积范围')
     house_owner: Optional[int] = Field(description='房屋拥有者')
     title: Optional[str] = Field(description='房屋标题')
     address: Optional[str] = Field(description='房源地址')

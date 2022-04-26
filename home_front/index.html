@@ -245,7 +245,7 @@
                                         </h4>
                                         <div class="listing-location-name">
                                             <a href="/house/detail/1">
-                                                {{ item.house_desc }}</a>
+                                                {{ item.city }} {{ item.district }} / {{ item.area }}m²</a>
                                         </div>
                                     </div>
                                     <div class="property-real-price">
@@ -265,6 +265,11 @@
                                         <li><span class="flatcons">
                                         <img src="assets/img/bath.svg"
                                              alt=""></span>{{ item.living_room_num }} 客厅
+                                        </li>
+                                        <li>
+                                            <span class="flatcons">
+                                                <img src="assets/img/bath.svg" alt="">
+                                            </span>{{ item.toilet_num }} 卫生间
                                         </li>
                                     </ul>
                                 </div>
@@ -324,7 +329,7 @@
                                         </h4>
                                         <div class="listing-location-name">
                                             <a href="/house/detail/1">
-                                                {{ item.house_desc }}</a>
+                                                {{ item.city }} {{ item.district }} / {{ item.area }}m²</a>
                                         </div>
                                     </div>
                                     <div class="property-real-price">
@@ -344,6 +349,11 @@
                                         <li><span class="flatcons">
                                         <img src="assets/img/bath.svg"
                                              alt=""></span>{{ item.living_room_num }} 客厅
+                                        </li>
+                                        <li>
+                                            <span class="flatcons">
+                                                <img src="assets/img/bath.svg" alt="">
+                                            </span>{{ item.toilet_num }} 卫生间
                                         </li>
                                     </ul>
                                 </div>
@@ -607,6 +617,7 @@
 <!-- All Jquery -->
 <!-- ============================================================== -->
 <script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/layui/layui.js"></script>
 <script src="assets/js/popper.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>
 <script src="assets/js/ion.rangeSlider.min.js"></script>

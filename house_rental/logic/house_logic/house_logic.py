@@ -22,7 +22,7 @@ from house_rental.routers.house.response_models.house_out import HouseListDataIt
 async def get_home_house_list_logic(city: str):
     """
     获取首页房源列表, 最近整租、合租
-    :return: 6整租、6合租
+    :return: 默认6整租、6合租
     """
     whole_house_list = await HouseInfoManager.get_recent_house(RentType.whole.value, city)
     share_house_list = await HouseInfoManager.get_recent_house(RentType.share.value, city)
@@ -53,7 +53,12 @@ def format_house_query_params(query_params: Union[HouseListQueryItem, dict]) -> 
     add_param_if_true(query_params, 'id', query_params.pop('house_id', None))
 
     # 租金范围查询条件转换
-    add_param_if_true(query_params, 'rent_money__range', query_params.pop('rent_money_range', None))
+    query_params['rent_money_range'] = [money * 100 for money in query_params.get('rent_money_range', [])]
+    add_param_if_true(query_params, 'rent_money__range', query_params.pop('rent_money_range', None), False)
+
+    # 面积
+    query_params['area_range'] = [area * 100 for area in query_params.get('area_range', [])]
+    add_param_if_true(query_params, 'area__range', query_params.pop('area_range', None), False)
 
     # 房源类型、租赁类型、状态、出租状态列表参数转换
     list_params = ['house_type', 'rent_type', 'state', 'rent_state']

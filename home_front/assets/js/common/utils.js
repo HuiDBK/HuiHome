@@ -110,3 +110,23 @@ async function upload_file(file) {
             })
     });
 }
+
+function verify_user_token() {
+    let token = localStorage.getItem('token')
+    let user_info
+    if (token != null) {
+        user_info = parser_jwt(token)
+        // 判断token有没有过期
+        let now_timestamp = Date.parse(new Date()) / 1000
+        console.log(now_timestamp)
+        console.log(user_info.exp)
+        if (user_info.exp < now_timestamp) {
+            // token已过期
+            layer.alert('登录状态已失效，请重新登录')
+            window.location.href = '/house_rental/home_front/index.html'
+        }
+    } else {
+        window.location.href = '/house_rental/home_front/index.html'
+    }
+    return user_info
+}

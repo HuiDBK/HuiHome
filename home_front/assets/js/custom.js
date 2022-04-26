@@ -557,15 +557,21 @@ $(function() {
 		allowClear: true
 	});
 
-	// 价格范围
-	$('#selectRentType').select2({
+	// 出租类型
+	$('#rent_type').select2({
 		placeholder: "出租类型",
 		allowClear: true
 	});
 
-	// 价格范围
+	// 城市
 	$('#city').select2({
 		placeholder: "城市",
+		allowClear: true
+	});
+
+	// 区/县
+	$('#district').select2({
+		placeholder: "区/县",
 		allowClear: true
 	});
 

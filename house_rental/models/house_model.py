@@ -27,6 +27,7 @@ class HouseInfo(BaseModel):
     house_desc = fields.TextField(null=True, max_length=200, description='房屋描述')
     city = fields.CharField(max_length=30, description='房屋所在城市')
     district = fields.CharField(max_length=30, description='区县')
+    address = fields.CharField(max_length=500, description='地址')
     rent_state = fields.CharEnumField(RentState, default=RentState.not_rent.value, description='出租状态')
     state = fields.CharEnumField(HouseState, default=HouseState.auditing.value, description='房屋状态')
     rent_money = fields.IntField(description='租赁金额 (单位/分)')

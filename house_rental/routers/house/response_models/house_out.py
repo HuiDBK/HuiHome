@@ -21,8 +21,12 @@ class HouseListItem(BaseModel):
     house_type: HouseType = Field(description='房屋类型')
     rent_state: RentState = Field(description='出租状态')
     city: str = Field(description='所在城市')
+    district: Union[str, None] = Field(description='所在区县')
+    address: Union[str, None] = Field(description='地址')
+    area: int = Field(description='卧室数量')
     bedroom_num: int = Field(description='卧室数量')
     living_room_num: int = Field(default=0, description='客厅数量')
+    toilet_num: int = Field(default=0, description='卫生间数量')
 
 
 class HomeHouseDataItem(BaseModel):
