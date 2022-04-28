@@ -226,11 +226,11 @@
                 <div class="row">
                     <!-- Single Property -->
                     <div class="col-lg-4 col-md-6 col-sm-12" v-for="(item, index) in home_house_info.whole_house_list">
-                        <div class="single_property_style property_style_2 modern">
+                        <div class="single_property_style property_style_2 modern el_scale">
 
                             <div class="listing_thumb_wrapper">
                                 <div class="property_gallery_slide-thumb">
-                                    <a href="/house/detail/1">
+                                    <a :href="'house_detail.html?house_id=' + item.house_id + '&rent_type=' + item.rent_type">
                                         <img :src="item.index_img"
                                              class="img-fluid mx-auto" alt=""></a>
                                 </div>
@@ -240,16 +240,16 @@
                                 <div class="property_short_detail">
                                     <div class="pr_type_status">
                                         <h4 class="pr-property_title mb-1">
-                                            <a href="/house/detail/1">
+                                            <a :href="'house_detail.html?house_id=' + item.house_id + '&rent_type=' + item.rent_type">
                                                 {{ item.title }}</a>
                                         </h4>
                                         <div class="listing-location-name">
-                                            <a href="/house/detail/1">
-                                                {{ item.city }} {{ item.district }} / {{ item.area }}m²</a>
+                                            <a :href="'house_detail.html?house_id=' + item.house_id + '&rent_type=' + item.rent_type">
+                                                {{ item.address }} / {{ item.area }}m²</a>
                                         </div>
                                     </div>
                                     <div class="property-real-price">
-                                        <a href="/house/detail/1" class="cl-blue">
+                                        <a :href="'house_detail.html?house_id=' + item.house_id + '&rent_type=' + item.rent_type" class="cl-blue el_scale">
                                             ¥ {{ item.rent_money }}<span class="price_status">/月</span>
                                         </a>
                                     </div>
@@ -259,22 +259,35 @@
                             <div class="modern_property_footer">
                                 <div class="property-lists flex-1">
                                     <ul>
-                                        <li><span class="flatcons">
+                                        <li class="el_scale"><span class="flatcons">
                                         <img src="assets/img/bed.svg" alt=""></span>{{ item.bedroom_num }} 卧室
                                         </li>
-                                        <li><span class="flatcons">
+                                        <li class="el_scale"><span class="flatcons">
                                         <img src="assets/img/bath.svg"
                                              alt=""></span>{{ item.living_room_num }} 客厅
                                         </li>
-                                        <li>
+                                        <li class="el_scale">
                                             <span class="flatcons">
                                                 <img src="assets/img/bath.svg" alt="">
                                             </span>{{ item.toilet_num }} 卫生间
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="fp_types"><a href="javascript:void(0)" class="markHouse" data-id="1"
-                                                         onclick="submitMark(1)">收藏</a></div>
+                                <div class="fp_types el_scale"
+                                     v-if="user_collect_house_ids.indexOf(item.house_id) == -1">
+
+                                    <a href="javascript:void(0)" class="markHouse"
+                                       @click="user_collect_house_index(item.house_id)">
+                                        收藏
+                                    </a>
+                                </div>
+
+                                <span v-else class="el_scale">
+                                            <img
+                                                    src="assets/img/collect.svg"
+                                                    @dblclick="cancel_house_collect(item.house_id)"
+                                                    alt="已收藏" title="已收藏/双击取消"/>
+                                        </span>
                             </div>
                         </div>
                     </div>

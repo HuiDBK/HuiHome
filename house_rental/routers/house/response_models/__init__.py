@@ -6,5 +6,6 @@
 from .house_out import HomeHouseInfoOut
 from .house_out import HouseListItem
 from .house_out import HomeHouseDataItem
-
+from .house_out import HouseFacilityListItem
+from .house_out import HouseContactDataItem
 

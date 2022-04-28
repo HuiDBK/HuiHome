@@ -1,7 +1,8 @@
 // 工具类模块
-refresh_token_url = api_domain + '/api/v1/auth/refresh'
-upload_file_url = api_domain + '/api/v1/upload/'
-batch_upload_file_url = api_domain + '/api/v1/upload/batch'
+let refresh_token_url = api_domain + '/api/v1/auth/refresh'
+let upload_file_url = api_domain + '/api/v1/upload/'
+let batch_upload_file_url = api_domain + '/api/v1/upload/batch'
+let user_house_collect_url = api_domain + '/api/v1/house/user_collects'
 
 // 字符串格式化方法
 String.prototype.format = function (args) {
@@ -112,6 +113,7 @@ async function upload_file(file) {
 }
 
 function verify_user_token() {
+    // 校验token
     let token = localStorage.getItem('token')
     let user_info
     if (token != null) {
@@ -129,4 +131,41 @@ function verify_user_token() {
         window.location.href = '/house_rental/home_front/index.html'
     }
     return user_info
+}
+
+function user_collect_house(house_id) {
+    // 用户收藏房源
+    let user_info = verify_user_token()
+    let json_body = {
+        user_id: user_info.user_id,
+        house_id: house_id
+    }
+    console.log(json_body)
+    axios.post(user_house_collect_url, json_body, {'headers': get_token_headers()})
+        .then(resp => {
+            if (resp.status === 200 && resp.data.code === 0) {
+                layer.msg('收藏成功', {icon: 1, time: 1000})
+            } else {
+                layer.msg('收藏房源失败', {icon: 2, time: 1000})
+            }
+        })
+        .catch(error => {
+            console.log(error)
+            layer.msg('收藏房源失败', {icon: 2, time: 1000})
+        })
+}
+
+/**
+ * 获取当前 URL 所有 GET 查询参数
+ * 入参：要解析的 URL，不传则默认为当前 URL
+ * 返回：一个<key, value>参数对象
+ */
+function getUrlQueryParams(url = location.search) {
+    const params = {};
+    const keys = url.match(/([^?&]+)(?==)/g);
+    const values = url.match(/(?<==)([^&]*)/g);
+    for (const index in keys) {
+        params[keys[index]] = values[index];
+    }
+    return params;
 }

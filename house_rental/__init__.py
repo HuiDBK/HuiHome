@@ -11,7 +11,7 @@ from tortoise.contrib.fastapi import register_tortoise
 
 from house_rental import constants
 from house_rental.commons import settings
-from house_rental.commons.utils.dependencies import jwt_authentication
+from house_rental.commons.utils.dependencies import jwt_authentication, request_context
 from house_rental.routers import api_router
 from house_rental.commons.utils.redis_util import RedisUtil
 from house_rental.middlewares.middlewares import AuthorizationMiddleware
@@ -30,8 +30,7 @@ async def startup_event():
     """项目启动时准备环境"""
 
     # 加载路由
-    # app.include_router(api_router, prefix='/api', dependencies=[Depends(jwt_authentication)])
-    app.include_router(api_router, prefix='/api')
+    app.include_router(api_router, prefix='/api', dependencies=[Depends(request_context)])
 
     # 注册中间件
     await register_middlewares(app)

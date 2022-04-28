@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>地图</title>
+    <!-- Custom CSS -->
+    <link href="assets/css/styles.css?v=20210423" rel="stylesheet">
+
+    <!-- Custom Color Option -->
+    <link href="assets/css/colors.css" rel="stylesheet">
+    <script type="text/javascript"
+            src="https://api.map.baidu.com/api?type=webgl&v=1.0&ak=RQse9zZ7yxBYrSsYzPmn5p8sWb9VgGC5"></script>
+</head>
+<body>
+
+<style type="text/css">
+    #allmap {
+        width: 70%;
+        height: 100%;
+        overflow: hidden;
+        padding-bottom: 20px;
+        float: left;
+
+    }
+
+    #map_result {
+        width: 29%;
+        height: 100%;
+        float: left;
+    }
+
+    #r-result {
+        margin-top: 2rem;
+    }
+
+    .info {
+        z-index: 999;
+        width: auto;
+        min-width: 22rem;
+        padding: .75rem 1.25rem;
+        margin-left: 1.25rem;
+        position: fixed;
+        top: 1rem;
+        background-color: #fff;
+        border-radius: .25rem;
+        font-size: 14px;
+        color: #666;
+        box-shadow: 0 2px 6px 0 rgba(27, 142, 236, 0.5);
+    }
+</style>
+<body>
+<div style="width: 100%; height: 500px">
+    <input class="info" id="local_search" onchange="search_local()" placeholder="全局搜索"></input>
+    <div id="allmap"></div>
+    <div id="map_result">
+        <div style="margin-top: 1rem; text-align: center;">
+            <button onclick="search_near_traffic()" type="button" class="btn btn-danger">附近交通</button>
+            <button onclick="search_near_catering()" type="button" class="btn btn-danger" style="margin-left: 1rem">
+                附近餐饮
+            </button>
+            <button onclick="search_near_attractions()" type="button" class="btn btn-danger" style="margin-left: 1rem">
+                附近景点
+            </button>
+        </div>
+        <div id="r-result"></div>
+    </div>
+</div>
+
+
+</body>
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/common/constants.js"></script>
+<script src="assets/js/common/utils.js"></script>
+<script type="text/javascript">
+    // 获取url上的经纬度信息 nl => 北纬 sl=> 南纬
+    // 格式：nl=113.930485&sl=22.534048&flag=only_show
+    let query_params = getUrlQueryParams()
+    console.log(query_params)
+    let {nl, sl, address} = query_params
+    address = decodeURIComponent(address)
+
+    //保存标注点
+    function save_maps() {
+        document.getElementById('maps').value
+        api.close();
+    }
+
+    //设置地图默认的鼠标指针样式
+    var is_bz = false;
+
+    function set_cursor() {
+        is_bz = true;
+        map.setDefaultCursor("crosshair");
+    }
+
+    // 百度地图API功能
+    let map = new BMapGL.Map("allmap");
+    map.enableScrollWheelZoom(); //可以鼠标滚动 缩放比例尺
+    let point = new BMapGL.Point(nl, sl)
+    map.centerAndZoom(point, 15);
+    let marker = new BMapGL.Marker(point)
+    map.addOverlay(marker)
+    map.panBy(100, 100)
+
+    let sContent = "<div style='padding:10px;'><span style='font-size:12px;font-weight:bold;'>" + address + "</span></div>";
+    let infoWindow = new BMapGL.InfoWindow(sContent); // 创建信息窗口对象
+    marker.addEventListener("click", function () {
+        this.openInfoWindow(infoWindow);
+        infoWindow.redraw(); //防止在网速较慢，图片未加载时，生成的信息框高度比图片的总高度小，导致图片部分被隐藏
+    });
+    marker.openInfoWindow(infoWindow);
+
+    //创建地址解析器实例
+    let myGeo = new BMapGL.Geocoder();
+
+    // 本地搜索器
+    let local = new BMapGL.LocalSearch(map, {
+        renderOptions: {map: map, panel: "r-result"}
+    });
+
+    function address_location() {
+        // 根据输入地址信息展示
+        let search_value = $('#local_search').val()
+
+        // 将地址解析结果显示在地图上，并调整地图视野
+        myGeo.getPoint(search_value, (point) => {
+            if (point) {
+                console.log(point.lng, point.lat)
+                map.centerAndZoom(point, 16);
+                map.addOverlay(new BMapGL.Marker(point, {title: search_value}))
+            } else {
+                alert('您选择的地址没有解析到结果！');
+            }
+        })
+    }
+
+    function search_local() {
+        // 搜索本地
+        let search_value = $('#local_search').val()
+        local.search(search_value);
+    }
+
+    function search_near_traffic() {
+        // 搜索附近交通
+        let traffic_keys = ['地铁', '公交']
+        multi_keys_search_local(traffic_keys)
+    }
+
+    function search_near_catering() {
+        // 搜索附近餐饮
+        let catering_keys = ['餐饮', '小吃', '饭馆']
+        multi_keys_search_local(catering_keys)
+    }
+
+    function search_near_attractions() {
+        // 搜索附近餐饮
+        let attraction_keys = ['景点']
+        multi_keys_search_local(attraction_keys)
+    }
+
+    function multi_keys_search_local(keys) {
+        // 多关键字搜索
+        local.searchInBounds(keys, map.getBounds());
+    }
+
+    search_near_traffic()
+</script>
+</body>
+</html>

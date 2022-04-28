@@ -1,5 +1,7 @@
-// 用户个人中心模块
+// 房源列表模块
 const house_list_url = api_domain + '/api/v1/house/houses';
+const get_user_house_collects_url = api_domain + '/api/v1/house/user_collects/{user_id}';
+const cancel_user_house_collect_url = api_domain + '/api/v1/house/user_collects';
 
 let vm = new Vue({
     el: "#app",
@@ -42,6 +44,9 @@ let vm = new Vue({
 
         rent_money_range: [this.min_price, this.max_price],
         area_range: [this.min_area, this.max_area],
+
+        user_house_collects: [],
+        user_collect_house_ids: []
     },
     mounted() {
         this.user_info = verify_user_token()
@@ -51,6 +56,7 @@ let vm = new Vue({
         }
         this.set_price_area_range()
         this.get_house_list(this.current_page_num)
+        this.get_user_house_collect()
     },
     methods: {
         set_price_area_range() {
@@ -92,9 +98,9 @@ let vm = new Vue({
             this.house_query_params.city = $("#city").val()
             this.house_query_params.district = $("#district").val()
             let rent_type = $("#rent_type").val();
-            if(rent_type === 'all'){
-               rent_type = null;
-            }else {
+            if (rent_type === 'all') {
+                rent_type = null;
+            } else {
                 rent_type = [rent_type]
             }
             this.house_query_params.rent_type = rent_type
@@ -131,6 +137,67 @@ let vm = new Vue({
                 .catch(error => {
                     console.log(error)
                 })
-        }
+        },
+        user_collect_house_list(house_id) {
+            // 房源列表用户收藏房源
+            // user_collect_house(house_id)
+            let json_body = {
+                user_id: this.user_info.user_id,
+                house_id: house_id
+            }
+            console.log(json_body)
+            axios.post(user_house_collect_url, json_body, {'headers': get_token_headers()})
+                .then(resp => {
+                    if (resp.status === 200 && resp.data.code === 0) {
+                        layer.msg('收藏成功', {icon: 1, time: 1000})
+                        this.user_collect_house_ids.push(house_id)
+                    } else {
+                        layer.msg('收藏房源失败', {icon: 2, time: 1000})
+                    }
+                })
+                .catch(error => {
+                    console.log(error)
+                    layer.msg('收藏房源失败', {icon: 2, time: 1000})
+                })
+        },
+        get_user_house_collect() {
+            let _get_user_house_collects_url = get_user_house_collects_url.format({'user_id': this.user_info.user_id})
+            axios.get(_get_user_house_collects_url, {'headers': get_token_headers()})
+                .then(resp => {
+                    if (resp.status === 200 && resp.data.code === 0) {
+                        this.user_house_collects = resp.data.data.user_house_collects;
+                        this.user_house_collects.forEach(item => {
+                            this.user_collect_house_ids.push(item.house_id)
+                        })
+                        console.log(this.user_collect_house_ids)
+                    }
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        },
+        cancel_house_collect(house_id) {
+            let json_body = {
+                user_id: this.user_info.user_id,
+                house_id: house_id
+            }
+            let config = {
+                data: json_body,
+                headers: get_token_headers()
+            }
+            axios.delete(cancel_user_house_collect_url, config)
+                .then(resp => {
+                    if (resp.status === 200 && resp.data.code === 0) {
+                        console.log(resp.data.data)
+                        // 取消房源收藏
+                        this.user_collect_house_ids = this.user_collect_house_ids.filter(item => {
+                            return item !== house_id
+                        })
+                    }
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        },
     }
 });

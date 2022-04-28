@@ -6,28 +6,34 @@
 from datetime import date
 from typing import Union, List, Optional
 from pydantic import Field, BaseModel
-from house_rental.constants.enums import RentType, HouseType, RentState, HouseState, HouseDirectionEnum, \
-    RentTimeUnitEnum
-from house_rental.commons.responses.response_model import ResponseBaseModel, ListResponseModel, ListResponseDataModel
+from house_rental.constants.enums import (
+    RentType, HouseType, RentState, HouseState, HouseDirectionEnum,
+    RentTimeUnitEnum, HouseElevatorEnum
+)
+from house_rental.commons.responses.response_model import (
+    ResponseBaseModel, ListResponseModel, ListResponseDataModel
+)
+from house_rental.routers.house.common_models import HouseLocationItem
 
 
 class HouseListItem(BaseModel):
     """ 房源列表项信息 """
     house_id: int = Field(description='房源id')
-    title: str = Field(description='房源标题')
+    title: Union[str, None] = Field(description='房源标题')
     index_img: Union[str, None] = Field(description='房源图片')
-    rent_money: int = Field(description='月租金')
-    state: HouseState = Field(description='房屋状态')
-    rent_type: RentType = Field(description='租赁类型')
-    house_type: HouseType = Field(description='房屋类型')
-    rent_state: RentState = Field(description='出租状态')
-    city: str = Field(description='所在城市')
+    rent_money: Union[int, None] = Field(description='月租金')
+    state: Union[HouseState, None] = Field(description='房屋状态')
+    rent_type: Union[RentType, None] = Field(description='租赁类型')
+    house_type: Union[HouseType, None] = Field(description='房屋类型')
+    rent_state: Union[RentState, None] = Field(description='出租状态')
+    city: Union[str, None] = Field(description='所在城市')
     district: Union[str, None] = Field(description='所在区县')
     address: Union[str, None] = Field(description='地址')
-    area: int = Field(description='卧室数量')
-    bedroom_num: int = Field(description='卧室数量')
-    living_room_num: int = Field(default=0, description='客厅数量')
-    toilet_num: int = Field(default=0, description='卫生间数量')
+    area: Union[int, None] = Field(description='房屋面积')
+    bedroom_num: Union[int, None] = Field(description='卧室数量')
+    living_room_num: Union[int, None] = Field(default=0, description='客厅数量')
+    toilet_num: Union[int, None] = Field(description='卫生间数量')
+    kitchen_num: Union[int, None] = Field(description='厨房数量')
 
 
 class HomeHouseDataItem(BaseModel):
@@ -66,29 +72,34 @@ class HouseContactDataItem(BaseModel):
     email: Optional[str] = Field(description='联系人邮箱')
 
 
+class HouseDisplayContentItem(BaseModel):
+    """ 房源详情展示的多媒体信息 (图片、视频等)"""
+    images: list = Field(default=[], description='房源详情的图片列表')
+
+
 class HouseDetailDataItem(HouseListItem):
     """ 房源详情数据 """
     house_owner: Union[int, None] = Field(description='房屋拥有者')
     contact_id: Union[int, None] = Field(description='房源联系人id')
-    rent_time_unit: RentTimeUnitEnum = Field(description='租赁时间单位，默认month（月结）')
-    water_rent: int = Field(description='水费 (单位/分，元/100)')
-    electricity_rent: int = Field(description='电费 (单位/分，元/100)')
-    strata_fee: int = Field(description='管理费 (单位/分，元/100)')
+    rent_time_unit: Union[RentTimeUnitEnum, None] = Field(description='租赁时间单位，默认month（月结）')
+    water_rent: Union[int, None] = Field(description='水费 (单位/分，元/100)')
+    electricity_rent: Union[int, None] = Field(description='电费 (单位/分，元/100)')
+    strata_fee: Union[int, None] = Field(description='管理费 (单位/分，元/100)')
     deposit_ratio: Union[int, None] = Field(description='租赁费用的押金倍数 (押几付几)')
     pay_ratio: Union[int, None] = Field(description='租赁费用的支付倍数 (押几付几)')
     house_desc: Union[str, None] = Field(description='房屋描述')
     area: Union[int, None] = Field(description='房间面积')
     room_num: Union[int, None] = Field(description='房间号')
     toilet_num: Union[int, None] = Field(description='卫生间数量')
-    display_content: Union[dict, None] = Field(description='房屋展示内容')
+    display_content: Union[HouseDisplayContentItem, None] = Field(description='房屋展示内容')
     floor: Union[int, None] = Field(description='房屋所在楼层')
     max_floor: Union[int, None] = Field(description='房屋最大楼层')
-    has_elevator: Union[bool, None] = Field(description='是否有电梯')
+    has_elevator: Union[HouseElevatorEnum, None] = Field(description='是否有电梯')
     build_year: Union[date, None] = Field(description='建成年份')
     direction: Union[HouseDirectionEnum, None] = Field(description='房屋朝向')
     near_traffic_json: Union[dict, None] = Field(description='附近交通信息')
     certificate_no: Union[str, None] = Field(max_length=50, description='房产证号')
-
+    location_info: Union[HouseLocationItem, None] = Field(description='房源地址位置信息')
     house_facility_list: Optional[List[HouseFacilityListItem]] = Field(description='房源设施数据')
     house_contact_info: Optional[HouseContactDataItem] = Field(description='房源联系人信息')
 

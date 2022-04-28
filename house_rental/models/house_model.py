@@ -96,11 +96,20 @@ class HouseDetail(BaseModel):
     lighting = fields.IntEnumField(HouseLightingEnum, null=True, description='房屋采光情况')
     near_traffic_json = fields.JSONField(null=True, description='附近交通信息')
     certificate_no = fields.CharField(max_length=50, null=True, description='房产证号')
-    json_extend = fields.JSONField(default={}, description='扩展字段')
+    location_info = fields.JSONField(default={}, null=True, description='房源地理位置')
+    json_extend = fields.JSONField(default={}, null=True, description='扩展字段')
 
     class Meta:
         app = constants.APP_NAME
         table = 'house_detail'
+
+    def to_dict(self):
+        house_dict = super().to_dict()
+        if self.display_content:
+            images = self.display_content.get('images', [])
+            self.display_content['images'] = [f'{settings.QINIU_DOMAIN}{img}' for img in images]
+        house_dict['display_content'] = self.display_content
+        return house_dict
 
 
 class FacilityInfo(BaseModel):

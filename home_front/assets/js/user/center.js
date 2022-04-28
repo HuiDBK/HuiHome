@@ -2,6 +2,8 @@
 const user_profile_url = api_domain + '/api/v1/user/profile/{user_id}'
 const user_real_name_auth_url = api_domain + '/api/v1/user/name_auth'
 const user_pwd_change_url = api_domain + '/api/v1/user/{user_id}/pwd_change'
+const get_user_house_collects_url = api_domain + '/api/v1/house/user_collects/{user_id}';
+const cancel_user_house_collect_url = api_domain + '/api/v1/house/user_collects';
 
 let vm = new Vue({
     el: "#app",
@@ -40,24 +42,16 @@ let vm = new Vue({
 
         error_password_msg: '',
         error_password_show: false,
+        user_show: true,
+
+        // 用户收藏的房源
+        user_house_collects: [],
+        user_collect_house_ids: [],
     },
     mounted() {
-        let token = localStorage.getItem('token')
-        if (token != null) {
-            this.user_info = parser_jwt(token)
-            // 判断token有没有过期
-            let now_timestamp = Date.parse(new Date()) / 1000
-            console.log(now_timestamp)
-            console.log(this.user_info.exp)
-            if (this.user_info.exp < now_timestamp) {
-                // token已过期
-                alert('登录状态已失效，请重新登录')
-                window.location.href = '/house_rental/home_front/index.html'
-            }
-        } else {
-            window.location.href = '/house_rental/home_front/index.html'
-        }
+        this.user_info = verify_user_token()
         this.get_user_profile()
+        this.get_user_house_collect()
     },
     methods: {
         update_id_card_img(img_file) {
@@ -199,6 +193,63 @@ let vm = new Vue({
                 .catch(error => {
                     console.log(error)
                 })
-        }
+        },
+        get_user_house_collect() {
+            let _get_user_house_collects_url = get_user_house_collects_url.format({'user_id': this.user_info.user_id})
+            axios.get(_get_user_house_collects_url, {'headers': get_token_headers()})
+                .then(resp => {
+                    if (resp.status === 200 && resp.data.code === 0) {
+                        this.user_house_collects = resp.data.data.user_house_collects;
+                        this.user_house_collects.forEach(item => {
+                            this.user_collect_house_ids.push(item.house_id)
+                        })
+                        console.log(this.user_collect_house_ids)
+                    }
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        },
+        _cancel_house_collect(house_id) {
+            let json_body = {
+                user_id: this.user_info.user_id,
+                house_id: house_id
+            }
+            let config = {
+                data: json_body,
+                headers: get_token_headers()
+            }
+            axios.delete(cancel_user_house_collect_url, config)
+                .then(resp => {
+                    if (resp.status === 200 && resp.data.code === 0) {
+                        console.log(resp.data.data)
+                        // 取消房源收藏
+                        this.user_collect_house_ids = this.user_collect_house_ids.filter(item => {
+                            return item !== house_id
+                        })
+                        this.user_house_collects = this.user_house_collects.filter(item => {
+                            return item.house_id !== house_id
+                        })
+                    }
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        },
+        cancel_house_collect(house_id) {
+            layer.open({
+                icon: 0,
+                title: '取消收藏',
+                content: '确认取消收藏？',
+                btn: ['确定', '取消'],
+                yes: (index) => {
+                    this._cancel_house_collect(house_id)
+                    layer.close(index)
+                },
+                btn2: (index) => {
+
+                }
+            })
+        },
     }
 })

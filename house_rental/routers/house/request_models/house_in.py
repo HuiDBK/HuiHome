@@ -10,7 +10,8 @@ from house_rental.commons.request_models import ListPageModel
 
 from house_rental.constants.enums import RentType, HouseType, RentState, HouseState, HouseDirectionEnum, \
     RentTimeUnitEnum, HouseElevatorEnum
-from house_rental.routers.house.response_models.house_out import HouseFacilityListItem, HouseContactDataItem
+from house_rental.routers.house.response_models import HouseFacilityListItem, HouseContactDataItem
+from house_rental.routers.house.common_models import HouseDisplayContentItem, HouseLocationItem
 
 
 class HouseListQueryItem(BaseModel):
@@ -45,12 +46,6 @@ class HouseListIn(ListPageModel):
     query_params: Optional[HouseListQueryItem] = Field(default={}, description='房源列表查询参数')
 
 
-class HouseDisplayContentItem(BaseModel):
-    """ 房源展示内容信息 """
-    images: list = Field(description='房源图片内容')
-    videos: list = Field(description='房源视频内容')
-
-
 class PublishHouseIn(BaseModel):
     """ 发布房源入参数据 """
     title: str = Field(description='房源标题')
@@ -82,7 +77,7 @@ class PublishHouseIn(BaseModel):
     direction: Union[HouseDirectionEnum, None] = Field(description='房屋朝向')
     near_traffic_json: Union[dict, None] = Field(description='附近交通信息')
     certificate_no: Union[str, None] = Field(max_length=50, description='房产证号')
-
+    location_info: Union[HouseLocationItem, None] = Field(description='房源地理位置信息')
     house_facility_list: List[HouseFacilityListItem] = Field([], description='房源设施数据')
     house_contact_info: Optional[HouseContactDataItem] = Field(description='房源联系人信息')
 

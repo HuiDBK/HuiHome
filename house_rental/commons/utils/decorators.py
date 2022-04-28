@@ -8,6 +8,8 @@ import threading
 import hashlib
 from functools import wraps
 from pydantic import BaseModel
+
+from house_rental.commons import settings
 from house_rental.constants import constants
 
 
@@ -72,7 +74,7 @@ def cache_json(cache_info=None, key=None, timeout=60):
                 param_args_str = ','.join([str(arg) for arg in args])
                 param_kwargs_str = ','.join(sorted([f'{k}:{v}' for k, v in kwargs.items()]))
                 hash_str = f'{constants.APP_NAME}:{api_func.__module__}:{api_func.__name__}:' \
-                           f'{param_args_str}:{param_kwargs_str}'
+                           f'{param_args_str}:{param_kwargs_str}:{settings.SECRET}'
                 has_result = hashlib.md5(hash_str.encode()).hexdigest()
 
                 # 根据哈希结果生成key

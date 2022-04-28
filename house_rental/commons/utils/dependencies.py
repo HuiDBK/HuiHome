@@ -7,7 +7,7 @@ from starlette.requests import Request
 
 from house_rental.commons.exceptions.global_exception import AuthorizationException
 from house_rental.commons.responses import ErrorCodeEnum
-from house_rental.commons.utils import jwt_util
+from house_rental.commons.utils import jwt_util, context_util
 from house_rental.constants.enums import UserRole
 from house_rental.managers.user_manager import UserBasicManager
 
@@ -33,6 +33,11 @@ async def jwt_authentication(request: Request):
         raise AuthorizationException().exc_data(ErrorCodeEnum.AUTHORIZATION_ERR)
 
     request.scope['user'] = user
+
+
+async def request_context(request: Request):
+    """ 保存当前request对象到上下文中 """
+    context_util.REQUEST_CONTEXT.set(request)
 
 
 async def login_required(request: Request):

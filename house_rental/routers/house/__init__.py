@@ -51,7 +51,7 @@ router.add_api_route(
 )
 
 router.add_api_route(
-    '/facilities/',
+    '/facilities',
     house_api.add_house_facility,
     methods=['post'],
     response_model=house_out.HouseFacilityAddOut,
@@ -61,9 +61,9 @@ router.add_api_route(
 router.add_api_route(
     '/user_collects',
     house_api.user_house_collect,
-    methods=['post'],
+    methods=['post', 'delete'],
     response_model=SuccessModel,
-    summary='用户收藏房源'
+    summary='用户收藏/取消收藏房源'
 )
 
 router.add_api_route(

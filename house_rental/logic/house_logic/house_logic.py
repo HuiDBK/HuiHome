@@ -10,11 +10,11 @@ from typing import Union
 from starlette.requests import Request
 from tortoise.transactions import in_transaction
 
-from house_rental.commons.utils import RedisUtil, RedisKey
+from house_rental.commons.utils import RedisUtil, RedisKey, context_util
 from house_rental.commons.exceptions.global_exception import BusinessException
 from house_rental.commons.responses import ErrorCodeEnum
 from house_rental.commons.utils.decorators import cache_json
-from house_rental.constants.enums import RentType
+from house_rental.constants.enums import RentType, RequestMethodEnum
 from house_rental.managers.house_manager import HouseInfoManager, HouseDetailManager, HouseFacilityManager
 from house_rental.commons.utils import serialize_util, add_param_if_true
 from house_rental.managers.user_manager import UserBasicManager, UserProfileManager
@@ -25,6 +25,7 @@ from house_rental.routers.house.response_models.house_out import HouseListDataIt
     HouseContactDataItem, HouseFacilitiesDataItem, HouseFacilityListItem, UserHouseCollectDataItem
 
 
+@cache_json(cache_info=RedisKey.home_houses())
 async def get_home_house_list_logic(city: str):
     """
     获取首页房源列表, 最近整租、合租
@@ -227,10 +228,17 @@ async def add_house_facility_logic(facility_item: HouseFacilityAddIn):
 
 
 async def user_house_collect_logic(user_id, house_id: int):
-    """ 用户房源收藏逻辑 """
+    """ 用户房源收藏/取消逻辑 """
+    cur_request = context_util.REQUEST_CONTEXT.get()
     collect_cache_info = RedisKey.user_house_collect(user_id)
     redis_client = await RedisUtil().get_redis_conn()
-    redis_client.sadd(key=collect_cache_info.key, member=house_id)
+
+    if cur_request.method == RequestMethodEnum.POST.value:
+        # post请求 => 用户收藏房源
+        redis_client.sadd(key=collect_cache_info.key, member=house_id)
+    else:
+        # delete请求 => 用户取消收藏
+        redis_client.srem(key=collect_cache_info.key, member=house_id)
 
 
 async def get_user_house_collect_logic(user_id):

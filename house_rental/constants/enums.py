@@ -116,3 +116,11 @@ class RedisDataType(StrEnum):
     HASH = 'HASH'
     SET = 'SET'
     ZSET = 'ZSET'
+
+
+class RequestMethodEnum(StrEnum):
+    """ 请求方法枚举 """
+    GET = 'GET'
+    POST = 'POST'
+    PUT = 'PUT'
+    DELETE = 'DELETE'

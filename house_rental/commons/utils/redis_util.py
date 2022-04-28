@@ -81,6 +81,19 @@ class RedisKey(object):
         )
         return house_facilities_cache_info
 
+    @classmethod
+    def home_houses(cls) -> RedisCacheInfo:
+        """
+        首页房源缓存 Redis key
+        :return:
+        """
+        house_facilities_cache_info = RedisCacheInfo(
+            key=f'{constants.APP_NAME}:house:home_houses',
+            timeout=constants.HOME_HOUSES_TIMEOUT,
+            data_type=RedisDataType.STRING.value
+        )
+        return house_facilities_cache_info
+
 
 from house_rental.commons.utils.decorators import singleton
 

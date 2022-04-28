@@ -9,6 +9,7 @@ from house_rental.commons.utils.redis_util import RedisUtil, RedisKey
 from house_rental.managers.house_manager import HouseInfoManager, HouseDetailManager
 from house_rental.routers.admin.request_models import HouseUpdateIn
 from house_rental.routers.admin.response_models.house_manage_out import HouseInfoItem
+from house_rental.routers.house.response_models.house_out import HouseDetailDataItem
 
 
 async def update_house_info_logic(house_id: int, house_item: HouseUpdateIn):
@@ -32,4 +33,4 @@ async def update_house_info_logic(house_id: int, house_item: HouseUpdateIn):
     house_detail_item = house_detail.to_dict()
     house_detail_item.update(house_info.to_dict())
 
-    return HouseInfoItem(**house_detail_item)
+    return HouseDetailDataItem(**house_detail_item)

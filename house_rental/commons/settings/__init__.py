@@ -10,6 +10,9 @@ from .third_party_config import QINIU_SECRET_KEY
 from .third_party_config import QINIU_BUCKET_NAME
 from .third_party_config import QINIU_DOMAIN
 
+# 系统密钥
+SECRET = 'NmUzODk2ZGUtYmZjYy0xMWVjLWI5YTctZjQzMGI5YTUwMzQ2aHVp'
+
 JWT_SECRET = 'NmUzODk2ZGUtYmZjYy0xMWVjLWI5YTctZjQzMGI5YTUwMzQ2aHVp'
 JWT_EXPIRY_HOURS = 2
 JWT_REFRESH_EXPIRY_DAYS = 14
