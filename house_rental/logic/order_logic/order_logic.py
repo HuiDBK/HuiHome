@@ -3,11 +3,13 @@
 # @Author: Hui
 # @Desc: { 订单逻辑模块 }
 # @Date: 2022/04/29 10:27
+import asyncio
 from datetime import date
 from house_rental.commons.utils import context_util, serialize_util
 from house_rental.constants.enums import OrderState
 from house_rental.managers.house_manager import HouseDetailManager, HouseInfoManager
 from house_rental.managers.order_manager import OrderManager
+from house_rental.managers.user_manager import UserProfileManager
 from house_rental.routers.order.request_models import OrderCreateIn
 from house_rental.commons.exceptions.global_exception import BusinessException
 from house_rental.commons.responses.response_code import ErrorCodeEnum
@@ -66,7 +68,28 @@ async def create_order_logic(order_item: OrderCreateIn):
 
 
 async def get_user_orders_logic(user_id):
-    """ 获取用户租房订单 """
+    """ 获取用户租房订单（全部） """
     user_orders = await OrderManager.get_user_orders_by_user_id(user_id)
+
+    # 补充订单信息
+    house_ids = list(set([order.house_id for order in user_orders]))    # 房屋id列表
+    landlord_ids = list(set([order.landlord_id for order in user_orders]))  # 房东id列表
+
+    house_info, user_profile, landlord_profiles = await asyncio.gather(*[
+        HouseInfoManager.get_houses_by_ids(house_ids),  # 房源信息
+        UserProfileManager.get_by_id(user_id),  # 用户信息
+        UserProfileManager.get_users_by_ids(landlord_ids)   # 房东信息
+    ])
+
+    # 先把房源、房东信息变成大字典方便订单补
+    landlord_info_dict = {item.id: item for item in landlord_profiles}
+    house_info_dict = {item.id: item for item in house_info}
+    user_orders = [order.to_dict() for order in user_orders]
+    for user_order in user_orders:
+        house_info = house_info_dict.get(user_order.get('house_id'))
+        landlord_info = landlord_info_dict.get(user_order.get('landlord_id'))
+        user_order['user_info'] = user_profile.to_dict()
+        user_order['house_info'] = house_info.to_dict()
+        user_order['landlord_info'] = landlord_info.to_dict()
     user_orders = serialize_util.obj2DataModel(data_obj=user_orders, data_model=UserOrderListItem)
     return UserOrderDataItem(user_orders=user_orders)

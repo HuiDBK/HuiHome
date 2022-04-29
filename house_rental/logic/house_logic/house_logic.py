@@ -25,7 +25,7 @@ from house_rental.routers.house.response_models.house_out import HouseListDataIt
     HouseContactDataItem, HouseFacilitiesDataItem, HouseFacilityListItem, UserHouseCollectDataItem
 
 
-@cache_json(cache_info=RedisKey.home_houses())
+# @cache_json(cache_info=RedisKey.home_houses())
 async def get_home_house_list_logic(city: str):
     """
     获取首页房源列表, 最近整租、合租
@@ -105,11 +105,11 @@ async def get_house_detail_logic(house_id: int):
     """ 获取房源详情逻辑 """
 
     # 先看redis缓存是否有
-    house_detail_cache_info = RedisKey.house_detail(house_id)
-    house_detail_json = await RedisUtil().get_with_cache_info(house_detail_cache_info)
-    if house_detail_json:
-        house_detail_info = json.loads(house_detail_json)
-        return HouseDetailDataItem(**house_detail_info)
+    # house_detail_cache_info = RedisKey.house_detail(house_id)
+    # house_detail_json = await RedisUtil().get_with_cache_info(house_detail_cache_info)
+    # if house_detail_json:
+    #     house_detail_info = json.loads(house_detail_json)
+    #     return HouseDetailDataItem(**house_detail_info)
 
     house_info = await HouseInfoManager.get_by_id(house_id)
     house_detail = await HouseDetailManager.get_by_id(house_id)
@@ -146,7 +146,7 @@ async def get_house_detail_logic(house_id: int):
     )
 
     # 设置房屋详情缓存
-    await RedisUtil().set_with_cache_info(house_detail_cache_info, house_detail_info.json())
+    # await RedisUtil().set_with_cache_info(house_detail_cache_info, house_detail_info.json())
     return house_detail_info
 
 

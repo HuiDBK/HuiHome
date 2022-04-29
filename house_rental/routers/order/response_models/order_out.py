@@ -10,6 +10,21 @@ from house_rental.commons.responses.response_model import ResponseBaseModel
 from house_rental.constants.enums import OrderState
 
 
+class UserInfoItem(BaseModel):
+    """ 订单用户信息 """
+    user_id: int = Field(description='用户id')
+    real_name: str = Field(description='正式姓名')
+    mobile: str = Field(description='手机号')
+
+
+class HouseInfoItem(BaseModel):
+    """ 订单房源信息 """
+    house_id: int = Field(description='房源id')
+    title: str = Field(description='房源标题')
+    address: str = Field(description='房源地址')
+    index_img: str = Field(description='房源图片')
+
+
 class UserOrderListItem(BaseModel):
     """ 用户订单列表项数据 """
     order_id: int = Field(description='订单id')
@@ -23,6 +38,9 @@ class UserOrderListItem(BaseModel):
     pay_money: str = Field(description='支付金额')
     deposit_fee: str = Field(description='押金')
     rental_days: int = Field(description='租赁天数')
+    user_info: UserInfoItem = Field(description='租客信息')
+    landlord_info: UserInfoItem = Field(description='房东信息')
+    house_info: HouseInfoItem = Field(description='房源信息')
     create_ts: int = Field(description='创建时间')
 
 
