@@ -3,6 +3,8 @@ const get_user_house_collects_url = api_domain + '/api/v1/house/user_collects/{u
 const cancel_user_house_collect_url = api_domain + '/api/v1/house/user_collects';
 const get_house_details_url = api_domain + '/api/v1/house/houses/{house_id}';
 const get_house_facilities_url = api_domain + '/api/v1/house/facilities';
+const create_order_url = api_domain + '/api/v1/order/orders';
+const get_user_orders_url = api_domain + '/api/v1/order/orders/{user_id}';
 
 let vm = new Vue({
     el: "#app",
@@ -20,28 +22,147 @@ let vm = new Vue({
         city_list: ['北京', '上海', '广州', '深圳'],
         district_list: ['福田区', '南山区', '宝安区', '光明区'],
 
+        // 用户收藏信息
         user_house_collects: [],
         user_collect_house_ids: [],
+
+        // 房屋设施信息
         all_house_facility: [],
         house_facility_ids: [],
+
+        // 房屋定位信息
         location_info: '',
+
+        // 用户预订数据
+        start_date: '',
+        end_date: '',
+
+        // 订单数据
+        user_orders: [],
+        house_order_item: {
+            house_id: '',
+            state: '',
+            start_date: '',
+            end_state: ''
+        },
+        order_state_enum: {
+            no_pay: 'no_pay',   // 未支付
+            ordered: 'ordered', // 已预订
+            payed: 'payed', // 已支付
+            finished: 'finished', // 已完成
+            canceled: 'canceled', // 已取消
+        }
     },
-    mounted() {
+    created() {
         this.user_info = verify_user_token()
         let now_timestamp = Date.parse(new Date()) / 1000
         if (this.user_info.exp > now_timestamp) {
             this.user_show = true
         }
-        // this.get_user_house_collect()
+        // 用户收藏
+        this.get_user_house_collect()
+
+        // 房源设施列表
+        this.get_all_house_facility()
+
+        // 获取房源详情
         // 从url的查询参数中获取房源id 格式:?house_id=1
         let query_params = getUrlQueryParams()
         console.log(query_params)
         this.house_id = query_params.house_id
         this.get_house_detail_info(this.house_id)
-        this.get_all_house_facility()
+    },
+    mounted() {
+        this.set_cur_date()
         this.slideBanner()
     },
     methods: {
+        go_pay() {
+            // 去支付
+            window.location.href
+        },
+        async get_user_orders() {
+            let _get_user_orders_url = get_user_orders_url.format({'user_id': this.user_info.user_id})
+            await axios.get(_get_user_orders_url, {'headers': get_token_headers()})
+                .then(resp => {
+                    if (resp.status === 200 && resp.data.code === 0) {
+                        this.user_orders = resp.data.data.user_orders
+                    }
+                })
+                .catch(error => {
+
+                })
+        },
+        set_cur_date() {
+            let now = new Date();
+            let year = now.getFullYear();
+            let month = now.getMonth() + 1;
+            let date = now.getDate();
+            // 年/月/日
+            let today = year + '-' + month + '-' + date;
+            this.start_date = today
+            $('#startDate').daterangepicker({
+                singleDatePicker: true,
+                locale: {
+                    format: "YYYY-MM-DD"
+                }
+            });
+
+            $('#endDate').daterangepicker({
+                singleDatePicker: true,
+                locale: {
+                    format: "YYYY-MM-DD"
+                }
+            });
+        },
+        create_order() {
+            this.start_date = $('#startDate').val()
+            this.end_date = $('#endDate').val()
+
+            let cur_date = new Date()
+            let pre_date = new Date(cur_date.getTime() - 24 * 60 * 60 * 1000)
+            if (new Date(this.start_date) < pre_date) {
+                // 入住时间不能小于当天
+                layer.msg('入住日期不能小于当天', {icon: 2, time: 2000})
+                return
+            }
+            if (new Date(this.end_date) < cur_date) {
+                // 退租时间不能小于当天
+                layer.msg('退租日期不能小于当天', {icon: 2, time: 2000})
+                return
+            }
+            if (!this.end_date || !this.start_date) {
+                layer.msg('请选择入住和退租日期', {icon: 2, time: 2000})
+                return
+            }
+            if (new Date(this.end_date) <= new Date(this.start_date)) {
+                layer.msg('退租日期必须大于入住日期', {icon: 2, time: 2000})
+                return
+            }
+            // 用户预订（创建订单）
+            let order_data = {
+                house_id: this.house_detail_info.house_id,
+                start_date: this.start_date,
+                end_date: this.end_date,
+            }
+            console.log('order_data', order_data)
+
+            axios.post(create_order_url, order_data, {'headers': get_token_headers()})
+                .then(resp => {
+                    if (resp.status === 200 && resp.data.code === 0) {
+                        console.log('order_resp', resp.data.data)
+                        layer.msg('预定成功', {icon: 2, time: 1000})
+                        // 跳转到用户订单列表界面
+                        this.go_pay()
+                    } else if (resp.data.code === 4015) {
+                        // 订单已存在
+                        layer.msg('订单已存在,请不要再次预定', {icon: 2, time: 2000})
+                    }
+                })
+                .catch(error => {
+
+                })
+        },
         toggle_map_gallery() {
             // 控制显示地图还是图片
             $('#map').toggleClass('active');
@@ -52,6 +173,11 @@ let vm = new Vue({
             $('#gallery-tab').toggleClass('active');
         },
         get_house_detail_info(house_id) {
+            this.get_user_orders().then(r => {
+                this._get_house_details_info(house_id)
+            })
+        },
+        _get_house_details_info(house_id) {
             // 获取房源详情
             let _get_house_details_url = get_house_details_url.format({'house_id': house_id})
             axios.get(_get_house_details_url, {'headers': get_token_headers()})
@@ -63,14 +189,28 @@ let vm = new Vue({
                         house_facility_list.forEach(item => {
                             this.house_facility_ids.push(item.facility_id)
                         })
-                        console.log(this.house_facility_ids)
+                        console.log('house_facility_ids', this.house_facility_ids)
+                        if (this.user_orders.length > 0) {
+                            let house_order_list = this.user_orders.filter(item => {
+                                let result = (item.house_id === this.house_detail_info.house_id)
+                                // 排除已完成的订单
+                                result = result && [this.order_state_enum.finished].indexOf(item.state) === -1
+                                return result
+                            })
+                            if (house_order_list.length > 0) {
+                                this.house_order_item = house_order_list[0]
+                                this.start_date = this.house_order_item.start_date
+                                this.end_state = this.house_order_item.end_date
+                            }
+                        }
                     }
+
                 })
                 .catch(error => {
                     console.log(error)
                 })
         },
-        user_collect_house_list(house_id) {
+        user_collect_house_detail(house_id) {
             // 房源列表用户收藏房源
             // user_collect_house(house_id)
             let json_body = {
@@ -202,6 +342,6 @@ let vm = new Vue({
                     return;
                 }
             });
-        }
+        },
     }
 });

@@ -5,6 +5,7 @@
 # @Date: 2022/04/26 22:59
 from starlette.requests import Request
 
+from house_rental.commons import settings
 from house_rental.commons.exceptions.global_exception import AuthorizationException
 from house_rental.commons.responses import ErrorCodeEnum
 from house_rental.commons.utils import jwt_util, context_util
@@ -14,6 +15,10 @@ from house_rental.managers.user_manager import UserBasicManager
 
 async def jwt_authentication(request: Request):
     """ jwt 鉴权"""
+    for api_url in settings.API_URL_WHITE_LIST:
+        # 在白名单的接口无需token验证
+        if str(request.url.path).startswith(api_url):
+            return
     token = request.headers.get('Authorization') or None
     if not token:
         raise AuthorizationException().exc_data(ErrorCodeEnum.AUTHORIZATION_ERR)

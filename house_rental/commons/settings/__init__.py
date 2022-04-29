@@ -27,6 +27,7 @@ sms_template_id = '1'  # 短信模板
 # 不需要登录验证的接口
 API_URL_WHITE_LIST = [
     '/api/v1/user/login',
+    '/api/v1/house/home_houses',
     '/api/v1/user/register',
     '/api/v1/user/mobile',
 ]

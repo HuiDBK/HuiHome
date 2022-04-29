@@ -25,6 +25,8 @@ class ErrorCodeEnum(BaseEnum):
     REGISTER_FAILED_ERR = (4011, '注册失败')
     FACILITY_EXIST_ERR = (4012, '房屋设施已存在')
     PUBLISH_HOUSE_ERR = (4013, '发布房源失败')
+    DATE_ERR = (4014, '日期错误')
+    ORDER_EXIST_ERR = (4015, '订单已存在')
 
     DB_ERR = (5000, '数据库错误')
     EMAIL_ERR = (5001, '邮箱错误')

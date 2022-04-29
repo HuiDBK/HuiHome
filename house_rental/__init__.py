@@ -30,7 +30,10 @@ async def startup_event():
     """项目启动时准备环境"""
 
     # 加载路由
-    app.include_router(api_router, prefix='/api', dependencies=[Depends(request_context)])
+    app.include_router(api_router, prefix='/api', dependencies=[
+        # Depends(jwt_authentication),
+        Depends(request_context),
+    ])
 
     # 注册中间件
     await register_middlewares(app)

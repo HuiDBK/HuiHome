@@ -55,3 +55,6 @@ from .house_model import (
 )
 
 from .house_mapping_model import HouseFacilityMapping
+
+
+from .order_model import OrderModel

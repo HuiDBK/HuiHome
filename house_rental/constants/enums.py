@@ -62,6 +62,14 @@ class RentState(StrEnum):
     not_rent = 'not_rent'  # 未出租
 
 
+class OrderState(StrEnum):
+    """订单状态"""
+    no_pay = 'no_pay'  # 未支付
+    payed = 'payed'  # 已支付
+    canceled = 'canceled'  # 已取消
+    deleted = 'deleted'  # 已删除
+
+
 class RentTimeUnitEnum(StrEnum):
     """ 租赁时间单位枚举 """
     day = 'day'  # 日结

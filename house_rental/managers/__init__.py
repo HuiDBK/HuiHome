@@ -26,13 +26,9 @@ class BaseManager(object):
         """
         创建一个
         """
-        try:
-            print(to_create)
-            model_obj = await cls.model.create(**to_create)
-            return model_obj
-        except Exception as e:
-            print(e)
-            return None
+        print(to_create)
+        model_obj = await cls.model.create(**to_create)
+        return model_obj
 
     @classmethod
     async def update(cls, model_id: int, to_update: Dict) -> bool:
