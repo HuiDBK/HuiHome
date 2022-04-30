@@ -132,3 +132,8 @@ class RequestMethodEnum(StrEnum):
     POST = 'POST'
     PUT = 'PUT'
     DELETE = 'DELETE'
+
+
+class TemplateSceneEnum(StrEnum):
+    """ 模板场景枚举 """
+    electronic_contract = 'electronic_contract'  # 电子合同

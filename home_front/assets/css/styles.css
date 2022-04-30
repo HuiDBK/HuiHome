@@ -86,6 +86,18 @@ a:hover, a:focus {
     transition: linear;
 }
 
+.time-item strong {
+    background: #1baeae;
+    color: #fff;
+    line-height: 25px;
+    font-size: 15px;
+    font-family: "Microsoft YaHei";
+    padding: 0 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
 .el_scale:hover {
     transform: scale(1.03)
 }
@@ -7858,6 +7870,17 @@ span.tag_t {
     margin-bottom: 1rem;
     align-items: center;
     font-family: 'Work Sans', sans-serif
+}
+
+.price_style {
+    font-size: 25px;
+    font-weight: 900;
+    color: #4760ff;
+}
+
+.order_text{
+    font-size: 15px;
+    font-weight: 600;
 }
 
 .prt_rates {

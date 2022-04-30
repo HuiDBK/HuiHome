@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="author" content="Drizvato"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+    <title>房屋租赁系统，一起合租吧！</title>
+
+    <!-- Custom CSS -->
+    <link href="assets/css/styles.css?v=20210423" rel="stylesheet">
+
+    <!-- Custom Color Option -->
+    <link href="assets/css/colors.css" rel="stylesheet">
+
+    <!--  Vue and axios -->
+    <script src="assets/js/common/vue-2.5.16.js"></script>
+    <script src="assets/js/common/axios.min.js"></script>
+
+</head>
+
+<body class="yellow-skin">
+
+<!-- ============================================================== -->
+<!-- Preloader - style you can find in spinners.css -->
+<!-- ============================================================== -->
+<div class="preloader"></div>
+
+<!-- ============================================================== -->
+<!-- Main wrapper - style you can find in pages.scss -->
+<!-- ============================================================== -->
+<div id="app">
+    <div id="main-wrapper">
+
+        <!-- ============================================================== -->
+        <!-- Top header  -->
+        <!-- ============================================================== -->
+        <!-- Start Navigation -->
+        <div class="header header-light dark-text">
+            <div class="container">
+                <nav id="navigation" class="navigation navigation-landscape">
+                    <div class="nav-header">
+                        <a class="nav-brand" href="./index.html">
+                            <img src="./assets/img/logo.png" class="logo" alt=""/>
+                        </a>
+                        <div class="nav-toggle"></div>
+                    </div>
+                    <div class="nav-menus-wrapper" style="transition-property: none;">
+                        <ul class="nav-menu">
+
+                            <li><a href="./index.html" style="font-size: 15px;">首页</a></li>
+                            <li><a href="/house?rentType=whole" style="font-size: 15px;">整租</a></li>
+                            <li><a href="/house?rentType=share" style="font-size: 15px;">合租</a></li>
+                            <li><a href="/post" style="font-size: 15px;">求租</a></li>
+                            <li><a href="/news" style="font-size: 15px;">公告资讯</a></li>
+                            <li><a href="/message" style="font-size: 15px;">未读消息
+                                <span style="color: red;">(0)</span>
+                            </a>
+                            </li>
+                        </ul>
+                        <ul class="nav-menu nav-menu-social align-to-right dhsbrd" v-show="user_show">
+
+                            <li>
+                                <div class="btn-group account-drop">
+                                    <button type="button" class="btn btn-order-by-filt"
+                                            data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                        <img src="https://eu.ui-avatars.com/api/?background=random&length=1&rounded=true&bold=true&name=张三"
+                                             class="avater-img"
+                                             alt="">
+                                        {{ user_info.username }}
+                                    </button>
+
+
+                                    <div class="dropdown-menu pull-right animated flipInX">
+                                        <a href="./profile.html">
+                                            <i class="ti-user"></i>个人信息
+                                        </a>
+                                        <a href="/admin/home">
+                                            <i class="ti-home"></i>我的家
+                                        </a>
+                                        <a href="user_collect.html">
+                                            <i class="ti-bookmark"></i>我的收藏
+                                        </a>
+                                        <a href="#" onclick="user_logout()">
+                                            <i class="ti-power-off"></i>退出登录
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!-- End Navigation -->
+        <div class="clearfix"></div>
+        <!-- ============================================================== -->
+        <!-- Top header  -->
+        <!-- ============================================================== -->
+        <!-- ============================ Agency List Start ================================== -->
+        <section class="gray-simple">
+
+            <div class="container">
+
+                <!-- row Start -->
+                <div class="row">
+
+                    <div class="col-lg-12 col-md-12">
+                        <div class="property_block_wrap style-2">
+
+                            <div id="content" style="padding: 10px;">
+                                <h2 style="text-align: center;">　房屋租赁合同</h2>
+                                <p>　　出租方：<strong>{{ landlord_name }}</strong> (以下简称甲方)</p>
+                                <p>　　身份证：<strong>{{ landlord_id_card }}</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;电话：<strong>{{ landlord_mobile }}</strong></p>
+                                <p>　　承租方：<strong>{{ tenant_name }}</strong> (以下简称乙方)</p>
+                                <p>　　身份证：<strong>{{ tenant_id_card }}</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;电话：<strong>{{ tenant_mobile }} </strong></p>
+                                <p>　　根据甲、乙双方在自愿、平等、互利的基础上，经协商一致，为明确双方之间的权利义务关系，就甲方将其合法拥有的房屋出租给乙方使用，乙方承租甲方房屋事宜，订立本合同。</p>
+                                <p>　　一、房屋地址：<strong>{{ house_address }}</strong></p>
+                                <p>　　二、租赁期限及约定</p>
+                                <p style="text-indent: 2rem;">　　(1) 该房屋租赁期共 <strong>{{ rental_days }}</strong> 天。
+                                    自 <strong>{{ start_date }}</strong> 到
+                                    <strong> {{ end_date }} </strong>
+                                </p>
+                                <p>　　三、房屋租赁信息：</p>
+                                <p style="text-indent: 2rem;">　　(1) 房屋类型：
+                                    <strong>{{ bedroom_num }}</strong>卧室&nbsp;
+                                    <strong>{{ living_room_num }}</strong>客厅&nbsp;
+                                    <strong>{{ toilet_num }}</strong>卫生间&nbsp;
+                                    <strong>{{ kitchen_num }}</strong>厨房&nbsp;</p>
+                                <p style="text-indent: 2rem;">　　(2) 租赁费用明细： 押 <strong>{{ deposit_ratio }}</strong> 付 <strong>{{ pay_ratio }}</strong></p>
+                                <p style="text-indent: 4rem;">　　房屋租金: <strong>￥{{ rent_money }} </strong>元/月</p>
+                                <p style="text-indent: 4rem;">　　房屋押金: <strong>￥{{ deposit_fee }} </strong>元</p>
+                                <p style="text-indent: 4rem;">　　水费: <strong>￥{{ water_rent }}</strong>元/吨&nbsp;&nbsp;&nbsp;
+                                    电费: <strong>￥{{ electricity_rent }}</strong>元/度&nbsp;&nbsp;&nbsp;
+                                    管理费: <strong>￥{{ strata_fee }}</strong>元/月&nbsp;</p>
+                                <p style="text-indent: 2rem;">　　(3) 房屋终止，甲方验收无误后，将押金退还乙方，不计利息。</p>
+                                <p style="text-indent: 2rem;">　　(4) 乙方向甲方承诺，租赁该房屋仅作为普通住房使用。</p>
+                                <p style="text-indent: 2rem;">　　(5) 租赁期满，甲方有权收回出租房屋，乙方应如期交还。乙方如要求续租，则必须在租赁期满前一个月内通知甲方，经甲方同意后，重新签订租赁合同。</p>
+                                <p>　　三、房屋修缮与使用</p>
+                                <p style="text-indent: 2rem;">　　(1) 在租赁期内，甲方应保证出租房屋的使用安全。乙方应合理使用其所承租的房屋及其附属设施。如乙方因使用不当造成房屋及设施损坏的，乙方应负责修复或给予经济赔偿。</p>
+                                <p style="text-indent: 2rem;">　　(2) 该房屋及所属设施的维修责任除双方在本合同及补充条款中约定外，均由甲方负责(但乙方使用不当除外)。甲方进行维修须提前七天通知乙方，乙方应积极协助配合。</p>
+                                <p style="text-indent: 2rem;">
+                                    　　(3) 乙方因使用需要，在不影响房屋结构的前提下，可以对房屋进行装修装饰，但其设计规模、范围、工艺、用料等方案应事先征得甲方的同意后方可施工。租赁期满后，依附于房屋的装修归甲方所有。对乙方的装修装饰部分甲方不负有修缮的义务。</p>
+                                <p>　　四、房屋的转让与转租</p>
+                                <p style="text-indent: 2rem;">　　(1) 租赁期间，未经甲方书面同意，乙方不得擅自转租、转借承租房屋。</p>
+                                <p style="text-indent: 2rem;">　　(2) 甲方同意乙方转租房屋的，应当单独订立补充协议，乙方应当依据与甲方的书面协议转租房屋。</p>
+                                <p>　　五、乙方违约的处理规定</p>
+                                <p>
+                                    　　在租赁期内，乙方有下列行为之一的，甲方有权终止合同，收回该房屋，乙方应向甲方支付合同总租金20%的违约金，若支付的违约金不足弥补甲方损失的，乙方还应负责赔偿直至达到弥补全部损失为止。</p>
+                                <p style="text-indent: 2rem;">　　(1) 未经甲方书面同意，擅自将房屋转租、转借给他人使用的;</p>
+                                <p style="text-indent: 2rem;">　　(2) 未经甲方同意，擅自拆改变动房屋结构或损坏房屋，且经甲方通知，在规定期限内仍未纠正并修复的;</p>
+                                <p style="text-indent: 2rem;">　　(3) 擅自改变本合同规定的租赁用途或利用该房屋进行违法活动的;</p>
+                                <p style="text-indent: 2rem;">　　(4) 拖欠房租累计一个月以上的。</p>
+                                <p>　　六、本协议一式两份，甲.乙各执一份，乙方支付后即行生效。</p>
+                                <!--            <p>　　七、其他说明：水电数字由甲乙双方与其他承租方平均分配</p>-->
+                                <!--            <p>　　甲方签字：　　　　　　乙方签字：</p>-->
+                                <!--            <p>　　联系方式：　　　　　　联系方式：</p>-->
+
+                            </div>
+                            <div style="text-align: center;margin-top: 50px;">
+                                合同已生效
+                            </div>
+                            <div style="text-align: center;margin: 20px;">
+                                <a href="javascript:void(0)" onclick="printHtml('content')">打印</a>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+                <!-- /row -->
+
+            </div>
+
+        </section>
+        <!-- ============================ Agency List End ================================== -->
+
+
+        <!-- ============================ Footer Start ================================== -->
+        <footer class="dark-footer skin-dark-footer style-2" style="padding-top: 0;">
+
+            <div class="footer-bottom">
+                <div class="container">
+                    <div class="row align-items-center">
+
+                        <div class="col-lg-12 col-md-12">
+                            <p class="mb-0">© 2021 Saysky</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- ============================ Footer End ================================== -->
+
+        <!-- 登录弹出框 Modal -->
+        <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="registermodal"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered login-pop-form" role="document">
+                <header class="modal_content_header">
+                    <div class="hm_nav">
+                        <h3 class="hm_nav_title">登录</h3>
+                        <span class="mod-close" data-dismiss="modal" aria-hidden="true"><i class="ti-close"></i></span>
+                    </div>
+                </header>
+                <div class="modal-content" id="registermodal">
+                    <div class="modal-body">
+                        <div class="login-form">
+                            <form id="loginForm">
+
+                                <div class="form-group">
+                                    <label>账号</label>
+                                    <div class="input-with-icon">
+                                        <input type="text" class="form-control" name="userName" placeholder="账号">
+                                        <i class="ti-user"></i>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>密码</label>
+                                    <div class="input-with-icon">
+                                        <input type="password" class="form-control" name="userPass"
+                                               placeholder="*******">
+                                        <i class="ti-unlock"></i>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="button" onclick="submitLogin()"
+                                            class="btn btn-md full-width pop-login bg-2">登录
+                                    </button>
+                                </div>
+
+                            </form>
+                        </div>
+
+                        <div class="text-center">
+                            <p class="mt-3"><i class="ti-user mr-1"></i>忘记密码? <a href="#" data-toggle="modal"
+                                                                                 data-target="#forget"
+                                                                                 class="link">点此重置</a>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Modal -->
+
+        <!-- 注册 Modal -->
+        <div class="modal fade" id="signup" tabindex="-1" role="dialog" aria-labelledby="sign-up" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered login-pop-form" role="document">
+                <header class="modal_content_header">
+                    <div class="hm_nav">
+                        <h3 class="hm_nav_title">注册</h3>
+                        <span class="mod-close" data-dismiss="modal" aria-hidden="true"><i class="ti-close"></i></span>
+                    </div>
+                </header>
+                <div class="modal-content" id="sign-up">
+                    <div class="modal-body">
+                        <div class="login-form">
+                            <form id="registerForm">
+
+                                <div class="row">
+
+                                    <div class="col-lg-12 col-md-12">
+                                        <div class="form-group">
+                                            <label>姓名</label>
+                                            <div class="input-with-icon">
+                                                <input type="text" name="userDisplayName" class="form-control"
+                                                       placeholder="姓名">
+                                                <i class="ti-user"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12 col-md-12">
+                                        <div class="form-group">
+                                            <label>电子邮箱</label>
+                                            <div class="input-with-icon">
+                                                <input type="email" name="email" class="form-control"
+                                                       placeholder="电子邮箱，用于重置密码">
+                                                <i class="ti-email"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12">
+                                        <div class="form-group">
+                                            <label>手机号</label>
+                                            <div class="input-with-icon">
+                                                <input type="text" name="phone" class="form-control" placeholder="手机号">
+                                                <i class="ti-mobile"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12 col-md-12">
+                                        <div class="form-group">
+                                            <label>账号</label>
+                                            <div class="input-with-icon">
+                                                <input type="text" name="userName" class="form-control"
+                                                       placeholder="登录账号">
+                                                <i class="ti-user"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12 col-md-12">
+                                        <div class="form-group">
+                                            <label>密码</label>
+                                            <div class="input-with-icon">
+                                                <input type="password" name="userPass" class="form-control"
+                                                       placeholder="登录密码">
+                                                <i class="ti-unlock"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12 col-md-12">
+                                        <div class="form-group">
+                                            <label>角色</label>
+                                            <div class="simple-input">
+                                                <select name="role" class="form-control">
+                                                    <option value="customer">租客</option>
+                                                    <option value="owner">房东</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="button" onclick="submitRegister()"
+                                            class="btn btn-md full-width pop-login bg-2">创建账号
+                                    </button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Modal -->
+
+        <!-- 找回密码弹出框 Modal -->
+        <div class="modal fade" id="forget" tabindex="-1" role="dialog" aria-labelledby="forgetmodal"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered login-pop-form" role="document">
+                <header class="modal_content_header">
+                    <div class="hm_nav">
+                        <h3 class="hm_nav_title">找回密码</h3>
+                        <span class="mod-close" data-dismiss="modal" aria-hidden="true"><i class="ti-close"></i></span>
+                    </div>
+                </header>
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="login-form">
+                            <form id="forgetForm">
+
+                                <div class="form-group">
+                                    <label>账号</label>
+                                    <div class="input-with-icon">
+                                        <input type="text" class="form-control" name="userName" placeholder="账号">
+                                        <i class="ti-user"></i>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>邮箱地址</label>
+                                    <div class="input-with-icon">
+                                        <input type="email" class="form-control" name="email"
+                                               placeholder="注册时填写的电子邮箱地址">
+                                        <i class="ti-unlock"></i>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="button" onclick="submitForget()"
+                                            class="btn btn-md full-width pop-login bg-2">重置密码
+                                    </button>
+                                </div>
+
+                            </form>
+                        </div>
+
+                        <div class="text-center">
+                            <p class="mt-3"><i class="ti-user mr-1"></i>我们会向您的邮箱发送一封邮件，请注意查收</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Modal -->
+
+        <!-- End Video Modal -->
+        <a id="back2Top" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>
+
+
+    </div>
+</div>
+
+<!-- ============================================================== -->
+<!-- End Wrapper -->
+<!-- ============================================================== -->
+
+<!-- ============================================================== -->
+<!-- All Jquery -->
+<!-- ============================================================== -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/layui/layui.js"></script>
+<script src="assets/js/popper.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/ion.rangeSlider.min.js"></script>
+<script src="assets/js/select2.min.js"></script>
+<script src="assets/js/jquery.magnific-popup.min.js"></script>
+<script src="assets/js/slick.js"></script>
+<script src="assets/js/slider-bg.js"></script>
+<script src="assets/js/lightbox.js"></script>
+<script src="assets/js/imagesloaded.js"></script>
+<script src="assets/js/daterangepicker.js"></script>
+<script src="assets/js/custom.js"></script>
+<!--<script src="assets/js/script.js"></script>-->
+<script src="assets/js/common/md5.min.js"></script>
+<script src="assets/js/common/constants.js"></script>
+<script src="assets/js/common/utils.js"></script>
+<!-- ============================================================== -->
+<!-- This page plugins -->
+<!-- ============================================================== -->
+<script>
+    function printHtml(div) {
+
+        var before = "<html><head><meta http-equiv='Content-Type' content='text/html; charset=utf-8'></head><body >";
+        var print = document.getElementById(div).innerHTML;
+        var result = before + print + "</body></html>"
+
+        console.log(result);
+        var wind = window.open("", 'newwindow', 'height=300, width=700, top=100, left=100, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no');
+
+        wind.document.body.innerHTML = result;
+
+        wind.print();
+        return false;
+    }
+</script>
+</body>
+</html>

@@ -23,6 +23,9 @@ class HouseInfoItem(BaseModel):
     title: str = Field(description='房源标题')
     address: str = Field(description='房源地址')
     index_img: str = Field(description='房源图片')
+    rent_money: str = Field(description='房源租金')
+    deposit_ratio: str = Field(description='房源租金扣押比率')
+    pay_ratio: str = Field(description='房源租金支付比率')
 
 
 class UserOrderListItem(BaseModel):
@@ -36,6 +39,7 @@ class UserOrderListItem(BaseModel):
     state: OrderState = Field(description='订单状态')
     contract_content: Union[str, None] = Field(description='合同内容')
     pay_money: str = Field(description='支付金额')
+    bargain_money: str = Field(description='房屋预定金')
     deposit_fee: str = Field(description='押金')
     rental_days: int = Field(description='租赁天数')
     user_info: UserInfoItem = Field(description='租客信息')

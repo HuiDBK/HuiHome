@@ -3,12 +3,22 @@
 # @Author: Hui
 # @Desc: { 系统配置模块 }
 # @Date: 2022/04/05 23:00
+import os
 from .db_config import MYSQL_CONFIG
 from .db_config import REDIS_CONFIG
 from .third_party_config import QINIU_ACCESS_KEY
 from .third_party_config import QINIU_SECRET_KEY
 from .third_party_config import QINIU_BUCKET_NAME
 from .third_party_config import QINIU_DOMAIN
+from .third_party_config import ALIPAY_PUBLIC_KEY_PATH
+from .third_party_config import APP_PRIVATE_KEY_PATH
+from .third_party_config import ALIPAY_APPID
+from .third_party_config import ALIPAY_DEBUG
+from .third_party_config import ALIPAY_URL
+from .third_party_config import ALIPAY_RETURN_URL
+
+# 项目基准路径
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # 系统密钥
 SECRET = 'NmUzODk2ZGUtYmZjYy0xMWVjLWI5YTctZjQzMGI5YTUwMzQ2aHVp'

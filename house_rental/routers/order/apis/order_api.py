@@ -3,15 +3,18 @@
 # @Author: Hui
 # @Desc: { 订单API模块 }
 # @Date: 2022/04/29 10:25
-from fastapi import Path
+from fastapi import Path, Body
 from house_rental.logic.order_logic import order_logic
 from house_rental.commons.responses import success_response
 from house_rental.routers.order.request_models import OrderCreateIn
 
 
-async def create_order(request: OrderCreateIn):
+async def create_order(
+        user_id: int = Path(..., description='用户id'),
+        request: OrderCreateIn = Body(..., description='创建订单请求信息')
+):
     """ 创建租房订单 """
-    data = await order_logic.create_order_logic(request)
+    data = await order_logic.create_order_logic(user_id, request)
     return success_response(data)
 
 

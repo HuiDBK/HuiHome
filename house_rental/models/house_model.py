@@ -31,6 +31,7 @@ class HouseInfo(BaseModel):
     rent_state = fields.CharEnumField(RentState, default=RentState.not_rent.value, description='出租状态')
     state = fields.CharEnumField(HouseState, default=HouseState.auditing.value, description='房屋状态')
     rent_money = fields.IntField(description='租赁金额 (单位/分)')
+    bargain_money = fields.IntField(default=0, description='房屋预定金 (单位/分)')
     rent_time_unit = fields.CharEnumField(RentTimeUnitEnum, description='租赁时间单位，默认month（月结）')
     water_rent = fields.IntField(default=0, description='水费 (单位/分，元/100)')
     electricity_rent = fields.IntField(default=0, description='电费 (单位/分，元/100)')
@@ -49,7 +50,9 @@ class HouseInfo(BaseModel):
     def _init_from_db(cls: Type[MODEL], **kwargs: Any) -> MODEL:
         # 在模型从数据库初始化的时候就把金钱数据和一些浮点数都除100 再使用
         model_instance = super()._init_from_db(**kwargs)
-        transition_fields = ['rent_money', 'water_rent', 'electricity_rent', 'strata_fee', 'area']
+        transition_fields = [
+            'rent_money', 'bargain_money', 'water_rent', 'electricity_rent', 'strata_fee', 'area'
+        ]
         for field in transition_fields:
             value = getattr(model_instance, field) / 100
             setattr(model_instance, field, value)
@@ -68,7 +71,9 @@ class HouseInfo(BaseModel):
             self.index_img = urlparse(url=self.index_img).path[1:]
 
         # 把金钱数据和一些浮点数都乘以100 保存到数据库
-        transition_fields = ['rent_money', 'water_rent', 'electricity_rent', 'strata_fee', 'area']
+        transition_fields = [
+            'rent_money', 'bargain_money', 'water_rent', 'electricity_rent', 'strata_fee', 'area'
+        ]
         for field in transition_fields:
             value = getattr(self, field) * 100
             setattr(self, field, value)

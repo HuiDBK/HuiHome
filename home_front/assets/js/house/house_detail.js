@@ -3,8 +3,9 @@ const get_user_house_collects_url = api_domain + '/api/v1/house/user_collects/{u
 const cancel_user_house_collect_url = api_domain + '/api/v1/house/user_collects';
 const get_house_details_url = api_domain + '/api/v1/house/houses/{house_id}';
 const get_house_facilities_url = api_domain + '/api/v1/house/facilities';
-const create_order_url = api_domain + '/api/v1/order/orders';
 const get_user_orders_url = api_domain + '/api/v1/order/orders/{user_id}';
+const create_order_url = get_user_orders_url
+
 
 let vm = new Vue({
     el: "#app",
@@ -79,7 +80,7 @@ let vm = new Vue({
     methods: {
         go_pay() {
             // 去支付
-            window.location.href
+            window.location.href = 'order.html'
         },
         async get_user_orders() {
             let _get_user_orders_url = get_user_orders_url.format({'user_id': this.user_info.user_id})
@@ -147,11 +148,12 @@ let vm = new Vue({
             }
             console.log('order_data', order_data)
 
-            axios.post(create_order_url, order_data, {'headers': get_token_headers()})
+            let _create_order_url = create_order_url.format({'user_id': this.user_info.user_id})
+            axios.post(_create_order_url, order_data, {'headers': get_token_headers()})
                 .then(resp => {
                     if (resp.status === 200 && resp.data.code === 0) {
                         console.log('order_resp', resp.data.data)
-                        layer.msg('预定成功', {icon: 2, time: 1000})
+                        layer.msg('预定成功', {icon: 1, time: 1000})
                         // 跳转到用户订单列表界面
                         this.go_pay()
                     } else if (resp.data.code === 4015) {

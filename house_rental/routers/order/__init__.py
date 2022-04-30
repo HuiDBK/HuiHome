@@ -10,7 +10,7 @@ from .response_models import order_out
 router = APIRouter()
 
 router.add_api_route(
-    '/orders',
+    '/orders/{user_id}',
     order_api.create_order,
     methods=['post'],
     summary='创建租房订单'

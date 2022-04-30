@@ -8,22 +8,17 @@ from typing import List, Union
 from pydantic import BaseModel, Field
 from house_rental.commons.responses.response_model import ListResponseModel, ListResponseDataModel
 from house_rental.constants.enums import OrderState
+from house_rental.routers.house.response_models.house_out import HouseDetailDataItem
+from house_rental.routers.order.response_models.order_out import UserOrderListItem
 
 
-class OrderListItem(BaseModel):
+class OrderHouseInfoItem(HouseDetailDataItem):
+    """ 订单房源信息 """
+
+
+class OrderListItem(UserOrderListItem):
     """ 用户列表数据项模型 """
-    order_id: int = Field(description='订单id')
-    tenant_id: int = Field(description='租客id')
-    landlord_id: int = Field(description='房东id')
-    house_id: int = Field(description='房源id')
-    start_date: date = Field(description='开始日期')
-    end_date: date = Field(description='结束日期')
-    state: OrderState = Field(description='订单状态')
-    contract_content: Union[str, None] = Field(description='合同内容')
-    pay_money: str = Field(description='支付金额')
-    deposit_fee: str = Field(description='押金')
-    rental_days: int = Field(description='租赁天数')
-    create_ts: int = Field(description='创建时间')
+    house_info: OrderHouseInfoItem = Field(description='房源信息')
 
 
 class OrderListDataItem(ListResponseDataModel):

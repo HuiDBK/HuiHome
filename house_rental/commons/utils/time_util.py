@@ -45,10 +45,10 @@ def now_s_timestamp():
     return int(datetime.now().timestamp())
 
 
-def to_datetime_str(timestamp):
+def to_datetime_str(timestamp, date_format=DATETIME_FORMAT_NORMAL):
     """ 时间戳转成标准时间格式 """
     timestamp = int(timestamp)
-    return datetime.fromtimestamp(timestamp).strftime(DATETIME_FORMAT_NORMAL)
+    return datetime.fromtimestamp(timestamp).strftime(date_format)
 
 
 def get_now_time(format_str):
