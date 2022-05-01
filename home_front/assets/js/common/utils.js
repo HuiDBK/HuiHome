@@ -169,3 +169,13 @@ function getUrlQueryParams(url = location.search) {
     }
     return params;
 }
+
+function get_date_str(ts) {
+    // 根据时间戳获取时间str 参数时间戳单位是毫秒
+    let parse_date = new Date(ts)
+    let year = parse_date.getFullYear();
+    let month = parse_date.getMonth() + 1;
+    let date = parse_date.getDate();
+    // 年-月-日
+    return year + '-' + month + '-' + date;
+}

@@ -13,6 +13,7 @@ from house_rental.models import BaseModel
 class OrderModel(BaseModel):
     """ 订单模型 """
     id = fields.IntField(pk=True)
+    trade_no = fields.CharField(max_length=255, description='交易流水号')
     tenant_id = fields.IntField(description='租客id')
     landlord_id = fields.IntField(description='房东id')
     house_id = fields.IntField(description='房源id')
@@ -24,7 +25,7 @@ class OrderModel(BaseModel):
     rental_days = fields.IntField(description='租赁天数')
     start_date = fields.DateField(description='开始日期')
     end_date = fields.DateField(description='结束日期')
-    json_extend = fields.JSONField(description='扩展字段')
+    json_extend = fields.JSONField(default={}, null=True, description='扩展字段')
 
     def to_dict(self):
         # 新增一个order_id参数返回

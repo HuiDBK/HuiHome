@@ -30,11 +30,13 @@ async def create_order_logic(user_id, order_item: OrderCreateIn):
     if not house_detail:
         raise BusinessException().exc_data(ErrorCodeEnum.NODATA_ERR)
 
-    # 根据租客id和房源id判断订单是否存在且未支付，避免重复创建
+    # 同一租客id和同房源id的订单只有在当前订单处于结束状态才可以继续创建，避免重复创建
+    # 不允许的状态
+    not_allow_state = OrderState.get_member_values() - [OrderState.finished.value]
     filter_params = dict(
         tenant_id=user_id,
         house_id=house_detail.id,
-        state=OrderState.no_pay.value
+        state__in=not_allow_state
     )
     result = await OrderManager.filter_existed(filter_params)
     if result:

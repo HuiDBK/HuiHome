@@ -66,7 +66,9 @@ class OrderState(StrEnum):
     """订单状态"""
     no_pay = 'no_pay'  # 未支付
     payed = 'payed'  # 已支付
+    ordered = 'ordered'  # 已支付定金、已预订
     canceled = 'canceled'  # 已取消
+    finished = 'finished'  # 订单已结束（合同结束）
     deleted = 'deleted'  # 已删除
 
 
@@ -137,3 +139,10 @@ class RequestMethodEnum(StrEnum):
 class TemplateSceneEnum(StrEnum):
     """ 模板场景枚举 """
     electronic_contract = 'electronic_contract'  # 电子合同
+
+
+class PaymentFlagEnum(StrEnum):
+    """ 支付标记 """
+    full_payment = 'full_payment'  # 全额支付
+    deposit_payment = 'deposit_payment'  # 定金支付
+    balance_payment = 'balance_payment'  # 已预订成功支付余款

@@ -14254,6 +14254,27 @@ table.property-table-wrap .dashboard_propert_wrapper {
     align-items: center
 }
 
+.seal{
+	width: 115px;
+	height: 115px;
+	border: solid 5px #B4B4B4;
+	border-radius: 100%;
+	background-color: rgba(255, 255, 255, 0.8);
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.seal-son{
+	width: 110px;
+	height: 110px;
+	border: solid 2px #B4B4B4;
+	border-radius: 100%;
+	background-color: rgba(255, 255, 255, 0.8);
+	position: relative;
+}
+
+
 table.property-table-wrap td:first-child {
     padding-left: 0;
     line-height: 25px

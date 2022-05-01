@@ -4,18 +4,9 @@
 # @Desc: { 系统配置模块 }
 # @Date: 2022/04/05 23:00
 import os
-from .db_config import MYSQL_CONFIG
-from .db_config import REDIS_CONFIG
-from .third_party_config import QINIU_ACCESS_KEY
-from .third_party_config import QINIU_SECRET_KEY
-from .third_party_config import QINIU_BUCKET_NAME
-from .third_party_config import QINIU_DOMAIN
-from .third_party_config import ALIPAY_PUBLIC_KEY_PATH
-from .third_party_config import APP_PRIVATE_KEY_PATH
-from .third_party_config import ALIPAY_APPID
-from .third_party_config import ALIPAY_DEBUG
-from .third_party_config import ALIPAY_URL
-from .third_party_config import ALIPAY_RETURN_URL
+
+# 系统个签
+SYSTEM_SIGN = 'HuiHome'
 
 # 项目基准路径
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -41,3 +32,17 @@ API_URL_WHITE_LIST = [
     '/api/v1/user/register',
     '/api/v1/user/mobile',
 ]
+
+# 防止循环依赖
+from .db_config import MYSQL_CONFIG
+from .db_config import REDIS_CONFIG
+from .third_party_config import QINIU_ACCESS_KEY
+from .third_party_config import QINIU_SECRET_KEY
+from .third_party_config import QINIU_BUCKET_NAME
+from .third_party_config import QINIU_DOMAIN
+from .third_party_config import ALIPAY_PUBLIC_KEY_PATH
+from .third_party_config import APP_PRIVATE_KEY_PATH
+from .third_party_config import ALIPAY_APPID
+from .third_party_config import ALIPAY_DEBUG
+from .third_party_config import ALIPAY_URL
+from .third_party_config import ALIPAY_RETURN_URL

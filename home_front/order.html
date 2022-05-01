@@ -56,14 +56,25 @@
                     <div>
                         <div class="block">
                             <span>租赁日期: </span>
-                            <el-date-picker
-                                    v-model="rental_date_range"
-                                    type="daterange"
-                                    range-separator=" - "
-                                    start-placeholder="开始日期"
-                                    end-placeholder="结束日期"
-                                    format="yyyy 年 MM 月 dd 日"
-                                    value-format="yyyy-MM-dd"
+                            <el-date-picker v-if="order_detail_item.state === order_state_enum.no_pay"
+                                            v-model="rental_date_range"
+                                            type="daterange"
+                                            range-separator=" - "
+                                            start-placeholder="开始日期"
+                                            end-placeholder="结束日期"
+                                            format="yyyy 年 MM 月 dd 日"
+                                            value-format="yyyy-MM-dd"
+                            >
+                            </el-date-picker>
+                            <el-date-picker v-else
+                                            v-model="rental_date_range"
+                                            type="daterange"
+                                            range-separator=" - "
+                                            start-placeholder="开始日期"
+                                            end-placeholder="结束日期"
+                                            format="yyyy 年 MM 月 dd 日"
+                                            value-format="yyyy-MM-dd"
+                                            disabled
                             >
                             </el-date-picker>
                             <el-popover
@@ -93,18 +104,30 @@
                         <h6>房源租赁费用明细：</h6>
                         <div style="text-indent: 1rem;">
                             <p>
-                                <span class="order_text">租金支付类型: </span>
+                                <span class="order_text">租金支付类型: &nbsp;</span>
                                 <span class="order_text">押</span>
                                 <span class="price_style">{{ order_detail_item.house_info.deposit_ratio }}</span>
                                 <span class="order_text">付</span>
                                 <span class="price_style">{{ order_detail_item.house_info.pay_ratio }}</span>
                             </p>
                             <p>
-                                <span class="order_text">租金: </span>
+                                <span class="order_text">租金: &nbsp;</span>
                                 <span class="price_style">¥ {{ order_detail_item.house_info.rent_money }}</span>/月
-                                <span class="order_text" style="margin-left: 2rem">押金: </span>
+                                <span class="order_text" style="margin-left: 2rem">押金: &nbsp;</span>
                                 <span class="price_style">¥ {{ order_detail_item.deposit_fee }}</span>
-                                <span class="order_text" style="margin-left: 2rem">预定金: </span>
+                                <span class="order_text" style="margin-left: 2rem">管理费: &nbsp;</span>
+                                <span class="price_style">¥ {{ order_detail_item.house_info.strata_fee }}</span>
+                                <el-popover
+                                        placement="top-start"
+                                        title="管理费说明"
+                                        width="200"
+                                        trigger="hover" s
+                                        content="管理费包含街道管理费和清洁费用等">
+                                    <i slot="reference" class="el-icon-question"></i>
+                                </el-popover>
+                            </p>
+                            <p>
+                                <span class="order_text">预定金: &nbsp;</span>
                                 <span class="price_style"
                                       style="color: #f33066">¥ {{ order_detail_item.bargain_money }}</span>
                                 <el-popover
@@ -115,9 +138,7 @@
                                         content="支付了房源预定金，别人就不可以再租赁这个房源，如果如期未补充全额，房源还是会上架租赁，并且扣除房源预定金">
                                     <i slot="reference" class="el-icon-question"></i>
                                 </el-popover>
-                            </p>
-                            <p>
-                                <span class="order_text">租赁费用总计: </span>
+                                <span class="order_text" style="margin-left: 2rem">租赁费用总计: </span>
                                 <span class="price_style"
                                       style="color: #f33066">¥ {{ order_detail_item.pay_money }}</span>
                             </p>
@@ -128,8 +149,15 @@
             </div>
 
             <span slot="footer" class="dialog-footer">
-                <el-button type="danger" @click="order_detail_show = false">支付定金</el-button>
-                <el-button type="primary" @click="pay_order()">支付全额</el-button>
+                <span v-if="order_detail_item.state === order_state_enum.no_pay">
+                    <el-button type="danger" @click="deposit_pay_order(order_detail_item.order_id)">支付定金</el-button>
+                    <el-button type="primary" @click="full_pay_order(order_detail_item.order_id)">支付全额</el-button>
+                </span>
+
+                <span v-else-if="order_detail_item.state === order_state_enum.ordered">
+                    <el-button type="primary" @click="pay_order_balance(order_detail_item.order_id)">支付余款</el-button>
+                </span>
+
             </span>
         </el-dialog>
 
@@ -283,21 +311,17 @@
                                 <div style="margin-bottom: 10px;">
 
                                     <form class="form-inline" action="/admin/order">
-                                        <div class="form-group" style="margin-right: 5px;">
-                                            <select class="form-control" name="status">
-                                                <option selected value="">请选择状态</option>
-                                                <option value="-2">待签合同</option>
-                                                <option value="-1">待付款</option>
-                                                <option value="0">合同已生效</option>
-                                                <option value="1">已退租</option>
-                                                <option value="-3">订单已取消</option>
-                                                <option value="2">已申请退租</option>
-                                                <option value="3">申请退租驳回</option>
-                                            </select>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary" style="height: 50px;"><i
-                                                class="fa fa-search"></i> 搜索
-                                        </button>
+                                        <el-select v-model="order_search_state" filterable placeholder="请选择订单的状态">
+                                            <el-option
+                                                    v-for="item in order_state_list"
+                                                    :key="item.key"
+                                                    :label="item.label"
+                                                    :value="item.key">
+                                            </el-option>
+                                        </el-select>
+                                        &nbsp;<el-button @click="search_order_by_state()" type="primary"
+                                                         icon="el-icon-search">搜索
+                                    </el-button>
                                     </form>
 
                                 </div>
@@ -325,19 +349,9 @@
                                                 到期时间：{{ item.end_date }}
                                             </span>
                                                 <span class="table-property-price">
-                                                押金：¥ {{ item.deposit_fee }}<br/>
+                                                预定金：¥ {{ item.bargain_money }}<br/>
                                                 总金额：¥ {{ item.pay_money }}
                                             </span>
-                                                <span v-if="item.state === order_state_enum.no_pay"
-                                                      class="text-danger">待支付</span>
-                                                <span v-else-if="item.state === order_state_enum.payed"
-                                                      class="text-danger">已支付</span>
-                                                <span v-else-if="item.state === order_state_enum.ordered"
-                                                      class="text-danger">已预订</span>
-                                                <span v-else-if="item.state === order_state_enum.finished"
-                                                      class="text-danger">已完成</span>
-                                                <span v-else-if="item.state === order_state_enum.cancel"
-                                                      class="text-danger">已取消</span>
                                             </div>
 
                                         </td>
@@ -347,14 +361,45 @@
                                         <td>
                                             {{ item.landlord_info.real_name }}<br/>{{ item.landlord_info.mobile }}
                                         </td>
-                                        <td>
+                                        <td style="position: relative;">
                                             <button class="btn btn-dark" @click="show_contract(item.contract_content)">
                                                 查看合同
                                             </button>
-                                            <button class="btn btn-danger" style="margin-top: 0.5rem">支付定金</button>
+                                            <button v-if="item.state === order_state_enum.no_pay" class="btn btn-danger"
+                                                    @click="show_order_detail(index)"
+                                                    style="margin-top: 0.5rem">支付定金
+                                            </button>
+                                            <button v-else-if="item.state === order_state_enum.ordered"
+                                                    class="btn btn-danger" @click="show_order_detail(index)"
+                                                    style="margin-top: 0.5rem">支付余款
+                                            </button>
                                             <button class="btn btn-info" @click="show_order_detail(index)"
                                                     style="margin-top: 0.5rem">查看详情
                                             </button>
+                                            <div class="seal" style="position: absolute;right: -15px;top: 8px;">
+                                                <div class="seal-son">
+                                                    <span style="position: absolute;top: 32px;text-align: center;font-size: 18px;transform: rotate(-45deg);right: 40px;color: #B4B4B4;font-weight: 900;">
+                                                        <span v-if="item.state === order_state_enum.payed">
+                                                            已支付
+                                                        </span>
+                                                        <span v-else-if="item.state === order_state_enum.ordered">
+                                                            已预订
+                                                        </span>
+                                                        <span v-else-if="item.state === order_state_enum.no_pay">
+                                                            未支付
+                                                        </span>
+                                                        <span v-else-if="item.state === order_state_enum.finished">
+                                                            已完成
+                                                        </span>
+                                                        <span v-else-if="item.state === order_state_enum.canceled">
+                                                            已取消
+                                                        </span>
+                                                    </span>
+                                                    <span style="position: absolute;top: 66px;text-align: center;font-size: 10px;transform: rotate(-45deg);left: 40px;color: #B4B4B4;">
+                                                        {{ item.update_ts }}
+                                                    </span>
+                                                </div>
+                                            </div>
 
                                         </td>
                                     </tr>
@@ -394,73 +439,6 @@
             </div>
         </section>
         <!-- ============================ User Dashboard End ================================== -->
-
-        <!-- ============================ Order Pay Start ================================== -->
-        <section class="gray-simple">
-
-            <div class="container">
-
-                <!-- row Start -->
-                <div class="row">
-
-                    <div class="col-lg-12 col-md-12">
-                        <div>
-
-                            <div style="text-align: center">
-                                <div class="order">
-                                    整租-桃苑公寓-3室1厅
-                                </div>
-                                <div class="amount" id="money">
-                                    ￥ 5567
-                                </div>
-                                <div class="qrcode-img-wrapper" data-role="qrPayImgWrapper">
-                                    <div data-role="qrPayImg" class="qrcode-img-area">
-                                        <div class="ui-loading qrcode-loading" data-role="qrPayImgLoading"></div>
-                                        <div style="position: relative;display: inline-block;">
-                                            <img width="300" height="450"
-                                                 src="assets/css/img/alipay_qrcode.png"
-                                                 title="请尽快支付~"
-                                                 style="display: block;margin-top: 20px;">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div style="padding-top: 10px">
-                                    <div>
-                                        <h3>支付完成后，将跳转订单列表页面</h3>
-                                    </div>
-                                </div>
-
-                                <div class="tip">
-                                    <div class="ico-scan-ali"></div>
-                                    <div class="tip-text">
-                                        <p id="showtext">打开支付宝 [扫一扫]</p>
-                                    </div>
-                                    <div class="tip-text">
-                                        <button onclick="submitPay(15)" class="btn btn-small btn-success"
-                                                style="color:#ffffff;" title="支付成功">模拟支付成功
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <div class="tip-text">
-                                </div>
-
-                            </div>
-
-
-                        </div>
-
-                    </div>
-
-
-                </div>
-                <!-- /row -->
-
-            </div>
-
-        </section>
-        <!-- ============================ Order end Start ================================== -->
-
         <!-- ============================ Footer Start ================================== -->
         <footer class="dark-footer skin-dark-footer style-2" style="padding-top: 0;">
 

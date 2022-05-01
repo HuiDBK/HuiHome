@@ -1,5 +1,6 @@
 // 订单模块
 const get_user_orders_url = api_domain + '/api/v1/order/orders/{user_id}';
+const alipay_order_url = api_domain + '/api/v1/payment/alipay/orders/{order_id}';
 
 let vm = new Vue({
     el: "#app",
@@ -14,6 +15,8 @@ let vm = new Vue({
         user_show: true,
 
         user_orders: [],
+
+        // 订单状态枚举信息
         order_state_enum: {
             no_pay: 'no_pay',   // 未支付
             ordered: 'ordered', // 已预订
@@ -21,6 +24,15 @@ let vm = new Vue({
             finished: 'finished', // 已完成
             canceled: 'canceled', // 已取消
         },
+        order_state_list: [
+            {key: 'all', label: '全部'},
+            {key: 'no_pay', label: '未支付'},
+            {key: 'ordered', label: '已预订'},
+            {key: 'payed', label: '已支付'},
+            {key: 'finished', label: '已完成'},
+            {key: 'canceled', label: '已取消'}],
+
+        order_search_state: '',
 
         // 分页数据
         user_order_list: [],
@@ -43,17 +55,68 @@ let vm = new Vue({
         this.get_user_orders()
     },
     methods: {
-        pay_order(order_id) {
-            // 支付订单
-            alert(this.rental_date_range)
-            console.log('rental_date_range', this.rental_date_range)
-            this.order_detail_show = false
+        search_order_by_state() {
+            // 通过订单的状态来搜索
+            if (!this.order_search_state) {
+                return
+            }
+            if (this.order_search_state === 'all'){
+                this.get_order_list(1, this.user_order_list)
+                return
+            }
+            let order_list = this.user_order_list.filter(item => {
+                return item.state === this.order_search_state
+            })
+            this.get_order_list(1, order_list)
         },
-        pre_pay_order(order_id) {
-            // 支付房源定金
-            alert(this.rental_date_range)
+        pay_order(order_id, pay_flag) {
+            console.log('rental_date_range', this.rental_date_range)
+            let [start_date, end_date] = this.rental_date_range
+            if (!start_date || !end_date) {
+                return lay.msg('请选择正确的租赁日期范围', {icon: 1, time: 2000})
+            }
 
+            let json_body = {
+                pay_flag: pay_flag
+            }
+            // 先判断租赁日期是否有改变
+            if (start_date !== this.order_detail_item.start_date || end_date !== this.order_detail_item.end_date) {
+                // 有一个发送变化就要传递
+                json_body.start_date = start_date
+                json_body.end_date = end_date
+            }
+            console.log('order_pay_item', json_body)
+
+            let _alipay_order_url = alipay_order_url.format({'order_id': order_id})
+            axios.post(_alipay_order_url, json_body, {'headers': get_token_headers()})
+                .then(resp => {
+                    if (resp.status === 200 && resp.data.code === 0) {
+                        // 请求成功, 重定向到阿里支付界面
+                        let alipay_url = resp.data.data.alipay_url
+                        window.location.href = alipay_url
+                    } else {
+                        layer.msg(resp.data.message, {icon: 2, time: 2000})
+                    }
+                })
+                .catch(error => {
+                    console.log(error)
+                    layer.msg('请求失败', {icon: 2, time: 2000})
+                })
+        },
+        full_pay_order(order_id) {
+            // 全额支付订单
             this.order_detail_show = false
+            this.pay_order(order_id, 'full_payment')
+        },
+        pay_order_balance(order_id) {
+            // 已预订支付余款
+            this.order_detail_show = false
+            this.pay_order(order_id, 'balance_payment')
+        },
+        deposit_pay_order(order_id) {
+            // 支付房源定金
+            this.order_detail_show = false
+            this.pay_order(order_id, 'deposit_payment')
         },
         show_order_detail(order_index) {
             // 查看订单详情
@@ -106,6 +169,10 @@ let vm = new Vue({
                 .then(resp => {
                     if (resp.status === 200 && resp.data.code === 0) {
                         this.user_orders = resp.data.data.user_orders
+                        // 格式化时间
+                        this.user_orders.forEach(item => {
+                            item.update_ts = get_date_str(item.update_ts * 1000)
+                        })
                         this.user_order_list = this.user_orders
                         this.order_total = this.user_orders.length
                         this.get_order_list(1, this.user_order_list)
@@ -116,9 +183,12 @@ let vm = new Vue({
                 })
         },
         get_order_list(page_num, order_list) {
+            let temp_orders = [...order_list]   // 复制数组避免splice删除已有的数据
             let offset = (page_num - 1) * this.limit
-            this.user_orders = (offset + this.limit >= order_list.length) ? order_list.splice(offset, order_list.length) : order_list.splice(offset, this.limit)
+            console.log(this.user_order_list)
+            this.user_orders = (offset + this.limit >= temp_orders.length) ? temp_orders.splice(offset, temp_orders.length) : temp_orders.splice(offset, this.limit)
             this.current_page_num = page_num
+            console.log(this.user_order_list)
         },
         handleSizeChange(page_size) {
             console.log(`每页 ${page_size} 条`);

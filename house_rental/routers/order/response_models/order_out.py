@@ -24,6 +24,7 @@ class HouseInfoItem(BaseModel):
     address: str = Field(description='房源地址')
     index_img: str = Field(description='房源图片')
     rent_money: str = Field(description='房源租金')
+    strata_fee: str = Field(description='房源管理费')
     deposit_ratio: str = Field(description='房源租金扣押比率')
     pay_ratio: str = Field(description='房源租金支付比率')
 
@@ -46,6 +47,7 @@ class UserOrderListItem(BaseModel):
     landlord_info: UserInfoItem = Field(description='房东信息')
     house_info: HouseInfoItem = Field(description='房源信息')
     create_ts: int = Field(description='创建时间')
+    update_ts: int = Field(description='更新时间')
 
 
 class UserOrderDataItem(BaseModel):

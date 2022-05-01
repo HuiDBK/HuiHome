@@ -27,4 +27,4 @@ ALIPAY_DEBUG = True
 
 # 阿里支付页面地址
 ALIPAY_URL = 'https://openapi.alipaydev.com/gateway.do'
-ALIPAY_RETURN_URL = 'http://127.0.0.1:8080/payment/callback/'
+ALIPAY_RETURN_URL = 'http://127.0.0.1:8080/api/v1/payment/alipay/callback/'

@@ -20,7 +20,7 @@ class HouseInfoManager(BaseManager):
         return await cls.get_with_params(filter_params)
 
     @classmethod
-    async def get_recent_house(cls, rent_type: RentType, city: str, limit: int = 6):
+    async def get_recent_house(cls, rent_type: RentType, city: str = None, limit: int = 6):
         """
         根据租赁类型和所在城市获取最近已上架未出租的房源信息
         默认返回六条
@@ -28,10 +28,13 @@ class HouseInfoManager(BaseManager):
 
         filter_params = dict(
             rent_type=rent_type,
-            city=city,
+            city__icontains=city,
             state=HouseState.up.value,
             rent_state=RentState.not_rent.value
         )
+        if not city:
+            filter_params.pop('city', None)
+
         return await cls.model.filter(**filter_params).order_by('publish_time').limit(limit)
 
 

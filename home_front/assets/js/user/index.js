@@ -84,9 +84,11 @@ let vm = new Vue({
         user_house_collects: [],
         user_collect_house_ids: [],
     },
+    created() {
+        this.get_location_info()
+    },
     mounted() {
-        this.city_name = returnCitySN.cname
-        this.get_home_houses()
+        // this.get_home_houses()
         let token = localStorage.getItem('token')
         if (token != null) {
             this.user_info = parser_jwt(token)
@@ -106,6 +108,14 @@ let vm = new Vue({
         this.get_user_house_collect()
     },
     methods: {
+        get_location_info() {
+            let cur_city = new BMapGL.LocalCity();
+            cur_city.get(data => {
+                console.log(data)
+                this.city_name = data.name
+                this.get_home_houses()
+            });
+        },
         check_username() {
             if (this.registerForm.username.length < 3 || this.registerForm.username.length > 20) {
                 // 用户名长度必须在 3-20 之间

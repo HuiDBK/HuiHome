@@ -18,8 +18,8 @@
     <script src="assets/js/common/vue-2.5.16.js"></script>
     <script src="assets/js/common/axios.min.js"></script>
 
-    <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
-
+    <!--    <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>-->
+    <script src="http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js"></script>
 </head>
 
 <body class="yellow-skin">
@@ -249,7 +249,8 @@
                                         </div>
                                     </div>
                                     <div class="property-real-price">
-                                        <a :href="'house_detail.html?house_id=' + item.house_id + '&rent_type=' + item.rent_type" class="cl-blue el_scale">
+                                        <a :href="'house_detail.html?house_id=' + item.house_id + '&rent_type=' + item.rent_type"
+                                           class="cl-blue el_scale">
                                             ¥ {{ item.rent_money }}<span class="price_status">/月</span>
                                         </a>
                                     </div>
@@ -643,6 +644,8 @@
 <script src="assets/js/daterangepicker.js"></script>
 <script src="assets/js/custom.js"></script>
 <!--<script src="assets/js/script.js"></script>-->
+<script type="text/javascript"
+        src="https://api.map.baidu.com/api?type=webgl&v=1.0&ak=RQse9zZ7yxBYrSsYzPmn5p8sWb9VgGC5"></script>
 <script src="assets/js/common/md5.min.js"></script>
 <script src="assets/js/common/constants.js"></script>
 <script src="assets/js/common/utils.js"></script>
