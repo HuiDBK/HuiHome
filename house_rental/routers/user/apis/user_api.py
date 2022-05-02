@@ -3,7 +3,7 @@
 # @Author: Hui
 # @Desc: { 用户管理API模块 }
 # @Date: 2022/02/27 21:48
-from fastapi import Path, Form, Body, UploadFile, File
+from fastapi import Path, Body, BackgroundTasks
 from house_rental.logic.user_logic import user_logic
 from house_rental.commons.responses import success_response
 from house_rental.routers.user.request_models import (
@@ -41,11 +41,12 @@ async def username_verify(
 
 
 async def send_sms_code(
+        bg_tasks: BackgroundTasks,
         mobile: str = Path(..., min_length=11, max_length=11, description='手机号')
 ):
     """ 发送短信验证码 """
-    data = await user_logic.send_sms_code_logic(mobile)
-    return success_response(data)
+    bg_tasks.add_task(user_logic.send_sms_code_logic, mobile)   # 使用后台任务发送短信验证码
+    return success_response()
 
 
 async def user_profile(

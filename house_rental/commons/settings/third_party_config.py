@@ -6,6 +6,13 @@
 import os
 from house_rental.commons import settings
 
+# 容联云短信验证码配置
+RL_ACCID = '8a216da87ba59937017c1804686a1bf4'
+RL_ACCTOKEN = '311e282f76914d1ab9f66dd314659efc'
+RL_APPID = '8a216da87ba59937017c1804694f1bfa'
+RL_TEST_MOBILE = '13033221752'
+RL_SMS_TEMPLATE_ID = '1'  # 短信模板
+
 # 七牛云服务配置
 QINIU_ACCESS_KEY = 'mp7QT_CmSbh1ACJ3sZjyAnAihkC3-HtSlZO8EXz5'
 QINIU_SECRET_KEY = 'zfeCWwOz2aKfrM-j1eE4j5s-Wy5ax_fqrpImMCsI'
@@ -27,4 +34,4 @@ ALIPAY_DEBUG = True
 
 # 阿里支付页面地址
 ALIPAY_URL = 'https://openapi.alipaydev.com/gateway.do'
-ALIPAY_RETURN_URL = 'http://127.0.0.1:8080/api/v1/payment/alipay/callback/'
+ALIPAY_RETURN_URL = f'{settings.SYSTEM_DOMAIN}/api/v1/payment/alipay/callback/'

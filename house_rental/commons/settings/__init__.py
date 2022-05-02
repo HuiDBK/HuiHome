@@ -8,6 +8,15 @@ import os
 # 系统个签
 SYSTEM_SIGN = 'HuiHome'
 
+# 后端系统域名
+SYSTEM_DOMAIN = 'http://127.0.0.1:8080'
+
+# 前端域名
+FRONT_DOMAIN = 'http://localhost:63342'
+
+# 前端订单界面
+FRONT_ORDER_URL = f'{FRONT_DOMAIN}/house_rental/home_front/order.html'
+
 # 项目基准路径
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -18,13 +27,6 @@ JWT_SECRET = 'NmUzODk2ZGUtYmZjYy0xMWVjLWI5YTctZjQzMGI5YTUwMzQ2aHVp'
 JWT_EXPIRY_HOURS = 2
 JWT_REFRESH_EXPIRY_DAYS = 14
 
-# 容联云短信验证码配置
-accId = '8a216da87ba59937017c1804686a1bf4'
-accToken = '311e282f76914d1ab9f66dd314659efc'
-appId = '8a216da87ba59937017c1804694f1bfa'
-test_mobile = '13033221752'
-sms_template_id = '1'  # 短信模板
-
 # 不需要登录验证的接口
 API_URL_WHITE_LIST = [
     '/api/v1/user/login',
@@ -33,16 +35,15 @@ API_URL_WHITE_LIST = [
     '/api/v1/user/mobile',
 ]
 
-# 防止循环依赖
+# 放到模块下面防止循环依赖
+# 数据库配置
 from .db_config import MYSQL_CONFIG
 from .db_config import REDIS_CONFIG
-from .third_party_config import QINIU_ACCESS_KEY
-from .third_party_config import QINIU_SECRET_KEY
-from .third_party_config import QINIU_BUCKET_NAME
-from .third_party_config import QINIU_DOMAIN
-from .third_party_config import ALIPAY_PUBLIC_KEY_PATH
-from .third_party_config import APP_PRIVATE_KEY_PATH
-from .third_party_config import ALIPAY_APPID
-from .third_party_config import ALIPAY_DEBUG
-from .third_party_config import ALIPAY_URL
-from .third_party_config import ALIPAY_RETURN_URL
+
+# 第三方服务配置
+from .third_party_config import (
+    QINIU_ACCESS_KEY, QINIU_SECRET_KEY, QINIU_BUCKET_NAME, QINIU_DOMAIN,
+    ALIPAY_PUBLIC_KEY_PATH, APP_PRIVATE_KEY_PATH, ALIPAY_APPID,
+    ALIPAY_DEBUG, ALIPAY_URL, ALIPAY_RETURN_URL,
+    RL_ACCID, RL_APPID, RL_ACCTOKEN, RL_SMS_TEMPLATE_ID, RL_TEST_MOBILE
+)

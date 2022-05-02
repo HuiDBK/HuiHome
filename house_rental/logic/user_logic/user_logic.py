@@ -4,7 +4,7 @@
 # @Desc: { 用户登录注册相关逻辑模块 }
 # @Date: 2022/04/04 20:53
 import re
-from fastapi import Path, File, UploadFile, Form
+from fastapi import BackgroundTasks
 from datetime import datetime, timedelta
 from house_rental.models.user_model import UserBasicModel
 from house_rental.routers.user.request_models.user_in import UserRealNameAuthIn
@@ -15,9 +15,8 @@ from house_rental.routers.user.request_models import (
     UserRegisterIn, UserLoginIn, UserProfileUpdateIn, UserPwdChangeIn
 )
 from house_rental.constants import constants
-from house_rental.constants.enums import UserAuthStatus
 from house_rental.managers.user_manager import UserBasicManager, UserProfileManager
-from house_rental.commons.libs import sms, qiniu_tools
+from house_rental.commons.libs import sms
 from house_rental.commons import settings
 from house_rental.commons.utils import jwt_util, add_param_if_true
 from house_rental.commons.utils import RedisUtil, RedisKey
@@ -107,18 +106,20 @@ async def user_register_logic(user_item: UserRegisterIn):
 
 async def send_sms_code_logic(mobile: str):
     """ 发送短信验证码 """
-    sms_code = sms.generate_sms_code()
+
     sms_code_cache_info = RedisKey.mobile_sms_code(mobile)
+    result = await RedisUtil().get_with_cache_info(sms_code_cache_info)
+    if result:
+        # 5分钟中内重复发送短信验证码不处理
+        return
+
+    sms_code = sms.generate_sms_code()
     await RedisUtil().set_with_cache_info(sms_code_cache_info, sms_code)
     sms_timeout = sms_code_cache_info.timeout // 60
     sms_tips = (sms_code, sms_timeout)
 
     # 由于短信服务申请比较严格，只能使用测试号码进行测试
-    sms_resp_result = await sms.send_sms_code_message(sms_tips)
-    if not sms_resp_result:
-        # 发送短信验证码失败
-        raise BusinessException(ErrorCodeEnum.THROTTLING_ERR.code, ErrorCodeEnum.THROTTLING_ERR.msg)
-    return {'sms_result': sms_resp_result}
+    await sms.send_sms_code_message(sms_tips)
 
 
 async def user_login_logic(account_item: UserLoginIn):
@@ -174,7 +175,7 @@ async def update_user_profile_logic(user_id: int, user_profile_item: UserProfile
 
 
 async def user_name_auth_logic(
-       auth_item: UserRealNameAuthIn
+        auth_item: UserRealNameAuthIn
 ):
     """ 用户实名认证逻辑 """
     user_profile = await UserProfileManager.get_by_id(auth_item.user_id)

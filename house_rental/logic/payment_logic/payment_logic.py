@@ -85,7 +85,7 @@ async def alipay_order_callback_logic():
     await order.save(update_fields=['state', 'trade_no'])
 
     # 重定向到前端订单界面
-    return RedirectResponse(url='http://localhost:63342/house_rental/home_front/order.html')
+    return RedirectResponse(url=settings.FRONT_ORDER_URL)
 
 
 async def alipay_order_logic(order_id, order_item: OrderPaymentIn):
@@ -98,7 +98,7 @@ async def alipay_order_logic(order_id, order_item: OrderPaymentIn):
     if order_item.pay_scene == PaymentSceneEnum.balance_payment.value \
             and order.state == OrderState.ordered.value:
         # 已预订支付余款，由于支付宝同一个订单号不能支付多次
-        # 先把创建新的订单然后把旧的订单删掉, 这样订单号就不同了但数据一样
+        # 先创建新的订单然后把旧的订单删掉, 这样订单号就不同了但数据一样
         async with in_transaction():
             order_dict = order.to_dict()
             order_dict.pop('id', None)

@@ -24,8 +24,8 @@ def generate_sms_code():
 
 async def send_sms_code_message(
         sms_tips: tuple,
-        sms_template_id: str = settings.sms_template_id,
-        receive_mobile: str = settings.test_mobile
+        sms_template_id: str = settings.RL_SMS_TEMPLATE_ID,
+        receive_mobile: str = settings.RL_TEST_MOBILE
 ):
     """
     发送短信验证码
@@ -34,7 +34,7 @@ async def send_sms_code_message(
     :param receive_mobile: 接受的手机号
     :return:
     """
-    sdk = SmsSDK(settings.accId, settings.accToken, settings.appId)
+    sdk = SmsSDK(settings.RL_ACCID, settings.RL_ACCTOKEN, settings.RL_APPID)
     sms_resp_json_str = sdk.sendMessage(sms_template_id, receive_mobile, sms_tips)
     sms_resp_dict = json.loads(sms_resp_json_str)
     print(sms_resp_dict)
