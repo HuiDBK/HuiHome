@@ -60,6 +60,7 @@ class RentState(StrEnum):
     """出租状态"""
     rent = 'rent'  # 已出租
     not_rent = 'not_rent'  # 未出租
+    ordered = 'ordered'  # 已预订
 
 
 class OrderState(StrEnum):
@@ -141,8 +142,8 @@ class TemplateSceneEnum(StrEnum):
     electronic_contract = 'electronic_contract'  # 电子合同
 
 
-class PaymentFlagEnum(StrEnum):
-    """ 支付标记 """
+class PaymentSceneEnum(StrEnum):
+    """ 支付场景 """
     full_payment = 'full_payment'  # 全额支付
     deposit_payment = 'deposit_payment'  # 定金支付
     balance_payment = 'balance_payment'  # 已预订成功支付余款

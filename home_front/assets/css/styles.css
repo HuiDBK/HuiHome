@@ -14274,6 +14274,23 @@ table.property-table-wrap .dashboard_propert_wrapper {
 	position: relative;
 }
 
+.seal-lg-text{
+    position: absolute;
+    top: 32px;
+    text-align: center;
+    font-size: 18px;
+    transform: rotate(-45deg);
+    right: 40px;
+    color: #B4B4B4;font-weight: 900;
+}
+.seal-sm-text{
+    position: absolute;
+    top: 66px;
+    text-align: center;
+    font-size: 10px;
+    transform: rotate(-45deg);
+    left: 40px;color: #B4B4B4;
+}
 
 table.property-table-wrap td:first-child {
     padding-left: 0;

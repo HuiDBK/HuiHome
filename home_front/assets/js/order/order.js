@@ -60,7 +60,7 @@ let vm = new Vue({
             if (!this.order_search_state) {
                 return
             }
-            if (this.order_search_state === 'all'){
+            if (this.order_search_state === 'all') {
                 this.get_order_list(1, this.user_order_list)
                 return
             }
@@ -69,7 +69,7 @@ let vm = new Vue({
             })
             this.get_order_list(1, order_list)
         },
-        pay_order(order_id, pay_flag) {
+        pay_order(order_id, pay_scene) {
             console.log('rental_date_range', this.rental_date_range)
             let [start_date, end_date] = this.rental_date_range
             if (!start_date || !end_date) {
@@ -77,7 +77,7 @@ let vm = new Vue({
             }
 
             let json_body = {
-                pay_flag: pay_flag
+                pay_scene: pay_scene
             }
             // 先判断租赁日期是否有改变
             if (start_date !== this.order_detail_item.start_date || end_date !== this.order_detail_item.end_date) {
@@ -146,9 +146,12 @@ let vm = new Vue({
             // 让用户中心
             $('#user_center').show()
         },
-        show_contract(contract_content) {
+        show_contract(order_index) {
             // 展示订单的合同信息
-
+            let order_item = this.user_orders[order_index]
+            console.log('order_item', order_item)
+            this.order_detail_item = order_item
+            let contract_content = this.order_detail_item.contract_content
             if (!contract_content) {
                 layer.msg('暂无相关合同信息，抱歉')
                 return

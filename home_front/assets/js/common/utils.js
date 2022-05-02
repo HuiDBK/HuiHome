@@ -124,8 +124,11 @@ function verify_user_token() {
         console.log(user_info.exp)
         if (user_info.exp < now_timestamp) {
             // token已过期
-            layer.alert('登录状态已失效，请重新登录')
-            window.location.href = '/house_rental/home_front/index.html'
+            layer.msg('登录状态已失效，请重新登录', {icon: 0, time: 2000})
+            setTimeout((e) => {
+                window.location.href = '/house_rental/home_front/index.html'
+            }, 2000)
+
         }
     } else {
         window.location.href = '/house_rental/home_front/index.html'

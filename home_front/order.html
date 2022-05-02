@@ -54,6 +54,30 @@
                 </div>
                 <div style="display: inline;">
                     <div>
+                        <div class="seal" style="position: absolute;right: -12px;top: 45px;">
+                            <div class="seal-son">
+                                    <span class="seal-lg-text">
+                                        <span v-if="order_detail_item.state === order_state_enum.payed">
+                                            已支付
+                                        </span>
+                                        <span v-else-if="order_detail_item.state === order_state_enum.ordered">
+                                            已预订
+                                        </span>
+                                        <span v-else-if="order_detail_item.state === order_state_enum.no_pay">
+                                            未支付
+                                        </span>
+                                        <span v-else-if="order_detail_item.state === order_state_enum.finished">
+                                            已完成
+                                        </span>
+                                        <span v-else-if="order_detail_item.state === order_state_enum.canceled">
+                                            已取消
+                                        </span>
+                                    </span>
+                                <span class="seal-sm-text">
+                                        {{ order_detail_item.update_ts }}
+                                    </span>
+                            </div>
+                        </div>
                         <div class="block">
                             <span>租赁日期: </span>
                             <el-date-picker v-if="order_detail_item.state === order_state_enum.no_pay"
@@ -243,7 +267,25 @@
                                 <button class="btn btn-dark" @click="print_contract()">打印合同</button>
                                 <button class="btn btn-info" @click="order_list_back()">返回订单</button>
                             </div>
-
+                            <div class="seal"
+                                 style="position: absolute;right: -12px;top: 30px;">
+                                <div class="seal-son">
+                                    <span class="seal-lg-text">
+                                        <span v-if="order_detail_item.state === order_state_enum.payed">
+                                            已生效
+                                        </span>
+                                        <span v-else-if="order_detail_item.state === order_state_enum.no_pay">
+                                            未生效
+                                        </span>
+                                        <span v-else-if="order_detail_item.state === order_state_enum.finished">
+                                            已结束
+                                        </span>
+                                    </span>
+                                    <span class="seal-sm-text">
+                                        {{ order_detail_item.update_ts }}
+                                    </span>
+                                </div>
+                            </div>
                             <div id="contract_content" style="padding: 10px;">
                             </div>
                             <!--                            <div style="text-align: center;margin-top: 50px;">-->
@@ -329,12 +371,11 @@
 
                                     <tbody>
                                     <tr>
-                                        <th><i class="fa fa-file-text"></i> 订单列表</th>
+                                        <th><i class="fa fa-file-text"></i> 订单信息</th>
                                         <th>租客</th>
                                         <th>房东</th>
                                         <th>操作</th>
                                     </tr>
-
                                     <tr v-for="(item, index) in user_orders" :key="index">
                                         <td class="dashboard_propert_wrapper">
                                             <a :href="'house_detail.html?house_id=' + item.house_info.house_id">
@@ -362,7 +403,7 @@
                                             {{ item.landlord_info.real_name }}<br/>{{ item.landlord_info.mobile }}
                                         </td>
                                         <td style="position: relative;">
-                                            <button class="btn btn-dark" @click="show_contract(item.contract_content)">
+                                            <button class="btn btn-dark" @click="show_contract(index)">
                                                 查看合同
                                             </button>
                                             <button v-if="item.state === order_state_enum.no_pay" class="btn btn-danger"
@@ -378,7 +419,7 @@
                                             </button>
                                             <div class="seal" style="position: absolute;right: -15px;top: 8px;">
                                                 <div class="seal-son">
-                                                    <span style="position: absolute;top: 32px;text-align: center;font-size: 18px;transform: rotate(-45deg);right: 40px;color: #B4B4B4;font-weight: 900;">
+                                                    <span class="seal-lg-text">
                                                         <span v-if="item.state === order_state_enum.payed">
                                                             已支付
                                                         </span>
@@ -395,7 +436,7 @@
                                                             已取消
                                                         </span>
                                                     </span>
-                                                    <span style="position: absolute;top: 66px;text-align: center;font-size: 10px;transform: rotate(-45deg);left: 40px;color: #B4B4B4;">
+                                                    <span class="seal-sm-text">
                                                         {{ item.update_ts }}
                                                     </span>
                                                 </div>
@@ -405,12 +446,15 @@
                                     </tr>
                                     </tbody>
                                 </table>
+                                <div v-if="user_orders.length === 0">
+                                    <el-empty description="暂无订单"></el-empty>
+                                </div>
 
                             </div>
 
                             <!-- Pagination 分页 -->
                             <template>
-                                <div class="block">
+                                <div style="margin-top: 1rem" class="block">
                                     <el-pagination
                                             background
                                             @size-change="handleSizeChange"

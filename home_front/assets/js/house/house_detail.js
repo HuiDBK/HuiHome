@@ -153,16 +153,20 @@ let vm = new Vue({
                 .then(resp => {
                     if (resp.status === 200 && resp.data.code === 0) {
                         console.log('order_resp', resp.data.data)
-                        layer.msg('预定成功', {icon: 1, time: 1000})
+                        layer.msg('预定成功, 即将到跳转到订单界面', {icon: 1, time: 2000})
                         // 跳转到用户订单列表界面
-                        this.go_pay()
+                        setTimeout(() => {
+                            this.go_pay()
+                        }, 2000)
                     } else if (resp.data.code === 4015) {
                         // 订单已存在
                         layer.msg('订单已存在,请不要再次预定', {icon: 2, time: 2000})
+                    } else {
+                        layer.msg('预定失败', {icon: 2, time: 2000})
                     }
                 })
                 .catch(error => {
-
+                    layer.msg('预定失败', {icon: 2, time: 1000})
                 })
         },
         toggle_map_gallery() {

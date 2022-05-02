@@ -32,7 +32,7 @@ async def create_order_logic(user_id, order_item: OrderCreateIn):
 
     # 同一租客id和同房源id的订单只有在当前订单处于结束状态才可以继续创建，避免重复创建
     # 不允许的状态
-    not_allow_state = OrderState.get_member_values() - [OrderState.finished.value]
+    not_allow_state = set(OrderState.get_member_values()) - set(OrderState.finished.value)
     filter_params = dict(
         tenant_id=user_id,
         house_id=house_detail.id,

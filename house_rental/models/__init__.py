@@ -57,5 +57,5 @@ from .house_model import (
 from .house_mapping_model import HouseFacilityMapping
 
 from .order_model import OrderModel
-
+from .payment_trade_model import PaymentTradeModel
 from .template_model import TemplateModel

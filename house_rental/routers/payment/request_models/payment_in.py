@@ -6,11 +6,11 @@
 from pydantic import Field, BaseModel
 from typing import Optional
 
-from house_rental.constants.enums import PaymentFlagEnum
+from house_rental.constants.enums import PaymentSceneEnum
 
 
 class OrderPaymentIn(BaseModel):
     """ 订单支付入参 """
     start_date: Optional[str] = Field(description='开始入住日期')
     end_date: Optional[str] = Field(description='结束日期')
-    pay_flag: PaymentFlagEnum = Field(description='支付形式（全额、预定）')
+    pay_scene: PaymentSceneEnum = Field(description='支付场景（全额、预定）')
