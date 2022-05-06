@@ -45,7 +45,7 @@
                             </button>
 
 
-                            <div class="dropdown-menu pull-right animated flipInX" style="width: 120px;">
+                            <div v-if="user_info.role === 'tenant'" class="dropdown-menu pull-right animated flipInX" style="width: 120px;">
                                 <a href="profile.html">
                                     <i class="ti-user"></i>个人信息
                                 </a>
@@ -53,7 +53,7 @@
                                     <i class="ti-home"></i>我的家
                                 </a>
                                 <a href="order.html">
-                                    <i class="ti-home"></i>我的订单
+                                    <i class="ti-gift"></i>我的订单
                                 </a>
                                 <a href="user_collect.html">
                                     <i class="ti-bookmark"></i>我的收藏
@@ -65,6 +65,25 @@
                                     <i class="ti-power-off"></i>退出登录
                                 </a>
                             </div>
+
+                            <div v-else-if="user_info.role === 'landlord'" class="dropdown-menu pull-right animated flipInX" style="width: 120px;">
+                                <a href="profile.html">
+                                    <i class="ti-user"></i>个人信息
+                                </a>
+                                <a href="house.html">
+                                    <i class="ti-layers"></i>房子管理
+                                </a>
+                                <a href="order.html">
+                                    <i class="ti-gift"></i>订单管理
+                                </a>
+                                <a href="user_collect.html">
+                                    <i class="ti-bookmark"></i>我的收藏
+                                </a>
+                                <a href="#" onclick="user_logout()">
+                                    <i class="ti-power-off"></i>退出登录
+                                </a>
+                            </div>
+
                         </div>
                     </li>
                 </ul>

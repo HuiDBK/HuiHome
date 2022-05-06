@@ -8,6 +8,7 @@ let vm = new Vue({
         // 登录成功的用户信息
         user_info: {
             user_id: '',
+            role:'',
             username: '',
             refresh: '',
             exp: ''

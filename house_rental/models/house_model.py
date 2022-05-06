@@ -20,6 +20,7 @@ from house_rental.constants.enums import RentType, HouseType, RentState, HouseDi
 class HouseInfo(BaseOrmModel):
     """ 房屋信息表 """
     id = fields.IntField(pk=True)
+    house_owner = fields.IntField(description='房屋拥有者')
     rent_type = fields.CharEnumField(RentType, description='出租类型, 整租 合租')
     house_type = fields.CharEnumField(HouseType, description='房屋类型，小区房、公寓、自家房')
     title = fields.CharField(max_length=30, description='房屋标题')

@@ -75,6 +75,7 @@ async def generate_user_token(user: UserBasicModel, with_refresh_token=True):
     payload = dict(
         user_id=user.id,
         username=user.username,
+        role=user.role,
         refresh=False
     )
     now = datetime.utcnow()
