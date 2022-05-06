@@ -3,6 +3,7 @@
 # @Author: Hui
 # @Desc: { 房源逻辑模块 }
 # @Date: 2022/04/23 20:32
+import json
 from datetime import datetime
 from typing import Union
 
@@ -53,7 +54,7 @@ def format_house_query_params(query_params: Union[HouseListQueryItem, dict]) -> 
         query_params = query_params.dict()
 
     # 去除空值None
-    query_params = {k: v for k, v in query_params.items() if v is not None}
+    query_params = {k: v for k, v in query_params.items() if v}
 
     add_param_if_true(query_params, 'id', query_params.pop('house_id', None))
 
@@ -99,11 +100,11 @@ async def get_house_detail_logic(house_id: int):
     """ 获取房源详情逻辑 """
 
     # 先看redis缓存是否有
-    # house_detail_cache_info = RedisKey.house_detail(house_id)
-    # house_detail_json = await RedisUtil().get_with_cache_info(house_detail_cache_info)
-    # if house_detail_json:
-    #     house_detail_info = json.loads(house_detail_json)
-    #     return HouseDetailDataItem(**house_detail_info)
+    house_detail_cache_info = RedisKey.house_detail(house_id)
+    house_detail_json = await RedisUtil().get_with_cache_info(house_detail_cache_info)
+    if house_detail_json:
+        house_detail_info = json.loads(house_detail_json)
+        return HouseDetailDataItem(**house_detail_info)
 
     house_info = await HouseInfoManager.get_by_id(house_id)
     house_detail = await HouseDetailManager.get_by_id(house_id)

@@ -1,7 +1,7 @@
 // 工具类模块
 let refresh_token_url = api_domain + '/api/v1/auth/refresh'
-let upload_file_url = api_domain + '/api/v1/upload/'
-let batch_upload_file_url = api_domain + '/api/v1/upload/batch'
+let upload_file_url = api_domain + '/api/v1/common/upload/'
+let batch_upload_file_url = api_domain + '/api/v1/common/upload/batch'
 let user_house_collect_url = api_domain + '/api/v1/house/user_collects'
 let get_areas_info_url = api_domain + '/api/v1/common/areas'
 

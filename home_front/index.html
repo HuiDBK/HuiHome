@@ -15,9 +15,9 @@
     <link href="assets/css/colors.css" rel="stylesheet">
 
     <!--  Vue and axios -->
-<!--    <script src="assets/js/common/vue-2.5.16.js"></script>-->
+    <!--    <script src="assets/js/common/vue-2.5.16.js"></script>-->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
-     <!-- 引入element样式 -->
+    <!-- 引入element样式 -->
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <!-- 引入element组件库 -->
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
@@ -43,26 +43,26 @@
         <!-- Start Navigation -->
 
         <div class="header header-light dark-text">
-    <div class="container">
-        <nav id="navigation" class="navigation navigation-landscape">
-            <div class="nav-header">
-                <a class="nav-brand" href="index.html">
-                    <img src="assets/img/logo.png" class="logo" alt=""/>
-                </a>
-                <div class="nav-toggle"></div>
-            </div>
-            <div class="nav-menus-wrapper" style="transition-property: none;">
-                <ul class="nav-menu">
+            <div class="container">
+                <nav id="navigation" class="navigation navigation-landscape">
+                    <div class="nav-header">
+                        <a class="nav-brand" href="index.html">
+                            <img src="assets/img/logo.png" class="logo" alt=""/>
+                        </a>
+                        <div class="nav-toggle"></div>
+                    </div>
+                    <div class="nav-menus-wrapper" style="transition-property: none;">
+                        <ul class="nav-menu">
 
-                    <li><a href="index.html" style="font-size: 15px;">首页</a></li>
-                    <li><a href="house_list.html?rent_type=whole" style="font-size: 15px;">整租</a></li>
-                    <li><a href="house_list.html?rent_type=share" style="font-size: 15px;">合租</a></li>
-                    <li><a href="helpRent.html" style="font-size: 15px;">求租</a></li>
-                    <li><a href="news.html" style="font-size: 15px;">公告资讯</a></li>
+                            <li><a href="index.html" style="font-size: 15px;">首页</a></li>
+                            <li><a href="house_list.html?rent_type=whole" style="font-size: 15px;">整租</a></li>
+                            <li><a href="house_list.html?rent_type=share" style="font-size: 15px;">合租</a></li>
+                            <li><a href="helpRent.html" style="font-size: 15px;">求租</a></li>
+                            <li><a href="news.html" style="font-size: 15px;">公告资讯</a></li>
 
-                    </li>
-                </ul>
-                <ul class="nav-menu nav-menu-social align-to-right dhsbrd" v-show="login_register_btn_show">
+                            </li>
+                        </ul>
+                        <ul class="nav-menu nav-menu-social align-to-right dhsbrd" v-show="login_register_btn_show">
 
                             <li>
                                 <a href="#" data-toggle="modal" id="gotoLogin" data-target="#login" class="text-blue">
@@ -75,47 +75,47 @@
                                 </a>
                             </li>
                         </ul>
-                <ul class="nav-menu nav-menu-social align-to-right dhsbrd" v-show="user_show">
+                        <ul class="nav-menu nav-menu-social align-to-right dhsbrd" v-show="user_show">
 
-                    <li>
-                        <div class="btn-group account-drop">
-                            <button type="button" class="btn btn-order-by-filt"
-                                    data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">
-                                <img :src="'https://eu.ui-avatars.com/api/?background=random&length=1&rounded=true&bold=true&name='+user_info.username"
-                                     class="avater-img"
-                                     alt="">
-                                {{ user_info.username }}
-                            </button>
+                            <li>
+                                <div class="btn-group account-drop">
+                                    <button type="button" class="btn btn-order-by-filt"
+                                            data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                        <img :src="'https://eu.ui-avatars.com/api/?background=random&length=1&rounded=true&bold=true&name='+user_info.username"
+                                             class="avater-img"
+                                             alt="">
+                                        {{ user_info.username }}
+                                    </button>
 
 
-                            <div class="dropdown-menu pull-right animated flipInX" style="width: 120px;">
-                                <a href="profile.html">
-                                    <i class="ti-user"></i>个人信息
-                                </a>
-                                <a href="my_home.html">
-                                    <i class="ti-home"></i>我的家
-                                </a>
-                                <a href="order.html">
-                                    <i class="ti-home"></i>我的订单
-                                </a>
-                                <a href="user_collect.html">
-                                    <i class="ti-bookmark"></i>我的收藏
-                                </a>
-                                <a href="rental_demand_list.html">
-                                    <i class="ti-bookmark"></i>我的求租
-                                </a>
-                                <a href="#" onclick="user_logout()">
-                                    <i class="ti-power-off"></i>退出登录
-                                </a>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+                                    <div class="dropdown-menu pull-right animated flipInX" style="width: 120px;">
+                                        <a href="profile.html">
+                                            <i class="ti-user"></i>个人信息
+                                        </a>
+                                        <a href="my_home.html">
+                                            <i class="ti-home"></i>我的家
+                                        </a>
+                                        <a href="order.html">
+                                            <i class="ti-home"></i>我的订单
+                                        </a>
+                                        <a href="user_collect.html">
+                                            <i class="ti-bookmark"></i>我的收藏
+                                        </a>
+                                        <a href="rental_demand_list.html">
+                                            <i class="ti-bookmark"></i>我的求租
+                                        </a>
+                                        <a href="#" onclick="user_logout()">
+                                            <i class="ti-power-off"></i>退出登录
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
             </div>
-        </nav>
-    </div>
-</div>
+        </div>
         <!-- End Navigation -->
         <div class="clearfix"></div>
         <!-- ============================================================== -->
@@ -123,7 +123,7 @@
 
 
         <!-- ============================ Hero Banner Start================================== -->
-        <div class="image-cover hero_banner" style="background:#334aca url(assets/img/banner-3.jpg) no-repeat;"
+        <div class="image-cover hero_banner" style="background:#334aca url(assets/img/index.jpg) no-repeat;"
              data-overlay="1">
             <div class="container">
 
@@ -132,35 +132,36 @@
                 <!-- Type -->
                 <div class="full_search_box nexio_search lightanic_search hero_search-radius modern">
                     <div class="search_hero_wrapping">
-                        <form action="/house">
+                        <form onsubmit="return false">
 
                             <div class="row">
 
                                 <div class="col-lg-3 col-md-3 col-sm-12">
                                     <div class="form-group">
-                                        <label>小区名称</label>
+                                        <label>省份名称</label>
                                         <div class="input-with-icon">
-                                            <input type="text" name="address" class="form-control">
+                                            <el-select filterable placeholder="请选所属省份" id="province"
+                                                       v-model.number="area_index"
+                                                       :change="get_city_list()">
+                                                <el-option v-for="(province_item, index) in area_list"
+                                                           :key="index"
+                                                           :label="province_item.name" :value="index"
+                                                ></el-option>
+                                            </el-select>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="col-lg-2 col-md-2 col-sm-12">
+                                <div class="col-lg-3 col-md-3 col-sm-12">
                                     <div class="form-group">
                                         <label>城市名称</label>
                                         <div class="input-with-icon">
-                                            <select id="city" name="city" class="form-control">
-                                                <option value="">不限</option>
-                                                <option value="北京">北京</option>
-                                                <option value="上海">上海</option>
-                                                <option value="广州">广州</option>
-                                                <option value="深圳">深圳</option>
-                                                <option value="天津">天津</option>
-                                                <option value="武汉">武汉</option>
-                                                <option value="长沙">长沙</option>
-                                                <option value="杭州">杭州</option>
-                                                <option value="宁波">宁波</option>
-                                            </select>
+                                            <el-select filterable v-model="house_search_form.city"
+                                                       placeholder="请选择期望城市">
+                                                <el-option v-for="city_item in city_list"
+                                                           :label="city_item.name"
+                                                           :value="city_item.name"></el-option>
+                                            </el-select>
                                         </div>
                                     </div>
                                 </div>
@@ -170,7 +171,7 @@
                                     <div class="form-group">
                                         <label>租房类型</label>
                                         <div class="input-with-icon">
-                                            <select id="selectRentType" name="rentType" class="form-control">
+                                            <select id="selectRentType" v-model="house_search_form.rent_type" name="rent_type" class="form-control">
                                                 <option value="">不限</option>
                                                 <option value="whole">整租</option>
                                                 <option value="share">合租</option>
@@ -179,11 +180,11 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-3 col-md-3 col-sm-12">
+                                <div class="col-lg-2 col-md-3 col-sm-12">
                                     <div class="form-group">
                                         <label>月租金范围</label>
                                         <div class="input-with-icon">
-                                            <select id="price" class="form-control" name="priceRange">
+                                            <select id="rent_money_range" v-model="house_search_form.rent_money_range" name="rent_money_range" class="form-control" >
                                                 <option value="">不限</option>
                                                 <option value="0;999">1000以内</option>
                                                 <option value="1000;1999">1000-1999</option>
@@ -200,7 +201,7 @@
 
                                 <div class="col-lg-2 col-md-2 col-sm-12 small-padd">
                                     <div class="form-group none">
-                                        <button type="submit" class="btn search-btn">搜索</button>
+                                        <button @click="search_home_house()" class="btn search-btn">搜索</button>
                                     </div>
                                 </div>
 

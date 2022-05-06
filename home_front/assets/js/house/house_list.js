@@ -24,11 +24,13 @@ let vm = new Vue({
             area_range: null,
         },
         user_show: false,
-        city_list: ['北京', '上海', '广州', '深圳'],
-        district_list: ['福田区', '南山区', '宝安区', '光明区'],
+
+        area_list: [],
+        city_list: [],
+        district_list: [],
 
         // 房源列表数据
-        house_list: null,
+        house_list: [],
         house_total: 0,
         has_more: true,
         offset: 0,
@@ -48,10 +50,29 @@ let vm = new Vue({
         user_house_collects: [],
         user_collect_house_ids: []
     },
+    created() {
+        this.get_areas_info_of_house_list().then(resp => {
+            this.area_list = resp.area_list
+            this.area_list.forEach(item => {
+                this.city_list = this.city_list.concat(item.city_list)
+            })
+            console.log('area_list', this.area_list)
+            console.log('city_list', this.city_list)
+        })
+    },
     mounted() {
         this.user_info = verify_user_token(false)
-        let query_params = getUrlQueryParams()
-        this.house_query_params.rent_type = query_params.rent_type
+        let {rent_type, city, rent_money_range} = getUrlQueryParams()
+        if(rent_type && rent_type !== ''){
+            this.house_query_params.rent_type = rent_type
+        }
+        if(city && city !== ''){
+            city = decodeURIComponent(city)
+            this.house_query_params.city = city
+        }
+        if (rent_money_range && rent_money_range !== '') {
+            this.house_query_params.rent_money_range = rent_money_range.split(';')
+        }
         let now_timestamp = Date.parse(new Date()) / 1000
         if (this.user_info.exp > now_timestamp) {
             this.user_show = true
@@ -61,6 +82,9 @@ let vm = new Vue({
         this.get_user_house_collect()
     },
     methods: {
+        async get_areas_info_of_house_list() {
+            return await get_areas_info()
+        },
         set_price_area_range() {
             // Range Slider Script
             $(".js-range-slider-price").ionRangeSlider({
@@ -109,6 +133,18 @@ let vm = new Vue({
             console.log('house_query_params', this.house_query_params)
             this.get_house_list(1, this.house_query_params)
 
+        },
+        city_change(){
+            try {
+                this.city_list.forEach(item => {
+                    if(item.name === this.house_query_params.city){
+                        this.district_list = item.district_list
+                        throw new Error('exit for loop')
+                    }
+                })
+            }  catch (e){
+                console.log('exit for loop')
+            }
         },
         get_house_list(page_num, query_params = {}) {
             console.log(page_num)

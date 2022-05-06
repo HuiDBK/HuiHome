@@ -83,9 +83,21 @@ let vm = new Vue({
         // 房源收藏信息
         user_house_collects: [],
         user_collect_house_ids: [],
+
+        area_list: [],
+        area_index: '',
+        house_search_form: {
+            city: '',
+            rent_type: '',
+            rent_money_range: '',
+        },
     },
     created() {
         this.get_location_info()
+        this.get_areas_info_of_index().then(resp => {
+            this.area_list = resp.area_list
+            console.log('area_list', this.area_list)
+        })
     },
     mounted() {
         // this.get_home_houses()
@@ -108,11 +120,48 @@ let vm = new Vue({
         this.get_user_house_collect()
     },
     methods: {
+        search_home_house() {
+            console.log('house_search_form', this.house_search_form)
+            window.location.href = 'house_list.html?rent_type=' +
+                this.house_search_form.rent_type + '&city=' + this.house_search_form.city + '&rent_money_range=' +
+                this.house_search_form.rent_money_range
+        },
+        get_province() {
+            // 获取期望城市的省份
+            let province_index = ''
+            try {
+                this.area_list.forEach((item, index) => {
+                        item.city_list.forEach(city_item => {
+                            if (city_item.name === this.house_search_form.city) {
+                                province_index = index
+                                throw new Error('interrupt')
+                            }
+                        })
+                    }
+                )
+            } catch (e) {
+                console.log(e)
+            }
+            this.area_index = province_index
+        },
+        get_city_list() {
+            console.log('area_index', this.area_index)
+            if (this.area_index === '' || this.area_index === null) {
+                return
+            }
+            let area_item = this.area_list[this.area_index]
+            this.city_list = area_item.city_list
+        },
+        async get_areas_info_of_index() {
+            return await get_areas_info()
+        },
         get_location_info() {
             let cur_city = new BMapGL.LocalCity();
             cur_city.get(data => {
                 console.log(data)
                 this.city_name = data.name
+                this.house_search_form.city = this.city_name
+                this.get_province()
                 this.get_home_houses()
             });
         },

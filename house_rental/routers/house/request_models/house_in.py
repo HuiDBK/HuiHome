@@ -23,6 +23,7 @@ class HouseListQueryItem(BaseModel):
     title: Optional[str] = Field(description='房屋标题')
     address: Optional[str] = Field(description='房源地址')
     city: Optional[str] = Field(mdescription='所在城市')
+    district: Optional[str] = Field(mdescription='所在区县')
 
     rent_type: Optional[
         Union[

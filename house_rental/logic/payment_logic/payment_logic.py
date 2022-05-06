@@ -4,10 +4,11 @@
 # @Desc: { 支付逻辑模块 }
 # @Date: 2022/05/01 0:15
 from tortoise.transactions import in_transaction
+
 from house_rental.commons import settings
 from starlette.responses import RedirectResponse
 from house_rental.commons.libs.payment import create_alipay
-from house_rental.commons.utils import context_util
+from house_rental.commons.utils import context_util, RedisKey, RedisUtil
 from house_rental.commons.libs import payment
 from house_rental.constants.enums import PaymentSceneEnum, OrderState, RentState
 from house_rental.logic.common_logic import generate_contract_content
@@ -69,6 +70,10 @@ async def alipay_order_callback_logic():
         house_info.rent_state = RentState.ordered.value
 
     await house_info.save(update_fields=['rent_state'])
+
+    # 删除房源详情缓存
+    house_detail_cache_info = RedisKey.house_detail(house_info.id)
+    await RedisUtil().del_with_cache_info(house_detail_cache_info)
 
     # 将交易信息保存到交易流水表中
     payment_trade_info = dict(

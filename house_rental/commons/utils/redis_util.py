@@ -82,6 +82,19 @@ class RedisKey(object):
         return house_facilities_cache_info
 
     @classmethod
+    def areas(cls) -> RedisCacheInfo:
+        """
+        获取全部的省市区 Redis key
+        :return:
+        """
+        house_facilities_cache_info = RedisCacheInfo(
+            key=f'{constants.APP_NAME}:common:areas',
+            timeout=constants.COMMON_AREAS_TIMEOUT,
+            data_type=RedisDataType.STRING.value
+        )
+        return house_facilities_cache_info
+
+    @classmethod
     def home_houses(cls) -> RedisCacheInfo:
         """
         首页房源缓存 Redis key

@@ -3,10 +3,13 @@
 # @Author: Hui
 # @Desc: { 区域信息逻辑模块 }
 # @Date: 2022/05/04 22:57
+from house_rental.commons.utils import RedisKey
+from house_rental.commons.utils.decorators import cache_json
 from house_rental.managers.areas_manager import AreasManager
 from house_rental.routers.common.response_models.areas_out import AreasDataItem
 
 
+@cache_json(RedisKey.areas())
 async def get_areas_info_logic():
     """
     获取省市区数据
