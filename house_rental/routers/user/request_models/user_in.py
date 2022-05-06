@@ -4,12 +4,14 @@
 # @Desc: { 用户模块请求模型 }
 # @Date: 2022/03/27 20:23
 import re
-from typing import Union
+from typing import Union, Optional, List
 from house_rental import constants
 from pydantic import Field, BaseModel, validator
-from fastapi import File, UploadFile, Form
 
-from house_rental.constants.enums import UserRole, UserAuthStatus
+from house_rental.commons.request_models import ListPageRequestModel
+from house_rental.constants.enums import (
+    UserRole, UserAuthStatus, RentType, HouseType, HouseElevatorDemandEnum, HouseLightingEnum
+)
 
 
 class UserRegisterIn(BaseModel):
@@ -43,6 +45,26 @@ class UserPwdChangeIn(BaseModel):
     confirm_password: str = Field(..., min_length=6, description='确认密码')
 
 
+class UserRentalDemandPublishIn(BaseModel):
+    """ 用户租房需求发布入参 """
+    id: Optional[int] = Field(description='主键id')
+    demand_title: str = Field(..., max_length=255, description='租房需求标题')
+    city: str = Field(..., max_length=255, description='期望城市')
+    desired_residence_area: Optional[str] = Field(max_length=255, null=True, description='期望居住地区')
+    rent_type_list: Optional[List[RentType]] = Field(description='租赁类型')
+    house_type_list: Optional[List[HouseType]] = Field(description='房源类型')
+    house_facilities: Optional[List[int]] = Field(default=[], description='房源设施要求')
+    traffic_info_json: Optional[dict] = Field(default={}, description='交通要求')
+    min_money_budget: float = Field(description='最低金额预算')
+    max_money_budget: float = Field(description='最高金额预算')
+    lighting: Optional[HouseLightingEnum] = Field(description='采光要求')
+    floors: Optional[List[int]] = Field(description='房屋楼层要求')
+    elevator: Optional[HouseElevatorDemandEnum] = Field(description='电梯要求')
+    commuting_time: Optional[int] = Field(description='通勤时间')
+    company_address: Optional[str] = Field(max_length=255, description='公司地址')
+    extend_content: Optional[str] = Field(max_length=500, description='租房需求扩展内容')
+
+
 class UserProfileUpdateIn(BaseModel):
     """ 用户详情更新入参 """
     username: Union[str, None] = Field(description='用户名')
@@ -64,3 +86,12 @@ class UserRealNameAuthIn(BaseModel):
     id_card: str = Field(..., min_length=18, description='身份证号')
     id_card_front: str = Field(..., description='身份证正面')
     id_card_back: str = Field(..., description='身份证背面')
+
+
+class RentalDemandListQuery(BaseModel):
+    user_id: Optional[int] = Field(description='用户id')
+
+
+class UserRentalDemandListIn(ListPageRequestModel):
+    """ 用户租房列表入参 """
+    query_params: Optional[RentalDemandListQuery] = Field(default={}, description='房源列表查询参数')

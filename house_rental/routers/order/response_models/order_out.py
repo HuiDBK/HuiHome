@@ -7,7 +7,7 @@ from datetime import date, datetime
 from typing import List, Union
 from pydantic import BaseModel, Field
 from house_rental.commons.responses.response_model import ResponseBaseModel
-from house_rental.constants.enums import OrderState
+from house_rental.constants.enums import OrderState, RentType
 
 
 class UserInfoItem(BaseModel):
@@ -23,6 +23,7 @@ class HouseInfoItem(BaseModel):
     title: str = Field(description='房源标题')
     address: str = Field(description='房源地址')
     index_img: str = Field(description='房源图片')
+    rent_type: RentType = Field(description='房源图片')
     rent_money: str = Field(description='房源租金')
     strata_fee: str = Field(description='房源管理费')
     deposit_ratio: str = Field(description='房源租金扣押比率')

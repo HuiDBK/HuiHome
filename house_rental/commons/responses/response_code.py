@@ -29,6 +29,7 @@ class ErrorCodeEnum(BaseEnum):
     ORDER_EXIST_ERR = (4015, '订单已存在')
     ORDER_INFO_ERR = (4016, '订单信息错误')
     FORBIDDEN_ERR = (4017, '非法请求')
+    REALNAME_AUTH_ERR = (4018, '实名认证错误')
 
     DB_ERR = (5000, '数据库错误')
     EMAIL_ERR = (5001, '邮箱错误')

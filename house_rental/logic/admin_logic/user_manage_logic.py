@@ -8,7 +8,7 @@ from house_rental.commons import settings
 from house_rental.commons.utils import add_param_if_true
 from house_rental.logic.common_logic import get_list_page_response_data
 from house_rental.managers.user_manager import UserBasicManager, UserProfileManager
-from house_rental.routers.admin.request_models import UserListIn
+from house_rental.routers.admin.request_models import UserListInRequest
 from house_rental.routers.admin.request_models.user_manage_in import UserListQueryItem
 from house_rental.routers.admin.response_models import UserListItem
 
@@ -37,7 +37,7 @@ def format_user_info_query_params(query_params: Union[UserListQueryItem, dict]) 
     return query_params
 
 
-async def get_user_list_logic(page_item: UserListIn):
+async def get_user_list_logic(page_item: UserListInRequest):
     """ 获取用户列表信息逻辑 """
     query_params = format_user_info_query_params(page_item.query_params)
     total, user_profiles = await UserProfileManager.filter_page(

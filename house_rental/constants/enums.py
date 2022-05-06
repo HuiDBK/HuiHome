@@ -55,6 +55,9 @@ class RentType(StrEnum):
     whole = 'whole'  # 整租
     share = 'share'  # 合租
 
+    def __str__(self):
+        return self.value
+
 
 class RentState(StrEnum):
     """出租状态"""
@@ -96,6 +99,13 @@ class HouseElevatorEnum(IntEnum):
     yes = 1  # 有
 
 
+class HouseElevatorDemandEnum(IntEnum):
+    """ 房屋电梯情况 """
+    not_Required = 0  # 不需要
+    required = 1  # 需要
+    no_requirement = 2  # 无要求
+
+
 class HouseLightingEnum(IntEnum):
     """ 房屋采光情况 """
     bad = 0  # 差
@@ -110,6 +120,9 @@ class HouseType(StrEnum):
     department = 'department'  # 公寓
     community = 'community'  # 小区
     residential = 'residential'  # 普通住宅
+
+    def __str__(self):
+        return self.value
 
 
 class HouseState(StrEnum):
@@ -147,3 +160,21 @@ class PaymentSceneEnum(StrEnum):
     full_payment = 'full_payment'  # 全额支付
     deposit_payment = 'deposit_payment'  # 定金支付
     balance_payment = 'balance_payment'  # 已预订成功支付余款
+
+
+class RentalDemandState(StrEnum):
+    """ 租房需求状态 """
+    normal = 'normal'
+    deleted = 'deleted'
+
+
+class SystemNoticeSceneEnum(StrEnum):
+    """ 系统公告场景 """
+    notice = 'notice'  # 公告
+    advertising = 'advertising'  # 广告
+
+
+class SystemNoticeState(StrEnum):
+    """ 系统公告状态 """
+    normal = 'normal'  # 正常
+    deleted = 'deleted'  # 删除

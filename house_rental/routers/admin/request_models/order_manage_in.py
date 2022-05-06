@@ -7,7 +7,7 @@ from typing import Optional
 from datetime import date
 from pydantic import BaseModel, Field
 
-from house_rental.commons.request_models import ListPageModel
+from house_rental.commons.request_models import ListPageRequestModel
 from house_rental.constants.enums import OrderState
 
 
@@ -25,6 +25,6 @@ class OrderListQueryItem(BaseModel):
     rental_days: Optional[int] = Field(description='租赁天数')
 
 
-class GetOrderListIn(ListPageModel):
+class GetOrderListInRequest(ListPageRequestModel):
     """ 获取订单列表入参 """
     query_params: Optional[OrderListQueryItem] = Field(description='查询参数')

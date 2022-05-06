@@ -6,6 +6,7 @@
 import asyncio
 from datetime import date
 from house_rental.commons.utils import context_util, serialize_util
+from house_rental.commons.utils.decorators import real_auth_required
 from house_rental.constants.enums import OrderState
 from house_rental.logic.common_logic import generate_contract_content
 from house_rental.managers.house_manager import HouseDetailManager, HouseInfoManager
@@ -17,6 +18,7 @@ from house_rental.commons.responses.response_code import ErrorCodeEnum
 from house_rental.routers.order.response_models.order_out import UserOrderListItem, UserOrderDataItem
 
 
+@real_auth_required
 async def create_order_logic(user_id, order_item: OrderCreateIn):
     """ 创建租房预定订单逻辑 """
     # 判断入住和退租日期是否合理

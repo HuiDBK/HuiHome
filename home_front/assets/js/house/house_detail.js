@@ -11,7 +11,11 @@ let vm = new Vue({
     el: "#app",
     data: {
         house_id: '',
-        house_detail_info: '',
+        house_detail_info: {
+            house_contact_info: {
+                real_name: ''
+            }
+        },
         // 登录成功的用户信息
         user_info: {
             user_id: '',
@@ -205,6 +209,8 @@ let vm = new Vue({
                             })
                             if (house_order_list.length > 0) {
                                 this.house_order_item = house_order_list[0]
+                                let update_ts = get_date_str(this.house_order_item.update_ts * 1000)
+                                this.house_order_item.update_ts = update_ts
                                 this.start_date = this.house_order_item.start_date
                                 this.end_state = this.house_order_item.end_date
                             }

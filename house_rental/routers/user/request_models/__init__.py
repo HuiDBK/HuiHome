@@ -7,5 +7,6 @@ from .user_in import UserRegisterIn
 from .user_in import UserLoginIn
 from .user_in import UserProfileUpdateIn
 from .user_in import UserPwdChangeIn
+from .user_in import UserRentalDemandPublishIn
 
 

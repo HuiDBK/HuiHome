@@ -3,13 +3,14 @@
 # @Author: Hui
 # @Desc: { 用户管理API模块 }
 # @Date: 2022/02/27 21:48
-from fastapi import Path, Body, BackgroundTasks
+from fastapi import Path, Body, BackgroundTasks, Query
 from house_rental.logic.user_logic import user_logic
 from house_rental.commons.responses import success_response
 from house_rental.routers.user.request_models import (
     UserRegisterIn, UserLoginIn, UserProfileUpdateIn
 )
-from house_rental.routers.user.request_models.user_in import UserPwdChangeIn, UserRealNameAuthIn
+from house_rental.routers.user.request_models.user_in import UserPwdChangeIn, UserRealNameAuthIn, \
+    UserRentalDemandPublishIn, UserRentalDemandListIn
 
 
 async def user_register(request: UserRegisterIn):
@@ -45,7 +46,7 @@ async def send_sms_code(
         mobile: str = Path(..., min_length=11, max_length=11, description='手机号')
 ):
     """ 发送短信验证码 """
-    bg_tasks.add_task(user_logic.send_sms_code_logic, mobile)   # 使用后台任务发送短信验证码
+    bg_tasks.add_task(user_logic.send_sms_code_logic, mobile)  # 使用后台任务发送短信验证码
     return success_response()
 
 
@@ -79,6 +80,31 @@ async def user_password_change(
         request: UserPwdChangeIn = Body(..., description='用户修改密码入参')
 ):
     data = await user_logic.user_password_change_logic(user_id, request)
+    return success_response(data)
+
+
+async def publish_or_update_user_rental_demand(
+        user_id: int = Path(..., description='用户id'),
+        request: UserRentalDemandPublishIn = Body(..., description='租房需求发布入参')
+):
+    """ 用户发布租房需求 """
+    data = await user_logic.publish_or_update_user_rental_demand_logic(user_id, request)
+    return success_response(data)
+
+
+async def get_user_rental_demands(
+        request: UserRentalDemandListIn
+):
+    """ 获取用户的租房需求列表 """
+    data = await user_logic.get_user_rental_demands_logic(request)
+    return success_response(data)
+
+
+async def get_rental_demand_detail(
+        demand_id: int = Path(..., description='租房需求id')
+):
+    """ 获取租房需求列表 """
+    data = await user_logic.get_rental_demand_detail_logic(demand_id)
     return success_response(data)
 
 

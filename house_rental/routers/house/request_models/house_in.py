@@ -6,7 +6,7 @@
 from datetime import date
 from typing import Optional, List, Union
 from pydantic import BaseModel, Field
-from house_rental.commons.request_models import ListPageModel
+from house_rental.commons.request_models import ListPageRequestModel
 
 from house_rental.constants.enums import RentType, HouseType, RentState, HouseState, HouseDirectionEnum, \
     RentTimeUnitEnum, HouseElevatorEnum
@@ -31,9 +31,27 @@ class HouseListQueryItem(BaseModel):
         ]
     ] = Field(description='租赁类型')
 
-    house_type: Optional[Union[List[HouseType], str]] = Field(description='房屋类型')
-    state: Optional[Union[List[HouseState], str]] = Field(description='房源状态')
-    rent_state: Optional[Union[List[RentState], str]] = Field(description='房源出租状态')
+    house_type: Optional[
+        Union[
+            List[HouseType],
+            HouseType
+        ]
+    ] = Field(description='房屋类型')
+
+    state: Optional[
+        Union[
+            List[HouseState],
+            HouseState
+        ]
+    ] = Field(description='房源状态')
+
+    rent_state: Optional[
+        Union[
+            List[RentState],
+            RentState
+        ]
+    ] = Field(default=RentState.not_rent, description='房源出租状态')
+
     area: Optional[int] = Field(gt=0, description='面积')
     bedroom_num: Optional[int] = Field(gt=0, description='卧室数量')
     living_room_num: Optional[int] = Field(ge=0, description='客厅数量')
@@ -41,7 +59,7 @@ class HouseListQueryItem(BaseModel):
     toilet_num: Optional[int] = Field(ge=0, description='卫生间数量')
 
 
-class HouseListIn(ListPageModel):
+class HouseListInRequest(ListPageRequestModel):
     """ 房源列表入参 """
     query_params: Optional[HouseListQueryItem] = Field(default={}, description='房源列表查询参数')
 

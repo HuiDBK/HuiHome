@@ -49,13 +49,15 @@ let vm = new Vue({
         user_collect_house_ids: []
     },
     mounted() {
-        this.user_info = verify_user_token()
+        this.user_info = verify_user_token(false)
+        let query_params = getUrlQueryParams()
+        this.house_query_params.rent_type = query_params.rent_type
         let now_timestamp = Date.parse(new Date()) / 1000
         if (this.user_info.exp > now_timestamp) {
             this.user_show = true
         }
         this.set_price_area_range()
-        this.get_house_list(this.current_page_num)
+        this.get_house_list(this.current_page_num, this.house_query_params)
         this.get_user_house_collect()
     },
     methods: {
@@ -84,12 +86,12 @@ let vm = new Vue({
         handleSizeChange(page_size) {
             console.log(`每页 ${page_size} 条`);
             this.limit = page_size
-            this.get_house_list(this.current_page_num)
+            this.get_house_list(this.current_page_num, this.house_query_params)
         },
         handleCurrentChange(page_num) {
             console.log(`当前页: ${page_num}`);
             this.current_page_num = page_num
-            this.get_house_list(page_num)
+            this.get_house_list(page_num, this.house_query_params)
         },
         search_houses() {
             // 范围分号分割;
@@ -100,13 +102,11 @@ let vm = new Vue({
             let rent_type = $("#rent_type").val();
             if (rent_type === 'all') {
                 rent_type = null;
-            } else {
-                rent_type = [rent_type]
             }
             this.house_query_params.rent_type = rent_type
             this.house_query_params.rent_money_range = price_range_str.split(';');
             this.house_query_params.area_range = area_range_str.split(';');
-            console.log(this.house_query_params)
+            console.log('house_query_params', this.house_query_params)
             this.get_house_list(1, this.house_query_params)
 
         },

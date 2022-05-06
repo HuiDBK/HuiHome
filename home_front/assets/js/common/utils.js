@@ -3,6 +3,7 @@ let refresh_token_url = api_domain + '/api/v1/auth/refresh'
 let upload_file_url = api_domain + '/api/v1/upload/'
 let batch_upload_file_url = api_domain + '/api/v1/upload/batch'
 let user_house_collect_url = api_domain + '/api/v1/house/user_collects'
+let get_areas_info_url = api_domain + '/api/v1/common/areas'
 
 // 字符串格式化方法
 String.prototype.format = function (args) {
@@ -112,17 +113,17 @@ async function upload_file(file) {
     });
 }
 
-function verify_user_token() {
-    // 校验token
+function verify_user_token(is_redirect = true) {
+    // 校验token, is_redirect: 没有token和token是否重定向
     let token = localStorage.getItem('token')
-    let user_info
+    let user_info = {}
     if (token != null) {
         user_info = parser_jwt(token)
         // 判断token有没有过期
         let now_timestamp = Date.parse(new Date()) / 1000
         console.log(now_timestamp)
         console.log(user_info.exp)
-        if (user_info.exp < now_timestamp) {
+        if (user_info.exp < now_timestamp && is_redirect) {
             // token已过期
             layer.msg('登录状态已失效，请重新登录', {icon: 0, time: 2000})
             setTimeout((e) => {
@@ -130,7 +131,7 @@ function verify_user_token() {
             }, 2000)
 
         }
-    } else {
+    } else if (is_redirect) {
         window.location.href = '/house_rental/home_front/index.html'
     }
     return user_info
@@ -173,12 +174,38 @@ function getUrlQueryParams(url = location.search) {
     return params;
 }
 
-function get_date_str(ts) {
+function get_date_str(ts, need_time = false) {
     // 根据时间戳获取时间str 参数时间戳单位是毫秒
     let parse_date = new Date(ts)
     let year = parse_date.getFullYear();
     let month = parse_date.getMonth() + 1;
     let date = parse_date.getDate();
+    let hour = parse_date.getHours();
+    let min = parse_date.getMinutes();
+    let sec = parse_date.getSeconds();
+
     // 年-月-日
-    return year + '-' + month + '-' + date;
+    let date_str = year + '-' + month + '-' + date;
+    if(need_time){
+        date_str = date_str + " " + hour + ":" + min
+    }
+    return date_str
+}
+
+
+async function get_areas_info() {
+    // 获取省市区数据
+    return new Promise((resolve, reject) => {
+        axios.get(get_areas_info_url, {'headers': get_token_headers()})
+            .then(response => {
+                if (response.status === 200 && response.data.code === 0) {
+                    resolve(response.data.data);
+                    return response.data.data;
+                }
+            })
+            .catch(error => {
+                reject(error.data)
+                console.log(error)
+            })
+    });
 }

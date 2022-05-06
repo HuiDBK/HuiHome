@@ -9,7 +9,7 @@ from starlette.requests import Request
 from house_rental.commons.exceptions.global_exception import AuthorizationException
 from house_rental.logic.house_logic import house_logic
 from house_rental.commons.responses import success_response, ErrorCodeEnum
-from house_rental.routers.house.request_models import HouseListIn
+from house_rental.routers.house.request_models import HouseListInRequest
 from house_rental.routers.house.request_models.house_in import PublishHouseIn, HouseFacilityAddIn, HouseCollectIn
 
 
@@ -19,7 +19,7 @@ async def get_home_house_list(city: str = Query(..., description='房源所在�
     return success_response(data)
 
 
-async def get_house_list(request: HouseListIn):
+async def get_house_list(request: HouseListInRequest):
     """ 获取房源列表 """
     data = await house_logic.get_house_list_logic(request)
     return success_response(data)

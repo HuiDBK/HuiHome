@@ -15,7 +15,8 @@
     <link href="assets/css/colors.css" rel="stylesheet">
 
     <!--  Vue and axios -->
-    <script src="assets/js/common/vue-2.5.16.js"></script>
+    <!--    <script src="assets/js/common/vue-2.5.16.js"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
     <!-- 引入样式 -->
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <!-- 引入组件库 -->
@@ -43,62 +44,66 @@
         <!-- ============================================================== -->
         <!-- Start Navigation -->
         <div class="header header-light dark-text">
-            <div class="container">
-                <nav id="navigation" class="navigation navigation-landscape">
-                    <div class="nav-header">
-                        <a class="nav-brand" href="./index.html">
-                            <img src="./assets/img/logo.png" class="logo" alt=""/>
-                        </a>
-                        <div class="nav-toggle"></div>
-                    </div>
-                    <div class="nav-menus-wrapper" style="transition-property: none;">
-                        <ul class="nav-menu">
-
-                            <li><a href="./index.html" style="font-size: 15px;">首页</a></li>
-                            <li><a href="/house?rentType=whole" style="font-size: 15px;">整租</a></li>
-                            <li><a href="/house?rentType=share" style="font-size: 15px;">合租</a></li>
-                            <li><a href="/post" style="font-size: 15px;">求租</a></li>
-                            <li><a href="/news" style="font-size: 15px;">公告资讯</a></li>
-                            <li><a href="/message" style="font-size: 15px;">未读消息
-                                <span style="color: red;">(0)</span>
-                            </a>
-                            </li>
-                        </ul>
-                        <ul class="nav-menu nav-menu-social align-to-right dhsbrd" v-show="user_show">
-
-                            <li>
-                                <div class="btn-group account-drop">
-                                    <button type="button" class="btn btn-order-by-filt"
-                                            data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
-                                        <img src="https://eu.ui-avatars.com/api/?background=random&length=1&rounded=true&bold=true&name=张三"
-                                             class="avater-img"
-                                             alt="">
-                                        {{ user_info.username }}
-                                    </button>
-
-
-                                    <div class="dropdown-menu pull-right animated flipInX">
-                                        <a href="./profile.html">
-                                            <i class="ti-user"></i>个人信息
-                                        </a>
-                                        <a href="/admin/home">
-                                            <i class="ti-home"></i>我的家
-                                        </a>
-                                        <a href="user_collect.html">
-                                            <i class="ti-bookmark"></i>我的收藏
-                                        </a>
-                                        <a href="#" onclick="user_logout()">
-                                            <i class="ti-power-off"></i>退出登录
-                                        </a>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
+    <div class="container">
+        <nav id="navigation" class="navigation navigation-landscape">
+            <div class="nav-header">
+                <a class="nav-brand" href="index.html">
+                    <img src="assets/img/logo.png" class="logo" alt=""/>
+                </a>
+                <div class="nav-toggle"></div>
             </div>
-        </div>
+            <div class="nav-menus-wrapper" style="transition-property: none;">
+                <ul class="nav-menu">
+
+                    <li><a href="index.html" style="font-size: 15px;">首页</a></li>
+                    <li><a href="house_list.html?rent_type=whole" style="font-size: 15px;">整租</a></li>
+                    <li><a href="house_list.html?rent_type=share" style="font-size: 15px;">合租</a></li>
+                    <li><a href="helpRent.html" style="font-size: 15px;">求租</a></li>
+                    <li><a href="news.html" style="font-size: 15px;">公告资讯</a></li>
+
+                    </li>
+                </ul>
+                <ul class="nav-menu nav-menu-social align-to-right dhsbrd" v-show="user_show">
+
+                    <li>
+                        <div class="btn-group account-drop">
+                            <button type="button" class="btn btn-order-by-filt"
+                                    data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                <img :src="'https://eu.ui-avatars.com/api/?background=random&length=1&rounded=true&bold=true&name='+user_info.username"
+                                     class="avater-img"
+                                     alt="">
+                                {{ user_info.username }}
+                            </button>
+
+
+                            <div class="dropdown-menu pull-right animated flipInX" style="width: 120px;">
+                                <a href="profile.html">
+                                    <i class="ti-user"></i>个人信息
+                                </a>
+                                <a href="my_home.html">
+                                    <i class="ti-home"></i>我的家
+                                </a>
+                                <a href="order.html">
+                                    <i class="ti-home"></i>我的订单
+                                </a>
+                                <a href="user_collect.html">
+                                    <i class="ti-bookmark"></i>我的收藏
+                                </a>
+                                <a href="rental_demand_list.html">
+                                    <i class="ti-bookmark"></i>我的求租
+                                </a>
+                                <a href="#" onclick="user_logout()">
+                                    <i class="ti-power-off"></i>退出登录
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>
         <!-- End Navigation -->
         <div class="clearfix"></div>
         <!-- ============================================================== -->
@@ -203,8 +208,10 @@
                                         <li>
                                             <strong>状态:</strong>
                                             <span v-if="house_detail_info.rent_state == 'not_rent'" class="error_tip">待出租</span>
-                                            <span v-if="house_detail_info.rent_state == 'rent'"
+                                            <span v-else-if="house_detail_info.rent_state == 'rent'"
                                                   class="error_tip">已出租</span>
+                                            <span v-else-if="house_detail_info.rent_state == 'ordered'"
+                                                  class="error_tip">已预定</span>
                                         </li>
                                         <li><strong>租金:</strong>¥ {{ house_detail_info.rent_money }}/月</li>
                                         <li v-if="house_detail_info.certificate_no != null">
@@ -224,13 +231,12 @@
                                             <span v-if="house_detail_info.direction == 'north'">朝北</span>
                                         </li>
                                         <li><strong>楼层:</strong>{{ house_detail_info.floor }} / {{
-                                            house_detail_info.max_floor }}
+                                                house_detail_info.max_floor }}
                                         </li>
                                         <li>
                                             <strong>是否有电梯:</strong>
-                                            <span v-if="!!(house_detail_info.has_elevator)">无电梯</span>
-                                            <span v-else-if="house_detail_info.has_elevator == 1">有电梯</span>
-                                            <span v-else-if="house_detail_info.has_elevator == 0">无电梯</span>
+                                            <span v-if="house_detail_info.has_elevator === 1">有电梯</span>
+                                            <span v-else-if="house_detail_info.has_elevator === 0">无电梯</span>
                                             <span v-else>无电梯</span>
                                         </li>
                                         <li>
@@ -242,7 +248,7 @@
                                         </li>
                                         <li>
                                             <strong>联系人手机号:</strong>
-                                            <span v-if="house_detail_info.house_contact_info && house_detail_info.house_contact_info.mobile">
+                                            <span v-if="house_detail_info.house_contract_info && house_detail_info.house_contact_info.mobile">
                                                 {{ house_detail_info.house_contact_info.mobile }}
                                             </span>
                                             <span v-else>暂无</span>
@@ -491,9 +497,28 @@
                                             <i class="fas fa-heart"></i>待支付</a>
                                     </li>
                                     <li class="el_scale" v-else-if="house_order_item.state == order_state_enum.ordered">
-                                        <a href="javascript:void(0)" class="btn btn-likes">
-                                            <i class="fas fa-heart"></i>已预订</a>
+                                        <a href="javascript:void(0)" class="btn btn-likes" @click="go_pay()">
+                                            <i class="fas fa-heart"></i>支付余款</a>
                                     </li>
+                                    <div class="seal"
+                                         style="position: absolute;right: -26px;top: -55px;">
+                                        <div class="seal-son">
+                                    <span class="seal-lg-text">
+                                        <span v-if="house_detail_info.rent_state === 'rent'">
+                                            已出租
+                                        </span>
+                                        <span v-else-if="house_detail_info.rent_state === 'not_rent'">
+                                            待出租
+                                        </span>
+                                        <span v-else-if="house_detail_info.rent_state === 'ordered'">
+                                            已预定
+                                        </span>
+                                    </span>
+                                            <span class="seal-sm-text">
+                                        {{ house_order_item.update_ts }}
+                                    </span>
+                                        </div>
+                                    </div>
 
                                 </ul>
                             </div>
@@ -539,8 +564,7 @@
                                                            placeholder="退租日期" disabled class="form-control"/>
                                                 </div>
                                             </div>
-                                            <div v-else
-                                                 class="form-group">
+                                            <div v-else class="form-group">
                                                 <label>退租日期，请选择</label>
                                                 <div class="cld-box">
                                                     <i class="ti-calendar"></i>
@@ -557,7 +581,12 @@
 
                                                     <a v-if="house_order_item.state === order_state_enum.ordered"
                                                        href="javascript:void(0)"
-                                                       class="btn btn-md full-width btn-theme bg-2 disabled">已预定</a>
+                                                       @click="go_pay()"
+                                                       class="btn btn-md full-width btn-theme bg-2">支付余款</a>
+
+                                                    <button v-else-if="house_order_item.state === order_state_enum.payed"
+                                                       @click="go_pay()"
+                                                       class="btn btn-danger btn-md full-width">查看订单</button>
 
                                                     <a v-else-if="house_order_item.state === order_state_enum.no_pay"
                                                        href="javascript:void(0)" @click="go_pay()"
@@ -576,7 +605,7 @@
                             <!-- Agent Detail -->
                             <div class="agent-_blocks_wrap b-0">
                                 <div class="side-block-header">
-                                    <h3 class="title">联系房东</h3>
+                                    <h3 class="title">联系房东/管家</h3>
                                 </div>
                                 <div class="side-block-body">
                                     <form action="" id="contactForm">
@@ -584,37 +613,34 @@
                                             <input type="hidden" name="houseId" value="1">
                                             <div class="col-lg-12 col-md-12 col-sm-6">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control" name="name"
-                                                           placeholder="我的姓名"/>
+                                                    联系人：
+                                                    <input disabled type="text" class="form-control" name="name"
+                                                           v-model="house_detail_info.house_contact_info.real_name"/>
                                                 </div>
                                             </div>
                                             <div class="col-lg-12 col-md-12 col-sm-6">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control" name="email"
-                                                           placeholder="我的电子邮箱"/>
+                                                    手机号：
+                                                    <input disabled type="text" class="form-control" name="mobile"
+                                                           v-model="house_detail_info.house_contact_info.mobile"/>
                                                 </div>
                                             </div>
                                             <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control" name="phone"
-                                                           placeholder="我的手机号"/>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                                                <div class="form-group">
-                                            <textarea class="form-control" name="content"
-                                                      placeholder="想要发的信息内容"></textarea>
+                                                    电子邮箱：
+                                                    <input disabled type="text" class="form-control" name="email"
+                                                           v-model="house_detail_info.house_contact_info.email"/>
                                                 </div>
                                             </div>
 
-                                            <div class="col-lg-12 col-md-12 col-sm-12">
-                                                <div class="stbooking-footer mt-1">
-                                                    <div class="form-group mb-0 pb-0">
-                                                        <a href="javascript:void(0)" onclick="submitContact()"
-                                                           class="btn btn-md full-width btn-theme bg-2">发送邮件信息</a>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <!--                                            <div class="col-lg-12 col-md-12 col-sm-12">-->
+                                            <!--                                                <div class="stbooking-footer mt-1">-->
+                                            <!--                                                    <div class="form-group mb-0 pb-0">-->
+                                            <!--                                                        <a href="javascript:void(0)" onclick="submitContact()"-->
+                                            <!--                                                           class="btn btn-md full-width btn-theme bg-2">发送邮件信息</a>-->
+                                            <!--                                                    </div>-->
+                                            <!--                                                </div>-->
+                                            <!--                                            </div>-->
                                         </div>
                                     </form>
                                 </div>

@@ -11,13 +11,13 @@ from tortoise.models import MODEL
 from typing_extensions import Type
 
 from house_rental.commons import settings
-from house_rental.models import BaseModel
+from house_rental.models import BaseOrmModel
 from house_rental.constants import constants
 from house_rental.constants.enums import RentType, HouseType, RentState, HouseDirectionEnum, HouseState, \
     HouseLightingEnum, RentTimeUnitEnum, HouseElevatorEnum
 
 
-class HouseInfo(BaseModel):
+class HouseInfo(BaseOrmModel):
     """ 房屋信息表 """
     id = fields.IntField(pk=True)
     rent_type = fields.CharEnumField(RentType, description='出租类型, 整租 合租')
@@ -84,7 +84,7 @@ class HouseInfo(BaseModel):
         table = 'house_info'
 
 
-class HouseDetail(BaseModel):
+class HouseDetail(BaseOrmModel):
     """ 房屋详情表 """
     id = fields.IntField(pk=True)
     house_id = fields.IntField(description='房屋id')
@@ -117,7 +117,7 @@ class HouseDetail(BaseModel):
         return house_dict
 
 
-class FacilityInfo(BaseModel):
+class FacilityInfo(BaseOrmModel):
     """ 房屋设施表 """
     id = fields.IntField(pk=True)
     name = fields.CharField(max_length=30, description='房屋设施名称')

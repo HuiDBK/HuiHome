@@ -3,5 +3,5 @@
 # @Author: Hui
 # @Desc: { 用户模块请求模型初始化 }
 # @Date: 2022/04/04 18:11
-from .house_in import HouseListIn
+from .house_in import HouseListInRequest
 from .house_in import HouseLocationItem

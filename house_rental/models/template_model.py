@@ -6,11 +6,11 @@
 from tortoise import fields
 
 from house_rental.constants.enums import TemplateSceneEnum
-from house_rental.models import BaseModel
+from house_rental.models import BaseOrmModel
 from house_rental.constants import constants
 
 
-class TemplateModel(BaseModel):
+class TemplateModel(BaseOrmModel):
     """ 模板模型 """
     id = fields.IntField(pk=True, description='模板id')
     template_content = fields.TextField(description='模板内容')

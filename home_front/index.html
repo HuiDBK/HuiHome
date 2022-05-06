@@ -15,7 +15,12 @@
     <link href="assets/css/colors.css" rel="stylesheet">
 
     <!--  Vue and axios -->
-    <script src="assets/js/common/vue-2.5.16.js"></script>
+<!--    <script src="assets/js/common/vue-2.5.16.js"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+     <!-- 引入element样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入element组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
     <script src="assets/js/common/axios.min.js"></script>
 </head>
 
@@ -38,29 +43,26 @@
         <!-- Start Navigation -->
 
         <div class="header header-light dark-text">
-            <div class="container">
-                <nav id="navigation" class="navigation navigation-landscape">
-                    <div class="nav-header">
-                        <a class="nav-brand" href="./index.html">
-                            <img src="./assets/img/logo.png" class="logo" alt=""/>
-                        </a>
-                        <div class="nav-toggle"></div>
-                    </div>
-                    <div class="nav-menus-wrapper" style="transition-property: none;">
-                        <ul class="nav-menu">
+    <div class="container">
+        <nav id="navigation" class="navigation navigation-landscape">
+            <div class="nav-header">
+                <a class="nav-brand" href="index.html">
+                    <img src="assets/img/logo.png" class="logo" alt=""/>
+                </a>
+                <div class="nav-toggle"></div>
+            </div>
+            <div class="nav-menus-wrapper" style="transition-property: none;">
+                <ul class="nav-menu">
 
-                            <li><a href="./index.html" style="font-size: 15px;">首页</a></li>
-                            <li><a href="/house?rentType=whole" style="font-size: 15px;">整租</a></li>
-                            <li><a href="/house?rentType=share" style="font-size: 15px;">合租</a></li>
-                            <li><a href="/post" style="font-size: 15px;">求租</a></li>
-                            <li><a href="/news" style="font-size: 15px;">公告资讯</a></li>
-                            <li><a href="/message" style="font-size: 15px;">未读消息
-                                <span style="color: red;">(0)</span>
-                            </a>
-                            </li>
-                        </ul>
+                    <li><a href="index.html" style="font-size: 15px;">首页</a></li>
+                    <li><a href="house_list.html?rent_type=whole" style="font-size: 15px;">整租</a></li>
+                    <li><a href="house_list.html?rent_type=share" style="font-size: 15px;">合租</a></li>
+                    <li><a href="helpRent.html" style="font-size: 15px;">求租</a></li>
+                    <li><a href="news.html" style="font-size: 15px;">公告资讯</a></li>
 
-                        <ul class="nav-menu nav-menu-social align-to-right dhsbrd" v-show="login_register_btn_show">
+                    </li>
+                </ul>
+                <ul class="nav-menu nav-menu-social align-to-right dhsbrd" v-show="login_register_btn_show">
 
                             <li>
                                 <a href="#" data-toggle="modal" id="gotoLogin" data-target="#login" class="text-blue">
@@ -73,42 +75,47 @@
                                 </a>
                             </li>
                         </ul>
+                <ul class="nav-menu nav-menu-social align-to-right dhsbrd" v-show="user_show">
 
-                        <ul class="nav-menu nav-menu-social align-to-right dhsbrd" v-show="user_show">
-
-                            <li>
-                                <div class="btn-group account-drop">
-                                    <button type="button" class="btn btn-order-by-filt"
-                                            data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
-                                        <img src="https://eu.ui-avatars.com/api/?background=random&length=1&rounded=true&bold=true&name=张三"
-                                             class="avater-img"
-                                             alt="">
-                                        {{ user_info.username }}
-                                    </button>
+                    <li>
+                        <div class="btn-group account-drop">
+                            <button type="button" class="btn btn-order-by-filt"
+                                    data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                <img :src="'https://eu.ui-avatars.com/api/?background=random&length=1&rounded=true&bold=true&name='+user_info.username"
+                                     class="avater-img"
+                                     alt="">
+                                {{ user_info.username }}
+                            </button>
 
 
-                                    <div class="dropdown-menu pull-right animated flipInX">
-                                        <a href="./profile.html">
-                                            <i class="ti-user"></i>个人信息
-                                        </a>
-                                        <a href="/admin/home">
-                                            <i class="ti-home"></i>我的家
-                                        </a>
-                                        <a href="/admin/mark">
-                                            <i class="ti-bookmark"></i>我的收藏
-                                        </a>
-                                        <a href="#" onclick="user_logout()">
-                                            <i class="ti-power-off"></i>退出登录
-                                        </a>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
+                            <div class="dropdown-menu pull-right animated flipInX" style="width: 120px;">
+                                <a href="profile.html">
+                                    <i class="ti-user"></i>个人信息
+                                </a>
+                                <a href="my_home.html">
+                                    <i class="ti-home"></i>我的家
+                                </a>
+                                <a href="order.html">
+                                    <i class="ti-home"></i>我的订单
+                                </a>
+                                <a href="user_collect.html">
+                                    <i class="ti-bookmark"></i>我的收藏
+                                </a>
+                                <a href="rental_demand_list.html">
+                                    <i class="ti-bookmark"></i>我的求租
+                                </a>
+                                <a href="#" onclick="user_logout()">
+                                    <i class="ti-power-off"></i>退出登录
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
             </div>
-        </div>
+        </nav>
+    </div>
+</div>
         <!-- End Navigation -->
         <div class="clearfix"></div>
         <!-- ============================================================== -->
@@ -120,7 +127,7 @@
              data-overlay="1">
             <div class="container">
 
-                <h1 class="big-header-capt mb-0">安得广厦千万间，大批天下寒士俱欢颜！</h1>
+                <h1 class="big-header-capt mb-0">安得广厦千万间，大庇天下寒士俱欢颜！</h1>
                 <p class="text-center mb-5">搜索你所在的城市的小区或房屋类型吧！</p>
                 <!-- Type -->
                 <div class="full_search_box nexio_search lightanic_search hero_search-radius modern">
@@ -289,11 +296,14 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12" v-if="home_house_info.whole_house_list.length === 0">
+                        <el-empty description="暂无整租房源"></el-empty>
+                    </div>
                 </div>
 
-                <div class="row">
+                <div class="row" v-if="home_house_info.whole_house_list.length > 0">
                     <div class="col-lg-12 col-md-12 col-sm-12 text-center">
-                        <a href="/house?rentType=share" class="btn btn-theme arrow-btn bg-2">查看更多
+                        <a href="house_list.html?rent_type=whole" class="btn btn-theme arrow-btn bg-2">查看更多
                             <span><i class="ti-arrow-right"></i></span>
                         </a>
                     </div>
@@ -321,7 +331,7 @@
                 <div class="row">
                     <!-- Single Property -->
                     <div class="col-lg-4 col-md-6 col-sm-12" v-for="(item, index) in home_house_info.share_house_list">
-                        <div class="single_property_style property_style_2 modern">
+                        <div class="single_property_style property_style_2 modern el_scale">
 
                             <div class="listing_thumb_wrapper">
                                 <div class="property_gallery_slide-thumb">
@@ -373,11 +383,14 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12" v-if="home_house_info.share_house_list.length === 0">
+                        <el-empty description="暂无合租房源"></el-empty>
+                    </div>
                 </div>
 
-                <div class="row">
+                <div class="row" v-if="home_house_info.share_house_list.length > 0">
                     <div class="col-lg-12 col-md-12 col-sm-12 text-center">
-                        <a href="/house?rentType=share" class="btn btn-theme arrow-btn bg-2">查看更多
+                        <a href="house_list.html?rent_type=share" class="btn btn-theme arrow-btn bg-2">查看更多
                             <span><i class="ti-arrow-right"></i></span>
                         </a>
                     </div>

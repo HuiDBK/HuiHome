@@ -9,7 +9,7 @@ from fastapi import UploadFile
 from house_rental.commons import settings
 
 from house_rental.commons.libs import qiniu_tools
-from house_rental.routers.upload.response_models import UploadFileDataItem, BatchUploadDataItem
+from house_rental.routers.common.response_models import UploadFileDataItem, BatchUploadDataItem
 
 
 async def upload_file_logic(file: UploadFile) -> UploadFileDataItem:

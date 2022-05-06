@@ -7,7 +7,7 @@ from typing import Optional, List
 
 from pydantic import BaseModel, Field
 
-from house_rental.commons.request_models import ListPageModel
+from house_rental.commons.request_models import ListPageRequestModel
 from house_rental.constants.enums import UserAuthStatus, UserState
 
 
@@ -22,6 +22,6 @@ class UserListQueryItem(BaseModel):
     auth_status: Optional[List[UserAuthStatus]] = Field(description='用户实名认证状态')
 
 
-class UserListIn(ListPageModel):
+class UserListInRequest(ListPageRequestModel):
     """ 用户列表入参 """
     query_params: Optional[UserListQueryItem] = Field(default={}, description='查询参数')

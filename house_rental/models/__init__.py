@@ -9,7 +9,7 @@ from tortoise import fields, Tortoise
 from tortoise.models import Model
 
 
-class BaseModel(Model):
+class BaseOrmModel(Model):
     """ 数据库模型基类 """
     create_time = fields.DatetimeField(auto_now_add=True, description='创建时间')
     update_time = fields.DatetimeField(auto_now=True, description='更新时间')
@@ -46,7 +46,8 @@ class BaseModel(Model):
 # 循环依赖, 记得放在下面
 from .user_model import (
     UserBasicModel,
-    UserProfileModel
+    UserProfileModel,
+    UserRentalDemandModel
 )
 from .house_model import (
     HouseInfo,
@@ -59,3 +60,5 @@ from .house_mapping_model import HouseFacilityMapping
 from .order_model import OrderModel
 from .payment_trade_model import PaymentTradeModel
 from .template_model import TemplateModel
+from .areas_model import AreasModel
+from .system_notice_model import SystemNoticeModel

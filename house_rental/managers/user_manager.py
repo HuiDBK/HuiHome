@@ -3,7 +3,7 @@
 # @Author: Hui
 # @Desc: { 模块描述 }
 # @Date: 2022/04/05 23:25
-from house_rental.models.user_model import UserBasicModel, UserProfileModel
+from house_rental.models.user_model import UserBasicModel, UserProfileModel, UserRentalDemandModel
 from house_rental.managers import BaseManager
 from house_rental.constants.enums import UserState
 
@@ -26,7 +26,6 @@ class UserBasicManager(BaseManager):
 
 
 class UserProfileManager(BaseManager):
-
     model = UserProfileModel
 
     @classmethod
@@ -42,3 +41,6 @@ class UserProfileManager(BaseManager):
         return await cls.get_with_params(filter_params)
 
 
+class UserRentalDemandManager(BaseManager):
+    """ 租房需求模型管理器 """
+    model = UserRentalDemandModel

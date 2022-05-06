@@ -5,7 +5,7 @@
 # @Date: 2022/04/23 20:39
 from typing import Optional, List
 from pydantic import BaseModel, Field
-from house_rental.commons.request_models import ListPageModel
+from house_rental.commons.request_models import ListPageRequestModel
 
 from house_rental.constants.enums import RentType, HouseType, RentState, HouseState
 
@@ -29,6 +29,6 @@ class HouseListQueryItem(BaseModel):
     toilet_num: Optional[int] = Field(ge=0, description='卫生间数量')
 
 
-class HouseListIn(ListPageModel):
+class HouseListInRequest(ListPageRequestModel):
     """ 房源列表入参 """
     query_params: Optional[HouseListQueryItem] = Field(default={}, description='房源列表查询参数')

@@ -3,10 +3,10 @@
 # @Author: Hui
 # @Desc: { 用户模块响应模型 }
 # @Date: 2022/04/11 20:23
-from typing import Union
+from typing import Union, List
 from pydantic import Field, BaseModel
-from house_rental.constants.enums import UserRole
-from house_rental.commons.responses.response_model import ResponseBaseModel
+from house_rental.constants.enums import UserRole, HouseLightingEnum, HouseElevatorDemandEnum, RentalDemandState
+from house_rental.commons.responses.response_model import ResponseBaseModel, ListResponseDataModel, ListResponseModel
 
 
 class UserItem(BaseModel):
@@ -92,3 +92,45 @@ class UserRealNameAuthItem(BaseModel):
 class UserRealNameAuthOut(ResponseBaseModel):
     """ 用户实名认证出参 """
     data: UserRealNameAuthItem
+
+
+class RentalDemandListItem(BaseModel):
+    """ 租房需求列表项数据 """
+    id: int = Field(description='主键id')
+    user_id: int = Field(description='用户id')
+    demand_title: str = Field(description='租房需求标题')
+    city: str = Field(description='期望城市')
+    rent_type_list: Union[List[str]] = Field(default=[], description='租赁类型')
+    house_type_list: Union[List[str]] = Field(default=[], description='房源类型')
+    house_facilities: Union[List[int]] = Field(default=[], description='房源设施要求')
+    min_money_budget: float = Field(description='最低金额预算')
+    max_money_budget: float = Field(description='最高金额预算')
+    lighting: HouseLightingEnum = Field(default=None, null=True, description='采光')
+    floors: Union[List[int]] = Field(default=[], description='房屋楼层要求')
+    elevator: HouseElevatorDemandEnum = Field(default=None, null=True, description='电梯要求')
+    commuting_time: int = Field(null=True, description='通勤时间')
+    company_address: str = Field(description='公司地址')
+    desired_residence_area: str = Field(description='期望居住地区')
+    state: RentalDemandState = Field(default=RentalDemandState.normal, description='租房需求状态')
+    extend_content: str = Field(description='租房其他需求')
+    create_ts: float = Field(description='创建时间')
+
+
+class RentalDemandListDataItem(ListResponseDataModel):
+    """ 租房需求列表数据 """
+    data_list: List[RentalDemandListItem] = Field(description='租房需求列表数据')
+
+
+class RentalDemandListOut(ListResponseModel):
+    """ 租房需求列表出参 """
+    data: RentalDemandListDataItem
+
+
+class RentalDemandDetailDataItem(RentalDemandListItem):
+    """ 租房需求详情数据 """
+    user_info: UserItem = Field(description='用户信息')
+
+
+class RentalDemandDetailOut(ListResponseModel):
+    """ 租房需求详情出参 """
+    data: RentalDemandDetailDataItem

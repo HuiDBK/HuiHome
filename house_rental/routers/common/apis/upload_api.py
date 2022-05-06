@@ -6,7 +6,7 @@
 from typing import List
 
 from fastapi import File, UploadFile
-from house_rental.logic.upload_logic import upload_logic
+from house_rental.logic.common_logic import upload_logic
 from house_rental.commons.responses import success_response
 
 

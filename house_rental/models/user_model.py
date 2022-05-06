@@ -7,11 +7,12 @@ from tortoise import fields
 
 from house_rental.commons import settings
 from house_rental.constants import constants
-from house_rental.constants.enums import UserRole, UserState, UserAuthStatus
-from house_rental.models import BaseModel
+from house_rental.constants.enums import UserRole, UserState, UserAuthStatus, RentalDemandState, HouseLightingEnum, \
+    HouseElevatorDemandEnum
+from house_rental.models import BaseOrmModel
 
 
-class UserBasicModel(BaseModel):
+class UserBasicModel(BaseOrmModel):
     """ 用户模型 """
     id = fields.IntField(pk=True)
     username = fields.CharField(max_length=30, description='用户名')
@@ -33,7 +34,7 @@ class UserBasicModel(BaseModel):
         table = 'user_basic'
 
 
-class UserProfileModel(BaseModel):
+class UserProfileModel(BaseOrmModel):
     """ 用户详情模型 """
     id = fields.IntField(pk=True)
     real_name = fields.CharField(max_length=30, description='用户真实姓名')
@@ -66,3 +67,38 @@ class UserProfileModel(BaseModel):
             if user_profile_dict.get(key):
                 user_profile_dict[key] = settings.QINIU_DOMAIN + user_profile_dict.get(key)
         return user_profile_dict
+
+
+class UserRentalDemandModel(BaseOrmModel):
+    """ 用户租房需求数据库模型 """
+    id = fields.IntField(pk=True)
+    user_id = fields.IntField(description='用户id')
+    demand_title = fields.CharField(max_length=255, description='租房需求标题')
+    extend_content = fields.CharField(null=True, max_length=500, description='租房需求扩展内容')
+    city = fields.CharField(max_length=255, description='期望城市')
+    rent_type_list = fields.CharField(default='', max_length=255, description='租赁类型')
+    house_type_list = fields.CharField(default='', max_length=255, description='房源类型')
+    house_facilities = fields.CharField(default='', max_length=255, description='房源设施要求')
+    traffic_info_json = fields.JSONField(default={}, null=True, description='交通要求')
+    min_money_budget = fields.DecimalField(max_digits=10, decimal_places=2, description='最低金额预算')
+    max_money_budget = fields.DecimalField(max_digits=10, decimal_places=2, description='最高金额预算')
+    lighting = fields.IntEnumField(HouseLightingEnum, null=True, description='采光')
+    floors = fields.CharField(default='', max_length=255, description='房屋楼层要求')
+    elevator = fields.IntEnumField(HouseElevatorDemandEnum, null=True, description='电梯要求')
+    commuting_time = fields.IntField(null=True, description='通勤时间')
+    company_address = fields.CharField(max_length=255, null=True, description='公司地址')
+    desired_residence_area = fields.CharField(max_length=255, null=True, description='期望居住地区')
+    state = fields.CharEnumField(RentalDemandState, default=RentalDemandState.normal, description='租房需求状态')
+    json_extend = fields.JSONField(default={}, null=True, description='扩展字段')
+
+    def to_dict(self):
+        # 转换#拼接的字段
+        trans_fields = ['rent_type_list', 'house_type_list', 'house_facilities', 'floors']
+        for field in trans_fields:
+            value = getattr(self, field) or None
+            setattr(self, field, value.split('#'))
+        return super().to_dict()
+
+    class Meta:
+        app = constants.APP_NAME
+        table = 'user_rental_demand'

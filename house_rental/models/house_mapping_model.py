@@ -4,11 +4,11 @@
 # @Desc: { 房屋映射数据库模型模块 }
 # @Date: 2022/03/13 1:03
 from tortoise import fields
-from house_rental.models import BaseModel
+from house_rental.models import BaseOrmModel
 from house_rental.constants import constants
 
 
-class HouseFacilityMapping(BaseModel):
+class HouseFacilityMapping(BaseOrmModel):
     """ 房屋与房屋设施关联表 """
     id = fields.IntField(pk=True)
     house_id = fields.IntField(description='房屋id')
@@ -19,7 +19,7 @@ class HouseFacilityMapping(BaseModel):
         table = 'house_facility_mapping'
 
 
-class HouseRentalMapping(BaseModel):
+class HouseRentalMapping(BaseOrmModel):
     """ 房屋租赁映射管理表 """
     id = fields.IntField(pk=True)
     renter_id = fields.IntField(description='租客id')
@@ -31,7 +31,7 @@ class HouseRentalMapping(BaseModel):
         table = 'house_rent_mapping'
 
 
-class HouseAppointmentMapping(BaseModel):
+class HouseAppointmentMapping(BaseOrmModel):
     """ 房屋预定映射管理表 """
     id = fields.IntField(pk=True)
     renter_id = fields.IntField(description='租客id')

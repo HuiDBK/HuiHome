@@ -3,13 +3,13 @@
 # @Author: Hui
 # @Desc: { 模块描述 }
 # @Date: 2022/04/05 23:24
-from typing import Union, Tuple, Set, Dict, List
-from house_rental.models import BaseModel
+from typing import Union, Tuple, Set, Dict, List, Type
+from house_rental.models import BaseOrmModel
 
 
 class BaseManager(object):
     """ 数据库模型 Manager基类 """
-    model: BaseModel = None
+    model: Type[BaseOrmModel] = None
 
     @classmethod
     def model_test(cls):
@@ -22,13 +22,29 @@ class BaseManager(object):
         return await cls.model.filter(**filter_params).order_by('id').all()
 
     @classmethod
-    async def create(cls, to_create: Dict) -> BaseModel:
+    async def create(cls, to_create: Dict) -> BaseOrmModel:
         """
         创建一个
         """
         print(to_create)
         model_obj = await cls.model.create(**to_create)
         return model_obj
+
+    @classmethod
+    async def create_or_update(cls, data_item: Dict, model_id=None) -> BaseOrmModel:
+        """
+        创建或更新一个
+        """
+        data_item.pop('id', None)
+        if model_id:
+            # 更新
+            model_obj = await cls.get_by_id(model_id)
+            model_obj = await model_obj.update_from_dict(data_item)
+            await model_obj.save(update_fields=data_item.keys())
+            return model_obj
+        else:
+            # 创建
+            return await cls.create(data_item)
 
     @classmethod
     async def update(cls, model_id: int, to_update: Dict) -> bool:
@@ -64,7 +80,7 @@ class BaseManager(object):
             cls,
             filter_params: dict,
             orderings: list = None
-    ) -> Union[BaseModel, None]:
+    ) -> Union[BaseOrmModel, None]:
         """
         首条筛选：条件筛选 + 排序规则 + 取第一个
         """

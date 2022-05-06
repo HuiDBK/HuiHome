@@ -6,8 +6,11 @@
 import re
 from fastapi import BackgroundTasks
 from datetime import datetime, timedelta
+
+from house_rental.commons.utils.decorators import list_page
 from house_rental.models.user_model import UserBasicModel
-from house_rental.routers.user.request_models.user_in import UserRealNameAuthIn
+from house_rental.routers.user.request_models.user_in import UserRealNameAuthIn, UserRentalDemandPublishIn, \
+    UserRentalDemandListIn
 from house_rental.routers.user.response_models import (
     TokenItem, VerifyItem, UserProfileItem, UserRealNameAuthItem
 )
@@ -15,13 +18,15 @@ from house_rental.routers.user.request_models import (
     UserRegisterIn, UserLoginIn, UserProfileUpdateIn, UserPwdChangeIn
 )
 from house_rental.constants import constants
-from house_rental.managers.user_manager import UserBasicManager, UserProfileManager
+from house_rental.managers.user_manager import UserBasicManager, UserProfileManager, UserRentalDemandManager
 from house_rental.commons.libs import sms
 from house_rental.commons import settings
-from house_rental.commons.utils import jwt_util, add_param_if_true
+from house_rental.commons.utils import jwt_util, add_param_if_true, serialize_util
 from house_rental.commons.utils import RedisUtil, RedisKey
 from house_rental.commons.responses.response_code import ErrorCodeEnum
 from house_rental.commons.exceptions.global_exception import BusinessException
+from house_rental.routers.user.response_models.user_out import RentalDemandListItem, RentalDemandListDataItem, \
+    RentalDemandDetailDataItem
 
 
 async def username_verify_logic(username: str):
@@ -203,3 +208,55 @@ async def user_password_change_logic(user_id, user_pwd_item: UserPwdChangeIn):
     await user.save(update_fields=['password'])
     token, refresh_token = await generate_user_token(user, with_refresh_token=False)
     return TokenItem(token=token, refresh_token=refresh_token)
+
+
+def format_rental_demand_params(rental_demand: UserRentalDemandPublishIn):
+    """ 格式化租房需求参数 """
+    rental_demand_dict = {k: v for k, v in rental_demand.dict().items() if v is not None}
+
+    # 房源类型、租赁类型、设施、楼层需求列表 每一项都拼接 # 存储字符串
+    for key in ['rent_type_list', 'house_type_list', 'house_facilities', 'floors']:
+        rental_demand_dict[key] = '#'.join(
+            map(str, set(rental_demand_dict.get(key, [])))
+        )
+
+    return rental_demand_dict
+
+
+async def publish_or_update_user_rental_demand_logic(user_id: int, rental_demand: UserRentalDemandPublishIn):
+    """ 用户发布或更新租房需求 """
+    rental_demand_dict = format_rental_demand_params(rental_demand)
+    rental_demand_dict['user_id'] = user_id
+    model_id = rental_demand_dict.get('id')
+    await UserRentalDemandManager.create_or_update(rental_demand_dict, model_id)
+
+
+@list_page
+async def get_user_rental_demands_logic(rental_demand_item: UserRentalDemandListIn):
+    """ 获取用户的租房需求列表 """
+    query_params = rental_demand_item.query_params.dict() if rental_demand_item.query_params else {}
+    query_params = {k: v for k, v in query_params.items()}
+
+    total, user_rental_demands = await UserRentalDemandManager.filter_page(
+        filter_params=query_params,
+        orderings=rental_demand_item.orderings,
+        limit=rental_demand_item.limit,
+        offset=rental_demand_item.offset
+    )
+
+    user_rental_demands = serialize_util.obj2DataModel(
+        data_obj=user_rental_demands,
+        data_model=RentalDemandListItem
+    )
+    return RentalDemandListDataItem(total=total, data_list=user_rental_demands)
+
+
+async def get_rental_demand_detail_logic(demand_id: int):
+    """ 获取租房需求详情信息 """
+    rental_demand = await UserRentalDemandManager.get_by_id(demand_id)
+    # 补充用户信息
+    user_basic = await UserBasicManager.get_by_id(rental_demand.user_id)
+    return RentalDemandDetailDataItem(
+        **rental_demand.to_dict(),
+        user_info=user_basic.to_dict()
+    )

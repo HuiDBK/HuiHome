@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="author" content="Drizvato"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+    <title>房屋租赁系统，一起合租吧！</title>
+
+    <!-- Custom CSS -->
+    <link href="assets/css/styles.css?v=20210423" rel="stylesheet">
+
+    <!-- Custom Color Option -->
+    <link href="assets/css/colors.css" rel="stylesheet">
+
+    <!--  Vue and axios -->
+    <!--    <script src="assets/js/common/vue-2.5.16.js"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <!-- 引入element样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入element组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="assets/js/common/axios.min.js"></script>
+
+</head>
+
+<body class="yellow-skin">
+
+<!-- ============================================================== -->
+<!-- Preloader - style you can find in spinners.css -->
+<!-- ============================================================== -->
+<div class="preloader"></div>
+
+<!-- ============================================================== -->
+<!-- Main wrapper - style you can find in pages.scss -->
+<!-- ============================================================== -->
+<div id="app">
+    <div id="main-wrapper">
+
+        <!-- ============================================================== -->
+        <!-- Top header  -->
+        <!-- ============================================================== -->
+        <!-- Start Navigation -->
+        <div class="header header-light dark-text">
+            <div class="container">
+                <nav id="navigation" class="navigation navigation-landscape">
+                    <div class="nav-header">
+                        <a class="nav-brand" href="index.html">
+                            <img src="assets/img/logo.png" class="logo" alt=""/>
+                        </a>
+                        <div class="nav-toggle"></div>
+                    </div>
+                    <div class="nav-menus-wrapper" style="transition-property: none;">
+                        <ul class="nav-menu">
+
+                            <li><a href="index.html" style="font-size: 15px;">首页</a></li>
+                            <li><a href="house_list.html?rent_type=whole" style="font-size: 15px;">整租</a></li>
+                            <li><a href="house_list.html?rent_type=share" style="font-size: 15px;">合租</a></li>
+                            <li><a href="helpRent.html" style="font-size: 15px;">求租</a></li>
+                            <li><a href="news.html" style="font-size: 15px;">公告资讯</a></li>
+
+                            </li>
+                        </ul>
+                        <ul class="nav-menu nav-menu-social align-to-right dhsbrd" v-show="user_show">
+
+                            <li>
+                                <div class="btn-group account-drop">
+                                    <button type="button" class="btn btn-order-by-filt"
+                                            data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                        <img :src="'https://eu.ui-avatars.com/api/?background=random&length=1&rounded=true&bold=true&name='+user_info.username"
+                                             class="avater-img"
+                                             alt="">
+                                        {{ user_info.username }}
+                                    </button>
+
+
+                                    <div class="dropdown-menu pull-right animated flipInX" style="width: 120px;">
+                                        <a href="profile.html">
+                                            <i class="ti-user"></i>个人信息
+                                        </a>
+                                        <a href="my_home.html">
+                                            <i class="ti-home"></i>我的家
+                                        </a>
+                                        <a href="order.html">
+                                            <i class="ti-home"></i>我的订单
+                                        </a>
+                                        <a href="user_collect.html">
+                                            <i class="ti-bookmark"></i>我的收藏
+                                        </a>
+                                        <a href="rental_demand_list.html">
+                                            <i class="ti-bookmark"></i>我的求租
+                                        </a>
+                                        <a href="#" onclick="user_logout()">
+                                            <i class="ti-power-off"></i>退出登录
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!-- End Navigation -->
+        <div class="clearfix"></div>
+        <!-- ============================================================== -->
+        <!-- Top header  -->
+        <!-- ============================================================== -->
+        <!-- ============================ User Dashboard ================================== -->
+        <section class="p-0">
+            <div class="container-fluid p-0">
+
+                <div class="row">
+
+                    <div class="col-lg-3 col-md-4 col-sm-12">
+                        <div class="property_dashboard_navbar">
+
+                            <div class="dash_user_menues">
+                                <ul>
+                                    <li><a href="profile.html"><i
+                                            class="ti-user"></i>个人信息</a></li>
+                                    <li><a
+                                            href="my_home.html"><i class="ti-home"></i>我的家</a></li>
+                                    <li><a
+                                            href="order.html"><i class="ti-gift"></i>订单管理</a></li>
+                                    <li><a href="user_collect.html"><i
+                                            class="ti-bookmark"></i>我的收藏</a></li>
+                                    <li class="active"><a href="rental_demand_list.html"><i
+                                            class="ti-pencil"></i>求租管理</a></li>
+                                    <li><a href="reset_password.html"><i
+                                            class="ti-unlock"></i>密码修改</a></li>
+                                    <li><a href="#" onclick="user_logout()"><i class="ti-power-off"></i>退出登录</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-md-8 col-sm-12">
+                        <el-dialog
+                                title="求租信息"
+                                :visible.sync="rental_demand_show"
+                                width="70%"
+                                center>
+                            <el-form ref="rental_demand_form" :model="rental_demand_form"
+                                     label-width="110px">
+                                <el-form-item required label="需求标题">
+                                    <el-input v-model="rental_demand_form.demand_title"></el-input>
+                                </el-form-item>
+
+
+                                <el-form :inline="true" label-width="110px">
+                                    <el-form-item required label="期望城市" :inline="true">
+                                        <el-select filterable placeholder="请选所属省份" id="province"
+                                                   v-model.number="area_index"
+                                                   :change="get_city_list()">
+                                            <el-option v-for="(province_item, index) in area_list"
+                                                       :key="index"
+                                                       :label="province_item.name" :value="index"
+                                            ></el-option>
+                                        </el-select>
+                                        <el-select filterable v-model="rental_demand_form.city"
+                                                   placeholder="请选择期望城市">
+                                            <el-option v-for="city_item in city_list"
+                                                       :label="city_item.name"
+                                                       :value="city_item.name"></el-option>
+                                        </el-select>
+                                    </el-form-item>
+                                </el-form>
+                                <el-form-item label="期望居住地区">
+                                    <el-input
+                                            v-model="rental_demand_form.desired_residence_area"></el-input>
+                                </el-form-item>
+                                <el-form :inline="true" label-width="110px"
+                                         :model="rental_demand_form" ref="rental_demand_form">
+                                    <el-form-item prop="min_money_budget" label="最低预算" :rules="[
+                                                                  { required: true, message: '预算不能为空'},
+                                                                  { type: 'number', message: '预算必须为数字值'}
+                                                                ]">
+                                        <el-input type="min_money_budget"
+                                                  v-model.number="rental_demand_form.min_money_budget"></el-input>
+                                    </el-form-item>
+                                    <el-form-item prop="max_money_budget" label="最高预算" :rules="[
+                                                                  { required: true, message: '预算不能为空'},
+                                                                  { type: 'number', message: '预算必须为数字值'}
+                                                                ]">
+                                        <el-input type="max_money_budget"
+                                                  v-model.number="rental_demand_form.max_money_budget"></el-input>
+                                    </el-form-item>
+                                </el-form>
+
+
+                                <el-form :inline="true" label-width="110px">
+                                    <el-form-item label="公司地址">
+                                        <el-input
+                                                v-model="rental_demand_form.company_address"></el-input>
+                                    </el-form-item>
+
+                                    <el-form-item label="通勤时间">
+                                        <el-input
+                                                v-model="rental_demand_form.commuting_time"></el-input>
+                                    </el-form-item>
+                                </el-form>
+
+
+                                <el-form-item label="租赁类型">
+                                    <el-checkbox-group v-model="rental_demand_form.rent_type_list">
+                                        <el-checkbox value="整租" name="rent_type"
+                                                     label="whole">整租
+                                        </el-checkbox>
+                                        <el-checkbox value="合租" name="rent_type"
+                                                     label="share">合租
+                                        </el-checkbox>
+                                    </el-checkbox-group>
+                                </el-form-item>
+
+                                <el-form-item label="房屋类型">
+                                    <el-checkbox-group v-model="rental_demand_form.house_type_list">
+                                        <el-checkbox value="公寓" name="house_type"
+                                                     label="department">公寓
+                                        </el-checkbox>
+                                        <el-checkbox value="小区" name="house_type"
+                                                     label="community">小区
+                                        </el-checkbox>
+                                        <el-checkbox value="普通住宅" name="house_type"
+                                                     label="residential">普通住宅
+                                        </el-checkbox>
+                                    </el-checkbox-group>
+                                </el-form-item>
+
+                                <el-form-item label="房屋设施要求">
+                                    <el-checkbox-group
+                                            v-model="rental_demand_form.house_facilities">
+                                        <el-checkbox class="col-lg-2"
+                                                     v-for="(item, index) in all_house_facility"
+                                                     :key="item.facility_id"
+                                                     :label="item.facility_id"
+                                                     :value="item.facility_id"
+                                        >
+                                            <img :src="item.icon" width="32" height="32">
+                                            {{ item.name }}
+                                        </el-checkbox>
+                                    </el-checkbox-group>
+                                </el-form-item>
+
+                                <!--                            <el-form-item hidden label="交通要求">-->
+                                <!--                                <el-checkbox-group v-model="rental_demand_form.traffic_info">-->
+                                <!--                                    <el-checkbox value="地铁" name="subway"-->
+                                <!--                                                 label="subway">地铁-->
+                                <!--                                    </el-checkbox>-->
+                                <!--                                    <el-checkbox value="公交" name="bus"-->
+                                <!--                                                 label="bus">公交-->
+                                <!--                                    </el-checkbox>-->
+                                <!--                                </el-checkbox-group>-->
+                                <!--                            </el-form-item>-->
+
+                                <el-form-item label="采光">
+                                    <el-radio-group v-model="rental_demand_form.lighting">
+                                        <el-radio value="一般" :label="1">一般</el-radio>
+                                        <el-radio value="正常" :label="2">正常</el-radio>
+                                        <el-radio value="良好" :label="3">良好</el-radio>
+                                        <el-radio value="极好" :label="4">极好</el-radio>
+                                    </el-radio-group>
+                                </el-form-item>
+
+                                <el-form-item
+                                        v-for="(floor, index) in rental_demand_form.floor_list"
+                                        :label="'期望楼层' + (index+1)"
+                                        :key="floor.key"
+                                        :prop="'floors.' + index + '.value'">
+                                    <el-input v-model="floor.value" class="col-lg-5"></el-input>
+                                    <i v-if="index > 0" @click.prevent="remove_floor(floor)"
+                                       class="el-icon-remove el_scale"
+                                       style="font-size: 20px;margin-right: 1rem;">
+                                    </i>
+                                    <i @click="add_floor()"
+                                       class="el-icon-circle-plus el_scale"
+                                       style="font-size: 20px;">
+                                    </i>
+                                </el-form-item>
+
+
+                                <el-form-item label="电梯">
+                                    <el-radio-group v-model="rental_demand_form.elevator">
+                                        <el-radio value="需要" :label="1">需要</el-radio>
+                                        <el-radio value="非必要" :label="2">非必要</el-radio>
+                                    </el-radio-group>
+                                </el-form-item>
+
+                                <el-form-item label="其他要求">
+                                    <el-input type="textarea"
+                                              v-model="rental_demand_form.extend_content"></el-input>
+                                </el-form-item>
+                            </el-form>
+                            <span slot="footer" class="dialog-footer">
+                                <el-button @click="rental_demand_show = false">取 消</el-button>
+                                <el-button v-if="op_status === 1" type="primary"
+                                           @click="publish_rental_demand()">立即发布</el-button>
+                                <el-button v-else-if="op_status === 2" type="primary"
+                                           @click="edit_save_demand()">更新保存</el-button>
+                            </span>
+                        </el-dialog>
+                        <div class="dashboard-body">
+
+                            <div class="dashboard-wraper">
+
+                                <!-- Bookmark Property -->
+                                <div class="frm_submit_block">
+                                    <h4>求租管理
+                                        <button class="btn btn-theme bg-2 btn-sm"
+                                                @click="show_publish_rental_demand_dialog()">发布求租
+                                        </button>
+                                    </h4>
+                                </div>
+
+
+                                <table class="property-table-wrap responsive-table">
+
+                                    <tbody align="left">
+                                    <tr>
+                                        <th style="width: 35%">标题</th>
+                                        <th style="width: 12%">期望城市</th>
+                                        <th style="width: 15%">金额预算</th>
+                                        <th style="width: 18%">发布时间</th>
+                                        <th style="width: 20%">操作</th>
+                                    </tr>
+                                    <tr v-for="(item, index) in rental_demand_list" :key="index">
+                                        <td>
+                                            <a :href="'rental_demand_detail.html?demand_id=' + item.id"
+                                               target="_blank"
+                                               class="delete text-blue">{{ item.demand_title }}</a>
+                                        </td>
+                                        <td>
+                                            {{ item.city }}
+                                        </td>
+                                        <td>
+                                            {{ item.min_money_budget }} - {{ item.max_money_budget }}
+                                        </td>
+                                        <td>
+                                            {{ item.create_ts }}
+                                        </td>
+                                        <td>
+                                            <el-row>
+                                                <el-button type="primary" icon="el-icon-edit" circle
+                                                           @click="edit_rental_demand(index)"></el-button>
+                                                <el-button type="danger" icon="el-icon-delete" circle
+                                                           @click="delete_rental_demand(item.id)"></el-button>
+                                            </el-row>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+
+                            </div>
+
+                            <!-- Pagination 分页 -->
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12 col-lg-12 mt-4">
+                                    <footer class="text-center">
+                                        <p class="mb-0">© 2021 Saysky. All Rights
+                                            Reserved</p>
+                                    </footer>
+                                </div>
+                            </div>
+                            <!-- row -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- ============================ User Dashboard End ================================== -->
+
+
+        <!-- ============================ Footer Start ================================== -->
+        <footer class="dark-footer skin-dark-footer style-2" style="padding-top: 0;">
+
+            <div class="footer-bottom">
+                <div class="container">
+                    <div class="row align-items-center">
+
+                        <div class="col-lg-12 col-md-12">
+                            <p class="mb-0">© 2021 Saysky</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- ============================ Footer End ================================== -->
+
+        <!-- 登录弹出框 Modal -->
+        <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="registermodal"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered login-pop-form" role="document">
+                <header class="modal_content_header">
+                    <div class="hm_nav">
+                        <h3 class="hm_nav_title">登录</h3>
+                        <span class="mod-close" data-dismiss="modal" aria-hidden="true"><i class="ti-close"></i></span>
+                    </div>
+                </header>
+                <div class="modal-content" id="registermodal">
+                    <div class="modal-body">
+                        <div class="login-form">
+                            <form id="loginForm">
+
+                                <div class="form-group">
+                                    <label>账号</label>
+                                    <div class="input-with-icon">
+                                        <input type="text" class="form-control" name="userName" placeholder="账号">
+                                        <i class="ti-user"></i>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>密码</label>
+                                    <div class="input-with-icon">
+                                        <input type="password" class="form-control" name="userPass"
+                                               placeholder="*******">
+                                        <i class="ti-unlock"></i>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="button" onclick="submitLogin()"
+                                            class="btn btn-md full-width pop-login bg-2">登录
+                                    </button>
+                                </div>
+
+                            </form>
+                        </div>
+
+                        <div class="text-center">
+                            <p class="mt-3"><i class="ti-user mr-1"></i>忘记密码? <a href="#" data-toggle="modal"
+                                                                                 data-target="#forget"
+                                                                                 class="link">点此重置</a>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Modal -->
+
+        <!-- 注册 Modal -->
+        <div class="modal fade" id="signup" tabindex="-1" role="dialog" aria-labelledby="sign-up" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered login-pop-form" role="document">
+                <header class="modal_content_header">
+                    <div class="hm_nav">
+                        <h3 class="hm_nav_title">注册</h3>
+                        <span class="mod-close" data-dismiss="modal" aria-hidden="true"><i class="ti-close"></i></span>
+                    </div>
+                </header>
+                <div class="modal-content" id="sign-up">
+                    <div class="modal-body">
+                        <div class="login-form">
+                            <form id="registerForm">
+
+                                <div class="row">
+
+                                    <div class="col-lg-12 col-md-12">
+                                        <div class="form-group">
+                                            <label>姓名</label>
+                                            <div class="input-with-icon">
+                                                <input type="text" name="userDisplayName" class="form-control"
+                                                       placeholder="姓名">
+                                                <i class="ti-user"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12 col-md-12">
+                                        <div class="form-group">
+                                            <label>电子邮箱</label>
+                                            <div class="input-with-icon">
+                                                <input type="email" name="email" class="form-control"
+                                                       placeholder="电子邮箱，用于重置密码">
+                                                <i class="ti-email"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12">
+                                        <div class="form-group">
+                                            <label>手机号</label>
+                                            <div class="input-with-icon">
+                                                <input type="text" name="phone" class="form-control" placeholder="手机号">
+                                                <i class="ti-mobile"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12 col-md-12">
+                                        <div class="form-group">
+                                            <label>账号</label>
+                                            <div class="input-with-icon">
+                                                <input type="text" name="userName" class="form-control"
+                                                       placeholder="登录账号">
+                                                <i class="ti-user"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12 col-md-12">
+                                        <div class="form-group">
+                                            <label>密码</label>
+                                            <div class="input-with-icon">
+                                                <input type="password" name="userPass" class="form-control"
+                                                       placeholder="登录密码">
+                                                <i class="ti-unlock"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12 col-md-12">
+                                        <div class="form-group">
+                                            <label>角色</label>
+                                            <div class="simple-input">
+                                                <select name="role" class="form-control">
+                                                    <option value="customer">租客</option>
+                                                    <option value="owner">房东</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="button" onclick="submitRegister()"
+                                            class="btn btn-md full-width pop-login bg-2">创建账号
+                                    </button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Modal -->
+
+        <!-- 找回密码弹出框 Modal -->
+        <div class="modal fade" id="forget" tabindex="-1" role="dialog" aria-labelledby="forgetmodal"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered login-pop-form" role="document">
+                <header class="modal_content_header">
+                    <div class="hm_nav">
+                        <h3 class="hm_nav_title">找回密码</h3>
+                        <span class="mod-close" data-dismiss="modal" aria-hidden="true"><i class="ti-close"></i></span>
+                    </div>
+                </header>
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="login-form">
+                            <form id="forgetForm">
+
+                                <div class="form-group">
+                                    <label>账号</label>
+                                    <div class="input-with-icon">
+                                        <input type="text" class="form-control" name="userName" placeholder="账号">
+                                        <i class="ti-user"></i>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>邮箱地址</label>
+                                    <div class="input-with-icon">
+                                        <input type="email" class="form-control" name="email"
+                                               placeholder="注册时填写的电子邮箱地址">
+                                        <i class="ti-unlock"></i>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="button" onclick="submitForget()"
+                                            class="btn btn-md full-width pop-login bg-2">重置密码
+                                    </button>
+                                </div>
+
+                            </form>
+                        </div>
+
+                        <div class="text-center">
+                            <p class="mt-3"><i class="ti-user mr-1"></i>我们会向您的邮箱发送一封邮件，请注意查收</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Modal -->
+
+        <!-- End Video Modal -->
+        <a id="back2Top" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>
+
+
+    </div>
+</div>
+
+<!-- ============================================================== -->
+<!-- End Wrapper -->
+<!-- ============================================================== -->
+
+<!-- ============================================================== -->
+<!-- All Jquery -->
+<!-- ============================================================== -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/layui/layui.js"></script>
+<script src="assets/js/popper.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/ion.rangeSlider.min.js"></script>
+<script src="assets/js/select2.min.js"></script>
+<script src="assets/js/jquery.magnific-popup.min.js"></script>
+<script src="assets/js/slick.js"></script>
+<script src="assets/js/slider-bg.js"></script>
+<script src="assets/js/lightbox.js"></script>
+<script src="assets/js/imagesloaded.js"></script>
+<script src="assets/js/custom.js"></script>
+<script src="assets/js/common/md5.min.js"></script>
+<script src="assets/js/common/constants.js"></script>
+<script src="assets/js/common/utils.js"></script>
+<script src="assets/js/user/rental_demand.js"></script>
+<!-- ============================================================== -->
+<!-- This page plugins -->
+<!-- ============================================================== -->
+</body>
+</html>

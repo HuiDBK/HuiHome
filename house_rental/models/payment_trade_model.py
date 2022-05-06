@@ -6,10 +6,10 @@
 from tortoise import fields
 from house_rental.constants import constants
 from house_rental.constants.enums import PaymentSceneEnum
-from house_rental.models import BaseModel
+from house_rental.models import BaseOrmModel
 
 
-class PaymentTradeModel(BaseModel):
+class PaymentTradeModel(BaseOrmModel):
     """ 支付交易数据库模型 """
     id = fields.IntField(pk=True)
     order_id = fields.IntField(description='订单号')

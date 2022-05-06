@@ -31,3 +31,7 @@ class BusinessException(Exception):
 
 class AuthorizationException(BusinessException):
     """ 认证异常类 """
+
+    def __init__(self):
+        self.code = ErrorCodeEnum.AUTHORIZATION_ERR.code
+        self.message = ErrorCodeEnum.AUTHORIZATION_ERR.msg

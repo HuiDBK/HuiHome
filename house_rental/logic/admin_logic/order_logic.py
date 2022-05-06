@@ -9,11 +9,11 @@ from house_rental.commons.utils import serialize_util
 from house_rental.managers.house_manager import HouseInfoManager
 from house_rental.managers.order_manager import OrderManager
 from house_rental.managers.user_manager import UserProfileManager
-from house_rental.routers.admin.request_models.order_manage_in import GetOrderListIn
+from house_rental.routers.admin.request_models.order_manage_in import GetOrderListInRequest
 from house_rental.routers.admin.response_models.order_manage_out import OrderListItem, OrderListDataItem
 
 
-async def get_order_list_logic(order_item: GetOrderListIn):
+async def get_order_list_logic(order_item: GetOrderListInRequest):
     """ 获取订单列表逻辑 """
     query_params = order_item.query_params.dict() if order_item.query_params else {}
     query_params = {k: v for k, v in query_params.items() if v is not None}

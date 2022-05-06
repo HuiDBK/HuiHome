@@ -90,6 +90,30 @@ router.add_api_route(
     summary='用户密码修改'
 )
 
+router.add_api_route(
+    '/rental_demands/{user_id}',
+    user_api.publish_or_update_user_rental_demand,
+    response_model=SuccessModel,
+    methods=['post', 'put'],
+    summary='发布或更新用户租房需求'
+)
+
+router.add_api_route(
+    '/rental_demands',
+    user_api.get_user_rental_demands,
+    response_model=user_out.RentalDemandListOut,
+    methods=['post'],
+    summary='获取用户租房需求列表'
+)
+
+router.add_api_route(
+    '/rental_demands/{demand_id}',
+    user_api.get_rental_demand_detail,
+    response_model=user_out.RentalDemandDetailOut,
+    methods=['get'],
+    summary='获取租房需求详情'
+)
+
 # 用户模块 api版本v2
 router_v2.add_api_route(
     '/author',

@@ -7,10 +7,10 @@ from tortoise import fields
 from house_rental.commons.utils import time_util
 from house_rental.constants import constants
 from house_rental.constants.enums import OrderState
-from house_rental.models import BaseModel
+from house_rental.models import BaseOrmModel
 
 
-class OrderModel(BaseModel):
+class OrderModel(BaseOrmModel):
     """ 订单模型 """
     id = fields.IntField(pk=True)
     trade_no = fields.CharField(max_length=255, description='交易流水号')

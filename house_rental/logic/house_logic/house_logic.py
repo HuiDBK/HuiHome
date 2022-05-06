@@ -3,22 +3,20 @@
 # @Author: Hui
 # @Desc: { 房源逻辑模块 }
 # @Date: 2022/04/23 20:32
-import json
 from datetime import datetime
 from typing import Union
 
-from starlette.requests import Request
 from tortoise.transactions import in_transaction
 
 from house_rental.commons.utils import RedisUtil, RedisKey, context_util
 from house_rental.commons.exceptions.global_exception import BusinessException
 from house_rental.commons.responses import ErrorCodeEnum
-from house_rental.commons.utils.decorators import cache_json
+from house_rental.commons.utils.decorators import cache_json, list_page, real_auth_required
 from house_rental.constants.enums import RentType, RequestMethodEnum
 from house_rental.managers.house_manager import HouseInfoManager, HouseDetailManager, HouseFacilityManager
 from house_rental.commons.utils import serialize_util, add_param_if_true
-from house_rental.managers.user_manager import UserBasicManager, UserProfileManager
-from house_rental.routers.house.request_models import HouseListIn
+from house_rental.managers.user_manager import UserProfileManager
+from house_rental.routers.house.request_models import HouseListInRequest
 from house_rental.routers.house.request_models.house_in import HouseListQueryItem, PublishHouseIn, HouseFacilityAddIn
 from house_rental.routers.house.response_models import HouseListItem, HomeHouseDataItem
 from house_rental.routers.house.response_models.house_out import HouseListDataItem, HouseDetailDataItem, \
@@ -81,7 +79,8 @@ def format_house_query_params(query_params: Union[HouseListQueryItem, dict]) -> 
     return query_params
 
 
-async def get_house_list_logic(item: HouseListIn):
+@list_page
+async def get_house_list_logic(item: HouseListInRequest):
     """ 获取房源列表 """
     query_params = format_house_query_params(item.query_params)
     total, house_data_list = await HouseInfoManager.filter_page(
@@ -92,13 +91,8 @@ async def get_house_list_logic(item: HouseListIn):
     )
     house_data_list = [item.to_dict() for item in house_data_list]
     house_data_list = serialize_util.obj2DataModel(data_obj=house_data_list, data_model=HouseListItem)
-
-    return HouseListDataItem(
-        total=total,
-        data_list=house_data_list,
-        next_offset=item.offset + item.limit,
-        has_more=False if (item.offset + item.limit) > total else True
-    )
+    # return total, house_data_list
+    return HouseListDataItem(total=total, data_list=house_data_list)
 
 
 async def get_house_detail_logic(house_id: int):
@@ -159,6 +153,7 @@ async def get_all_house_facility_logic():
     return hose_facilities_info
 
 
+@real_auth_required
 async def publish_house_logic(house_item: PublishHouseIn):
     """ 发布房源信息 """
     # 获取房源基本信息并保存
