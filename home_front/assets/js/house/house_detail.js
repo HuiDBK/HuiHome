@@ -165,6 +165,9 @@ let vm = new Vue({
                     } else if (resp.data.code === 4015) {
                         // 订单已存在
                         layer.msg('订单已存在,请不要再次预定', {icon: 2, time: 2000})
+                    } else if (resp.data.code === 4018) {
+                        // 未实名认证
+                        layer.msg('未实名认证,请实名后再预定', {icon: 2, time: 3000})
                     } else {
                         layer.msg('预定失败', {icon: 2, time: 2000})
                     }

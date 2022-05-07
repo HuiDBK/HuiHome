@@ -96,7 +96,7 @@ class HouseDetailDataItem(HouseListItem):
     floor: Union[int, None] = Field(description='房屋所在楼层')
     max_floor: Union[int, None] = Field(description='房屋最大楼层')
     has_elevator: Union[HouseElevatorEnum, None] = Field(description='是否有电梯')
-    build_year: Union[date, None] = Field(description='建成年份')
+    build_year: Union[str, None] = Field(description='建成年份')
     direction: Union[HouseDirectionEnum, None] = Field(description='房屋朝向')
     near_traffic_json: Union[dict, None] = Field(description='附近交通信息')
     certificate_no: Union[str, None] = Field(max_length=50, description='房产证号')

@@ -141,7 +141,7 @@ async def get_house_detail_logic(house_id: int):
     )
 
     # 设置房屋详情缓存
-    # await RedisUtil().set_with_cache_info(house_detail_cache_info, house_detail_info.json())
+    await RedisUtil().set_with_cache_info(house_detail_cache_info, house_detail_info.json())
     return house_detail_info
 
 
@@ -232,7 +232,7 @@ async def user_house_collect_logic(user_id, house_id: int):
     if cur_request.method == RequestMethodEnum.POST.value:
         # post请求 => 用户收藏房源
         redis_client.sadd(key=collect_cache_info.key, member=house_id)
-    else:
+    elif cur_request.method == RequestMethodEnum.DELETE.value:
         # delete请求 => 用户取消收藏
         redis_client.srem(key=collect_cache_info.key, member=house_id)
 

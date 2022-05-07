@@ -3,6 +3,8 @@
 # @Author: Hui
 # @Desc: { 用户数据库模型模块 }
 # @Date: 2022/03/06 17:41
+from urllib.parse import urlparse
+
 from tortoise import fields
 
 from house_rental.commons import settings
@@ -56,6 +58,17 @@ class UserProfileModel(BaseOrmModel):
     class Meta:
         app = constants.APP_NAME
         table = 'user_profile'
+
+    def save(self, **kwargs):
+        """ 重写数据库保存 """
+        # 如果图片数据传的是url不是七牛云的key则截取key保存
+        if self.id_card_front and (self.id_card_front.startswith('http') or self.id_card_front.startswith('https')):
+            self.id_card_front = urlparse(url=self.id_card_front).path[1:]
+
+        if self.id_card_back and (self.id_card_back.startswith('http') or self.id_card_back.startswith('https')):
+            self.id_card_back = urlparse(url=self.id_card_back).path[1:]
+
+        return super().save(**kwargs)
 
     def to_dict(self):
         user_profile_dict = super().to_dict()

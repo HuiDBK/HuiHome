@@ -5,13 +5,13 @@
 # @Date: 2022/04/29 10:27
 import asyncio
 from datetime import date
-from house_rental.commons.utils import context_util, serialize_util
+from house_rental.commons.utils import serialize_util
 from house_rental.commons.utils.decorators import real_auth_required
-from house_rental.constants.enums import OrderState, UserRole
+from house_rental.constants.enums import OrderState
 from house_rental.logic.common_logic import generate_contract_content
 from house_rental.managers.house_manager import HouseDetailManager, HouseInfoManager
 from house_rental.managers.order_manager import OrderManager
-from house_rental.managers.user_manager import UserProfileManager, UserBasicManager
+from house_rental.managers.user_manager import UserProfileManager
 from house_rental.routers.order.request_models import OrderCreateIn
 from house_rental.commons.exceptions.global_exception import BusinessException
 from house_rental.commons.responses.response_code import ErrorCodeEnum

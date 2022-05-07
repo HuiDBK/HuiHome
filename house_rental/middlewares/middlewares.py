@@ -53,4 +53,4 @@ class AuthorizationMiddleware(BaseMiddleware):
             # 在白名单的接口无需token验证
             if str(request.url.path).startswith(api_url):
                 return
-        # await jwt_authentication(request)
+        await jwt_authentication(request)

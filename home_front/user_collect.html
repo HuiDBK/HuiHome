@@ -159,7 +159,7 @@
                                         <td class="dashboard_propert_wrapper">
                                             <img :src="item.index_img" alt="" class="el_scale">
                                             <div class="title">
-                                                <h4><a href="/house/detail/12" target="_blank">{{ item.title }}</a></h4>
+                                                <h4><a :href="'house_detail.html?house_id=' + item.house_id" target="_blank">{{ item.title }}</a></h4>
                                                 <span>{{ item.address }}</span>
                                                 <span class="table-property-price el_scale">¥{{ item.rent_money }} / 月</span>
                                             </div>

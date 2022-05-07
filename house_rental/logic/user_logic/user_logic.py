@@ -8,6 +8,7 @@ from fastapi import BackgroundTasks
 from datetime import datetime, timedelta
 
 from house_rental.commons.utils.decorators import list_page
+from house_rental.constants.enums import UserAuthStatus
 from house_rental.models.user_model import UserBasicModel
 from house_rental.routers.user.request_models.user_in import UserRealNameAuthIn, UserRentalDemandPublishIn, \
     UserRentalDemandListIn
@@ -187,6 +188,7 @@ async def user_name_auth_logic(
     user_profile = await UserProfileManager.get_by_id(auth_item.user_id)
     update_params = auth_item.dict()
     update_params['auth_apply_time'] = datetime.utcnow()
+    update_params['auth_status'] = UserAuthStatus.auditing.value
     user_profile.update_from_dict(update_params)
     add_param_if_true(update_params, 'id', update_params.pop('user_id'))
     await user_profile.save(update_fields=list(update_params.keys()))

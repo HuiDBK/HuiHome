@@ -119,6 +119,7 @@ let vm = new Vue({
                     if (response.status === 200) {
                         if (response.data.code === 0) {
                             // this.user_profile = response.data.data
+                            layer.msg('实名认证已提交，待审核', {icon: 1, time: 2000})
                         }
                     } else if (response.data.status === 401) {
                         // 未认证
@@ -126,6 +127,7 @@ let vm = new Vue({
                 })
                 .catch(error => {
                     console.log(error)
+                    layer.msg('实名认证提交失败', {icon: 2, time: 2000})
                 })
         },
         check_change_password() {

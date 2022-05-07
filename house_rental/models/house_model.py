@@ -11,6 +11,7 @@ from tortoise.models import MODEL
 from typing_extensions import Type
 
 from house_rental.commons import settings
+from house_rental.commons.utils import time_util
 from house_rental.models import BaseOrmModel
 from house_rental.constants import constants
 from house_rental.constants.enums import RentType, HouseType, RentState, HouseDirectionEnum, HouseState, \
@@ -97,7 +98,7 @@ class HouseDetail(BaseOrmModel):
     floor = fields.IntField(description='房屋所在楼层')
     max_floor = fields.IntField(description='房屋最大楼层')
     has_elevator = fields.IntEnumField(HouseElevatorEnum, description='是否有电梯')
-    build_year = fields.DateField(null=True, description='建成年份')
+    build_year = fields.CharField(max_length=20, null=True, description='建成年份')
     direction = fields.CharEnumField(HouseDirectionEnum, null=True, description='房屋朝向')
     lighting = fields.IntEnumField(HouseLightingEnum, null=True, description='房屋采光情况')
     near_traffic_json = fields.JSONField(null=True, description='附近交通信息')

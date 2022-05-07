@@ -21,13 +21,17 @@ async def jwt_authentication(request: Request):
             return
     token = request.headers.get('Authorization') or None
     if not token:
-        raise AuthorizationException().exc_data(ErrorCodeEnum.AUTHORIZATION_ERR)
+        raise AuthorizationException()
+
+    # Bearer 占了7位
+    if not str(token).startswith('Bearer '):
+        raise AuthorizationException()
 
     token = str(token)[7:]
     user_info = jwt_util.verify_jwt(token)
     if not user_info:
         # 无效token
-        raise AuthorizationException().exc_data(ErrorCodeEnum.AUTHORIZATION_ERR)
+        raise AuthorizationException()
 
     # 校验通过保存到request.user中
     user_id = user_info.get('user_id')
@@ -35,7 +39,7 @@ async def jwt_authentication(request: Request):
 
     if user.role != UserRole.admin.value and str(request.url.path).startswith('/api/v1/admin'):
         # 不是管理员无法访问了后台模块接口
-        raise AuthorizationException().exc_data(ErrorCodeEnum.AUTHORIZATION_ERR)
+        raise AuthorizationException()
 
     request.scope['user'] = user
 

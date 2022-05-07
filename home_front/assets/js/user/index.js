@@ -317,8 +317,12 @@ let vm = new Vue({
                         this.user_show = true
                         window.location.reload()
                     } else {
-                        // 注册失败
-                        console.log(response.data)
+                       if (response.data.code === 4008) {
+                            // 短信验证码错误
+                            this.error_sms_code_msg = response.data.message;
+                            this.error_sms_code_show = true;
+                        }
+                        this.sending_flag = false;
                     }
                 })
                 .catch(error => {
