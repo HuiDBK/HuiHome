@@ -1,4 +1,5 @@
 <a name="ahaeU"></a>
+# 基于 FastAPI 的房屋租赁系统
 ## 项目启动
 1. 准备好MySQL 与 Redis数据库服务，修改相关数据库配置信息
 1. 申请第三方服务：七牛云的OSS服务、容联云的短信服务、阿里的支付服务、百度地图服务
@@ -68,13 +69,17 @@ pip install -r requirements.txt
 ## 系统整体ER图
 ![image.png](https://cdn.nlark.com/yuque/0/2022/png/20361978/1652284012928-c7460ede-9b14-4d13-a65f-91696f3e772a.png#clientId=u60657c17-c91f-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=701&id=ud9b72803&margin=%5Bobject%20Object%5D&name=image.png&originHeight=876&originWidth=945&originalType=binary&ratio=1&rotation=0&showTitle=false&size=199987&status=done&style=none&taskId=ua79af982-c72a-4f66-9c28-f897526a458&title=&width=756)
 
-房屋属性太多故在整体ER图省略<br />![image.png](https://cdn.nlark.com/yuque/0/2022/png/20361978/1652286424574-29e9e6f1-afae-4a26-9cf7-baf3bb189e1e.png#clientId=u60657c17-c91f-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=656&id=u169c145e&margin=%5Bobject%20Object%5D&name=image.png&originHeight=820&originWidth=883&originalType=binary&ratio=1&rotation=0&showTitle=false&size=278364&status=done&style=none&taskId=ueb760ed6-ebba-4b55-a93c-7f526de2ec7&title=&width=706.4)<br />实际表属性更多进行了垂直分表。
+房屋属性太多故在整体ER图省略<br />
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/20361978/1652286424574-29e9e6f1-afae-4a26-9cf7-baf3bb189e1e.png#clientId=u60657c17-c91f-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=656&id=u169c145e&margin=%5Bobject%20Object%5D&name=image.png&originHeight=820&originWidth=883&originalType=binary&ratio=1&rotation=0&showTitle=false&size=278364&status=done&style=none&taskId=ueb760ed6-ebba-4b55-a93c-7f526de2ec7&title=&width=706.4)
+<br/>实际表属性更多进行了垂直分表。
 <a name="FhR7I"></a>
 ## 项目界面展示
 <a name="m8kne"></a>
 ### 首页
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/20361978/1652287020379-4b28f18b-a766-40f8-a9a4-9397d763b407.png#clientId=u60657c17-c91f-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=628&id=uafea45f7&margin=%5Bobject%20Object%5D&name=image.png&originHeight=785&originWidth=1574&originalType=binary&ratio=1&rotation=0&showTitle=false&size=1133835&status=done&style=none&taskId=u32e658f7-d175-4570-95fe-1e577ee6756&title=&width=1259.2)<br />![image.png](https://cdn.nlark.com/yuque/0/2022/png/20361978/1652284711600-edfd7b3a-f011-4d87-bcdb-636dd33e305c.png#clientId=u60657c17-c91f-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=531&id=u0a00e654&margin=%5Bobject%20Object%5D&name=image.png&originHeight=664&originWidth=945&originalType=binary&ratio=1&rotation=0&showTitle=false&size=750259&status=done&style=none&taskId=uc497f725-9f3c-4096-8ed2-bf2b7b695f6&title=&width=756)
-<a name="abNOC"></a>
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/20361978/1652287020379-4b28f18b-a766-40f8-a9a4-9397d763b407.png#clientId=u60657c17-c91f-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=628&id=uafea45f7&margin=%5Bobject%20Object%5D&name=image.png&originHeight=785&originWidth=1574&originalType=binary&ratio=1&rotation=0&showTitle=false&size=1133835&status=done&style=none&taskId=u32e658f7-d175-4570-95fe-1e577ee6756&title=&width=1259.2)
+<br />
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/20361978/1652284711600-edfd7b3a-f011-4d87-bcdb-636dd33e305c.png#clientId=u60657c17-c91f-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=531&id=u0a00e654&margin=%5Bobject%20Object%5D&name=image.png&originHeight=664&originWidth=945&originalType=binary&ratio=1&rotation=0&showTitle=false&size=750259&status=done&style=none&taskId=uc497f725-9f3c-4096-8ed2-bf2b7b695f6&title=&width=756)
+
 ### 登录注册
 ![image.png](https://cdn.nlark.com/yuque/0/2022/png/20361978/1652287055880-59faa2ef-b884-4794-9f8f-e888e0394cca.png#clientId=u60657c17-c91f-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=660&id=u33284912&margin=%5Bobject%20Object%5D&name=image.png&originHeight=825&originWidth=1781&originalType=binary&ratio=1&rotation=0&showTitle=false&size=769121&status=done&style=none&taskId=u6acdad72-4c93-4b43-a571-5fae8576e6c&title=&width=1424.8)
 
@@ -87,7 +92,11 @@ pip install -r requirements.txt
 
 <a name="kjhyi"></a>
 ### 房源详情
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/20361978/1652284785793-ac549739-61c5-457b-a638-cccf30a983ef.png#clientId=u60657c17-c91f-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=504&id=u6ba21067&margin=%5Bobject%20Object%5D&name=image.png&originHeight=630&originWidth=945&originalType=binary&ratio=1&rotation=0&showTitle=false&size=503472&status=done&style=none&taskId=u93ca8daa-7666-4b91-a13e-767181ecf76&title=&width=756)<br />![image.png](https://cdn.nlark.com/yuque/0/2022/png/20361978/1652284796985-2af896c8-3df8-4327-9052-51e54dacd4cc.png#clientId=u60657c17-c91f-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=493&id=u41df1baf&margin=%5Bobject%20Object%5D&name=image.png&originHeight=616&originWidth=945&originalType=binary&ratio=1&rotation=0&showTitle=false&size=82963&status=done&style=none&taskId=ud21bad4a-a7ea-43bf-b682-d2e4f8b2706&title=&width=756)<br />![image.png](https://cdn.nlark.com/yuque/0/2022/png/20361978/1652284829463-0ff8b806-8311-4aff-8ab4-6ee1eebd841f.png#clientId=u60657c17-c91f-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=581&id=ub5376f5d&margin=%5Bobject%20Object%5D&name=image.png&originHeight=726&originWidth=945&originalType=binary&ratio=1&rotation=0&showTitle=false&size=556655&status=done&style=none&taskId=u0d9eec17-5aea-430a-8f99-6d2d97c97a2&title=&width=756)
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/20361978/1652284785793-ac549739-61c5-457b-a638-cccf30a983ef.png#clientId=u60657c17-c91f-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=504&id=u6ba21067&margin=%5Bobject%20Object%5D&name=image.png&originHeight=630&originWidth=945&originalType=binary&ratio=1&rotation=0&showTitle=false&size=503472&status=done&style=none&taskId=u93ca8daa-7666-4b91-a13e-767181ecf76&title=&width=756)
+<br />
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/20361978/1652284796985-2af896c8-3df8-4327-9052-51e54dacd4cc.png#clientId=u60657c17-c91f-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=493&id=u41df1baf&margin=%5Bobject%20Object%5D&name=image.png&originHeight=616&originWidth=945&originalType=binary&ratio=1&rotation=0&showTitle=false&size=82963&status=done&style=none&taskId=ud21bad4a-a7ea-43bf-b682-d2e4f8b2706&title=&width=756)
+<br />
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/20361978/1652284829463-0ff8b806-8311-4aff-8ab4-6ee1eebd841f.png#clientId=u60657c17-c91f-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=581&id=ub5376f5d&margin=%5Bobject%20Object%5D&name=image.png&originHeight=726&originWidth=945&originalType=binary&ratio=1&rotation=0&showTitle=false&size=556655&status=done&style=none&taskId=u0d9eec17-5aea-430a-8f99-6d2d97c97a2&title=&width=756)
 
 <a name="eUFdU"></a>
 ### 房源地图服务
