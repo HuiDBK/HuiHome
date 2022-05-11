@@ -36,7 +36,8 @@ class RedisKey(object):
         """
         sms_code_cache_info = RedisCacheInfo(
             key=f'{constants.APP_NAME}:user:sms_code:{mobile}',
-            timeout=constants.SMS_CODE_TIMEOUT
+            timeout=constants.SMS_CODE_TIMEOUT,
+            data_type=RedisDataType.STRING.value
         )
         return sms_code_cache_info
 

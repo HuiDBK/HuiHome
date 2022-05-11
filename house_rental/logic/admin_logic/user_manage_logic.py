@@ -42,6 +42,7 @@ async def get_user_list_logic(page_item: UserListInRequest):
     query_params = format_user_info_query_params(page_item.query_params)
     total, user_profiles = await UserProfileManager.filter_page(
         filter_params=query_params,
+        or_params=dict(id=7),
         orderings=page_item.orderings,
         offset=page_item.offset,
         limit=page_item.limit

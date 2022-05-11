@@ -85,6 +85,7 @@ let vm = new Vue({
         user_collect_house_ids: [],
 
         area_list: [],
+        city_list: [],
         area_index: '',
         house_search_form: {
             city: '',

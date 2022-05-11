@@ -12,7 +12,8 @@ ALLOW_ORIGINS = [
     'http://localhost',
     'http://localhost:8080',
     'http://localhost:63342',
-    'http://localhost:9528'
+    'http://localhost:9528',
+    'http://3w5q328382.51vip.biz',
 ]
 
 # 手机号正则

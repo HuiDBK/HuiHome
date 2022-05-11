@@ -44,6 +44,16 @@ class BaseMiddleware(object):
         return None
 
 
+class PreventCrawlerMiddleware(BaseMiddleware):
+    """ 预防爬虫中间件 """
+
+    async def before_request(self, request: Request) -> [Response, None]:
+        headers = request.headers
+        if headers.get('UserAgent') in ['']:
+            raise Exception()
+        return
+
+
 class AuthorizationMiddleware(BaseMiddleware):
     """ 权限认证中间件 """
 
@@ -53,4 +63,4 @@ class AuthorizationMiddleware(BaseMiddleware):
             # 在白名单的接口无需token验证
             if str(request.url.path).startswith(api_url):
                 return
-        await jwt_authentication(request)
+        # await jwt_authentication(request)

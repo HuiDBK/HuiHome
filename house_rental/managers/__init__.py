@@ -12,11 +12,6 @@ class BaseManager(object):
     model: Type[BaseOrmModel] = None
 
     @classmethod
-    def model_test(cls):
-        print(cls)
-        print(cls.model)
-
-    @classmethod
     async def get_with_params(cls, filter_params: dict):
         """"""
         return await cls.model.filter(**filter_params).order_by('id').all()
@@ -118,8 +113,12 @@ class BaseManager(object):
     ):
         """
         分页筛选：条件筛选 + 排序规则 + 条数限制
-        默认按照主键id排序
-        返回模型列表
+        默认按照主键id排序, 返回模型列表
+        :param filter_params: 分页（且条件）过滤参数
+        :param orderings: 排序字段列表
+        :param offset: 分页偏移量
+        :param limit: 每页数据量
+        :return:
         """
         if not orderings:
             orderings = ['id']

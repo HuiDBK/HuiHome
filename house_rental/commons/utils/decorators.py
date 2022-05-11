@@ -74,14 +74,14 @@ def real_auth_required(func):
         if not user:
             raise AuthorizationException()
 
-        if user.role == UserRole.admin:
+        if user.role == UserRole.admin.value:
             # 管理员不需要实名认证
             return await func(*args, **kwargs)
 
         # 此时不同直接通过 user.auth_status 来验证
         # 应该通过 user_id 去数据库中查询最新的状态
         user_profile = await UserProfileManager.get_by_id(user.id)
-        if user_profile.auth_status != UserAuthStatus.authorized:
+        if user_profile.auth_status != UserAuthStatus.authorized.value:
             raise BusinessException().exc_data(ErrorCodeEnum.REALNAME_AUTH_ERR)
 
         return await func(*args, **kwargs)

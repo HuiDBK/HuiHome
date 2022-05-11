@@ -3,8 +3,8 @@
 # @Author: Hui
 # @Desc: { 房屋租赁系统初始化模块 }
 # @Date: 2022/02/27 20:59
-import aioredis
 from fastapi import FastAPI, Depends
+from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.exceptions import RequestValidationError
 from tortoise.contrib.fastapi import register_tortoise
@@ -14,7 +14,7 @@ from house_rental.commons import settings
 from house_rental.commons.utils.dependencies import jwt_authentication, request_context
 from house_rental.routers import api_router
 from house_rental.commons.utils.redis_util import RedisUtil
-from house_rental.middlewares.middlewares import AuthorizationMiddleware
+from house_rental.middlewares.middlewares import AuthorizationMiddleware, PreventCrawlerMiddleware
 from house_rental.commons.exceptions.exception_handler import (
     business_exception_handler,
     validation_exception_handler,
@@ -23,6 +23,9 @@ from house_rental.commons.exceptions.exception_handler import (
 from house_rental.commons.exceptions.global_exception import BusinessException, AuthorizationException
 
 app = FastAPI(title='房屋租赁系统')
+
+# 挂载静态文件方便演示也可单独部署前端
+app.mount("/static", StaticFiles(directory=settings.STATIC_FILE_DIR), name="static")
 
 
 @app.on_event('startup')
@@ -55,7 +58,10 @@ async def create_global_exception_handler(_app: FastAPI):
 
 async def register_middlewares(_app: FastAPI):
     """注册中间件"""
-    middleware_list = [AuthorizationMiddleware]
+    middleware_list = [
+        AuthorizationMiddleware,
+        # PreventCrawlerMiddleware,
+    ]
     for middleware in middleware_list:
         _app.add_middleware(middleware)
 

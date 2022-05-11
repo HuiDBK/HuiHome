@@ -20,6 +20,9 @@ FRONT_ORDER_URL = f'{FRONT_DOMAIN}/house_rental/home_front/order.html'
 # 项目基准路径
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+# 项目静态目录（演示可以用）
+STATIC_FILE_DIR = os.path.join(os.path.dirname(BASE_DIR), 'home_front/')
+
 # 系统密钥
 SECRET = 'NmUzODk2ZGUtYmZjYy0xMWVjLWI5YTctZjQzMGI5YTUwMzQ2aHVp'
 
@@ -30,6 +33,7 @@ JWT_REFRESH_EXPIRY_DAYS = 14
 # 不需要登录验证的接口
 API_URL_WHITE_LIST = [
     '/docs',
+    '/static',
     '/openapi.json',
     '/api/v1/user/login',
     '/api/v1/house/home_houses',
