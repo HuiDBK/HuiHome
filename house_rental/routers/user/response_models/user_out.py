@@ -107,13 +107,13 @@ class RentalDemandListItem(BaseModel):
     max_money_budget: float = Field(description='最高金额预算')
     lighting: HouseLightingEnum = Field(default=None, null=True, description='采光')
     floors: Union[List[int]] = Field(default=[], description='房屋楼层要求')
-    elevator: HouseElevatorDemandEnum = Field(default=None, null=True, description='电梯要求')
-    commuting_time: int = Field(null=True, description='通勤时间')
-    company_address: str = Field(description='公司地址')
-    desired_residence_area: str = Field(description='期望居住地区')
+    elevator: HouseElevatorDemandEnum = Field(default=None, description='电梯要求')
+    commuting_time: Union[int, None] = Field(description='通勤时间')
+    company_address: Union[str, None] = Field(description='公司地址')
+    desired_residence_area: Union[str, None] = Field(description='期望居住地区')
     state: RentalDemandState = Field(default=RentalDemandState.normal, description='租房需求状态')
-    extend_content: str = Field(description='租房其他需求')
-    create_ts: float = Field(description='创建时间')
+    extend_content: Union[str, None] = Field(description='租房其他需求')
+    create_ts: Union[float, None] = Field(description='创建时间')
 
 
 class RentalDemandListDataItem(ListResponseDataModel):

@@ -43,26 +43,26 @@
         <!-- Start Navigation -->
 
         <div class="header header-light dark-text">
-            <div class="container">
-                <nav id="navigation" class="navigation navigation-landscape">
-                    <div class="nav-header">
-                        <a class="nav-brand" href="index.html">
-                            <img src="assets/img/logo.png" class="logo" alt=""/>
-                        </a>
-                        <div class="nav-toggle"></div>
-                    </div>
-                    <div class="nav-menus-wrapper" style="transition-property: none;">
-                        <ul class="nav-menu">
+    <div class="container">
+        <nav id="navigation" class="navigation navigation-landscape">
+            <div class="nav-header">
+                <a class="nav-brand" href="index.html">
+                    <img src="assets/img/logo.png" class="logo" alt=""/>
+                </a>
+                <div class="nav-toggle"></div>
+            </div>
+            <div class="nav-menus-wrapper" style="transition-property: none;">
+                <ul class="nav-menu">
 
-                            <li><a href="index.html" style="font-size: 15px;">首页</a></li>
-                            <li><a href="house_list.html?rent_type=whole" style="font-size: 15px;">整租</a></li>
-                            <li><a href="house_list.html?rent_type=share" style="font-size: 15px;">合租</a></li>
-                            <li><a href="helpRent.html" style="font-size: 15px;">求租</a></li>
-                            <li><a href="news.html" style="font-size: 15px;">公告资讯</a></li>
+                    <li><a href="index.html" style="font-size: 15px;">首页</a></li>
+                    <li><a href="house_list.html?rent_type=whole" style="font-size: 15px;">整租</a></li>
+                    <li><a href="house_list.html?rent_type=share" style="font-size: 15px;">合租</a></li>
+                    <li><a href="helpRent.html" style="font-size: 15px;">求租</a></li>
+                    <li><a href="news.html" style="font-size: 15px;">公告资讯</a></li>
 
-                            </li>
-                        </ul>
-                        <ul class="nav-menu nav-menu-social align-to-right dhsbrd" v-show="login_register_btn_show">
+                    </li>
+                </ul>
+                <ul class="nav-menu nav-menu-social align-to-right dhsbrd" v-show="login_register_btn_show">
 
                             <li>
                                 <a href="#" data-toggle="modal" id="gotoLogin" data-target="#login" class="text-blue">
@@ -75,47 +75,67 @@
                                 </a>
                             </li>
                         </ul>
-                        <ul class="nav-menu nav-menu-social align-to-right dhsbrd" v-show="user_show">
+                <ul class="nav-menu nav-menu-social align-to-right dhsbrd" v-show="user_show">
 
-                            <li>
-                                <div class="btn-group account-drop">
-                                    <button type="button" class="btn btn-order-by-filt"
-                                            data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
-                                        <img :src="'https://eu.ui-avatars.com/api/?background=random&length=1&rounded=true&bold=true&name='+user_info.username"
-                                             class="avater-img"
-                                             alt="">
-                                        {{ user_info.username }}
-                                    </button>
+                    <li>
+                        <div class="btn-group account-drop">
+                            <button type="button" class="btn btn-order-by-filt"
+                                    data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                <img :src="'https://eu.ui-avatars.com/api/?background=random&length=1&rounded=true&bold=true&name='+user_info.username"
+                                     class="avater-img"
+                                     alt="">
+                                {{ user_info.username }}
+                            </button>
 
 
-                                    <div class="dropdown-menu pull-right animated flipInX" style="width: 120px;">
-                                        <a href="profile.html">
-                                            <i class="ti-user"></i>个人信息
-                                        </a>
-                                        <a href="my_home.html">
-                                            <i class="ti-home"></i>我的家
-                                        </a>
-                                        <a href="order.html">
-                                            <i class="ti-home"></i>我的订单
-                                        </a>
-                                        <a href="user_collect.html">
-                                            <i class="ti-bookmark"></i>我的收藏
-                                        </a>
-                                        <a href="rental_demand_list.html">
-                                            <i class="ti-bookmark"></i>我的求租
-                                        </a>
-                                        <a href="#" onclick="user_logout()">
-                                            <i class="ti-power-off"></i>退出登录
-                                        </a>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
+                            <div v-if="user_info.role === 'tenant'" class="dropdown-menu pull-right animated flipInX" style="width: 120px;">
+                                <a href="profile.html">
+                                    <i class="ti-user"></i>个人信息
+                                </a>
+                                <a href="my_home.html">
+                                    <i class="ti-home"></i>我的家
+                                </a>
+                                <a href="order.html">
+                                    <i class="ti-gift"></i>我的订单
+                                </a>
+                                <a href="user_collect.html">
+                                    <i class="ti-bookmark"></i>我的收藏
+                                </a>
+                                <a href="rental_demand_list.html">
+                                    <i class="ti-bookmark"></i>我的求租
+                                </a>
+                                <a href="#" onclick="user_logout()">
+                                    <i class="ti-power-off"></i>退出登录
+                                </a>
+                            </div>
+
+                            <div v-else-if="user_info.role === 'landlord'" class="dropdown-menu pull-right animated flipInX" style="width: 120px;">
+                                <a href="profile.html">
+                                    <i class="ti-user"></i>个人信息
+                                </a>
+                                <a href="house.html">
+                                    <i class="ti-layers"></i>房子管理
+                                </a>
+                                <a href="order.html">
+                                    <i class="ti-gift"></i>订单管理
+                                </a>
+                                <a href="user_collect.html">
+                                    <i class="ti-bookmark"></i>我的收藏
+                                </a>
+                                <a href="#" onclick="user_logout()">
+                                    <i class="ti-power-off"></i>退出登录
+                                </a>
+                            </div>
+
+                        </div>
+                    </li>
+                </ul>
             </div>
-        </div>
+        </nav>
+    </div>
+</div>
+
         <!-- End Navigation -->
         <div class="clearfix"></div>
         <!-- ============================================================== -->
@@ -652,7 +672,6 @@
 <script src="assets/js/slider-bg.js"></script>
 <script src="assets/js/lightbox.js"></script>
 <script src="assets/js/custom.js"></script>
-<!--<script src="assets/js/script.js"></script>-->
 <script type="text/javascript"
         src="https://api.map.baidu.com/getscript?type=webgl&v=1.0&ak=RQse9zZ7yxBYrSsYzPmn5p8sWb9VgGC5"></script>
 <script src="assets/js/common/md5.min.js"></script>
@@ -662,12 +681,6 @@
 <!-- ============================================================== -->
 <!-- This page plugins -->
 <!-- ============================================================== -->
-<script th:inline="javascript">
-    let openLogin = "";
-    if (openLogin == 'Y') {
-        $('#gotoLogin').click();
-    }
-</script>
 
 </body>
 </html>
