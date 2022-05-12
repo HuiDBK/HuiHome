@@ -113,12 +113,13 @@
                                         </a>
                                     </div>
 
-                                    <div v-else class="dropdown-menu pull-right animated flipInX" style="width: 120px;">
+                                    <div v-else-if="user_info.role === 'landlord'"
+                                         class="dropdown-menu pull-right animated flipInX" style="width: 120px;">
                                         <a href="profile.html">
                                             <i class="ti-user"></i>个人信息
                                         </a>
                                         <a href="house.html">
-                                            <i class="ti-layers"></i>房源管理
+                                            <i class="ti-layers"></i>房子管理
                                         </a>
                                         <a href="order.html">
                                             <i class="ti-gift"></i>订单管理
@@ -138,6 +139,7 @@
                 </nav>
             </div>
         </div>
+
         <!-- End Navigation -->
         <div class="clearfix"></div>
         <!-- ============================================================== -->
@@ -156,8 +158,8 @@
                                 <ul>
                                     <li><a href="profile.html"><i
                                             class="ti-user"></i>个人信息</a></li>
-                                    <li class="active"><a
-                                            href="house.html"><i class="ti-home"></i>房源管理</a></li>
+                                    <li class="active" v-if="user_info.role == 'landlord'"><a href="house.html"><i
+                                            class="ti-layers"></i>房子管理</a></li>
                                     <li><a
                                             href="order.html"><i class="ti-gift"></i>订单管理</a></li>
                                     <li><a href="user_collect.html"><i
