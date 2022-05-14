@@ -4,14 +4,11 @@
 # @Desc: { 项目中间件 }
 # @Date: 2022/02/28 15:07
 from starlette.requests import Request
-from starlette.responses import Response, JSONResponse
+from starlette.responses import Response
 from starlette.types import ASGIApp, Scope, Receive, Send, Message
 
 from house_rental import jwt_authentication
 from house_rental.commons import settings
-from house_rental.commons.utils import jwt_util
-from house_rental.constants.enums import UserRole
-from house_rental.managers.user_manager import UserBasicManager
 
 
 class BaseMiddleware(object):
@@ -63,4 +60,4 @@ class AuthorizationMiddleware(BaseMiddleware):
             # 在白名单的接口无需token验证
             if str(request.url.path).startswith(api_url):
                 return
-        # await jwt_authentication(request)
+        await jwt_authentication(request)

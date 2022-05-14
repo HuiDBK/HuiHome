@@ -15,10 +15,10 @@ from house_rental.managers.user_manager import UserBasicManager
 
 async def jwt_authentication(request: Request):
     """ jwt 鉴权"""
-    for api_url in settings.API_URL_WHITE_LIST:
-        # 在白名单的接口无需token验证
-        if str(request.url.path).startswith(api_url):
-            return
+    # for api_url in settings.API_URL_WHITE_LIST:
+    #     # 在白名单的接口无需token验证
+    #     if str(request.url.path).startswith(api_url):
+    #         return
     token = request.headers.get('Authorization') or None
     if not token:
         raise AuthorizationException()
