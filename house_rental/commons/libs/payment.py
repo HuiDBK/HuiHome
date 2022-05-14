@@ -10,7 +10,6 @@ from house_rental.commons import settings
 
 def create_alipay():
     """ 创建支付宝支付对象 """
-    print(settings.ALIPAY_PUBLIC_KEY_PATH)
     with open(settings.ALIPAY_PUBLIC_KEY_PATH, mode='r') as file:
         app_public_key = file.read()
 

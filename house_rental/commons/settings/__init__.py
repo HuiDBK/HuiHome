@@ -17,7 +17,7 @@ FRONT_DOMAIN = 'http://localhost:63342'
 # 前端订单界面
 FRONT_ORDER_URL = f'{FRONT_DOMAIN}/house_rental/home_front/order.html'
 
-# 项目基准路径
+# 项目基准路径（house_rental/house_rental）
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # 项目静态目录（演示可以用）
@@ -45,6 +45,9 @@ API_URL_WHITE_LIST = [
 # 数据库配置
 from .db_config import MYSQL_CONFIG
 from .db_config import REDIS_CONFIG
+
+# 日志配置
+from .logging_config import LOGGING_CONF
 
 # 第三方服务配置
 from .third_party_config import (

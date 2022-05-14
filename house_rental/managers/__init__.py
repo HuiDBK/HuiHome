@@ -3,6 +3,7 @@
 # @Author: Hui
 # @Desc: { 模块描述 }
 # @Date: 2022/04/05 23:24
+from loguru import logger
 from typing import Union, Tuple, Set, Dict, List, Type
 from house_rental.models import BaseOrmModel
 
@@ -21,7 +22,6 @@ class BaseManager(object):
         """
         创建一个
         """
-        print(to_create)
         model_obj = await cls.model.create(**to_create)
         return model_obj
 
@@ -63,11 +63,11 @@ class BaseManager(object):
             effect_rows = await cls.model.filter(id=model_id).update(
                 **to_update)
             if effect_rows == 1:
-                print(f"{cls.model.__name__}.update model_id: {model_id} to_update: {to_update}")
+                logger.debug(f"{cls.model.__name__}.update model_id: {model_id} to_update: {to_update}")
                 return True
             return False
         except Exception:
-            print(f"{cls.model.__name__}.update 更新失败")
+            logger.debug(f"{cls.model.__name__}.update 更新失败")
             return False
 
     @classmethod

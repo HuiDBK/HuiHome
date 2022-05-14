@@ -3,6 +3,7 @@
 # @Author: Hui
 # @Desc: { 对象序列化工具模块 }
 # @Date: 2022/04/23 21:22
+from loguru import logger
 from pydantic import BaseModel
 from typing import Union, Dict, List, Type
 
@@ -38,5 +39,5 @@ def obj2DataModel(
         return [obj2DataModel(item, data_model=data_model) for item in data_obj]
 
     else:
-        print(f'不支持此{data_obj}类型的转换')
+        logger.debug(f'不支持此{data_obj}类型的转换')
     return

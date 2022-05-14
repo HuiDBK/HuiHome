@@ -40,7 +40,7 @@ async def authorization_exception_handler(
         exc: AuthorizationException
 ):
     """ 认证异常处理 """
-    print('认证失败')
+    logger.debug('认证失败')
     return JSONResponse(
         status_code=401,
         content=fail_response(code=exc.code, message=exc.message)

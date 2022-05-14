@@ -4,6 +4,7 @@
 # @Desc: { 房源逻辑模块 }
 # @Date: 2022/04/23 20:32
 import json
+from loguru import logger
 from datetime import datetime
 from typing import Union
 
@@ -24,7 +25,7 @@ from house_rental.routers.house.response_models.house_out import HouseListDataIt
     HouseContactDataItem, HouseFacilitiesDataItem, HouseFacilityListItem, UserHouseCollectDataItem
 
 
-# @cache_json(cache_info=RedisKey.home_houses())
+@cache_json(cache_info=RedisKey.home_houses())
 async def get_home_house_list_logic(city: str):
     """
     获取首页房源列表, 最近整租、合租
@@ -163,13 +164,13 @@ async def publish_house_logic(house_item: PublishHouseIn):
         try:
             house_detail, house_info = await _publish_house_logic(house_item)
         except Exception as e:
-            print(e)
+            logger.exception('发布房源失败')
             raise BusinessException().exc_data(ErrorCodeEnum.PUBLISH_HOUSE_ERR)
 
     # 组装出参信息
     contact_info = house_detail.json_extend.get('contact_info', {}) if house_detail.json_extend else {}
     house_contact_info = contact_info or house_item.house_contact_info
-    print(house_contact_info)
+    logger.debug(f'house_contact_info ==> {house_contact_info}')
     house_info, house_detail = house_info.to_dict(), house_detail.to_dict()
     house_info.update(**house_detail)
 

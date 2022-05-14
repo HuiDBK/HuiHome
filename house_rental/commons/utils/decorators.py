@@ -6,6 +6,7 @@
 import json
 import threading
 import hashlib
+from loguru import logger
 from functools import wraps
 from pydantic import BaseModel
 
@@ -124,7 +125,7 @@ def list_page(func):
 
         if limit is None or offset is None:
             # 没有成功赋值, 则不支持
-            print('不支持分页数据封装')
+            logger.debug('不支持分页数据封装')
 
         # 执行函数获取分页响应的数据, 有两种情况
         # 1 返回使用了pydantic model ListResponseDataModel (尽量使用这种来返回业务数据)

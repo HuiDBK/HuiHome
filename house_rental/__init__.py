@@ -3,6 +3,8 @@
 # @Author: Hui
 # @Desc: { 房屋租赁系统初始化模块 }
 # @Date: 2022/02/27 20:59
+import os
+from loguru import logger
 from fastapi import FastAPI, Depends
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
@@ -32,6 +34,9 @@ app.mount("/static", StaticFiles(directory=settings.STATIC_FILE_DIR), name="stat
 async def startup_event():
     """项目启动时准备环境"""
 
+    # 配置项目日志器
+    setup_logging()
+
     # 加载路由
     app.include_router(api_router, prefix='/api', dependencies=[
         # Depends(jwt_authentication),
@@ -46,6 +51,17 @@ async def startup_event():
 
     # 数据库初始化
     await db_init(app)
+
+
+def setup_logging(logging_conf=settings.LOGGING_CONF):
+    """
+    配置项目日志信息
+    :param logging_conf: 项目日志配置
+    :return:
+    """
+    for log_handler, log_conf in logging_conf.items():
+        log_file = log_conf.pop('file', None)
+        logger.add(log_file, **log_conf)
 
 
 async def create_global_exception_handler(_app: FastAPI):
