@@ -25,12 +25,16 @@ from house_rental.routers.house.response_models.house_out import HouseListDataIt
     HouseContactDataItem, HouseFacilitiesDataItem, HouseFacilityListItem, UserHouseCollectDataItem
 
 
-@cache_json(cache_info=RedisKey.home_houses())
 async def get_home_house_list_logic(city: str):
     """
     获取首页房源列表, 最近整租、合租
     :return: 默认6整租、6合租
     """
+    home_houses_cache = RedisKey.home_houses(city)
+    home_houses_data = await RedisUtil().get_with_cache_info(home_houses_cache)
+    if home_houses_data:
+        return json.loads(home_houses_data)
+
     whole_house_list = await HouseInfoManager.get_recent_house(RentType.whole.value, city)
     share_house_list = await HouseInfoManager.get_recent_house(RentType.share.value, city)
 
@@ -40,10 +44,12 @@ async def get_home_house_list_logic(city: str):
     whole_house_list = serialize_util.obj2DataModel(data_obj=whole_house_list, data_model=HouseListItem)
     share_house_list = serialize_util.obj2DataModel(data_obj=share_house_list, data_model=HouseListItem)
 
-    return HomeHouseDataItem(
+    home_houses_data = HomeHouseDataItem(
         whole_house_list=whole_house_list,
         share_house_list=share_house_list
     )
+    await RedisUtil().set_with_cache_info(home_houses_cache, home_houses_data.json())
+    return home_houses_data
 
 
 def format_house_query_params(query_params: Union[HouseListQueryItem, dict]) -> dict:

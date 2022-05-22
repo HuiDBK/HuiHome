@@ -50,7 +50,7 @@ class RedisKey(object):
         """
         house_collect_cache_info = RedisCacheInfo(
             key=f'{constants.APP_NAME}:house:{user_id}',
-            timeout=constants.SMS_CODE_TIMEOUT,
+            timeout=constants.USER_HOUSE_COLLECT_TIMEOUT,
             data_type=RedisDataType.SET.value
         )
         return house_collect_cache_info
@@ -96,13 +96,14 @@ class RedisKey(object):
         return house_facilities_cache_info
 
     @classmethod
-    def home_houses(cls) -> RedisCacheInfo:
+    def home_houses(cls, city) -> RedisCacheInfo:
         """
         首页房源缓存 Redis key
+        :param city 所在城市
         :return:
         """
         house_facilities_cache_info = RedisCacheInfo(
-            key=f'{constants.APP_NAME}:house:home_houses',
+            key=f'{constants.APP_NAME}:house:home_houses:{city}',
             timeout=constants.HOME_HOUSES_TIMEOUT,
             data_type=RedisDataType.STRING.value
         )

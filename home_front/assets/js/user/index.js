@@ -95,37 +95,40 @@ let vm = new Vue({
     },
     created() {
         this.get_location_info()
-        this.get_areas_info_of_index().then(resp => {
-            this.area_list = resp.area_list
-            console.log('area_list', this.area_list)
-        })
     },
     mounted() {
-        // this.get_home_houses()
-        let token = localStorage.getItem('token')
-        if (token != null) {
-            this.user_info = parser_jwt(token)
-            // 判断token有没有过期
-            let now_timestamp = Date.parse(new Date()) / 1000
-            console.log(now_timestamp)
-            console.log(this.user_info.exp)
-            if (this.user_info.exp > now_timestamp) {
-                this.login_register_btn_show = false
-                this.user_show = true
-            } else {
-                // 已过期
-                this.login_register_btn_show = true
-                this.user_show = false
-            }
+        this.get_areas_info_of_index().then(resp => {
+            this.area_list = resp.area_list
+            this.get_province()
+            console.log('area_list', this.area_list)
+        })
+        this.user_info = verify_user_token(false)
+        let now_timestamp = Date.parse(new Date()) / 1000
+        if (this.user_info.exp > now_timestamp) {
+            this.user_show = true
+        } else {
+            // 已过期
+            this.login_register_btn_show = true
+            this.user_show = false
         }
-        this.get_user_house_collect()
     },
     methods: {
+        show_house_detail(house_id, rent_type) {
+            let now_timestamp = Date.parse(new Date()) / 1000
+            if (this.user_info.exp > now_timestamp) {
+                window.location.href = `house_detail.html?house_id=${house_id}&rent_type=${rent_type}`
+            } else {
+                // token已过期,
+                layer.msg('请先登录后方可查看房源详情', {icon: 0, time: 2000})
+                $("#gotoLogin").click()
+            }
+
+        },
         search_home_house() {
             console.log('house_search_form', this.house_search_form)
-            window.location.href = 'house_list.html?rent_type=' +
-                this.house_search_form.rent_type + '&city=' + this.house_search_form.city + '&rent_money_range=' +
-                this.house_search_form.rent_money_range
+            window.location.href = `house_list.html?rent_type=${this.house_search_form.rent_type}
+            &city=${this.house_search_form.city}
+            &rent_money_range=${this.house_search_form.rent_money_range}`
         },
         get_province() {
             // 获取期望城市的省份
@@ -162,7 +165,6 @@ let vm = new Vue({
                 console.log(data)
                 this.city_name = data.name
                 this.house_search_form.city = this.city_name
-                this.get_province()
                 this.get_home_houses()
             });
         },
@@ -318,7 +320,7 @@ let vm = new Vue({
                         this.user_show = true
                         window.location.reload()
                     } else {
-                       if (response.data.code === 4008) {
+                        if (response.data.code === 4008) {
                             // 短信验证码错误
                             this.error_sms_code_msg = response.data.message;
                             this.error_sms_code_show = true;

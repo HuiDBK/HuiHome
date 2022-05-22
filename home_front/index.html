@@ -16,7 +16,7 @@
 
     <!--  Vue and axios -->
     <!--    <script src="assets/js/common/vue-2.5.16.js"></script>-->
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="assets/js/common/http_cdn.jsdelivr.net_npm_vue@2.6.14_dist_vue.js"></script>
     <!-- 引入element样式 -->
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <!-- 引入element组件库 -->
@@ -255,7 +255,7 @@
 
                             <div class="listing_thumb_wrapper">
                                 <div class="property_gallery_slide-thumb">
-                                    <a :href="'house_detail.html?house_id=' + item.house_id + '&rent_type=' + item.rent_type">
+                                    <a @click="show_house_detail(item.house_id, item.rent_type)">
                                         <img :src="item.index_img"
                                              class="img-fluid mx-auto" alt=""></a>
                                 </div>
@@ -265,16 +265,18 @@
                                 <div class="property_short_detail">
                                     <div class="pr_type_status">
                                         <h4 class="pr-property_title mb-1">
-                                            <a :href="'house_detail.html?house_id=' + item.house_id + '&rent_type=' + item.rent_type">
+                                            <a @click="show_house_detail(item.house_id, item.rent_type)"
+                                               href="javascript:void(0);">
                                                 {{ item.title }}</a>
                                         </h4>
                                         <div class="listing-location-name">
-                                            <a :href="'house_detail.html?house_id=' + item.house_id + '&rent_type=' + item.rent_type">
+                                            <a @click="show_house_detail(item.house_id, item.rent_type)"
+                                               href="javascript:void(0);">
                                                 {{ item.address }} / {{ item.area }}m²</a>
                                         </div>
                                     </div>
                                     <div class="property-real-price">
-                                        <a :href="'house_detail.html?house_id=' + item.house_id + '&rent_type=' + item.rent_type"
+                                        <a @click="show_house_detail(item.house_id, item.rent_type)"
                                            class="cl-blue el_scale">
                                             ¥ {{ item.rent_money }}<span class="price_status">/月</span>
                                         </a>
@@ -356,7 +358,7 @@
 
                             <div class="listing_thumb_wrapper">
                                 <div class="property_gallery_slide-thumb">
-                                    <a href="/house/detail/1">
+                                    <a @click="show_house_detail(item.house_id, item.rent_type)">
                                         <img :src="item.index_img"
                                              class="img-fluid mx-auto" alt=""></a>
                                 </div>
@@ -366,16 +368,16 @@
                                 <div class="property_short_detail">
                                     <div class="pr_type_status">
                                         <h4 class="pr-property_title mb-1">
-                                            <a href="/house/detail/1">
+                                            <a @click="show_house_detail(item.house_id, item.rent_type)">
                                                 {{ item.title }}</a>
                                         </h4>
                                         <div class="listing-location-name">
-                                            <a href="/house/detail/1">
+                                            <a @click="show_house_detail(item.house_id, item.rent_type)">
                                                 {{ item.city }} {{ item.district }} / {{ item.area }}m²</a>
                                         </div>
                                     </div>
                                     <div class="property-real-price">
-                                        <a href="/house/detail/1" class="cl-blue">
+                                        <a @click="show_house_detail(item.house_id, item.rent_type)" class="cl-blue">
                                             ¥ {{ item.rent_money }}<span class="price_status">/月</span>
                                         </a>
                                     </div>

@@ -127,12 +127,12 @@ function verify_user_token(is_redirect = true) {
             // token已过期
             layer.msg('登录状态已失效，请重新登录', {icon: 0, time: 2000})
             setTimeout((e) => {
-                window.location.href = '/house_rental/home_front/index.html'
+                window.location.href = '/static/index.html'
             }, 2000)
 
         }
     } else if (is_redirect) {
-        window.location.href = '/house_rental/home_front/index.html'
+        window.location.href = '/static/index.html'
     }
     return user_info
 }
