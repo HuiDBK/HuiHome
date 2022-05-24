@@ -9,8 +9,8 @@ import os
 SYSTEM_SIGN = 'HuiHome'
 
 # 后端系统域名
-# SYSTEM_DOMAIN = 'http://43.138.220.206'
-SYSTEM_DOMAIN = 'http://127.0.0.1:8080'
+SYSTEM_DOMAIN = 'http://43.138.220.206'
+# SYSTEM_DOMAIN = 'http://127.0.0.1:8080'
 
 # 前端域名
 FRONT_DOMAIN = 'http://43.138.220.206'

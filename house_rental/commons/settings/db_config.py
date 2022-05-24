@@ -11,9 +11,9 @@ MYSQL_CONFIG = {
         "house": {
             "engine": "tortoise.backends.mysql",
             "credentials": {
-                "host": "43.138.220.206",
-                # "host": "127.0.0.1",
-                "port": 3307,
+                # "host": "43.138.220.206",
+                "host": "127.0.0.1",
+                "port": 3306,
                 "user": "root",
                 "password": "123456",
                 "database": f"{constants.DB_NAME}",
@@ -33,8 +33,7 @@ MYSQL_CONFIG = {
 # redis配置
 REDIS_CONFIG = {
     'default': {
-        'host': '43.138.220.206',
-        # 'host': '127.0.0.1',
+        'host': '127.0.0.1',
         'port': 6379,
         'db': 0,
         'password': '',

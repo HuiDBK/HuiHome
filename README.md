@@ -37,7 +37,7 @@
 
 1. 确保Mysql、Redis服务正常
 1. 在存在Dockerfile文件的项目目录下构建镜像 docker build -t  house_rental_image  **. （最后.不要忘记）**
-1. 运行镜像产生容器 docker run -d  house_rental_container  80:80 house_rental_image
+1. 运行镜像产生容器 docker run -d --name house_rental_container -p 80:80 house_rental_image
 1. docker ps 查看容器是否启动
 ## 系统整体功能图
 ![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/cdcf09e3c7d84c73af44da846eded33a~tplv-k3u1fbpfcp-zoom-1.image)
