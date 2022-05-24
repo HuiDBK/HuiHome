@@ -109,7 +109,8 @@ class UserRentalDemandModel(BaseOrmModel):
         trans_fields = ['rent_type_list', 'house_type_list', 'house_facilities', 'floors']
         for field in trans_fields:
             value = getattr(self, field) or None
-            setattr(self, field, value.split('#'))
+            value = value.split("#") if value else []
+            setattr(self, field, value)
         return super().to_dict()
 
     class Meta:

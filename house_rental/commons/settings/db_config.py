@@ -12,6 +12,7 @@ MYSQL_CONFIG = {
             "engine": "tortoise.backends.mysql",
             "credentials": {
                 "host": "43.138.220.206",
+                # "host": "127.0.0.1",
                 "port": 3307,
                 "user": "root",
                 "password": "123456",

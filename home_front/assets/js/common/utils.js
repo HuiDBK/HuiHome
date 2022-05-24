@@ -174,6 +174,30 @@ function getUrlQueryParams(url = location.search) {
     return params;
 }
 
+function formatDate(time,format='YY-MM-DD hh:mm:ss'){
+	let date = new Date(time);
+
+	let year = date.getFullYear(),
+		month = date.getMonth()+1,//月份是从0开始的
+		day = date.getDate(),
+		hour = date.getHours(),
+		min = date.getMinutes(),
+		sec = date.getSeconds();
+	let preArr = Array.apply(null,Array(10)).map(function(elem, index) {
+		return '0'+index;
+	});
+
+	let newTime = format.replace(/YY/g,year)
+						.replace(/MM/g,preArr[month]||month)
+						.replace(/DD/g,preArr[day]||day)
+						.replace(/hh/g,preArr[hour]||hour)
+						.replace(/mm/g,preArr[min]||min)
+						.replace(/ss/g,preArr[sec]||sec);
+
+	return newTime;
+}
+
+
 function get_date_str(ts, need_time = false) {
     // 根据时间戳获取时间str 参数时间戳单位是毫秒
     let parse_date = new Date(ts)
@@ -187,7 +211,7 @@ function get_date_str(ts, need_time = false) {
     // 年-月-日
     let date_str = year + '-' + month + '-' + date;
     if(need_time){
-        date_str = date_str + " " + hour + ":" + min
+        date_str = formatDate(ts)
     }
     return date_str
 }

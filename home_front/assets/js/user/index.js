@@ -106,6 +106,7 @@ let vm = new Vue({
         let now_timestamp = Date.parse(new Date()) / 1000
         if (this.user_info.exp > now_timestamp) {
             this.user_show = true
+            this.login_register_btn_show = false
         } else {
             // 已过期
             this.login_register_btn_show = true
