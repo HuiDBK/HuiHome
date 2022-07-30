@@ -93,7 +93,7 @@ class PublishHouseIn(BaseModel):
     max_floor:         Union[int, None]  = Field(description='房屋最大楼层')
     build_year:        Union[date, None] = Field(description='建成年份')
     near_traffic_json: Union[dict, None] = Field(description='附近交通信息')
-    certificate_no:    Union[str, None]               = Field(max_length=50, description='房产证号')
+    certificate_no:    Union[str, None]  = Field(max_length=50, description='房产证号')
 
     has_elevator:        Union[HouseElevatorEnum, None]       = Field(description='是否有电梯')
     direction:           Union[HouseDirectionEnum, None]      = Field(description='房屋朝向')
