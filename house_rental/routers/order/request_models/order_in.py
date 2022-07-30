@@ -10,7 +10,7 @@ from pydantic import BaseModel, Field
 
 class OrderCreateIn(BaseModel):
     """ 订单创建入参 """
-    house_id: int = Field(description='房源id')
+    house_id:   int  = Field(description='房源id')
     start_date: date = Field(description='入住日期')
-    end_date: date = Field(description='退租日期')
+    end_date:   date = Field(description='退租日期')
 

@@ -3,12 +3,9 @@
 # @Author: Hui
 # @Desc: { 用户管理API模块 }
 # @Date: 2022/02/27 21:48
-from fastapi import Query, Path, Depends
-from starlette.requests import Request
-
-from house_rental.commons.exceptions.global_exception import AuthorizationException
+from fastapi import Query, Path
 from house_rental.logic.house_logic import house_logic
-from house_rental.commons.responses import success_response, ErrorCodeEnum
+from house_rental.commons.responses import success_response
 from house_rental.routers.house.request_models import HouseListInRequest
 from house_rental.routers.house.request_models.house_in import PublishHouseIn, HouseFacilityAddIn, HouseCollectIn
 

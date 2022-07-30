@@ -13,12 +13,12 @@ from house_rental.constants.enums import UserAuthStatus, UserState
 
 class UserListQueryItem(BaseModel):
     """ 用户列表查询参数 """
-    user_id: Optional[int] = Field(description='用户id')
-    mobile: Optional[str] = Field(description='手机号')
-    real_name: Optional[str] = Field(description='用户真姓名')
-    gender: Optional[str] = Field(description='性别')
-    career: Optional[str] = Field(description='用户职业')
-    state: Optional[List[UserState]] = Field(description='用户的状态')
+    user_id:     Optional[int] = Field(description='用户id')
+    mobile:      Optional[str] = Field(description='手机号')
+    real_name:   Optional[str] = Field(description='用户真姓名')
+    gender:      Optional[str] = Field(description='性别')
+    career:      Optional[str] = Field(description='用户职业')
+    state:       Optional[List[UserState]]      = Field(description='用户的状态')
     auth_status: Optional[List[UserAuthStatus]] = Field(description='用户实名认证状态')
 
 

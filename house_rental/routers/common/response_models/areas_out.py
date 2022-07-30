@@ -11,8 +11,8 @@ from house_rental.commons.responses.response_model import ResponseBaseModel
 
 class AreaInfoItem(BaseModel):
     """ 区域信息 """
-    id: int = Field(description='区域id')
-    name: str = Field(description='区域名称')
+    id:        int = Field(description='区域id')
+    name:      str = Field(description='区域名称')
     parent_id: int = Field(description='区域父级id')
 
 
@@ -23,7 +23,7 @@ class CityListItem(AreaInfoItem):
 
 class ProvinceListItem(BaseModel):
     """ 省份列表项 """
-    id: int = Field(description='区域id')
+    id:   int = Field(description='区域id')
     name: str = Field(description='区域名称')
     city_list: List[CityListItem] = Field(description='城市列表')
 

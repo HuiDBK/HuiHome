@@ -8,17 +8,17 @@ from pydantic import BaseModel, Field
 
 class ResponseBaseModel(BaseModel):
     """ 统一响应模型 """
-    code: int
+    code:    int
     message: str
-    data: dict
+    data:    dict
 
 
 class ListResponseDataModel(BaseModel):
     """ 分页列表响应data模型 """
-    total: int = Field(default=0, description="数据总数量")
-    data_list: list = Field(default=[], description='数据列表')
-    has_more: bool = Field(default=False, description="是否有下一页")
-    next_offset: int = Field(default=0, description="offset下次起步")
+    total:       int  = Field(default=0, description="数据总数量")
+    data_list:   list = Field(default=[], description='数据列表')
+    has_more:    bool = Field(default=False, description="是否有下一页")
+    next_offset: int  = Field(default=0, description="offset下次起步")
 
 
 class ListResponseModel(ResponseBaseModel):

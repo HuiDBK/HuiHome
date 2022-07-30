@@ -3,10 +3,7 @@
 # @Author: Hui
 # @Desc: { 支付API模块 }
 # @Date: 2022/05/01 0:07
-from typing import Union
-
 from fastapi import Path, Body
-from starlette.requests import Request
 
 from house_rental.commons.responses import success_response
 from house_rental.logic.payment_logic import payment_logic

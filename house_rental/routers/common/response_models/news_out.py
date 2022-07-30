@@ -12,12 +12,13 @@ from house_rental.constants.enums import SystemNoticeSceneEnum, SystemNoticeStat
 
 
 class NewsListItem(BaseModel):
-    id: str = Field(description='主键id')
-    title: str = Field(max_length=255, description='标题')
-    content: str = Field(description='内容')
-    scene: SystemNoticeSceneEnum = Field(description='公告场景')
-    state: SystemNoticeState = Field(description='公告状态')
+    id:        str   = Field(description='主键id')
+    title:     str   = Field(max_length=255, description='标题')
+    content:   str   = Field(description='内容')
     create_ts: float = Field(description='创建时间')
+
+    scene: SystemNoticeSceneEnum = Field(description='公告场景')
+    state: SystemNoticeState     = Field(description='公告状态')
 
 
 class NewsListDataItem(ListResponseDataModel):

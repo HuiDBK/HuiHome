@@ -9,7 +9,7 @@ from house_rental.commons.responses.response_model import ResponseBaseModel
 
 class OrderPaymentDataItem(BaseModel):
     """ 订单支付出参信息 """
-    order_id: int = Field(description='订单id')
+    order_id:   int = Field(description='订单id')
     alipay_url: str = Field(description='阿里支付url')
 
 

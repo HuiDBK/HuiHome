@@ -3,7 +3,7 @@
 # @Author: Hui
 # @Desc: { 用户管理API模块 }
 # @Date: 2022/02/27 21:48
-from fastapi import Path, Body, BackgroundTasks, Query
+from fastapi import Path, Body, BackgroundTasks
 from house_rental.logic.user_logic import user_logic
 from house_rental.commons.responses import success_response
 from house_rental.routers.user.request_models import (

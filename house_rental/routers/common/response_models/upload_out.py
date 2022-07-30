@@ -11,8 +11,8 @@ from house_rental.commons.responses.response_model import ResponseBaseModel
 class UploadFileDataItem(BaseModel):
     """ 文件上传出参信息 """
     file_name: str = Field(description='文件名称')
-    file_key: str = Field(description='文件唯一key')
-    file_url: str = Field(description='访问文件的url地址')
+    file_key:  str = Field(description='文件唯一key')
+    file_url:  str = Field(description='访问文件的url地址')
 
 
 class BatchUploadDataItem(BaseModel):
