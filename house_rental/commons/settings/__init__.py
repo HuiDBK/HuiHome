@@ -9,11 +9,12 @@ import os
 SYSTEM_SIGN = 'HuiHome'
 
 # 后端系统域名
-SYSTEM_DOMAIN = 'http://43.138.220.206'
-# SYSTEM_DOMAIN = 'http://127.0.0.1:8080'
+# SYSTEM_DOMAIN = 'http://43.138.220.206'
+SYSTEM_DOMAIN = 'http://127.0.0.1:8080'
 
 # 前端域名
-FRONT_DOMAIN = 'http://43.138.220.206'
+FRONT_DOMAIN = 'http://localhost:9999/huihome'
+# FRONT_DOMAIN = 'http://43.138.220.206'
 
 # 项目基准路径（house_rental/house_rental）
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -22,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 STATIC_FILE_DIR = os.path.join(os.path.dirname(BASE_DIR), 'home_front/')
 
 # 前端订单界面
-FRONT_ORDER_URL = f'{FRONT_DOMAIN}/static/order.html'
+FRONT_ORDER_URL = f'{FRONT_DOMAIN}/order.html'
 
 # 系统密钥
 SECRET = 'NmUzODk2ZGUtYmZjYy0xMWVjLWI5YTctZjQzMGI5YTUwMzQ2aHVp'
@@ -37,11 +38,14 @@ API_URL_WHITE_LIST = [
     '/static',
     '/favicon.ico',
     '/openapi.json',
+    '/api/v1/user/author',
     '/api/v1/user/login',
     '/api/v1/common/areas',
     '/api/v1/house/home_houses',
     '/api/v1/user/register',
-    '/api/v1/user/mobile',
+    '/api/v1/user/verify/mobile',
+    '/api/v1/user/verify/username',
+    '/api/v1/payment/alipay/callback',
 ]
 
 # 放到模块下面防止循环依赖

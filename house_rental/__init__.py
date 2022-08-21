@@ -3,7 +3,6 @@
 # @Author: Hui
 # @Desc: { 房屋租赁系统初始化模块 }
 # @Date: 2022/02/27 20:59
-import os
 from loguru import logger
 from fastapi import FastAPI, Depends
 from fastapi.staticfiles import StaticFiles
@@ -27,7 +26,7 @@ from house_rental.commons.exceptions.global_exception import BusinessException, 
 app = FastAPI(title='房屋租赁系统')
 
 # 挂载静态文件方便演示也可单独部署前端
-app.mount("/static", StaticFiles(directory=settings.STATIC_FILE_DIR), name="static")
+# app.mount("/static", StaticFiles(directory=settings.STATIC_FILE_DIR), name="static")
 
 
 @app.on_event('startup')

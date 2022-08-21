@@ -8,7 +8,6 @@ from .apis import user_manage_api, house_manage_api, order_manage_api
 from .response_models import user_manage_out, house_manage_out, order_manage_out
 
 router = APIRouter()
-router_v2 = APIRouter()
 
 router.add_api_route(
     '/user/users',

@@ -19,7 +19,7 @@ router.add_api_route(
 )
 
 router.add_api_route(
-    '/mobile/{mobile}/verify',
+    '/verify/mobile/{mobile}',
     user_api.user_mobile_verify,
     response_model=user_out.UserMobileVerifyOut,
     methods=['get'],
@@ -27,7 +27,7 @@ router.add_api_route(
 )
 
 router.add_api_route(
-    '/username/{username}/verify',
+    '/verify/username/{username}',
     user_api.username_verify,
     response_model=user_out.UsernameVerifyOut,
     methods=['get'],

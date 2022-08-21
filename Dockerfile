@@ -14,4 +14,4 @@ RUN pip3 install -i http://mirrors.tencentyun.com/pypi/simple --trusted-host mir
 COPY . /opt/hui/code/PythonProject/house_rental
 
 # 在容器内部执行的命令
-CMD ["uvicorn", "run:app", "--host", "0.0.0.0", "--port", "80"]
+CMD ["uvicorn", "run:app", "--host", "0.0.0.0", "--port", "8080"]

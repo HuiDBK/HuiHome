@@ -165,6 +165,14 @@
                                 <span class="order_text" style="margin-left: 2rem">租赁费用总计: </span>
                                 <span class="price_style"
                                       style="color: #f33066">¥ {{ order_detail_item.pay_money }}</span>
+                                <el-popover
+                                        placement="top-start"
+                                        title="租赁总费用说明"
+                                        width="200"
+                                        trigger="hover" s
+                                        content="租赁总费用 = 租金 + 押金 + 管理费">
+                                    <i slot="reference" class="el-icon-question"></i>
+                                </el-popover>
                             </p>
                         </div>
                     </div>

@@ -43,10 +43,16 @@ class BaseMiddleware(object):
 
 class PreventCrawlerMiddleware(BaseMiddleware):
     """ 预防爬虫中间件 """
+    NotAllowUAList = [
+        "PostmanRuntime",
+        "Python"
+    ]
 
     async def before_request(self, request: Request) -> [Response, None]:
         headers = request.headers
-        if headers.get('UserAgent') in ['']:
+        print(headers.get('user-agent'))
+        print(headers.get('referer'))
+        if headers.get('user-agent') in ['']:
             raise Exception()
         return
 

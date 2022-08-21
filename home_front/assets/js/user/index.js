@@ -1,7 +1,7 @@
 // 登录注册模块
 const register_url = api_domain + '/api/v1/user/register'
-const username_verify_url = api_domain + '/api/v1/user/username/{username}/verify'
-const mobile_verify_url = api_domain + '/api/v1/user/mobile/{mobile}/verify'
+const username_verify_url = api_domain + '/api/v1/user/verify/username/{username}'
+const mobile_verify_url = api_domain + '/api/v1/user/verify/mobile/{mobile}'
 const sms_code_url = api_domain + '/api/v1/user/sms_code/{mobile}'
 const login_url = api_domain + '/api/v1/user/login'
 const home_houses_url = api_domain + '/api/v1/house/home_houses'
@@ -87,6 +87,7 @@ let vm = new Vue({
         area_list: [],
         city_list: [],
         area_index: '',
+        cur_province: '',
         house_search_form: {
             city: '',
             rent_type: '',
@@ -99,7 +100,6 @@ let vm = new Vue({
     mounted() {
         this.get_areas_info_of_index().then(resp => {
             this.area_list = resp.area_list
-            this.get_province()
             console.log('area_list', this.area_list)
         })
         this.user_info = verify_user_token(false)
@@ -112,6 +112,11 @@ let vm = new Vue({
             this.login_register_btn_show = true
             this.user_show = false
         }
+    },
+    watch: {
+      cur_province(newValue){
+          this.get_province()
+      }
     },
     methods: {
         show_house_detail(house_id, rent_type) {
@@ -136,12 +141,10 @@ let vm = new Vue({
             let province_index = ''
             try {
                 this.area_list.forEach((item, index) => {
-                        item.city_list.forEach(city_item => {
-                            if (city_item.name === this.house_search_form.city) {
-                                province_index = index
-                                throw new Error('interrupt')
-                            }
-                        })
+                        if (item.name === this.cur_province) {
+                            province_index = index
+                            throw new Error('interrupt')
+                        }
                     }
                 )
             } catch (e) {
@@ -162,11 +165,28 @@ let vm = new Vue({
         },
         get_location_info() {
             let cur_city = new BMapGL.LocalCity();
+
+            // 创建地理编码（地理解析器）实例
+            var myGeo = new BMapGL.Geocoder();
+
             cur_city.get(data => {
-                console.log(data)
-                this.city_name = data.name
-                this.house_search_form.city = this.city_name
-                this.get_home_houses()
+                console.log("cur_city_info", data)
+                // 根据坐标得到地址描述    下面输入坐标。
+                const lng = data.center.lng
+                const lat = data.center.lat
+                myGeo.getLocation(new BMapGL.Point(lng, lat), (result) => {
+                    if (result) {
+                        console.log(result);
+                        this.cur_province = result.addressComponents.province
+                        this.city_name = result.addressComponents.city
+                        this.house_search_form.city = this.city_name
+                        this.get_home_houses()
+                    }
+                });
+                // console.log("cur_city", data.name)
+                // this.city_name = data.name
+                // this.house_search_form.city = this.city_name
+                // this.get_home_houses()
             });
         },
         check_username() {
