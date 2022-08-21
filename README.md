@@ -22,7 +22,7 @@
 - 前端界面采用 Vue.js + Element ui 实现数据渲染，Bootstrap 实现自适应布局。
 
 ## 项目体验
-项目体验地址 [http://43.138.220.206/static/index.html](http://43.138.220.206/static/index.html)
+项目体验地址 [http://43.138.220.206:9999/huihome](http://43.138.220.206:9999/huihome)
 由于注册需要发送短信验证码，而手机验证码服务现在只能给我的测试手机号发送验证码，因此不能使用注册服务。大家可以使用已有账号去登录体验。
 
 | 账号类别 | 用户名 | 密码 | 备注 |
@@ -46,7 +46,7 @@
 
 1. 确保Mysql、Redis服务正常
 1. 在存在Dockerfile文件的项目目录下构建镜像 docker build -t  house_rental_image  **. （最后.不要忘记）**
-1. 运行镜像产生容器 docker run -d --name house_rental_container -p 80:80 house_rental_image
+1. 运行镜像产生容器 docker run -d --name house_rental_container -p 8080:8080 house_rental_image
 1. docker ps 查看容器是否启动
 ## 系统整体功能图
 ![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/cdcf09e3c7d84c73af44da846eded33a~tplv-k3u1fbpfcp-zoom-1.image)
