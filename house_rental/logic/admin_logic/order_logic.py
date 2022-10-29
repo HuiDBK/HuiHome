@@ -49,7 +49,7 @@ async def get_order_list_logic(order_item: GetOrderListInRequest):
         order['house_info'] = house_info.to_dict()
         order['landlord_info'] = landlord_info.to_dict()
 
-    order_list = serialize_util.obj2DataModel(data_obj=order_list, data_model=OrderListItem)
+    order_list = serialize_util.data_to_model(data_obj=order_list, data_model=OrderListItem)
 
     return OrderListDataItem(
         total=total,

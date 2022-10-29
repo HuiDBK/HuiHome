@@ -10,7 +10,7 @@ from typing import Union, Dict, List, Type
 from house_rental.models import BaseOrmModel
 
 
-def obj2DataModel(
+def data_to_model(
         data_obj: Union[
             Dict,
             Type[BaseOrmModel],
@@ -32,12 +32,11 @@ def obj2DataModel(
 
     elif isinstance(data_obj, BaseOrmModel):
         # 数据模型对象处理, to_dict()后递归调用
-        return obj2DataModel(data_obj.to_dict(), data_model=data_model)
+        return data_to_model(data_obj.to_dict(), data_model=data_model)
 
     elif isinstance(data_obj, list):
         # 列表处理
-        return [obj2DataModel(item, data_model=data_model) for item in data_obj]
+        return [data_to_model(item, data_model=data_model) for item in data_obj]
 
     else:
         logger.debug(f'不支持此{data_obj}类型的转换')
-    return

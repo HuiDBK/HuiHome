@@ -3,6 +3,8 @@
 # @Author: Hui
 # @Desc: { 模块描述 }
 # @Date: 2022/04/05 23:24
+import asyncio
+
 from loguru import logger
 from typing import Union, Tuple, Set, Dict, List, Type
 from house_rental.models import BaseOrmModel
@@ -108,7 +110,7 @@ class BaseManager(object):
     async def filter_page(
             cls,
             filter_params: Dict = None,
-            orderings: List = None,
+            orderings: List[str] = None,
             offset: int = 0, limit: int = 10
     ):
         """
@@ -124,8 +126,10 @@ class BaseManager(object):
             orderings = ['id']
         if not filter_params:
             filter_params = {}
-        total = await cls.model.filter(**filter_params).count()
-        data_list = await cls.model.filter(**filter_params).offset(offset).limit(limit).order_by(*orderings)
+        total, data_list = await asyncio.gather(
+            cls.model.filter(**filter_params).count(),
+            cls.model.filter(**filter_params).offset(offset).limit(limit).order_by(*orderings)
+        )
         return total, data_list
 
     @classmethod

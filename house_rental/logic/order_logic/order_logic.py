@@ -101,5 +101,5 @@ async def get_user_orders_logic(user_id):
         user_order['user_info'] = user_profile.to_dict()
         user_order['house_info'] = house_info.to_dict()
         user_order['landlord_info'] = landlord_info.to_dict()
-    user_orders = serialize_util.obj2DataModel(data_obj=user_orders, data_model=UserOrderListItem)
+    user_orders = serialize_util.data_to_model(data_obj=user_orders, data_model=UserOrderListItem)
     return UserOrderDataItem(user_orders=user_orders)

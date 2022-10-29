@@ -247,10 +247,7 @@ async def get_user_rental_demands_logic(rental_demand_item: UserRentalDemandList
         offset=rental_demand_item.offset
     )
 
-    user_rental_demands = serialize_util.obj2DataModel(
-        data_obj=user_rental_demands,
-        data_model=RentalDemandListItem
-    )
+    user_rental_demands = serialize_util.data_to_model(data_obj=user_rental_demands, data_model=RentalDemandListItem)
     return RentalDemandListDataItem(total=total, data_list=user_rental_demands)
 
 

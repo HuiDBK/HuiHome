@@ -21,5 +21,5 @@ async def get_news_logic(news_item: NewsListInRequest):
         orderings=news_item.orderings
     )
 
-    notice_list = serialize_util.obj2DataModel(data_obj=notice_list, data_model=NewsListItem)
+    notice_list = serialize_util.data_to_model(data_obj=notice_list, data_model=NewsListItem)
     return NewsListDataItem(total=total, data_list=notice_list)

@@ -33,6 +33,8 @@ async def get_areas_info_logic():
         ...
     ]
     """
+    # todo 用自关联来获取数据
+    # all_areas = await AreasManager.get_all_areas()
     area_list = list()
     area_item = dict()
     province_list = await AreasManager.get_all_province()

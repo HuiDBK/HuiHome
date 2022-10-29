@@ -8,7 +8,7 @@ from house_rental.constants import constants
 # mysql配置
 MYSQL_CONFIG = {
     "connections": {
-        "house": {
+        f"{constants.APP_NAME}": {
             "engine": "tortoise.backends.mysql",
             "credentials": {
                 # "host": "43.138.220.206",
@@ -24,7 +24,7 @@ MYSQL_CONFIG = {
     "apps": {
         f"{constants.APP_NAME}": {
             "models": ["house_rental.models"],
-            "default_connection": "house"
+            "default_connection": f"{constants.APP_NAME}"
         }
     }
 }

@@ -3,12 +3,35 @@
 # @Author: Hui
 # @Desc: { 区域数据库模型管理模块 }
 # @Date: 2022/04/29 11:12
+from typing import List
 from house_rental.managers import BaseManager
 from house_rental.models import AreasModel
 
 
 class AreasManager(BaseManager):
     model = AreasModel
+
+    @classmethod
+    async def get_all_areas(cls) -> List[dict]:
+        """ 获取全部的省市区信息 """
+        sql = """
+        SELECT
+            province.id AS province_id,
+            province.NAME AS province,
+            city.id AS city_id,
+            city.NAME AS city,
+            GROUP_CONCAT( district.NAME ) AS districts 
+        FROM
+            areas AS district
+            JOIN areas AS city ON district.parent_id = city.id
+            JOIN areas AS province ON city.parent_id = province.id
+        GROUP BY
+            city.NAME 
+        ORDER BY
+            province.id
+        """
+        count, data_ret = await cls.execute_sql(sql)
+        return data_ret
 
     @classmethod
     async def get_all_province(cls):

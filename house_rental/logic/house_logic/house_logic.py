@@ -41,8 +41,8 @@ async def get_home_house_list_logic(city: str):
     whole_house_list = [item.to_dict() for item in whole_house_list]
     share_house_list = [item.to_dict() for item in share_house_list]
 
-    whole_house_list = serialize_util.obj2DataModel(data_obj=whole_house_list, data_model=HouseListItem)
-    share_house_list = serialize_util.obj2DataModel(data_obj=share_house_list, data_model=HouseListItem)
+    whole_house_list = serialize_util.data_to_model(data_obj=whole_house_list, data_model=HouseListItem)
+    share_house_list = serialize_util.data_to_model(data_obj=share_house_list, data_model=HouseListItem)
 
     home_houses_data = HomeHouseDataItem(
         whole_house_list=whole_house_list,
@@ -98,7 +98,7 @@ async def get_house_list_logic(item: HouseListInRequest):
         limit=item.limit
     )
     house_data_list = [item.to_dict() for item in house_data_list]
-    house_data_list = serialize_util.obj2DataModel(data_obj=house_data_list, data_model=HouseListItem)
+    house_data_list = serialize_util.data_to_model(data_obj=house_data_list, data_model=HouseListItem)
     # return total, house_data_list
     return HouseListDataItem(total=total, data_list=house_data_list)
 
@@ -253,5 +253,5 @@ async def get_user_house_collect_logic(user_id):
     house_ids = [int(house_id) for house_id in user_house_collects]
 
     house_collect_list = await HouseInfoManager.get_houses_by_ids(house_ids)
-    house_collect_list = serialize_util.obj2DataModel(house_collect_list, data_model=HouseListItem)
+    house_collect_list = serialize_util.data_to_model(house_collect_list, data_model=HouseListItem)
     return UserHouseCollectDataItem(user_house_collects=house_collect_list)
