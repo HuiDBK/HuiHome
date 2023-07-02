@@ -5,9 +5,9 @@
 # @Date: 2022/02/28 15:07
 from starlette.requests import Request
 from starlette.responses import Response
-from starlette.types import ASGIApp, Scope, Receive, Send, Message
+from starlette.types import ASGIApp, Scope, Receive, Send
 
-from house_rental import jwt_authentication
+from house_rental.commons.utils.dependencies import jwt_authentication
 from house_rental.commons import settings
 
 

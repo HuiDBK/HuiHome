@@ -43,6 +43,9 @@ async def jwt_authentication(request: Request):
 
     request.scope['user'] = user
 
+    # 登陆成功保存当前用户对象
+    context_util.CUR_USER.set(user)
+
 
 async def request_context(request: Request):
     """ 保存当前request对象到上下文中 """

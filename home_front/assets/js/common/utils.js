@@ -5,6 +5,23 @@ let batch_upload_file_url = api_domain + '/api/v1/common/upload/batch'
 let user_house_collect_url = api_domain + '/api/v1/house/user_collects'
 let get_areas_info_url = api_domain + '/api/v1/common/areas'
 
+// 响应拦截器
+axios.interceptors.response.use(
+  (response) => {
+    // 对响应数据做一些处理
+    return response;
+  },
+  (error) => {
+    // 在响应错误时做一些处理
+    if (error.response && error.response.status === 401) {
+      // 捕获到 401 未登录状态码
+      // 执行你想要的操作，比如跳转到登录页面
+      window.location.href = 'index.html';
+    }
+    return Promise.reject(error);
+  }
+);
+
 // 字符串格式化方法
 String.prototype.format = function (args) {
     let result = this;
@@ -127,12 +144,12 @@ function verify_user_token(is_redirect = true) {
             // token已过期
             layer.msg('登录状态已失效，请重新登录', {icon: 0, time: 2000})
             setTimeout((e) => {
-                window.location.href = '/static/index.html'
+                window.location.href = 'index.html'
             }, 2000)
 
         }
     } else if (is_redirect) {
-        window.location.href = '/static/index.html'
+        window.location.href = 'index.html'
     }
     return user_info
 }

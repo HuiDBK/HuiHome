@@ -3,6 +3,8 @@
 # @Author: Hui
 # @Desc: { 模块描述 }
 # @Date: 2022/04/05 23:25
+from typing import Dict, List, Tuple
+
 from house_rental.models.user_model import UserBasicModel, UserProfileModel, UserRentalDemandModel
 from house_rental.managers import BaseManager
 from house_rental.constants.enums import UserState

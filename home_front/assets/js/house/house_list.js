@@ -63,6 +63,7 @@ let vm = new Vue({
     mounted() {
         this.user_info = verify_user_token(false)
         let {rent_type, city, rent_money_range} = getUrlQueryParams()
+        console.log("rent_type", rent_type, "city", city, "rent_money_range", rent_money_range)
         if(rent_type && rent_type !== ''){
             this.house_query_params.rent_type = rent_type
         }

@@ -48,7 +48,9 @@ async def get_home_house_list_logic(city: str):
         whole_house_list=whole_house_list,
         share_house_list=share_house_list
     )
-    await RedisUtil().set_with_cache_info(home_houses_cache, home_houses_data.json())
+    if whole_house_list or share_house_list:
+        await RedisUtil().set_with_cache_info(home_houses_cache, home_houses_data.json())
+
     return home_houses_data
 
 

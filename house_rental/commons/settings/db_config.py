@@ -36,7 +36,7 @@ REDIS_CONFIG = {
         'host': '127.0.0.1',
         'port': 6379,
         'db': 0,
-        'password': '123456',
+        'password': "",
         'minsize': 1,
         'maxsize': 5,
         'timeout': 3

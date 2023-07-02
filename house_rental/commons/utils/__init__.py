@@ -5,6 +5,7 @@
 # @Date: 2022/04/05 22:57
 from .redis_util import RedisUtil
 from .redis_util import RedisKey
+from .mask_util import MaskUtils
 
 
 def add_param_if_true(params, key, value, is_check_none=True):

@@ -3,7 +3,11 @@
 # @Author: Hui
 # @Desc: { Redis 工具模块 }
 # @Date: 2022/04/17 0:13
+from datetime import timedelta
+
 import aioredis
+from loguru import logger
+
 from house_rental.commons import settings
 from house_rental.constants import constants
 from house_rental.constants.enums import RedisDataType
@@ -23,6 +27,9 @@ class RedisCacheInfo(object):
         self.timeout = timeout
         self.data_type = data_type
 
+    def __str__(self):
+        _timeout = timedelta(seconds=self.timeout)
+        return f"set cache key {self.key} timeout {_timeout} type {self.data_type}"
 
 class RedisKey(object):
     """ Redis Key 统一管理"""
@@ -174,6 +181,7 @@ class RedisUtil(object):
         :param value: 缓存的值
         :return:
         """
+        logger.info(redis_cache_info)
         await self.redis_client.setex(redis_cache_info.key, redis_cache_info.timeout, value)
 
     async def get_with_cache_info(self, redis_cache_info: RedisCacheInfo):

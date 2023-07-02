@@ -6,13 +6,15 @@
 import asyncio
 
 from loguru import logger
-from typing import Union, Tuple, Set, Dict, List, Type
+from typing import Union, Tuple, Set, Dict, List, Type, TypeVar
 from house_rental.models import BaseOrmModel
+
+T_BaseOrmModel = TypeVar('T_BaseOrmModel', bound=BaseOrmModel)
 
 
 class BaseManager(object):
     """ 数据库模型 Manager基类 """
-    model: Type[BaseOrmModel] = None
+    model: Type[T_BaseOrmModel] = None
 
     @classmethod
     async def get_with_params(cls, filter_params: dict):
@@ -112,7 +114,7 @@ class BaseManager(object):
             filter_params: Dict = None,
             orderings: List[str] = None,
             offset: int = 0, limit: int = 10
-    ):
+    ) -> Tuple[int, List[T_BaseOrmModel]]:
         """
         分页筛选：条件筛选 + 排序规则 + 条数限制
         默认按照主键id排序, 返回模型列表

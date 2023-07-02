@@ -9,13 +9,14 @@ DB_NAME = 'house_rental'
 
 # 允许的跨域请求
 ALLOW_ORIGINS = [
-    'http://localhost',
-    'http://localhost:8080',
-    'http://43.138.220.206',
-    'http://localhost:63343',
-    'http://localhost:63342',
-    'http://localhost:9999',
-    'http://3w5q328382.51vip.biz',
+    "*"
+    # 'http://localhost',
+    # 'http://localhost:8080',
+    # 'http://43.138.220.206',
+    # 'http://localhost:63343',
+    # 'http://localhost:63342',
+    # 'http://localhost:9999',
+    # 'http://3w5q328382.51vip.biz',
 ]
 
 # 手机号正则

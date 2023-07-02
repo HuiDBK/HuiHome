@@ -22,7 +22,7 @@
 - 前端界面采用 Vue.js + Element ui 实现数据渲染，Bootstrap 实现自适应布局。
 
 ## 项目体验
-项目体验地址 [http://43.138.220.206:9999/huihome](http://43.138.220.206:9999/huihome)
+项目体验地址 [http://43.138.220.206:9999/huihome](http://43.138.220.206:9999/huihome) 已过期
 由于注册需要发送短信验证码，而手机验证码服务现在只能给我的测试手机号发送验证码，因此不能使用注册服务。大家可以使用已有账号去登录体验。
 
 | 账号类别 | 用户名 | 密码 | 备注 |
@@ -34,20 +34,20 @@
 ![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/272d7bf010d2474fb4edb1c32cab5302~tplv-k3u1fbpfcp-zoom-1.image)
 ## 项目启动
 
-1. 准备好MySQL 与 Redis数据库服务，修改相关数据库配置信息
-1. 申请第三方服务：七牛云的OSS服务、容联云的短信服务、阿里的支付服务、百度地图服务
-1. 依赖于 Python 3.7.9 编程环境
-1. 安装 requirements.txt 项目依赖 `pip install -r requirements.txt`
+1. 准备好docker与docker-compose环境，然后直接运行 `bin\start.sh` 使用docker-compose部署mysql、redis、nginx服务
+2. 申请第三方服务：七牛云的OSS服务、容联云的短信服务、阿里的支付服务、百度地图服务
+3. 依赖于 Python 3.7.9 编程环境
+4. 安装 requirements.txt 项目依赖 `pip install -r requirements.txt`
 5. 启动项目 **python run.py**
-5. 如果成功在本地启动项目，访问 [http://127.0.0.1:8080/docs](http://127.0.0.1:8080/docs) 地址查看接口文档
+6. 如果成功在本地启动项目，访问 [http://127.0.0.1:8080/docs](http://127.0.0.1:8080/docs) 地址查看接口文档
 
 ![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5d7ff9b4e3534217ae645912bfa60f43~tplv-k3u1fbpfcp-zoom-1.image)
 ## 项目部署
 
 1. 确保Mysql、Redis服务正常
-1. 在存在Dockerfile文件的项目目录下构建镜像 docker build -t  house_rental_image  **. （最后.不要忘记）**
-1. 运行镜像产生容器 docker run -d --name house_rental_container -p 8080:8080 house_rental_image
-1. docker ps 查看容器是否启动
+2. 在存在Dockerfile文件的项目目录下构建镜像 docker build -t  house_rental_image  **. （最后.不要忘记）**
+3. 运行镜像产生容器 docker run -d --name house_rental_container -p 8080:8080 house_rental_image
+4. docker ps 查看容器是否启动
 ## 系统整体功能图
 ![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/cdcf09e3c7d84c73af44da846eded33a~tplv-k3u1fbpfcp-zoom-1.image)
 

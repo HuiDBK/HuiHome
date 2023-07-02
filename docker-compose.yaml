@@ -1,0 +1,34 @@
+version: '3'
+services:
+  hh_redis_server:
+    image: redis:7.2-rc-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - /opt/hui/data/redis/data:/data
+      - /opt/hui/data/redis/conf/redis.conf:/etc/redis/redis.conf
+      - /opt/hui/data/redis/log:/var/log/redis
+    command: redis-server /etc/redis/redis.conf
+
+  hh_mysql_server:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=house_rental
+      - MYSQL_USER=hui
+      - MYSQL_PASSWORD=123456
+    volumes:
+      - /opt/hui/data/mysql/data:/var/lib/mysql
+      - /opt/hui/data/mysql/conf:/etc/mysql/conf.d
+      - /opt/hui/data/mysql/log:/var/log/mysql
+
+  hh_web:
+    image: nginx:stable-alpine
+    ports:
+      - "80:80"
+    volumes:
+      - /opt/hui/data/nginx/conf/nginx.conf:/etc/nginx/nginx.conf
+      - /opt/hui/data/nginx/data:/data
+      - /opt/hui/data/nginx/log:/var/log/nginx

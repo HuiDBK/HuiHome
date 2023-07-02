@@ -132,9 +132,10 @@ let vm = new Vue({
         },
         search_home_house() {
             console.log('house_search_form', this.house_search_form)
-            window.location.href = `house_list.html?rent_type=${this.house_search_form.rent_type}
-            &city=${this.house_search_form.city}
-            &rent_money_range=${this.house_search_form.rent_money_range}`
+            const rentType = encodeURIComponent(this.house_search_form.rent_type.trim());
+            const city = encodeURIComponent(this.house_search_form.city.trim());
+            const rentMoneyRange = this.house_search_form.rent_money_range.trim();
+            window.location.href = `house_list.html?rent_type=${rentType}&city=${city}&rent_money_range=${rentMoneyRange}`
         },
         get_province() {
             // 获取期望城市的省份

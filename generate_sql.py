@@ -25,13 +25,13 @@ def generate_house_info_sql():
         "FjgWG5_EGYxJv3yulCHjXrXIH9iK",
         "FqqhynG-otP9-m1Y7Dg7yAhXTlFG",
     ]
-    start_id, end_id = 291, 301
+    start_id, end_id = 311, 321
     house_info = dict(
-        title="'整租-整租章贡区-2室1厅'",
-        house_desc="'整租-整租章贡区-2室1厅'",
-        city="'江西省赣州市'",
-        district="'章贡区'",
-        address="'江西省赣州市章贡区赣江街道'",
+        title="'整租-整租鼓楼区-2室1厅'",
+        house_desc="'整租-整租鼓楼区-2室1厅'",
+        city="'福建省福州市'",
+        district="'鼓楼区'",
+        address="'福建省福州市鼓楼区鼓东街道'",
     )
     house_info_sql = """
         INSERT
@@ -126,7 +126,7 @@ def generate_house_facility_mapping_sql():
 
 
 def main():
-    # generate_house_info_sql()
+    generate_house_info_sql()
 
     generate_house_facility_mapping_sql()
 

@@ -4,12 +4,13 @@
 # @Desc: { 用户登录注册相关逻辑模块 }
 # @Date: 2022/04/04 20:53
 import re
+
 from fastapi import BackgroundTasks
 from datetime import datetime, timedelta
 
 from house_rental.commons.utils.decorators import list_page
-from house_rental.constants.enums import UserAuthStatus
-from house_rental.models.user_model import UserBasicModel
+from house_rental.constants.enums import UserAuthStatus, UserRole
+from house_rental.models.user_model import UserBasicModel, UserRentalDemandModel
 from house_rental.routers.user.request_models.user_in import UserRealNameAuthIn, UserRentalDemandPublishIn, \
     UserRentalDemandListIn
 from house_rental.routers.user.response_models import (
@@ -22,7 +23,7 @@ from house_rental.constants import constants
 from house_rental.managers.user_manager import UserBasicManager, UserProfileManager, UserRentalDemandManager
 from house_rental.commons.libs import sms
 from house_rental.commons import settings
-from house_rental.commons.utils import jwt_util, add_param_if_true, serialize_util
+from house_rental.commons.utils import jwt_util, add_param_if_true, serialize_util, context_util, MaskUtils
 from house_rental.commons.utils import RedisUtil, RedisKey
 from house_rental.commons.responses.response_code import ErrorCodeEnum
 from house_rental.commons.exceptions.global_exception import BusinessException
@@ -255,7 +256,13 @@ async def get_rental_demand_detail_logic(demand_id: int):
     """ 获取租房需求详情信息 """
     rental_demand = await UserRentalDemandManager.get_by_id(demand_id)
     # 补充用户信息
-    user_basic = await UserBasicManager.get_by_id(rental_demand.user_id)
+    user_basic: UserBasicModel = await UserBasicManager.get_by_id(rental_demand.user_id)
+
+    cur_user = context_util.CUR_USER.get()
+    if cur_user.role != UserRole.admin and cur_user.id != user_basic.id:
+        # 非管理员且查询其他用户的租房需求对手机号进行掩码操作
+        user_basic.mobile = MaskUtils.mask(origin_text=user_basic.mobile, mask_type=MaskUtils.PHONE)
+
     return RentalDemandDetailDataItem(
         **rental_demand.to_dict(),
         user_info=user_basic.to_dict()
