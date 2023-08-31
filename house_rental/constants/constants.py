@@ -12,7 +12,8 @@ ALLOW_ORIGINS = [
     "*"
     # 'http://localhost',
     # 'http://localhost:8080',
-    # 'http://43.138.220.206',
+    'http://43.138.173.93:8080',
+    'http://43.138.173.93',
     # 'http://localhost:63343',
     # 'http://localhost:63342',
     # 'http://localhost:9999',
