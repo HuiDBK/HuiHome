@@ -32,3 +32,8 @@ services:
       - /opt/hui/data/nginx/conf/nginx.conf:/etc/nginx/nginx.conf
       - /opt/hui/data/nginx/data:/data
       - /opt/hui/data/nginx/log:/var/log/nginx
+
+  hh_api:
+    image: house_rental_image
+    ports:
+      - "8080:8080"
