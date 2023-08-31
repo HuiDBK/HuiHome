@@ -4,6 +4,8 @@
 mkdir -p /opt/hui/data/mysql/{conf,data,log}
 mkdir -p /opt/hui/data/redis/{conf,data,log}
 mkdir -p /opt/hui/data/nginx/{conf,data,log}
+mkdir -p /opt/hui/data/nginx/{conf,data,log}
+mkdir -p /opt/hui/data/house_rental/settings
 
 
 # 定义源文件路径和目标文件路径

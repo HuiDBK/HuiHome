@@ -37,3 +37,5 @@ services:
     image: house_rental_image
     ports:
       - "8080:8080"
+    volumes:
+      - /opt/hui/data/house_rental/settings:/app/house_rental/commons/settings
