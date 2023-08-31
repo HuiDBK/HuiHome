@@ -207,6 +207,9 @@ def cache_json(cache_info=None, key=None, timeout=60):
                 api_result_json = json.dumps(api_result)
 
             await redis_client.setex(key, timeout, api_result_json)
+
+            logger.info(cache_info)
+
             return api_result
 
         return warp

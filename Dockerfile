@@ -1,5 +1,5 @@
 #
-FROM python:3.8-alpine
+FROM python:3.8.18-slim
 
 # 容器的工作目录
 WORKDIR /opt/hui/code/PythonProject/house_rental
@@ -8,7 +8,7 @@ WORKDIR /opt/hui/code/PythonProject/house_rental
 COPY ./requirements.txt /opt/hui/code/PythonProject/house_rental/requirements.txt
 
 # 运行容器时执行的命令
-RUN pip3 install -i http://mirrors.tencentyun.com/pypi/simple --trusted-host mirrors.tencentyun.com --no-cache-dir --upgrade -r /opt/hui/code/PythonProject/house_rental/requirements.txt && pip3 install pyopenssl --upgrade
+RUN pip3 install -i https://mirrors.cloud.tencent.com/pypi/simple --no-cache-dir -r /opt/hui/code/PythonProject/house_rental/requirements.txt
 
 # 将宿主机项目复制到容器中
 COPY . /opt/hui/code/PythonProject/house_rental

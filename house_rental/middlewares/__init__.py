@@ -5,7 +5,7 @@
 # @Date: 2022/04/12 17:31
 from starlette.middleware.cors import CORSMiddleware
 
-from .middlewares import AuthorizationMiddleware
+from .middlewares import AuthorizationMiddleware, LoggingMiddleware
 from fastapi import FastAPI
 
 from house_rental import constants
@@ -15,6 +15,7 @@ def register_middlewares(_app: FastAPI):
     """注册中间件"""
     middleware_list = [
         AuthorizationMiddleware,
+        LoggingMiddleware
         # PreventCrawlerMiddleware,
     ]
     for middleware in middleware_list:
