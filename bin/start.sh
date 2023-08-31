@@ -1,7 +1,5 @@
 #!/bin/bash
 
-cd ../
-
 # 创建目录（如果不存在）
 mkdir -p /opt/hui/data/mysql/{conf,data,log}
 mkdir -p /opt/hui/data/redis/{conf,data,log}

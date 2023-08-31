@@ -1,5 +1,5 @@
 #
-FROM python:3.8.18-slim
+FROM python:3.8
 
 # 容器的工作目录
 WORKDIR /opt/hui/code/PythonProject/house_rental
