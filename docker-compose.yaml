@@ -39,3 +39,4 @@ services:
       - "8080:8080"
     volumes:
       - /opt/hui/data/house_rental/settings:/app/house_rental/commons/settings
+    command: uvicorn house_rental.server:app --host 127.0.0.1 --port 8080
