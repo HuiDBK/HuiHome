@@ -27,7 +27,7 @@ services:
   hh_web:
     image: nginx:stable-alpine
     ports:
-      - "80:80"
+      - "6868:80"
     volumes:
       - /opt/hui/data/nginx/conf/nginx.conf:/etc/nginx/nginx.conf
       - /opt/hui/data/nginx/data:/data

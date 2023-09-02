@@ -13,16 +13,28 @@
 - 日租、合租模式
 - 房源推荐系统（Go开发）
 
+## 项目索引
+- 后端服务 https://github.com/HuiDBK/HuiHome
+- 前端服务：
+  - 用户前台：https://github.com/HuiDBK/HuiHome/home_front
+  - 后台管理：https://gitee.com/huiDBK/house_admin
+
 ## 项目特色
-- 采用了七牛云OSS、CDN服务加速一些图片资源。
-- 采用 FastAPI 的后台任务实现异步发送短信验证码。
-- 采用 tortoise-orm 完成数据库操作的封装。
-- 通过模板字符串动态渲染富文本实现电子合同功能。
-- 对接阿里支付实现了订单、支付模块，对接百度地图实现当前城市定位、房源附近信息查询等功能。
-- 前端界面采用 Vue.js + Element ui 实现数据渲染，Bootstrap 实现自适应布局。
+- 基于FastAPI、Uvicorn的异步框架服务，aiomysql、aioredis、tortoise-orm异步数据库、aiofiles等异步IO库
+- 分页、实名认证、缓存装饰器、请求Context的Depends、序列化工具函数的封装
+- 基于 pydantic 请求入参、响应出参封装，以及通用模型封装
+- 上下文无关联耗时业务并发处理 `asyncio.gather`
+- 读多写少的业务数据采用 Redis 缓存，提高性能
+- 统一错误处理，鉴权、日志、防爬虫Web中间件封装
+- 采用了七牛云OSS、CDN服务加速一些图片资源
+- 采用 FastAPI 的后台任务 BackendTasks 实现异步发送短信验证码
+- 采用 tortoise-orm 完成数据库操作的封装
+- 通过模板字符串动态渲染富文本实现电子合同功能
+- 对接阿里支付实现了订单、支付模块，对接百度地图实现当前城市定位、房源附近信息查询等功能
+- 前端界面采用 Vue.js + Element ui 实现数据渲染，Bootstrap 实现自适应布局
 
 ## 项目体验
-项目体验地址 [http://43.138.220.206:9999/huihome](http://43.138.220.206:9999/huihome) 已过期
+项目体验地址 [http://43.138.173.93:6868](http://43.138.173.93:6868)
 由于注册需要发送短信验证码，而手机验证码服务现在只能给我的测试手机号发送验证码，因此不能使用注册服务。大家可以使用已有账号去登录体验。
 
 | 账号类别 | 用户名 | 密码 | 备注 |
@@ -33,21 +45,29 @@
 项目还没有太完善，服务器也只是学习级别的，可能会出现很多异常，望大家多担待。如有好的建议或者不懂的可以加入我们的群聊一起探讨与学习 **293874607**
 ![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/272d7bf010d2474fb4edb1c32cab5302~tplv-k3u1fbpfcp-zoom-1.image)
 ## 项目启动
+### 本地运行
+1. 申请第三方服务：七牛云的OSS服务、容联云的短信服务、阿里的支付服务、百度地图服务
+2. 然后修改 `house_rental/commons/settings` 配置文件信息
+3. 导入 `resource\house_rental.sql` 构造MySQL数据
+4. 安装依赖 `pip install -r requirements.txt`
+5. 项目启动 `python main.py`
 
-1. 准备好docker与docker-compose环境，然后直接运行 `bin\start.sh` 使用docker-compose部署mysql、redis、nginx服务
-2. 申请第三方服务：七牛云的OSS服务、容联云的短信服务、阿里的支付服务、百度地图服务
-3. 依赖于 Python 3.7.9 编程环境
-4. 安装 requirements.txt 项目依赖 `pip install -r requirements.txt`
-5. 启动项目 **python run.py**
-6. 如果成功在本地启动项目，访问 [http://127.0.0.1:8080/docs](http://127.0.0.1:8080/docs) 地址查看接口文档
+**准备数据库数据**
 
+导入 `resource\house_rental.sql` 构造MySQL数据
+
+如果成功在本地启动项目，访问 [http://127.0.0.1:8080/docs](http://127.0.0.1:8080/docs) 地址查看接口文档
 ![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5d7ff9b4e3534217ae645912bfa60f43~tplv-k3u1fbpfcp-zoom-1.image)
-## 项目部署
 
-1. 确保Mysql、Redis服务正常
-2. 在存在Dockerfile文件的项目目录下构建镜像 docker build -t  house_rental_image  **. （最后.不要忘记）**
-3. 运行镜像产生容器 docker run -d --name house_rental_container -p 8080:8080 house_rental_image
-4. docker ps 查看容器是否启动
+### 容器启动与部署
+1. 申请第三方服务：七牛云的OSS服务、容联云的短信服务、阿里的支付服务、百度地图服务
+2. 然后修改 `house_rental/commons/settings` 配置文件信息 
+3. 准备好 docker 与 docker-compose 环境 
+4. 构造项目镜像 `docker build -t house_rental_image .`
+5. 然后直接运行 `bin\start.sh` 使用docker-compose部署mysql、redis、nginx、后端api 服务
+6. docker ps 或 docker-compose ps 查看容器启动情况
+7. 停止服务运行 `bin\stop.sh`
+
 ## 系统整体功能图
 ![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/cdcf09e3c7d84c73af44da846eded33a~tplv-k3u1fbpfcp-zoom-1.image)
 
@@ -91,11 +111,12 @@
     │  │  ├─apis
     │  │  ├─request_models
     │  │  ├─response_models
-    └─__init__.py --------- 项目初始化文件
-└─Dockerfile ----------------- 项目docker部署文件
-└─requirements.txt ----------- 项目依赖库文件
-└─README.md ------------------ 项目说明文档
-└─run.py --------------------- 项目启动入口
+    └─server.py --------- 项目服务模块
+└─Dockerfile ------------------- 项目docker部署文件
+└─docker-compose.yaml ---------- 项目docker容器配置部署文件
+└─requirements.txt ------------- 项目依赖库文件
+└─README.md -------------------- 项目说明文档
+└─main.py ---------------------- 项目启动入口
 ```
 ## 项目Redis缓存设计
 ### Redis key 规范：
@@ -115,12 +136,12 @@ house_rental:user:sms_code:13022331752
  |
 
 ### 房源模块缓存
-| Key | 类型 | 过期时间 | 说明 |
-| --- | --- | --- | --- |
-| **house_rental:house:{user_id}** | set | 不过期 | 存储用户收藏的房源id |
-| **house_rental:house:home_houses:{city}** | string | 15天 | 首页房源信息缓存，存储json |
-| **house_rental:house:facilities** | string | 3个月 | 房源设施缓存，存储json |
-| **house_rental:house:detail:{house_id}** | string | 15天 | 房源详情缓存，存储json |
+| Key                                           | 类型 | 过期时间 | 说明 |
+|-----------------------------------------------| --- |------| --- |
+| **house_rental:house:collect:user:{user_id}** | set | 不过期  | 存储用户收藏的房源id |
+| **house_rental:house:home_houses:{city}**     | string | 7天   | 首页房源信息缓存，存储json |
+| **house_rental:house:facilities**             | string | 15天  | 房源设施缓存，存储json |
+| **house_rental:house:detail:{house_id}**      | string | 7天   | 房源详情缓存，存储json |
 
 ### 其他缓存
 | Key | 类型 | 过期时间 | 说明 |
@@ -362,7 +383,7 @@ async def login_required(request: Request):
 
 ### 响应序列化递归工具函数
 ```python
-def obj2DataModel(
+def data_to_model(
         data_obj: Union[
             Dict,
             Type[BaseOrmModel],
@@ -384,11 +405,11 @@ def obj2DataModel(
 
     elif isinstance(data_obj, BaseOrmModel):
         # 数据模型对象处理, to_dict()后递归调用
-        return obj2DataModel(data_obj.to_dict(), data_model=data_model)
+        return data_to_model(data_obj.to_dict(), data_model=data_model)
 
     elif isinstance(data_obj, list):
         # 列表处理
-        return [obj2DataModel(item, data_model=data_model) for item in data_obj]
+        return [data_to_model(item, data_model=data_model) for item in data_obj]
 
     else:
         logger.debug(f'不支持此{data_obj}类型的转换')
