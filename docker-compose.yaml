@@ -27,7 +27,7 @@ services:
   hh_web:
     image: nginx:stable-alpine
     ports:
-      - "6868:80"
+      - "6868:6868"
     volumes:
       - /opt/hui/data/nginx/conf/nginx.conf:/etc/nginx/nginx.conf
       - /opt/hui/data/nginx/data:/data
@@ -39,7 +39,7 @@ services:
       - "8080:8080"
     volumes:
       - /opt/hui/data/house_rental/settings:/app/house_rental/commons/settings
-    command: uvicorn house_rental.server:app --host 127.0.0.1 --port 8080
+    command: uvicorn house_rental.server:app --host 0.0.0.0 --port 8080
     depends_on:
       - hh_redis_server
       - hh_mysql_server
