@@ -7,17 +7,17 @@ import os
 from house_rental.commons import settings
 
 # 容联云短信验证码配置
-RL_ACCID = '8a216da87ba59937017c1804686a1bf4'
-RL_ACCTOKEN = '311e282f76914d1ab9f66dd314659efc'
-RL_APPID = '8a216da87ba59937017c1804694f1bfa'
-RL_TEST_MOBILE = '13033221752'
+RL_ACCID = '你的容联云ACCID'
+RL_ACCTOKEN = '你的容联云ACCTOKEN'
+RL_APPID = '你的容联云APPID'
+RL_TEST_MOBILE = '你的容联云测试的手机号码'
 RL_SMS_TEMPLATE_ID = '1'  # 短信模板
 
 # 七牛云服务配置
-QINIU_ACCESS_KEY = 'mp7QT_CmSbh1ACJ3sZjyAnAihkC3-HtSlZO8EXz5'
-QINIU_SECRET_KEY = 'zfeCWwOz2aKfrM-j1eE4j5s-Wy5ax_fqrpImMCsI'
+QINIU_ACCESS_KEY = '你的七牛云ACCESS_KEY'
+QINIU_SECRET_KEY = '你的七牛云SECRET_KEY'
 QINIU_BUCKET_NAME = 'house-rental'
-QINIU_DOMAIN = 'http://cdn.ithui.top/'  # 七牛云存储域名
+QINIU_DOMAIN = '你的七牛云DOMAIN'  # 七牛云存储域名
 
 # 阿里支付服务配置
 # 阿里支付宝沙箱应用ID

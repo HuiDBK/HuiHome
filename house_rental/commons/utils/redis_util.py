@@ -31,6 +31,7 @@ class RedisCacheInfo(object):
         _timeout = timedelta(seconds=self.timeout)
         return f"set cache key {self.key} timeout {_timeout} type {self.data_type}"
 
+
 class RedisKey(object):
     """ Redis Key 统一管理"""
 
@@ -56,7 +57,7 @@ class RedisKey(object):
         :return:
         """
         house_collect_cache_info = RedisCacheInfo(
-            key=f'{constants.APP_NAME}:house:{user_id}',
+            key=f'{constants.APP_NAME}:house:collect:user:{user_id}',
             timeout=constants.USER_HOUSE_COLLECT_TIMEOUT,
             data_type=RedisDataType.SET.value
         )

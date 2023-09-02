@@ -10,8 +10,7 @@ from tortoise import fields
 from tortoise.models import MODEL
 from typing_extensions import Type
 
-from house_rental.commons import settings
-from house_rental.commons.utils import time_util
+from house_rental.commons.libs import qiniu_tools
 from house_rental.models import BaseOrmModel
 from house_rental.constants import constants
 from house_rental.constants.enums import RentType, HouseType, RentState, HouseDirectionEnum, HouseState, \
@@ -63,7 +62,7 @@ class HouseInfo(BaseOrmModel):
     def to_dict(self):
         house_dict = super().to_dict()
         house_dict['house_id'] = self.id
-        house_dict['index_img'] = settings.QINIU_DOMAIN + self.index_img if self.index_img else None
+        house_dict['index_img'] = qiniu_tools.get_private_sign_url(self.index_img, constants.HOME_HOUSES_TIMEOUT)
         return house_dict
 
     def save(self, **kwargs):
@@ -114,7 +113,9 @@ class HouseDetail(BaseOrmModel):
         house_dict = super().to_dict()
         if self.display_content:
             images = self.display_content.get('images', [])
-            self.display_content['images'] = [f'{settings.QINIU_DOMAIN}{img}' for img in images]
+            self.display_content['images'] = [
+                qiniu_tools.get_private_sign_url(img, constants.HOUSE_DETAIL_TIMEOUT) for img in images
+            ]
         house_dict['display_content'] = self.display_content
         return house_dict
 
@@ -128,7 +129,7 @@ class FacilityInfo(BaseOrmModel):
     def to_dict(self):
         facility_dict = super().to_dict()
         facility_dict['facility_id'] = self.id
-        facility_dict['icon'] = settings.QINIU_DOMAIN + self.icon if self.icon else None
+        facility_dict['icon'] = qiniu_tools.get_private_sign_url(self.icon, constants.HOUSE_FACILITIES_TIMEOUT)
         return facility_dict
 
     class Meta:

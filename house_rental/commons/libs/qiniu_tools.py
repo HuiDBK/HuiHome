@@ -3,6 +3,9 @@
 # @Author: Hui
 # @Desc: { 七牛云工具模块 }
 # @Date: 2022/04/21 11:41
+from typing import Union
+from datetime import timedelta
+
 from house_rental.commons import settings
 from qiniu import Auth, put_data
 
@@ -35,6 +38,26 @@ async def upload_image_to_qiniu(file_data: bytes):
     # ret, info = put_file(token, key, localfile)
     ret, info = put_data(token, key, file_data)
     return ret['key']
+
+
+def get_private_sign_url(oss_key: str, expires: Union[int, timedelta] = 3600):
+    """
+    Args:
+        oss_key: 对象存储的key
+        expires: 有效时间 int单位秒
+    """
+    if not oss_key:
+        return None
+
+    if isinstance(expires, timedelta):
+        expires = int(expires.total_seconds())
+    elif isinstance(expires, float):
+        # 七牛云必须是int
+        expires = int(expires)
+
+    qiniu_auth = Auth(settings.QINIU_ACCESS_KEY, settings.QINIU_SECRET_KEY)
+    res_sign_url = qiniu_auth.private_download_url(settings.QINIU_DOMAIN + oss_key, expires)
+    return res_sign_url
 
 
 def main():
