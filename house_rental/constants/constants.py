@@ -8,19 +8,6 @@ from datetime import timedelta
 APP_NAME = 'house_rental'
 DB_NAME = 'house_rental'
 
-# 允许的跨域请求
-ALLOW_ORIGINS = [
-    "*"
-    # 'http://localhost',
-    # 'http://localhost:8080',
-    # 'http://43.138.173.93:6868',
-    # 'http://43.138.173.93',
-    # 'http://localhost:63343',
-    # 'http://localhost:63342',
-    # 'http://localhost:9999',
-    # 'http://3w5q328382.51vip.biz',
-]
-
 # 手机号正则
 PHONE_REGEX = r'^0?(13|14|15|17|18)[0-9]{9}$'
 

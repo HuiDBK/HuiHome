@@ -14,4 +14,4 @@ RUN pip3 install -i https://mirrors.cloud.tencent.com/pypi/simple --no-cache-dir
 COPY . /app
 
 # 在容器内部执行的命令
-CMD ["uvicorn", "house_rental.server:app", "--host", "127.0.0.1", "--port", "8080"]
+CMD ["uvicorn", "house_rental.server:app", "--host", "0.0.0.0", "--port", "8080"]

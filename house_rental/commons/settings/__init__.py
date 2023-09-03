@@ -9,12 +9,12 @@ import os
 SYSTEM_SIGN = 'HuiHome'
 
 # 后端系统域名
-# SYSTEM_DOMAIN = 'http://43.138.220.206:8080'
+# SYSTEM_DOMAIN = 'http://huidbk.cn:8080'
 SYSTEM_DOMAIN = 'http://127.0.0.1:8080'
 
 # 前端域名
-FRONT_DOMAIN = 'http://localhost:9999/huihome'
-# FRONT_DOMAIN = 'http://43.138.220.206:9999/huihome'
+FRONT_DOMAIN = 'http://localhost:6868'
+# FRONT_DOMAIN = 'http://huidbk.cn:6868'
 
 # 项目基准路径（house_rental/house_rental）
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -46,6 +46,22 @@ API_URL_WHITE_LIST = [
     '/api/v1/user/verify/mobile',
     '/api/v1/user/verify/username',
     '/api/v1/payment/alipay/callback',
+]
+
+# 允许的跨域请求
+ALLOW_ORIGINS = [
+    # "*"
+    # 'http://localhost',
+    'http://huidbk.cn',
+    'https://huidbk.cn',
+    'http://huidbk.cn:6868',
+    # 'http://localhost:8080',
+    'http://43.138.173.93:6868',
+    'http://43.138.173.93',
+    # 'http://localhost:63343',
+    # 'http://localhost:63342',
+    # 'http://localhost:9999',
+    # 'http://3w5q328382.51vip.biz',
 ]
 
 # 放到模块下面防止循环依赖
