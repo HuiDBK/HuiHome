@@ -18,3 +18,6 @@ HOUSE_DETAIL_TIMEOUT = timedelta(days=7).total_seconds()  # 7天
 HOUSE_FACILITIES_TIMEOUT = timedelta(days=15).total_seconds()  # 15天
 COMMON_AREAS_TIMEOUT = timedelta(days=30*3).total_seconds()  # 3个月
 HOME_HOUSES_TIMEOUT = timedelta(days=3).total_seconds()  # 3天
+
+
+ALLOW_ORIGINS = ["*"]
